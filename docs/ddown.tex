@@ -101,8 +101,9 @@ Fisheries}
 % \usepackage{aums}       % For Master's papers
 \usepackage{auphd}     % For Ph.D.
 %\usepackage{auhonors}  % For honors college
-\usepackage{ulem}       % underlining on style-page; see \normalem below
+\usepackage[normalem]{ulem}       % underlining on style-page; see \normalem below
 \usepackage{url}
+\usepackage[table]{xcolor}
 \usepackage{tikz}
 \usepackage{pgf}
 
@@ -158,6 +159,20 @@ Fisheries}
 \professor{Lewis G. Coggins, Jr., Affiliate Faculty}
 
 \professor{Conor McGowan, School of Forestry and Wildlife Sciences}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1046,15 +1061,13 @@ propagated to \(\text{EOS}_{d,t,i}\) using the delta method (Bolker,
 historical \(h_t\) was used as the point estimate, and the variance and
 correlation with \(D_{50,t}\) was included in the covariance matrix
 supplied to the delta method. Accuracy was assessed using proportional
-bias \((\widehat{\text{EOS}}_{d,t,i} – \text{EOS}_t)/\text{EOS}_t\) and
-precision was assessed using the SE of EOS on day \(d\). Both accuracy
-and precision measures were compared between the null and the
-model-averaged forecast model on 15 June, 30 June, 15 July, and 30 July
-each year a forecast was available (1995 - 2016). Using the null model
-to obtain \(\hat{p}_d\) is essentially equivalent to what is currently
-done for predicting \(\widehat{\text{EOS}}_d\), which is an index of run
-size in the Kuskokwim River (i.e., in the absence of an environmental
-variable forecast model for \(D_{50}\)).
+bias \((\widehat{\text{EOS}}_{d,t,i} - \text{EOS}_t)/\text{EOS}_t\) and
+precision was assessed using the SE of \(\widehat{\text{EOS}}_{d,t,i}\).
+Both accuracy and precision measures were compared between the null and
+the model-averaged forecast model on 15 June, 30 June, 15 July, and 30
+July each year a forecast was available (1995 - 2016). Using the null
+model to obtain \(\hat{p}_d\) is essentially what would be done in the
+absence of an environmental forecast variable model for \(D_{50}\).
 
 \subsection{Investigation of a run timing versus run size
 relationship}\label{investigation-of-a-run-timing-versus-run-size-relationship}
@@ -1074,11 +1087,75 @@ using \(\alpha = 0.05\).
 
 \section{Results}\label{results}
 
-We found some stuff
+\subsection{Estimates of run timing}\label{estimates-of-run-timing}
 
-\subsection{Subsection of results}\label{subsection-of-results}
+The logistic curve fit the daily cumulative CPUE proportions well in all
+years of the BTF data set (Table 1), as indicated by an average residual
+standard error estimate of 0.022, with a maximum estimate of 0.038 in
+1992. The majority (95\%) of all residuals from all years fell between
+-0.056 and 0.044. Parameter estimates were quite precise, with \(D_50\)
+having a smaller average coefficient of variation (CV) than h, (0.07\%
+and 2.09\%, respectively). Given this small degree of parameter
+uncertainty, it was ignored throughout the rest of the analysis.
+
+\subsection{Variable-specific
+relationships}\label{variable-specific-relationships}
+
+Looking at each of the environmental variables in isolation of all
+others, it is clear that there is a distinct relationship between
+temperature-related environmental variables and Kuskokwim River Chinook
+salmon migration timing (Figure 2). For illustration purposes, the
+figures for the two gridded variables (SST and SIC) were produced by
+taking an average across all grid cells weighted by the AIC weight for
+each grid cell. Air temperature, PDO, and SST all had negative
+relationships with D50, whereas SIC had a positive relationship (Table
+2).
 
 \section{Discussion}\label{discussion}
+
+\newpage
+
+\begin{table}
+
+\caption{\label{tab:rt-ests-table}Estimates and statistics of the effects of each of the four single-variable forecast models fitted with all  $D_{50}$ and environmental data through 2016.}
+\centering
+\begin{tabular}[t]{>{\bfseries}lccccclccccclccccclccccclccccclccccc}
+\toprule
+Variable & $\beta_0$ & $\beta_1$ & \textit{t} & $R^2$ & \textit{F}\\
+\midrule
+AIR & 170 & -0.26 & -3.41 & 0.25 & 11.62\\
+PDO & 174 & -1.89 & -3.63 & 0.28 & 13.17\\
+SST & 179 & -1.71 & -4.65 & 0.39 & 21.60\\
+SIC & 169 & 12.15 & 4.36 & 0.36 & 19.05\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{figure}
+  \includegraphics{img/Ch2/map.png}
+  \caption{Map of Kuskokwim Bay where Chinook salmon likely stage for transition to freshwater. Shows grid cells from which daily SST values were used. Daily SIC values came from the same grid cells, though excluding grid cell 45 below due to missing values.}
+  \label{fig:ch2-map2}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \includegraphics{img/Ch2/relationships.png}
+  \caption{My Caption.}
+  \label{fig:relationships}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+  \includegraphics{img/Ch2/mae-subsets.png}
+  \caption{My OTHER Caption}
+  \label{fig:mae-subsets}
+\end{figure}
+
+\newpage
 
 \chapter{Run Timing}\label{ch3}
 
@@ -1095,7 +1172,7 @@ We did some stuff
 
 We found some stuff
 
-\subsection{Subsection of results}\label{subsection-of-results-1}
+\subsection{Subsection of results}\label{subsection-of-results}
 
 \section{Discussion}\label{discussion-1}
 
@@ -1113,7 +1190,7 @@ We did some stuff.
 
 We found some stuff
 
-\subsection{Subsection of results}\label{subsection-of-results-2}
+\subsection{Subsection of results}\label{subsection-of-results-1}
 
 \section{Discussion}\label{discussion-2}
 

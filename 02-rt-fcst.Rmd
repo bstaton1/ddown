@@ -151,8 +151,64 @@ To test the hypothesis that run timing is related to run size (e.g., small runs 
 
 ## Results
 
-We found some stuff
+### Estimates of run timing
 
-### Subsection of results
+The logistic curve fit the daily cumulative CPUE proportions well in all years of the BTF data set (Table 1), as indicated by an average residual standard error estimate of 0.022, with a maximum estimate of 0.038 in 1992. The majority (95%) of all residuals from all years fell between -0.056 and 0.044. Parameter estimates were quite precise, with $D_50$ having a smaller average coefficient of variation (CV) than h, (0.07% and 2.09%, respectively). Given this small degree of parameter uncertainty, it was ignored throughout the rest of the analysis.
+
+### Variable-specific relationships
+
+Looking at each of the environmental variables in isolation of all others, it is clear that there is a distinct relationship between temperature-related environmental variables and Kuskokwim River Chinook salmon migration timing (Figure 2). For illustration purposes, the figures for the two gridded variables (SST and SIC) were produced by taking an average across all grid cells weighted by the AIC weight for each grid cell. Air temperature, PDO, and SST all had negative relationships with D50, whereas SIC had a positive relationship (Table 2).
 
 ## Discussion
+
+\newpage
+
+```{r rt-ests-table, echo = F, message = F, warning = F}
+tab = data.frame(
+  Variable = c("AIR", "PDO", "SST", "SIC"),
+  Intercept = c(170, 174, 179, 169),
+  Slope = c(-0.26, -1.89, -1.71, 12.15),
+  t = c(-3.41, -3.63, -4.65, 4.36),
+  R2 = c(0.25, 0.28, 0.39, 0.36),
+  F = c(11.62, 13.17, 21.60, 19.05)
+)
+
+colnames(tab)[2] = "$\\beta_0$"
+colnames(tab)[3] = "$\\beta_1$"
+colnames(tab)[4] = "\\textit{t}"
+colnames(tab)[5] = "$R^2$"
+colnames(tab)[6] = "\\textit{F}"
+library(dplyr)
+library(knitr)
+library(kableExtra)
+knitr::kable(tab, "latex", booktabs = T, escape = F,
+             caption = "Estimates and statistics of the effects of each of the four single-variable forecast models fitted with all  $D_{50}$ and environmental data through 2016.", align = c("lccccc")) %>%
+  kable_styling(position = "center") %>%
+  column_spec(column = 1, bold = T)
+```
+
+\newpage
+
+\begin{figure}
+  \includegraphics{img/Ch2/map.png}
+  \caption{Map of Kuskokwim Bay where Chinook salmon likely stage for transition to freshwater. Shows grid cells from which daily SST values were used. Daily SIC values came from the same grid cells, though excluding grid cell 45 below due to missing values.}
+  \label{fig:ch2-map2}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \includegraphics{img/Ch2/relationships.png}
+  \caption{My Caption.}
+  \label{fig:relationships}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+  \includegraphics{img/Ch2/mae-subsets.png}
+  \caption{My OTHER Caption}
+  \label{fig:mae-subsets}
+\end{figure}
+
+\newpage
