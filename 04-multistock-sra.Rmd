@@ -1,0 +1,17 @@
+# Multi-stock Spawner Recruit Analyses {#ch4}
+
+## Introduction
+
+Here's chapter 4. It's about the multi-stock SRA estimation problem.
+
+## Methods
+
+We did some stuff.
+
+## Results
+
+We found some stuff
+
+### Subsection of results
+
+## Discussion

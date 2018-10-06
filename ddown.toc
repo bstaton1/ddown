@@ -1,0 +1,38 @@
+\contentsline {chapter}{Abstract}{ii}{Doc-Start}
+\contentsline {chapter}{Acknowledgments}{iii}{Doc-Start}
+\contentsline {chapter}{List of Figures}{vi}{Doc-Start}
+\contentsline {chapter}{List of Tables}{vii}{Doc-Start}
+\contentsline {chapter}{Preface}{1}{Doc-Start}
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
+\contentsline {chapter}{\numberline {2}Development and Evaluation of a Migration Timing Forecast Model for Kuskokwim River Chinook Salmon}{10}{chapter.2}
+\contentsline {section}{Abstract}{10}{section*.1}
+\contentsline {section}{\numberline {2.1}Introduction}{11}{section.2.1}
+\contentsline {section}{\numberline {2.2}Methods}{16}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Estimates of migration timing}{16}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Environmental variables}{17}{subsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.2.1}PDO data}{17}{subsubsection.2.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2.2}Bethel air temperature data}{18}{subsubsection.2.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.2.3}SST and SIC}{18}{subsubsection.2.2.2.3}
+\contentsline {subsection}{\numberline {2.2.3}Selection of predictive time periods}{19}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Evaluated forecast models}{22}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Forecast uncertainty}{23}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Forecast model selection}{24}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}Retrospective forecast analysis}{25}{subsection.2.2.7}
+\contentsline {subsection}{\numberline {2.2.8}Value of forecast to run size assessments}{25}{subsection.2.2.8}
+\contentsline {subsection}{\numberline {2.2.9}Investigation of a run timing versus run size relationship}{26}{subsection.2.2.9}
+\contentsline {section}{\numberline {2.3}Results}{27}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Subsection of results}{27}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Discussion}{27}{section.2.4}
+\contentsline {chapter}{\numberline {3}Run Timing}{28}{chapter.3}
+\contentsline {section}{\numberline {3.1}Introduction}{28}{section.3.1}
+\contentsline {section}{\numberline {3.2}Methods}{28}{section.3.2}
+\contentsline {section}{\numberline {3.3}Results}{28}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Subsection of results}{28}{subsection.3.3.1}
+\contentsline {section}{\numberline {3.4}Discussion}{28}{section.3.4}
+\contentsline {chapter}{\numberline {4}Multi-stock Spawner Recruit Analyses}{29}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction}{29}{section.4.1}
+\contentsline {section}{\numberline {4.2}Methods}{29}{section.4.2}
+\contentsline {section}{\numberline {4.3}Results}{29}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Subsection of results}{29}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Discussion}{29}{section.4.4}
+\contentsline {chapter}{Bibliography}{30}{section.4.4}

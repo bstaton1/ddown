@@ -1,0 +1,71 @@
+\usepackage{booktabs}
+%%% This is an example file for the Auburn University style options
+%%%       aums.sty (Masters Thesis)
+%%%       auphd.sty (Ph.D. Dissertation)
+%%%       auhonors.sty (Honors Scholar)
+
+%%%To use it, please edit the necessary options, title, author, date, year, keywords, advisor, professor, etc. 
+
+% \documentclass[12pt]{report}
+\usepackage{setspace}
+%\setcounter{secnumdepth}{3}
+% \usepackage{aums}       % For Master's papers
+\usepackage{auphd}     % For Ph.D.
+%\usepackage{auhonors}  % For honors college
+\usepackage{ulem}       % underlining on style-page; see \normalem below
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{pgf}
+
+\usepackage{amsmath,amsthm, amsfonts, mathrsfs, graphicx, setspace, fullpage, color}
+\usepackage{natbib, appendix}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{mathabx}
+\RequirePackage{adjustbox}
+% \usepackage{epstopdf}
+\AtBeginDocument{\renewcommand{\bibname}{References}}
+\usepackage{hyperref}
+%\usepackage{tocloft}
+%\renewcommand\cftchapafterpnum{\vskip\baselineskip}
+%\renewcommand\cftsecafterpnum{\vskip\baselineskip}
+%\renewcommand\cftsubsecafterpnum{\vskip\baselineskip}
+%\renewcommand\cftsubsubsecafterpnum{\vskip\baselineskip}
+%\renewcommand\cftfigafterpnum{\vskip\baselineskip}
+%\renewcommand\cfttabafterpnum{\vskip\baselineskip}
+
+%%%%%Format rules: Normal margins are 1 in. If you need to print with 1.5in margins, uncomment the line below
+%\oddsidemargin0.5in \textwidth6in
+
+%% If you do not need a List of Abbreviations, then comment out the lines below and the \printnomenclature line.
+%%for List of Abbreviations information:  (see http://www.mackichan.com/TECHTALK/509.htm  )
+% \usepackage[intoc]{nomencl}
+% \renewcommand{\nomname}{List of Abbreviations}   	       
+% \makenomenclature 
+%% don't forget to run:   makeindex ausample.nlo -s nomencl.ist -o ausample.nls
+%% Also, if 
+
+\makeatother
+\let\oldmaketitle\maketitle
+\AtBeginDocument{\let\maketitle\relax}
+
+% Put the title, author, and date in. 
+\title{Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries}
+\author{Benjamin A. Staton} 
+\date{May 5, 2019} %date of graduation
+\copyrightyear{2019} %copyright year
+
+\keywords{Fisheries management, Bayesian inference, decision analysis}
+
+% Put the Thesis Adviser here. 
+\adviser{Matthew J. Catalano}
+
+% Put the committee here (including the adviser), one \professor for each. 
+% The advisor must be first, and the dean of the graduate school must be last.
+\professor{Matthew J. Catalano}
+
+\professor{Asheber Abebe, Chair, Professor of Mathematics and Statistics}
+
+\professor{Lewis G. Coggins, Jr., Affiliate Faculty}
+
+\professor{Conor McGowan, School of Forestry and Wildlife Sciences}

@@ -1,0 +1,7 @@
+book_filename: "ddown"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
+output_dir: "docs"
+
