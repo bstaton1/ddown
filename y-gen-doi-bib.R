@@ -32,7 +32,10 @@ dois = c(
   "walters-holling-1990" = "10.2307/1938620",
   # "mantua-etal-1997" = "10.1175/1520-0477(1997)078"
   "reynolds-etal-2007" = "10.1175/2007JCLI1824.1",
-  "vandepol-etal-2016" = "10.1111/2041-210X.12590"
+  "vandepol-etal-2016" = "10.1111/2041-210X.12590",
+  "arlot-celisse-2010" = "10.1214/09-SS054",
+  "bailey-vandepol-2016" = "10.1371/journal.pone.0167980",
+  "burnham-anderson-2002" = "10.1007/b97636"
   )
 
 # obtain the items
