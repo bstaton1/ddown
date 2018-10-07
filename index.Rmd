@@ -3,7 +3,7 @@ title: "Challenges and Tools in the Assessment and Management of Pacific Salmon 
 author: "Ben Staton"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib]
+bibliography: [cites-without-doi.bib, cites-with-doi.bib]
 biblio-style: apalike
 link-citations: true
 description: "This is my dissertation. I'm writing it with bookdown!"
