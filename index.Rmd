@@ -6,7 +6,7 @@ documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
 link-citations: true
-description: "This is my dissertation."
+description: "This is my dissertation. I'm writing it with bookdown!"
 fontsize: 12pt
 toc: false
 ---

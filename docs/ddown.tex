@@ -31,6 +31,46 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
 \bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -473,8 +513,6 @@ range of biological and data quality conditions.
 \end{tabular}
 \end{table}
 
-\newpage
-
 \chapter{Development and Evaluation of a Migration Timing Forecast Model
 for Kuskokwim River Chinook Salmon}\label{ch2}
 
@@ -538,150 +576,173 @@ valuable for in-season assessment and decision-making by reducing
 uncertainty in run size predictions.
 
 While previous research has uncovered several key physiological
-mechanisms that are involved with natal homing (Hasler and Scholz, 1983)
-and return migrations of adult salmon to freshwater environments
-(Cooperman et al., 2010; Cooke et al., 2008; Hinch et al., 2012), the
-exact physiological and behavioral responses of adult salmon to
-relatively small-scale environmental gradients within estuaries, which
-are likely the ultimate determinants of freshwater entry timing, are
-still poorly understood. Despite this uncertainty, several hypotheses
-have been put forth that are broadly consistent with the observed timing
-patterns of several species across a large geographic area (i.e.,
-western and southwestern Alaska). Two primary influences have been
-suggested: genetic (Quinn et al., 2000; Anderson and Beer, 2009;
-O'Malley et al., 2010) and environmental (Hodgson et al., 2006; Keefer
-et al., 2008) mechanisms. Substantial evidence exists to suggest that
-both genetic and environmental controls are involved in determining
-migration timing, however it is broadly thought that genetic variation
-influences sub-stock variation (i.e., different tributary spawning
-groups within the same major river basin) and environmental variation
-influences the timing of the aggregate (i.e., basin-wide) run (Keefer et
-al., 2008; Anderson and Beer, 2009). This is consistent with the notion
-that genetically distinct components of the aggregate run behave
-differently as a result of their life history strategies and/or the
-characteristics of their specific spawning grounds (e.g., sub-stocks
-that must travel farther in-river to reach spawning grounds enter
-freshwater earlier {[}Clark et al., 2015{]}; sub-stocks that spawn in
-tributaries influenced by warmer lakes enable later spawning; Burger et
-al., 1985) but that certain environmental conditions act on the
-aggregate run to either hasten or delay freshwater entry. It has also
-been suggested that run size may have an influence on migration timing,
-although empirical support for this claim seems to be lacking. If there
-were indeed relationships between run timing and run size, these need to
-be quantified as certain combinations are particularly troublesome for
-managers (e.g., small/early runs and large/late runs appear the same
-early in-season; Adkison and Cunningham, 2015).
+mechanisms that are involved with natal homing
+\citep{hasler-scholz-1983} and return migrations of adult salmon to
+freshwater environments
+\citep{cooperman-etal-2010, cooke-etal-2008, hinch-etal-2012}, the exact
+physiological and behavioral responses of adult salmon to relatively
+small-scale environmental gradients within estuaries, which are likely
+the ultimate determinants of freshwater entry timing, are still poorly
+understood. Despite this uncertainty, several hypotheses have been put
+forth that are broadly consistent with the observed timing patterns of
+several species across a large geographic area (i.e., western and
+southwestern Alaska). Two primary influences have been suggested:
+genetic \citep{quinn-etal-2000, anderson-beer-2009, omalley-etal-2010}
+and environmental \citep{hodgson-etal-2006, keefer-etal-2008}
+mechanisms. Substantial evidence exists to suggest that both genetic and
+environmental controls are involved in determining migration timing,
+however it is broadly thought that genetic variation influences
+sub-stock variation (i.e., different tributary spawning groups within
+the same major river basin) and environmental variation influences the
+timing of the aggregate (i.e., basin-wide) run
+\citep{keefer-etal-2008, anderson-beer-2009}. This is consistent with
+the notion that genetically distinct components of the aggregate run
+behave differently as a result of their life history strategies and/or
+the characteristics of their specific spawning grounds
+\citetext{\citealp[e.g., sub-stocks that must travel farther in-river to
+reach spawning grounds enter freshwater
+earlier;][]{clark-etal-2015}; \citealp[sub-stocks that spawn in
+tributaries influenced by warmer lakes enable later
+spawning;][]{burger-etal-1985}} but that certain environmental
+conditions act on the aggregate run to either hasten or delay freshwater
+entry. It has also been suggested that run size may have an influence on
+migration timing, although empirical support for this claim seems to be
+lacking. If there were indeed relationships between run timing and run
+size, these need to be quantified as certain combinations are
+particularly troublesome for managers \citep[e.g., small/early runs and
+large/late runs appear the same early
+in-season;][]{adkison-cunningham-2015}.
 
-At the aggregate population scale, which is the focus of this paper, it
-has been observed that migrations occurring in the spring and summer
-generally occur earlier in years with warmer spring temperatures (Mundy
-and Evenson, 2011; Hodgson et al., 2006). Mundy and Evenson (2011)
-suggested that this pattern may be explained by the stability of the
-estuarine water column where adult salmon stage in preparation for
-riverine entry (or alternatively, marine exit). High estuarine water
-column stability was hypothesized to impede riverine entry through two
-mechanisms: (1) by presenting an osmotic barrier between freshwater
-riverine discharge and the saline ocean water which prevents osmotically
-incompetent individuals from crossing and (2) by preventing freshwater
-competent individuals from receiving olfactory cues essential to the
-homeward migration. Thus, Mundy and Evenson (2011) hypothesized that
-years in which the estuarine water column is stable over a longer period
-of time would be associated with later migration timing. Although water
-column stability is a difficult variable to measure over large spatial
-scales, several variables that are known to influence it are available
-at large scales via remote sensing (e.g., satellite observations). Such
-variables are sea ice cover which prevents wind-driven mixing,
-associated local temperature-related variables like land-based air
-temperature or sea surface temperature (SST), and broader scale
-indicators such as the Pacific Decadal Oscillation (PDO), an index of
-temperature anomalies in the northern Pacific Ocean. Observational
-studies across the North American range of Chinook salmon have found
-environmental-run timing correlations that are consistent with this
-hypothesis (Hodgson et al., 2006; Keefer et al., 2008; Mundy and
-Evenson, 2011). Even if the water column stability hypothesis is
-incorrect, observed patterns suggest that environmental variables may be
-used to forecast run timing with some level of accuracy and certainty.
+At the aggregate population scale, which is the focus of this Chapter,
+it has been observed that migrations occurring in the spring and summer
+generally occur earlier in years with warmer spring temperatures
+{[}\citet{mundy-evenson-2011}; hodgson-etal-2006{]}.
+\citet{mundy-evenson-2011} suggested that this pattern may be explained
+by the stability of the estuarine water column where adult salmon stage
+in preparation for riverine entry (or alternatively, marine exit). High
+estuarine water column stability was hypothesized to impede riverine
+entry through two mechanisms:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  by presenting an osmotic barrier between freshwater riverine discharge
+  and the saline ocean water which prevents osmotically incompetent
+  individuals from crossing and,
+\item
+  by preventing freshwater competent individuals from receiving
+  olfactory cues essential to the homeward migration.
+\end{enumerate}
+
+\noindent
+Thus, \citet{mundy-evenson-2011} hypothesized that years in which the
+estuarine water column is stable over a longer period of time would be
+associated with later migration timing. Although water column stability
+is a difficult variable to measure over large spatial scales, several
+variables that are known to influence it are available at large scales
+via remote sensing (e.g., satellite observations). Such variables are
+sea ice cover which prevents wind-driven mixing, associated local
+temperature-related variables like land-based air temperature or sea
+surface temperature (SST), and broader scale indicators such as the
+Pacific Decadal Oscillation (PDO), an index of temperature anomalies in
+the northern Pacific Ocean. Observational studies across the North
+American range of Chinook salmon have found environmental-run timing
+correlations that are consistent with this hypothesis
+\citep{hodgson-etal-2006, keefer-etal-2008, mundy-evenson-2011}. Even if
+the water column stability hypothesis is incorrect, observed patterns
+suggest that environmental variables may be useful in forecasting run
+timing with some level of accuracy and certainty.
 
 Several efforts have been made at exploiting these environmental-run
 timing relationships to develop run timing forecast models for Pacific
-salmon migrations. Mundy and Evenson (2011) developed a model for Yukon
-River Chinook salmon (O. tshawytscha) that used air temperature, sea
-surface temperature, and ice cover to predict the day at which the 15th
-and 50th percentiles of the run passed a test fishery index location.
-Model predictions fit the observed data well (nearly always within seven
-days, usually within three days), although out-of-sample predictive
-ability was not presented (Mundy and Evenson, 2011). Keefer et al.
-(2008) developed a similar framework for Columbia River spring run
-Chinook salmon and found run timing relationships with river discharge,
-river temperature, and ocean condition indices (e.g., PDO). Their best
-model explained 49\% of the variation in median run timing with
-variation in the environmental variables. Anderson and Beer (2009)
-continued this work on the Columbia River spring Chinook stock, but
-added genetic components to their analysis based on the arrival timing
-of precocious males. Their findings revealed that both environmental
-variables and changes in abundance of genetically distinct populations,
-which had their own distinct migration timing, affected overall run
-timing of the spring Chinook salmon run in the Columbia River. These
-advancements have shown that relationships between migration timing and
-environmental variables exist and may have utility for use in
-forecasting efforts.
+salmon migrations. \citet{mundy-evenson-2011} developed a model for
+Yukon River Chinook salmon (\emph{O. tshawytscha}) that used air
+temperature, SST, and ice cover to predict the day at which the
+\(15^{\text{th}}\) and \(50^{\text{th}}\) percentiles of the run passed
+a test fishery index location. Their model predictions fit the observed
+data well (nearly always within seven days, usually within three days),
+although out-of-sample predictive ability was not presented.
+\citet{keefer-etal-2008} developed a similar framework for Columbia
+River spring run Chinook salmon and found run timing relationships with
+river discharge, river temperature, and ocean condition indices (e.g.,
+PDO). Their best model explained 49\% of the variation in median run
+timing with variation in the environmental variables.
+\citet{anderson-beer-2009} continued this work on the Columbia River
+spring Chinook stock, but added genetic components to their analysis
+based on the arrival timing of precocious males. Their findings revealed
+that both environmental variables and changes in abundance of
+genetically distinct populations, which had their own distinct migration
+timing and affected overall run timing of the spring Chinook salmon run
+in the Columbia River. These advancements have shown that relationships
+between migration timing and environmental variables exist and may have
+utility for use in forecasting efforts.
 
 The Kuskokwim River, located in western Alaska, is the second largest
 river system in the state and supports culturally and economically
 important Chinook salmon fisheries. Chinook salmon return beginning in
 late May and continue through early August, with the median date of
-passage occurring between June 14th and July 2nd. Fisheries within the
-region harvest salmon in-river during freshwater migrations using
-primarily drift gillnet gear. The Kuskokwim River salmon fishery has a
-distinct cultural importance: nearly all inhabitants are native Alaskans
-belonging to the Yup'ik group and take salmon for subsistence purposes
-(Linderman and Bergstrom, 2009). While commercial salmon fisheries
-operate within the river, these fishers often also participate in
-subsistence take and revenues from the sale of commercially-harvested
-salmon often contribute directly to participation in subsistence
-activities (Wolfe and Spaeder, 2009). To ensure long-term sustainable
-harvest, the Chinook salmon fishery is managed with a drainage-wide
-escapement goal derived from an age-structured state-space
-spawner-recruit analysis (Hamazaki et al., 2012; Staton et al., 2017).
-To meet these pre-determined escapement goals, in-season management
-strategies implement time, gear, and area closures based on limited and
-imprecise information regarding annual run size. The distant locations
-of the majority of escapement assessment projects makes direct
-measurement of escapement performance unavailable until late in the
-season. Thus, the primary sources of run size assessment information are
-(1) a pre-season run size forecast range (previous year's run size
-estimate +/- approximately 20\%) and (2) an in-river drift gillnet test
-fishery operated in Bethel, AK which has been implemented using
-consistent methods since 1984. The interpretation of this test fishery
-index suffers from the same issue of being confounded by run timing
-described earlier, making management decisions difficult. Without
-precise in-season indicators of run size, managers must often choose to
-either (1) trust a pre-season run size forecast for the majority of the
-season or (2) take their chances at deciding if the run is early or late
-when interpreting in-season data. Both options could lead to the wrong
-interpretation of the actual run size, which could have serious
-consequences for the management of the fishery (i.e., the unwarranted
-opening or closing the fishery resulting in severe under- or
-over-escapement). No published run timing forecast models currently
-exist for Kuskokwim River Chinook salmon but given the potential utility
-of independent run timing estimates for interpretation of in-season
-data, the development and evaluation of such a model is needed. The
-necessity of more accurate and precise in-season perceptions of run size
-is particularly evident in years with anticipated low runs, such as in
-recent years (i.e., since 2010), as this may allow managers to more
-effectively guard against over-exploitation while still allowing for
-limited harvest opportunities to support the cultural and subsistence
-needs of the region.
+passage occurring between June \(14^{\text{th}}\) and July
+\(2^{\text{nd}}\). Fisheries within the region harvest salmon in-river
+during freshwater migrations using primarily drift gillnet gear. The
+Kuskokwim River salmon fishery has a distinct cultural importance:
+nearly all inhabitants are native Alaskans belonging to the Yup'ik group
+and take salmon for subsistence purposes (Linderman and Bergstrom,
+2009). While commercial salmon fisheries operate within the river, these
+fishers often also participate in subsistence take and revenues from the
+sale of commercially-harvested salmon often contribute directly to
+participation in subsistence activities (Wolfe and Spaeder, 2009). To
+ensure long-term sustainable harvest, the Chinook salmon fishery is
+managed with a drainage-wide escapement goal derived from an
+age-structured state-space spawner-recruit analysis (Hamazaki et al.,
+2012; Staton et al., 2017). To meet these pre-determined escapement
+goals, in-season management strategies implement time, gear, and area
+closures based on limited and imprecise information regarding annual run
+size. The distant locations of the majority of escapement assessment
+projects makes direct measurement of escapement performance unavailable
+until late in the season. Thus, the primary sources of run size
+assessment information are (1) a pre-season run size forecast range
+(obtained as the previous year's run size estimate \(\pm \sim 20\%\))
+and (2) an in-river drift gillnet test fishery operated in Bethel, AK
+which has been implemented using consistent methods since 1984. The
+interpretation of this test fishery index suffers from the same issue of
+being confounded by run timing described earlier, making management
+decisions difficult. Without precise in-season indicators of run size,
+managers must often choose to either trust a pre-season run size
+forecast for the majority of the season or somehow place weights on the
+various run timing hypotheses when interpreting in-season data. Both
+options could lead to the wrong interpretation of the actual run size,
+which could have serious consequences for the management of the fishery
+for a given year (i.e., the unwarranted opening or closing the fishery
+resulting in severe under- or over-escapement). No published run timing
+forecast models currently exist for Kuskokwim River Chinook salmon but
+given the potential utility of independent run timing estimates for
+interpretation of in-season data, the development and evaluation of such
+a model is needed. The necessity of more accurate and precise in-season
+perceptions of run size is particularly evident in years with
+anticipated low runs, such as in recent years (i.e., since 2010), as
+this may allow managers to more effectively guard against
+over-exploitation while still allowing for limited harvest opportunities
+to support the cultural and subsistence needs of the region.
 
-We present an analysis that develops and evaluates the performance of a
-run timing forecast model for Kuskokwim River Chinook salmon. The
-objectives were to (1) quantify historical run timing, (2) develop a run
-timing forecast model using environmental variables selected based on
-out-of-sample predictive performance, (3) assess the utility of the
-forecasting model for improving predictions of end-of-season test
-fishery indices of run size, and (4) determine if there is a
-relationship between run size and run timing for the Kuskokwim River
-Chinook salmon stock.
+In this chapter, I present an analysis that develops and evaluates the
+performance of a run timing forecast model for Kuskokwim River Chinook
+salmon. The objectives were to
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  quantify historical run timing,
+\item
+  develop a run timing forecast model using environmental variables
+  selected based on out-of-sample predictive performance
+\item
+  assess the utility of the forecasting model for improving predictions
+  of end-of-season test fishery indices of run size,
+\item
+  determine if there is a relationship between run size and run timing
+  for the Kuskokwim River Chinook salmon stock.
+\end{enumerate}
 
 \section{Methods}\label{methods}
 
@@ -1001,10 +1062,11 @@ estimator suggested by Burnham and Anderson (2002) of the ``adjusted
 SE'' (ASE) was used:
 
 \begin{equation}
-  ASE=\sum_i^{16} w_i \sqrt{\left(\frac{t_{df_i,1-\alpha/2}}{z_{1-\alpha/2}}\right)^2} \text{SE}_i^2+(\hat{y}_{i,t+1}-\hat{y}_{t+1})^2,
+  ASE=\sum_i^{16} w_i \sqrt{\left(\frac{t_{df_i,1-\alpha/2}}{z_{1-\alpha/2}}\right)^2 \text{SE}_i^2+(\hat{y}_{i,t+1}-\hat{y}_{t+1})^2},
 \label{eq:ase}
 \end{equation}
 
+\noindent
 where \(t_{df,i,1-\alpha/2}\) is the \(1-\alpha/2\) quantile of the
 \(t\) distribution with degrees of freedom equal to that of model \(i\)
 and \(z_{1-\alpha/2}\) is the corresponding quantile of the \(z\) (i.e.,
@@ -1048,6 +1110,7 @@ season with:
 \label{eq:eos}
 \end{equation}
 
+\noindent
 where \(\text{CCPUE}_{d,t}\) is the cumulative CPUE caught at the BTF
 through day \(d\) in forecasting year \(t\), \(\hat{p}_{d,t,i}\) is the
 predicted cumulative proportion of the run that had passed the BTF
@@ -1089,13 +1152,14 @@ using \(\alpha = 0.05\).
 \subsection{Estimates of run timing}\label{estimates-of-run-timing}
 
 The logistic curve fit the daily cumulative CPUE proportions well in all
-years of the BTF data set (Table 1), as indicated by an average residual
-standard error estimate of 0.022, with a maximum estimate of 0.038 in
-1992. The majority (95\%) of all residuals from all years fell between
--0.056 and 0.044. Parameter estimates were quite precise, with \(D_50\)
-having a smaller average coefficient of variation (CV) than h, (0.07\%
-and 2.09\%, respectively). Given this small degree of parameter
-uncertainty, it was ignored throughout the rest of the analysis.
+years of the BTF data set (Table \ref{tab:rt-ests-table}), as indicated
+by an average residual standard error estimate of 0.022, with a maximum
+estimate of 0.038 in 1992. The majority (95\%) of all residuals from all
+years fell between -0.056 and 0.044. Parameter estimates were quite
+precise, with \(D_50\) having a smaller average coefficient of variation
+(CV) than h, (0.07\% and 2.09\%, respectively). Given this small degree
+of parameter uncertainty, it was ignored throughout the rest of the
+analysis.
 
 \subsection{Variable-specific
 relationships}\label{variable-specific-relationships}
@@ -1103,20 +1167,75 @@ relationships}\label{variable-specific-relationships}
 Looking at each of the environmental variables in isolation of all
 others, it is clear that there is a distinct relationship between
 temperature-related environmental variables and Kuskokwim River Chinook
-salmon migration timing (Figure 2). For illustration purposes, the
-figures for the two gridded variables (SST and SIC) were produced by
-taking an average across all grid cells weighted by the AIC weight for
-each grid cell. Air temperature, PDO, and SST all had negative
-relationships with D50, whereas SIC had a positive relationship (Table
-2).
+salmon migration timing (\ref{fig:relationships}). For illustration
+purposes, the figures for the two gridded variables (SST and SIC) were
+produced by taking an average across all grid cells weighted by the
+AIC\textsubscript{c} weight for each grid cell. Air temperature, PDO,
+and SST all had negative relationships with \(D_{50}\), whereas SIC had
+a positive relationship (\ref{tab:coefs-table}).
 
 \section{Discussion}\label{discussion}
 
-\newpage
+\begin{singlespace}
 
 \begin{table}
 
-\caption{\label{tab:rt-ests-table}Estimates and statistics of the effects of each of the four single-variable forecast models fitted with all  $D_{50}$ and environmental data through 2016.}
+\caption{\label{tab:rt-ests-table}Parameter estimates (mean with standard error in parentheses) from logistic curves from Equation \ref{eq:logistic} fitted to all years. $D_{50,t}$ is expressed as the day-of-the-year, for reference, day 174 is June $22^{\text{nd}}$ in a leap year and June $21^{\text{st}}$ in a non-leap year.}
+\centering
+\begin{tabular}[t]{rrr}
+\toprule
+Year & $D_{50,t}$ & $h_t$\\
+\midrule
+1984 & 171.04 & 0.07\\
+1985 & 167.65 & 0.04\\
+1986 & 172.86 & 0.10\\
+1987 & 173.38 & 0.07\\
+1988 & 171.07 & 0.03\\
+\addlinespace
+1989 & 171.39 & 0.02\\
+1990 & 165.50 & 0.09\\
+1991 & 175.02 & 0.05\\
+1992 & 170.74 & 0.03\\
+1993 & 178.79 & 0.09\\
+\addlinespace
+1994 & 166.76 & 0.10\\
+1995 & 169.81 & 0.08\\
+1996 & 174.93 & 0.02\\
+1997 & 171.29 & 0.10\\
+1998 & 174.45 & 0.08\\
+\addlinespace
+1999 & 166.16 & 0.08\\
+2000 & 170.67 & 0.04\\
+2001 & 172.49 & 0.05\\
+2002 & 171.80 & 0.09\\
+2003 & 174.29 & 0.02\\
+\addlinespace
+2004 & 168.06 & 0.03\\
+2005 & 169.10 & 0.01\\
+2006 & 176.54 & 0.06\\
+2007 & 174.71 & 0.09\\
+2008 & 177.06 & 0.02\\
+\addlinespace
+2009 & 176.96 & 0.03\\
+2010 & 174.29 & 0.02\\
+2011 & 173.84 & 0.05\\
+2012 & 173.27 & 0.05\\
+2013 & 174.93 & 0.07\\
+\addlinespace
+2014 & 172.78 & 0.06\\
+2015 & 178.43 & 0.05\\
+2016 & 170.11 & 0.09\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{singlespace}
+
+\pagebreak
+
+\begin{table}
+
+\caption{\label{tab:coefs-table}Estimates and statistics of the effects of each of the four single-variable forecast models fitted with all  $D_{50}$ and environmental data through 2016.}
 \centering
 \begin{tabular}[t]{>{\bfseries}lccccclccccclccccclccccclccccclccccc}
 \toprule
@@ -1130,31 +1249,68 @@ SIC & 169 & 12.15 & 4.36 & 0.36 & 19.05\\
 \end{tabular}
 \end{table}
 
-\newpage
+\pagebreak
 
 \begin{figure}
+  \centering
   \includegraphics{img/Ch2/map.png}
   \caption{Map of Kuskokwim Bay where Chinook salmon likely stage for transition to freshwater. Shows grid cells from which daily SST values were used. Daily SIC values came from the same grid cells, though excluding grid cell 45 below due to missing values.}
-  \label{fig:ch2-map2}
+  \label{fig:ch2-map}
 \end{figure}
 
 \pagebreak
 
 \begin{figure}
+  \centering
   \includegraphics{img/Ch2/relationships.png}
-  \caption{My Caption.}
+  \caption{Relationships between the four single environmental variables and run timing $\left(D_{50}\right)$ using data from optimal climate windows when 2016 was added to the training data. For illustration purposes only, gridded variables SST and SIC were combined by weighted averaging where the weight of each grid cell was assigned the $\text{AIC}_{\text{c}}$ weight of that grid cell when grid cell-specific models were fit. Grey bands are 95$\%$ confidence intervals on the least squares line.}
   \label{fig:relationships}
 \end{figure}
 
-\newpage
+\pagebreak
 
 \begin{figure}
+  \centering
+  \includegraphics{img/Ch2/window-changes.png}
+  \caption{Changes in selected climate windows as training data were added in the retrospective forecasting analysis. Bottom and top lines show the first and last day of the selected climate window, respectively, as more years were added. The year axis corresponds to the selected window after including environmental and run timing data from that year in the training data. E.g., the windows shown for 2015 were used to produce the forecast for 2016. Panel (a) is Bethel air temperature, panels b1-b4 are SST windows for four sample grid cells and panels c1-c4 are SIC windows for the same four sample grid cells. Sample grid cells from Figure \ref{fig:ch2-map} shown for SST and SIC are as follows: grid cell 8 (b1, c1), grid cell 44 (b2, c2), grid cell 12 (b3, c3), and grid cell 48 (b4, c4). Selected windows for PDO are not shown because the single month of May was selected in all years.}
+  \label{fig:window-changes}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch2/forecasts.png}
+  \caption{Produced forecasts under the three approaches. Black points/lines are the time series of $D_{50}$ detected by the BTF. Grey points are out-of-sample forecasts with 95$\%$ prediction intervals shown as error bars. $\overline{\text{AE}}$ and $\widetilde{\text{AE}}$ are the mean and median absolute forecast errors from 1995 to 2016, respectively.}
+  \label{fig:forecasts}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch2/ae-changes.png}
+  \caption{Evolution of $\overline{\text{AE}}$ (mean) and  $\overline{\text{AE}}$ (median) absolute forecast error under the three investigated forecasting approaches. Each point is the average of absolute errors of all years before and including the corresponding year on the x-axis, starting in 1995.}
+  \label{fig:ae-changes}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \centering
   \includegraphics{img/Ch2/mae-subsets.png}
-  \caption{My OTHER Caption}
+  \caption{$\overline{\text{AE}}$ under three forecast approaches calculated by either (a) including years with a $D_{50}$ value within $\pm x$  days of the all-year average or (b) including years with a $D_{50}$ value outside $\pm x$ days of average, where $x$ is the number of days indicated on the $x$-axis. Bottom panels show the number of observed years in which the appropriate $\pm x$ days criterion was met. Shaded regions in the hypothetical distributions show the types of $D_{50}$ values that were included in the calculation of $\overline{\text{AE}}$. One point that may enrich inference from this figure (and is shown in the shaded normal distributions) is that panel (a) becomes more inclusive from left to right by adding years that are more dissimilar to the average in the calculation of $\overline{\text{AE}}$ whereas panel (b) becomes more exclusive from left to right by removing years that are similar to the average.}
   \label{fig:mae-subsets}
 \end{figure}
 
-\newpage
+\pagebreak
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch2/eos-preds.png}
+  \caption{In-season predictions of end of season cumulative BTF CPUE under the model-averaged forecast using environmental variables and the forecast under the null model in 2013 and 2014. Intended to illustrate cases in which a manager would benefit from having access to the model-averaged run timing forecast model using environmental variables (2014) and when the null model would have performed better (2013). Horizontal lines are the true end of season cumulative BTF CPUE, dark grey regions are 50$\%$ confidence intervals, and light grey regions are 95$\%$ confidence intervals. Grey vertical lines indicate the period when key harvest decisions are made.}
+  \label{fig:eos-preds}
+\end{figure}
 
 \chapter{Run Timing}\label{ch3}
 
@@ -1192,6 +1348,128 @@ We found some stuff
 \subsection{Subsection of results}\label{subsection-of-results-1}
 
 \section{Discussion}\label{discussion-2}
+
+\chapter{Multi-stock Spawner Recruit Analyses}\label{ch4}
+
+\section{Introduction}\label{introduction-3}
+
+Here's chapter 4. It's about the multi-stock SRA estimation problem.
+
+\section{Methods}\label{methods-3}
+
+We did some stuff.
+
+\section{Results}\label{results-3}
+
+We found some stuff
+
+\subsection{Subsection of results}\label{subsection-of-results-2}
+
+\section{Discussion}\label{discussion-3}
+
+\chapter*{Appendix A}\label{appendix-a}
+\addcontentsline{toc}{chapter}{Appendix A}
+
+\noindent
+This appendix contains the necessary code to perform two of the main
+parts of the run timing forecast model approach in Chapter \ref{ch2}.
+
+\section*{Forecast Cross-Validation}\label{forecast-cross-validation}
+\addcontentsline{toc}{section}{Forecast Cross-Validation}
+
+\subsubsection*{Function Name}\label{function-name}
+\addcontentsline{toc}{subsubsection}{Function Name}
+
+\texttt{forecast.CV}
+
+\subsubsection*{Purpose}\label{purpose}
+\addcontentsline{toc}{subsubsection}{Purpose}
+
+\subsubsection*{Arguments}\label{arguments}
+\addcontentsline{toc}{subsubsection}{Arguments}
+
+\noindent
+\textbf{Arguments:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{x}: a vector containing the time series of the x-variable
+\item
+  \texttt{y}: a vector containing the time series of the y-variable
+\item
+  \texttt{start.ind}: the index to start the forecast cross-validation
+  (e.g., 10 would train to 10 years and start forecasting in the
+  \(11^{\text{th}}\), then continue until present).
+\item
+  \texttt{na.rm}: logical; do you wish to remove \texttt{NA}
+  observations before calculating summary statistics?
+\item
+  \texttt{include.last.year.in.scores}: logical; do you wish to have the
+  last year of \texttt{y} to influence the cross-validation score?
+\end{enumerate}
+
+\subsubsection*{Psuedocode}\label{psuedocode}
+\addcontentsline{toc}{subsubsection}{Psuedocode}
+
+\subsubsection*{Source Code}\label{source-code}
+\addcontentsline{toc}{subsubsection}{Source Code}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forecast.CV =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y, start.ind, }\DataTypeTok{na.rm =}\NormalTok{ F, }\DataTypeTok{include.last.year.in.scores =}\NormalTok{ T) \{  }
+  \CommentTok{# total number of observed pairs}
+\NormalTok{  n =}\StringTok{ }\KeywordTok{length}\NormalTok{(x)}
+  \CommentTok{# validation end years}
+\NormalTok{  val.end =}\StringTok{ }\NormalTok{start.ind}\OperatorTok{:}\NormalTok{(n}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\NormalTok{  n.val =}\StringTok{ }\KeywordTok{length}\NormalTok{(val.end)}
+  \CommentTok{# containers}
+\NormalTok{  error =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
+\NormalTok{  abs.error =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
+\NormalTok{  pred.se =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
+  \CommentTok{# containers for training data}
+\NormalTok{  train.x =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{  train.y =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+  \CommentTok{# containers for validation data}
+\NormalTok{  val.x =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
+\NormalTok{  val.y =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
+\NormalTok{  pred.val.y =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n.val) \{}
+    \CommentTok{# indices to train and validate over}
+\NormalTok{    train.ind =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{val.end[i]}
+\NormalTok{    val.ind =}\StringTok{ }\KeywordTok{max}\NormalTok{(train.ind) }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+    \CommentTok{# store the training data}
+\NormalTok{    train.x[[i]] =}\StringTok{ }\NormalTok{x[train.ind]}
+\NormalTok{    train.y[[i]] =}\StringTok{ }\NormalTok{y[train.ind]}
+    \CommentTok{# store the validation data}
+\NormalTok{    val.x[i] =}\StringTok{ }\NormalTok{x[val.ind]}
+\NormalTok{    val.y[i] =}\StringTok{ }\NormalTok{y[val.ind]}
+    \CommentTok{# fit model to training data}
+\NormalTok{    temp.x =}\StringTok{ }\NormalTok{train.x[[i]]; temp.y =}\StringTok{ }\NormalTok{train.y[[i]]}
+\NormalTok{    fit =}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp.y }\OperatorTok{~}\StringTok{ }\NormalTok{temp.x)}
+\NormalTok{    sig =}\StringTok{ }\KeywordTok{summary}\NormalTok{(fit)}\OperatorTok{$}\NormalTok{sigma}
+    \CommentTok{# forecast}
+\NormalTok{    pred.val.y[i] =}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{temp.x =}\NormalTok{ val.x[i]))}
+    \CommentTok{# statistics}
+\NormalTok{    error[i] =}\StringTok{ }\NormalTok{val.y[i] }\OperatorTok{-}\StringTok{ }\NormalTok{pred.val.y[i]}
+\NormalTok{    abs.error[i] =}\StringTok{ }\KeywordTok{abs}\NormalTok{(error[i])}
+\NormalTok{  \}}
+  
+  \ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\NormalTok{include.last.year.in.scores) \{}
+\NormalTok{    error[n.val] =}\StringTok{ }\OtherTok{NA}
+\NormalTok{    abs.error[n.val] =}\StringTok{ }\OtherTok{NA}
+\NormalTok{  \} }
+  
+  \CommentTok{# return output}
+\NormalTok{  output =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{error =}\NormalTok{ error, }\DataTypeTok{abs.error =}\NormalTok{ abs.error, }\DataTypeTok{mae =} \KeywordTok{mean}\NormalTok{(abs.error, }\DataTypeTok{na.rm =}\NormalTok{ na.rm))}
+  \KeywordTok{return}\NormalTok{(output)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section*{Sliding Climate-Window}\label{sliding-climate-window}
+\addcontentsline{toc}{section}{Sliding Climate-Window}
 
 \bibliography{book.bib}
 

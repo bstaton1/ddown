@@ -1,5 +1,16 @@
 # Development and Evaluation of a Migration Timing Forecast Model for Kuskokwim River Chinook Salmon {#ch2}
 
+```{r echo = F, message = F, warning = F}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+rm(list = ls(all = T))
+knitr::opts_chunk$set(
+  fig.align = "center", warning = F, echo = F, message = F
+  )
+```
+
 ## Abstract {-}
 
 Annual variation in adult salmon migration timing makes the interpretation of in-season assessment data difficult, leading to much in-season uncertainty in run size. We developed and evaluated a run timing forecast model for the Kuskokwim River Chinook salmon stock, located in western Alaska, intended to aid in reducing this source of uncertainty. An objective and adaptive approach (using model-averaging and a sliding window algorithm to select predictive time periods, both calibrated annually) was adopted to deal with multidimensional selection of four climatic variables and was based entirely on predictive performance. Forecast cross-validation was used to evaluate the performance of three forecasting approaches: the null (i.e., intercept only) model, the single model with the lowest mean absolute error, and a model-averaged forecast across 16 nested linear models. As of 2016, the null model had the lowest mean absolute error (2.64 days), although the model-averaged forecast performed as well or better than the null model in the majority of retrospective years. The model-averaged forecast had a consistent mean absolute error regardless of the type of year (i.e., average or extreme early/late) the forecast was made for, which was not true of the null model. The availability of the run timing forecast was not found to increase overall accuracy of in-season run assessments in relation to the null model, but was found to substantially increase the precision of these assessments, particularly early in the season.
@@ -8,15 +19,27 @@ Annual variation in adult salmon migration timing makes the interpretation of in
 
 In-season management strategies for Pacific salmon (_Oncorhynchus_ spp.) fisheries rely heavily on indices of in-river abundance (e.g., test fisheries, sonar counts, etc.) to inform harvest control rules that attempt to attain the balance of meeting pre-determined escapement objectives while allowing adequate opportunity for harvest [@catalano-jones-2014]. However, because indices of abundance are confounded by the phenology (i.e., timing) of the migration, their interpretation is very difficult in-season. For example, smaller-than-average index values early in the season could be due to either a small run with average timing or by a late large run, when interpreted in the context of historical years [@adkison-cunningham-2015]. This ultimately leads to great uncertainty about how much of the incoming run has passed, which is a key piece of information that dictates fishery harvest opportunities. There exists no information in the current year’s abundance index to inform the manager if (for example) 25% or 75% of the run has passed on any given day. Yet, depending which is true, the optimal management decision could be vastly different. Thus, in-season assessment typically involves some characterization of the variation in historical run timing to formulate a range of possible run size scenarios that could be representative of the current year’s run size. However, given the amount of variation in historical run timing, these scenarios are rarely informative during the majority of the migration, when key harvest decisions are being made because the run scenarios may span all possible run sizes. As a result, the pre-season run size forecast remains the most precise piece of information for much of the season. If it were possible to predict the timing of the incoming run (e.g., earlier- or later-than-average) with some level of confidence, it could prove valuable for in-season assessment and decision-making by reducing uncertainty in run size predictions.
 
-While previous research has uncovered several key physiological mechanisms that are involved with natal homing (Hasler and Scholz, 1983) and return migrations of adult salmon to freshwater environments (Cooperman et al., 2010; Cooke et al., 2008; Hinch et al., 2012), the exact physiological and behavioral responses of adult salmon to relatively small-scale environmental gradients within estuaries, which are likely the ultimate determinants of freshwater entry timing, are still poorly understood. Despite this uncertainty, several hypotheses have been put forth that are broadly consistent with the observed timing patterns of several species across a large geographic area (i.e., western and southwestern Alaska). Two primary influences have been suggested: genetic (Quinn et al., 2000; Anderson and Beer, 2009; O’Malley et al., 2010) and environmental (Hodgson et al., 2006; Keefer et al., 2008) mechanisms. Substantial evidence exists to suggest that both genetic and environmental controls are involved in determining migration timing, however it is broadly thought that genetic variation influences sub-stock variation (i.e., different tributary spawning groups within the same major river basin) and environmental variation influences the timing of the aggregate (i.e., basin-wide) run (Keefer et al., 2008; Anderson and Beer, 2009). This is consistent with the notion that genetically distinct components of the aggregate run behave differently as a result of their life history strategies and/or the characteristics of their specific spawning grounds (e.g., sub-stocks that must travel farther in-river to reach spawning grounds enter freshwater earlier [Clark et al., 2015]; sub-stocks that spawn in tributaries influenced by warmer lakes enable later spawning; Burger et al., 1985) but that certain environmental conditions act on the aggregate run to either hasten or delay freshwater entry. It has also been suggested that run size may have an influence on migration timing, although empirical support for this claim seems to be lacking. If there were indeed relationships between run timing and run size, these need to be quantified as certain combinations are particularly troublesome for managers (e.g., small/early runs and large/late runs appear the same early in-season; Adkison and Cunningham, 2015).
+While previous research has uncovered several key physiological mechanisms that are involved with natal homing [@hasler-scholz-1983] and return migrations of adult salmon to freshwater environments [@cooperman-etal-2010;  @cooke-etal-2008; @hinch-etal-2012], the exact physiological and behavioral responses of adult salmon to relatively small-scale environmental gradients within estuaries, which are likely the ultimate determinants of freshwater entry timing, are still poorly understood. Despite this uncertainty, several hypotheses have been put forth that are broadly consistent with the observed timing patterns of several species across a large geographic area (i.e., western and southwestern Alaska). Two primary influences have been suggested: genetic [@quinn-etal-2000; @anderson-beer-2009; @omalley-etal-2010] and environmental [@hodgson-etal-2006; @keefer-etal-2008] mechanisms. Substantial evidence exists to suggest that both genetic and environmental controls are involved in determining migration timing, however it is broadly thought that genetic variation influences sub-stock variation (i.e., different tributary spawning groups within the same major river basin) and environmental variation influences the timing of the aggregate (i.e., basin-wide) run [@keefer-etal-2008; @anderson-beer-2009]. This is consistent with the notion that genetically distinct components of the aggregate run behave differently as a result of their life history strategies and/or the characteristics of their specific spawning grounds [e.g., sub-stocks that must travel farther in-river to reach spawning grounds enter freshwater earlier; @clark-etal-2015; sub-stocks that spawn in tributaries influenced by warmer lakes enable later spawning; @burger-etal-1985] but that certain environmental conditions act on the aggregate run to either hasten or delay freshwater entry. It has also been suggested that run size may have an influence on migration timing, although empirical support for this claim seems to be lacking. If there were indeed relationships between run timing and run size, these need to be quantified as certain combinations are particularly troublesome for managers [e.g., small/early runs and large/late runs appear the same early in-season; @adkison-cunningham-2015].
 
-At the aggregate population scale, which is the focus of this paper, it has been observed that migrations occurring in the spring and summer generally occur earlier in years with warmer spring temperatures (Mundy and Evenson, 2011; Hodgson et al., 2006). Mundy and Evenson (2011) suggested that this pattern may be explained by the stability of the estuarine water column where adult salmon stage in preparation for riverine entry (or alternatively, marine exit). High estuarine water column stability was hypothesized to impede riverine entry through two mechanisms: (1) by presenting an osmotic barrier between freshwater riverine discharge and the saline ocean water which prevents osmotically incompetent individuals from crossing and (2) by preventing freshwater competent individuals from receiving olfactory cues essential to the homeward migration. Thus, Mundy and Evenson (2011) hypothesized that years in which the estuarine water column is stable over a longer period of time would be associated with later migration timing. Although water column stability is a difficult variable to measure over large spatial scales, several variables that are known to influence it are available at large scales via remote sensing (e.g., satellite observations). Such variables are sea ice cover which prevents wind-driven mixing, associated local temperature-related variables like land-based air temperature or sea surface temperature (SST), and broader scale indicators such as the Pacific Decadal Oscillation (PDO), an index of temperature anomalies in the northern Pacific Ocean. Observational studies across the North American range of Chinook salmon have found environmental-run timing correlations that are consistent with this hypothesis (Hodgson et al., 2006; Keefer et al., 2008; Mundy and Evenson, 2011). Even if the water column stability hypothesis is incorrect, observed patterns suggest that environmental variables may be used to forecast run timing with some level of accuracy and certainty.
+At the aggregate population scale, which is the focus of this Chapter, it has been observed that migrations occurring in the spring and summer generally occur earlier in years with warmer spring temperatures [@mundy-evenson-2011; hodgson-etal-2006]. @mundy-evenson-2011 suggested that this pattern may be explained by the stability of the estuarine water column where adult salmon stage in preparation for riverine entry (or alternatively, marine exit). High estuarine water column stability was hypothesized to impede riverine entry through two mechanisms: 
 
-Several efforts have been made at exploiting these environmental-run timing relationships to develop run timing forecast models for Pacific salmon migrations. Mundy and Evenson (2011) developed a model for Yukon River Chinook salmon (O. tshawytscha) that used air temperature, sea surface temperature, and ice cover to predict the day at which the 15th and 50th percentiles of the run passed a test fishery index location. Model predictions fit the observed data well (nearly always within seven days, usually within three days), although out-of-sample predictive ability was not presented (Mundy and Evenson, 2011). Keefer et al. (2008) developed a similar framework for Columbia River spring run Chinook salmon and found run timing relationships with river discharge, river temperature, and ocean condition indices (e.g., PDO). Their best model explained 49% of the variation in median run timing with variation in the environmental variables. Anderson and Beer (2009) continued this work on the Columbia River spring Chinook stock, but added genetic components to their analysis based on the arrival timing of precocious males. Their findings revealed that both environmental variables and changes in abundance of genetically distinct populations, which had their own distinct migration timing, affected overall run timing of the spring Chinook salmon run in the Columbia River. These advancements have shown that relationships between migration timing and environmental variables exist and may have utility for use in forecasting efforts.
+1.  by presenting an osmotic barrier between freshwater riverine discharge and the saline ocean water which prevents osmotically incompetent individuals from crossing and,
 
-The Kuskokwim River, located in western Alaska, is the second largest river system in the state and supports culturally and economically important Chinook salmon fisheries. Chinook salmon return beginning in late May and continue through early August, with the median date of passage occurring between June 14th and July 2nd.  Fisheries within the region harvest salmon in-river during freshwater migrations using primarily drift gillnet gear. The Kuskokwim River salmon fishery has a distinct cultural importance: nearly all inhabitants are native Alaskans belonging to the Yup’ik group and take salmon for subsistence purposes (Linderman and Bergstrom, 2009). While commercial salmon fisheries operate within the river, these fishers often also participate in subsistence take and revenues from the sale of commercially-harvested salmon often contribute directly to participation in subsistence activities (Wolfe and Spaeder, 2009). To ensure long-term sustainable harvest, the Chinook salmon fishery is managed with a drainage-wide escapement goal derived from an age-structured state-space spawner-recruit analysis (Hamazaki et al., 2012; Staton et al., 2017). To meet these pre-determined escapement goals, in-season management strategies implement time, gear, and area closures based on limited and imprecise information regarding annual run size. The distant locations of the majority of escapement assessment projects makes direct measurement of escapement performance unavailable until late in the season. Thus, the primary sources of run size assessment information are (1) a pre-season run size forecast range (previous year’s run size estimate +/- approximately 20%) and (2) an in-river drift gillnet test fishery operated in Bethel, AK which has been implemented using consistent methods since 1984. The interpretation of this test fishery index suffers from the same issue of being confounded by run timing described earlier, making management decisions difficult. Without precise in-season indicators of run size, managers must often choose to either (1) trust a pre-season run size forecast for the majority of the season or (2) take their chances at deciding if the run is early or late when interpreting in-season data. Both options could lead to the wrong interpretation of the actual run size, which could have serious consequences for the management of the fishery (i.e., the unwarranted opening or closing the fishery resulting in severe under- or over-escapement). No published run timing forecast models currently exist for Kuskokwim River Chinook salmon but given the potential utility of independent run timing estimates for interpretation of in-season data, the development and evaluation of such a model is needed. The necessity of more accurate and precise in-season perceptions of run size is particularly evident in years with anticipated low runs, such as in recent years (i.e., since 2010), as this may allow managers to more effectively guard against over-exploitation while still allowing for limited harvest opportunities to support the cultural and subsistence needs of the region. 
+2.  by preventing freshwater competent individuals from receiving olfactory cues essential to the homeward migration. 
 
-We present an analysis that develops and evaluates the performance of a run timing forecast model for Kuskokwim River Chinook salmon. The objectives were to (1) quantify historical run timing, (2) develop a run timing forecast model using environmental variables selected based on out-of-sample predictive performance, (3) assess the utility of the forecasting model for improving predictions of end-of-season test fishery indices of run size, and (4) determine if there is a relationship between run size and run timing for the Kuskokwim River Chinook salmon stock.
+\noindent
+Thus, @mundy-evenson-2011 hypothesized that years in which the estuarine water column is stable over a longer period of time would be associated with later migration timing. Although water column stability is a difficult variable to measure over large spatial scales, several variables that are known to influence it are available at large scales via remote sensing (e.g., satellite observations). Such variables are sea ice cover which prevents wind-driven mixing, associated local temperature-related variables like land-based air temperature or sea surface temperature (SST), and broader scale indicators such as the Pacific Decadal Oscillation (PDO), an index of temperature anomalies in the northern Pacific Ocean. Observational studies across the North American range of Chinook salmon have found environmental-run timing correlations that are consistent with this hypothesis [@hodgson-etal-2006; @keefer-etal-2008; @mundy-evenson-2011]. Even if the water column stability hypothesis is incorrect, observed patterns suggest that environmental variables may be useful in forecasting run timing with some level of accuracy and certainty.
+
+Several efforts have been made at exploiting these environmental-run timing relationships to develop run timing forecast models for Pacific salmon migrations. @mundy-evenson-2011 developed a model for Yukon River Chinook salmon (_O. tshawytscha_) that used air temperature, SST, and ice cover to predict the day at which the $15^{\text{th}}$ and $50^{\text{th}}$ percentiles of the run passed a test fishery index location. Their model predictions fit the observed data well (nearly always within seven days, usually within three days), although out-of-sample predictive ability was not presented. @keefer-etal-2008 developed a similar framework for Columbia River spring run Chinook salmon and found run timing relationships with river discharge, river temperature, and ocean condition indices (e.g., PDO). Their best model explained 49% of the variation in median run timing with variation in the environmental variables. @anderson-beer-2009 continued this work on the Columbia River spring Chinook stock, but added genetic components to their analysis based on the arrival timing of precocious males. Their findings revealed that both environmental variables and changes in abundance of genetically distinct populations, which had their own distinct migration timing and affected overall run timing of the spring Chinook salmon run in the Columbia River. These advancements have shown that relationships between migration timing and environmental variables exist and may have utility for use in forecasting efforts.
+
+The Kuskokwim River, located in western Alaska, is the second largest river system in the state and supports culturally and economically important Chinook salmon fisheries. Chinook salmon return beginning in late May and continue through early August, with the median date of passage occurring between June $14^{\text{th}}$ and July $2^{\text{nd}}$. Fisheries within the region harvest salmon in-river during freshwater migrations using primarily drift gillnet gear. The Kuskokwim River salmon fishery has a distinct cultural importance: nearly all inhabitants are native Alaskans belonging to the Yup’ik group and take salmon for subsistence purposes (Linderman and Bergstrom, 2009). While commercial salmon fisheries operate within the river, these fishers often also participate in subsistence take and revenues from the sale of commercially-harvested salmon often contribute directly to participation in subsistence activities (Wolfe and Spaeder, 2009). To ensure long-term sustainable harvest, the Chinook salmon fishery is managed with a drainage-wide escapement goal derived from an age-structured state-space spawner-recruit analysis (Hamazaki et al., 2012; Staton et al., 2017). To meet these pre-determined escapement goals, in-season management strategies implement time, gear, and area closures based on limited and imprecise information regarding annual run size. The distant locations of the majority of escapement assessment projects makes direct measurement of escapement performance unavailable until late in the season. Thus, the primary sources of run size assessment information are (1) a pre-season run size forecast range (obtained as the previous year’s run size estimate $\pm \sim 20\%$) and (2) an in-river drift gillnet test fishery operated in Bethel, AK which has been implemented using consistent methods since 1984. The interpretation of this test fishery index suffers from the same issue of being confounded by run timing described earlier, making management decisions difficult. Without precise in-season indicators of run size, managers must often choose to either trust a pre-season run size forecast for the majority of the season or somehow place weights on the various run timing hypotheses when interpreting in-season data. Both options could lead to the wrong interpretation of the actual run size, which could have serious consequences for the management of the fishery in a given year (i.e., the unwarranted opening or closing the fishery resulting in severe under- or over-escapement). No published run timing forecast models currently exist for Kuskokwim River Chinook salmon but given the potential utility of independent run timing estimates for interpretation of in-season data, the development and evaluation of such a model is needed. The necessity of more accurate and precise in-season perceptions of run size is particularly evident in years with anticipated low runs, such as in recent years (i.e., since 2010), as this may allow managers to more effectively guard against over-exploitation while still allowing for limited harvest opportunities to support the cultural and subsistence needs of the region. 
+
+In this chapter, I present an analysis that develops and evaluates the performance of a run timing forecast model for Kuskokwim River Chinook salmon. The objectives were to
+
+1.  quantify historical run timing, 
+2.  develop a run timing forecast model using environmental variables selected based on out-of-sample predictive performance
+3.  assess the utility of the forecasting model for improving predictions of end-of-season test fishery indices of run size,
+4.  determine if there is a relationship between run size and run timing for the Kuskokwim River Chinook salmon stock.
 
 ## Methods
 
@@ -122,10 +145,11 @@ where $\text{SE}_g$ is the prediction SE from grid cell $g$ calculated using equ
 Given 16 forecast models, it is impossible to know which will perform the best at forecasting for the current year. Thus, three methods to obtain a forecast for $D_{50}$ were evaluated: (1) the null (i.e., intercept only) model, (2) the single model with the lowest forecast cross-validation score as of the last year, and (3) model-averaging across the ensemble of 16 forecast models based on AIC~c~ scores. According to Burnham and Anderson (2002), model-averaging should perform better than a single “best model” at prediction when there is a high degree of uncertainty about which model is best. This procedure was performed using equations \@ref(eq:aicc) - \@ref(eq:mod-avg-se), by substituting the prediction, prediction SE, and $K$ for forecast model $i$, in place of grid $g$. Prediction intervals based on model-averaged predictions and prediction SE present somewhat of a problem when the different models contributing to the average contain differing degrees of freedom as it is unclear how many standard errors the prediction limits should lie from the mean prediction. Thus, the estimator suggested by Burnham and Anderson (2002) of the “adjusted SE” (ASE) was used:
 
 \begin{equation}
-  ASE=\sum_i^{16} w_i \sqrt{\left(\frac{t_{df_i,1-\alpha/2}}{z_{1-\alpha/2}}\right)^2} \text{SE}_i^2+(\hat{y}_{i,t+1}-\hat{y}_{t+1})^2,
+  ASE=\sum_i^{16} w_i \sqrt{\left(\frac{t_{df_i,1-\alpha/2}}{z_{1-\alpha/2}}\right)^2 \text{SE}_i^2+(\hat{y}_{i,t+1}-\hat{y}_{t+1})^2},
 (\#eq:ase)
 \end{equation}
 
+\noindent
 where $t_{df,i,1-\alpha/2}$ is the $1-\alpha/2$ quantile of the $t$ distribution with degrees of freedom equal to that of model $i$ and $z_{1-\alpha/2}$ is the corresponding quantile of the $z$ (i.e., standard normal) distribution. The level $\alpha = 0.05$ was used in all cases.
 
 ### Retrospective forecast analysis
@@ -141,6 +165,7 @@ It is important to remember that the purpose of producing a run timing forecast 
 (\#eq:eos)
 \end{equation}
 
+\noindent
 where $\text{CCPUE}_{d,t}$ is the cumulative CPUE caught at the BTF through day $d$ in forecasting year $t$, $\hat{p}_{d,t,i}$ is the predicted cumulative proportion of the run that had passed the BTF location on day $d$ in year $t$ from model $i$ (i.e., model-averaged _versus_ null forecast model) obtained by inserting the forecasted value of $D_{50}$ into the logistic equation \@ref(eq:logistic). Uncertainty in the run timing forecast model was propagated to $\text{EOS}_{d,t,i}$ using the delta method (Bolker, 2008). As the parameter $h$ is also unknown in-season, the mean of all historical $h_t$ was used as the point estimate, and the variance and correlation with $D_{50,t}$ was included in the covariance matrix supplied to the delta method. Accuracy was assessed using proportional bias $(\widehat{\text{EOS}}_{d,t,i} - \text{EOS}_t)/\text{EOS}_t$ and precision was assessed using the SE of $\widehat{\text{EOS}}_{d,t,i}$. Both accuracy and precision measures were compared between the null and the model-averaged forecast model on 15 June, 30 June, 15 July, and 30 July each year a forecast was available (1995 - 2016). Using the null model to obtain $\hat{p}_d$ is essentially what would be done in the absence of an environmental forecast variable model for $D_{50}$.
 
 ### Investigation of a run timing versus run size relationship
@@ -153,17 +178,40 @@ To test the hypothesis that run timing is related to run size (e.g., small runs 
 
 ### Estimates of run timing
 
-The logistic curve fit the daily cumulative CPUE proportions well in all years of the BTF data set (Table 1), as indicated by an average residual standard error estimate of 0.022, with a maximum estimate of 0.038 in 1992. The majority (95%) of all residuals from all years fell between -0.056 and 0.044. Parameter estimates were quite precise, with $D_50$ having a smaller average coefficient of variation (CV) than h, (0.07% and 2.09%, respectively). Given this small degree of parameter uncertainty, it was ignored throughout the rest of the analysis.
+The logistic curve fit the daily cumulative CPUE proportions well in all years of the BTF data set (Table \@ref(tab:rt-ests-table)), as indicated by an average residual standard error estimate of 0.022, with a maximum estimate of 0.038 in 1992. The majority (95%) of all residuals from all years fell between -0.056 and 0.044. Parameter estimates were quite precise, with $D_50$ having a smaller average coefficient of variation (CV) than h, (0.07% and 2.09%, respectively). Given this small degree of parameter uncertainty, it was ignored throughout the rest of the analysis.
 
 ### Variable-specific relationships
 
-Looking at each of the environmental variables in isolation of all others, it is clear that there is a distinct relationship between temperature-related environmental variables and Kuskokwim River Chinook salmon migration timing (Figure 2). For illustration purposes, the figures for the two gridded variables (SST and SIC) were produced by taking an average across all grid cells weighted by the AIC weight for each grid cell. Air temperature, PDO, and SST all had negative relationships with D50, whereas SIC had a positive relationship (Table 2).
+Looking at each of the environmental variables in isolation of all others, it is clear that there is a distinct relationship between temperature-related environmental variables and Kuskokwim River Chinook salmon migration timing (\@ref(fig:relationships)). For illustration purposes, the figures for the two gridded variables (SST and SIC) were produced by taking an average across all grid cells weighted by the AIC~c~ weight for each grid cell. Air temperature, PDO, and SST all had negative relationships with $D_{50}$, whereas SIC had a positive relationship (\@ref(tab:coefs-table)).
 
 ## Discussion
 
-\newpage
+\begin{singlespace}
 
-```{r rt-ests-table, echo = F, message = F, warning = F}
+```{r rt-ests-table}
+
+year = seq(1984, 2016, 1)
+d50 = round(rnorm(length(year), 173, 3.5), 2)
+h = round(runif(length(year), 0.01, 0.1), 2)
+
+tab = data.frame(
+  year = year,
+  d50 = d50,
+  h = h
+)
+
+colnames(tab) = c("Year", "$D_{50,t}$", "$h_t$")
+
+kable(tab, "latex", booktabs = T, longtable = F, escape = F, caption = "Parameter estimates (mean with standard error in parentheses) from logistic curves from Equation \\ref{eq:logistic} fitted to all years. $D_{50,t}$ is expressed as the day-of-the-year, for reference, day 174 is June $22^{\\text{nd}}$ in a leap year and June $21^{\\text{st}}$ in a non-leap year.") %>%
+  kable_styling(latex_options = c("repeat_header"))
+
+```
+
+\end{singlespace}
+
+\pagebreak
+
+```{r coefs-table}
 tab = data.frame(
   Variable = c("AIR", "PDO", "SST", "SIC"),
   Intercept = c(170, 174, 179, 169),
@@ -187,28 +235,65 @@ knitr::kable(tab, "latex", booktabs = T, escape = F,
   column_spec(column = 1, bold = T)
 ```
 
-\newpage
+\pagebreak
 
 \begin{figure}
+  \centering
   \includegraphics{img/Ch2/map.png}
   \caption{Map of Kuskokwim Bay where Chinook salmon likely stage for transition to freshwater. Shows grid cells from which daily SST values were used. Daily SIC values came from the same grid cells, though excluding grid cell 45 below due to missing values.}
-  \label{fig:ch2-map2}
+  \label{fig:ch2-map}
 \end{figure}
 
 \pagebreak
 
 \begin{figure}
+  \centering
   \includegraphics{img/Ch2/relationships.png}
-  \caption{My Caption.}
+  \caption{Relationships between the four single environmental variables and run timing $\left(D_{50}\right)$ using data from optimal climate windows when 2016 was added to the training data. For illustration purposes only, gridded variables SST and SIC were combined by weighted averaging where the weight of each grid cell was assigned the $\text{AIC}_{\text{c}}$ weight of that grid cell when grid cell-specific models were fit. Grey bands are 95$\%$ confidence intervals on the least squares line.}
   \label{fig:relationships}
 \end{figure}
 
-\newpage
+\pagebreak
 
 \begin{figure}
+  \centering
+  \includegraphics{img/Ch2/window-changes.png}
+  \caption{Changes in selected climate windows as training data were added in the retrospective forecasting analysis. Bottom and top lines show the first and last day of the selected climate window, respectively, as more years were added. The year axis corresponds to the selected window after including environmental and run timing data from that year in the training data. E.g., the windows shown for 2015 were used to produce the forecast for 2016. Panel (a) is Bethel air temperature, panels b1-b4 are SST windows for four sample grid cells and panels c1-c4 are SIC windows for the same four sample grid cells. Sample grid cells from Figure \ref{fig:ch2-map} shown for SST and SIC are as follows: grid cell 8 (b1, c1), grid cell 44 (b2, c2), grid cell 12 (b3, c3), and grid cell 48 (b4, c4). Selected windows for PDO are not shown because the single month of May was selected in all years.}
+  \label{fig:window-changes}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch2/forecasts.png}
+  \caption{Produced forecasts under the three approaches. Black points/lines are the time series of $D_{50}$ detected by the BTF. Grey points are out-of-sample forecasts with 95$\%$ prediction intervals shown as error bars. $\overline{\text{AE}}$ and $\widetilde{\text{AE}}$ are the mean and median absolute forecast errors from 1995 to 2016, respectively.}
+  \label{fig:forecasts}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch2/ae-changes.png}
+  \caption{Evolution of $\overline{\text{AE}}$ (mean) and  $\overline{\text{AE}}$ (median) absolute forecast error under the three investigated forecasting approaches. Each point is the average of absolute errors of all years before and including the corresponding year on the x-axis, starting in 1995.}
+  \label{fig:ae-changes}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+  \centering
   \includegraphics{img/Ch2/mae-subsets.png}
-  \caption{My OTHER Caption}
+  \caption{$\overline{\text{AE}}$ under three forecast approaches calculated by either (a) including years with a $D_{50}$ value within $\pm x$  days of the all-year average or (b) including years with a $D_{50}$ value outside $\pm x$ days of average, where $x$ is the number of days indicated on the $x$-axis. Bottom panels show the number of observed years in which the appropriate $\pm x$ days criterion was met. Shaded regions in the hypothetical distributions show the types of $D_{50}$ values that were included in the calculation of $\overline{\text{AE}}$. One point that may enrich inference from this figure (and is shown in the shaded normal distributions) is that panel (a) becomes more inclusive from left to right by adding years that are more dissimilar to the average in the calculation of $\overline{\text{AE}}$ whereas panel (b) becomes more exclusive from left to right by removing years that are similar to the average.}
   \label{fig:mae-subsets}
 \end{figure}
 
-\newpage
+\pagebreak
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch2/eos-preds.png}
+  \caption{In-season predictions of end of season cumulative BTF CPUE under the model-averaged forecast using environmental variables and the forecast under the null model in 2013 and 2014. Intended to illustrate cases in which a manager would benefit from having access to the model-averaged run timing forecast model using environmental variables (2014) and when the null model would have performed better (2013). Horizontal lines are the true end of season cumulative BTF CPUE, dark grey regions are 50$\%$ confidence intervals, and light grey regions are 95$\%$ confidence intervals. Grey vertical lines indicate the period when key harvest decisions are made.}
+  \label{fig:eos-preds}
+\end{figure}
