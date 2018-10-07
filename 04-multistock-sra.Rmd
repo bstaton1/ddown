@@ -1,17 +1,21 @@
-# Multi-stock Spawner Recruit Analyses {#ch4}
+# Simulation-based Evaluation of Assessment Approaches for Mixed-stock Pacific Salmon Fisheries {#ch4}
 
 ## Introduction
 
-Here's chapter 4. It's about the multi-stock SRA estimation problem.
+Here's chapter 4. It's about different ways to estimate the biological reference points for a salmon system made up of multiple substocks with heterogeneity in size and productivity.
 
 ## Methods
 
-We did some stuff.
+I did some stuff.
 
 ## Results
 
-We found some stuff
-
-### Subsection of results
+I found some stuff.
 
 ## Discussion
+
+Here's what it means.
+
+_Insert Tables_
+
+_Insert Figures_

@@ -26,7 +26,7 @@ This appendix contains the necessary code to perform two of the main parts of th
 
 #### Source Code {-}
 
-```{r, eval = F, echo = T}
+```{r, eval = T, echo = T, highlight=F}
 forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores = T) {  
   # total number of observed pairs
   n = length(x)
@@ -78,3 +78,8 @@ forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores =
 ```
 
 ## Sliding Climate-Window {-}
+
+<!--  \setlength{\hangindent}{0.7cm} -->
+<!--  \hangindent=2em -->
+<!--  \hangafter=1 -->
+\setlength{\parskip}{6pt plus 2pt minus 1pt}

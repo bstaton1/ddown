@@ -17,6 +17,7 @@ Annual variation in adult salmon migration timing makes the interpretation of in
 
 ## Introduction
 
+\noindent
 In-season management strategies for Pacific salmon (_Oncorhynchus_ spp.) fisheries rely heavily on indices of in-river abundance (e.g., test fisheries, sonar counts, etc.) to inform harvest control rules that attempt to attain the balance of meeting pre-determined escapement objectives while allowing adequate opportunity for harvest [@catalano-jones-2014]. However, because indices of abundance are confounded by the phenology (i.e., timing) of the migration, their interpretation is very difficult in-season. For example, smaller-than-average index values early in the season could be due to either a small run with average timing or by a late large run, when interpreted in the context of historical years [@adkison-cunningham-2015]. This ultimately leads to great uncertainty about how much of the incoming run has passed, which is a key piece of information that dictates fishery harvest opportunities. There exists no information in the current year’s abundance index to inform the manager if (for example) 25% or 75% of the run has passed on any given day. Yet, depending which is true, the optimal management decision could be vastly different. Thus, in-season assessment typically involves some characterization of the variation in historical run timing to formulate a range of possible run size scenarios that could be representative of the current year’s run size. However, given the amount of variation in historical run timing, these scenarios are rarely informative during the majority of the migration, when key harvest decisions are being made because the run scenarios may span all possible run sizes. As a result, the pre-season run size forecast remains the most precise piece of information for much of the season. If it were possible to predict the timing of the incoming run (e.g., earlier- or later-than-average) with some level of confidence, it could prove valuable for in-season assessment and decision-making by reducing uncertainty in run size predictions.
 
 While previous research has uncovered several key physiological mechanisms that are involved with natal homing [@hasler-scholz-1983] and return migrations of adult salmon to freshwater environments [@cooperman-etal-2010;  @cooke-etal-2008; @hinch-etal-2012], the exact physiological and behavioral responses of adult salmon to relatively small-scale environmental gradients within estuaries, which are likely the ultimate determinants of freshwater entry timing, are still poorly understood. Despite this uncertainty, several hypotheses have been put forth that are broadly consistent with the observed timing patterns of several species across a large geographic area (i.e., western and southwestern Alaska). Two primary influences have been suggested: genetic [@quinn-etal-2000; @anderson-beer-2009; @omalley-etal-2010] and environmental [@hodgson-etal-2006; @keefer-etal-2008] mechanisms. Substantial evidence exists to suggest that both genetic and environmental controls are involved in determining migration timing, however it is broadly thought that genetic variation influences sub-stock variation (i.e., different tributary spawning groups within the same major river basin) and environmental variation influences the timing of the aggregate (i.e., basin-wide) run [@keefer-etal-2008; @anderson-beer-2009]. This is consistent with the notion that genetically distinct components of the aggregate run behave differently as a result of their life history strategies and/or the characteristics of their specific spawning grounds [e.g., sub-stocks that must travel farther in-river to reach spawning grounds enter freshwater earlier; @clark-etal-2015; sub-stocks that spawn in tributaries influenced by warmer lakes enable later spawning; @burger-etal-1985] but that certain environmental conditions act on the aggregate run to either hasten or delay freshwater entry. It has also been suggested that run size may have an influence on migration timing, although empirical support for this claim seems to be lacking. If there were indeed relationships between run timing and run size, these need to be quantified as certain combinations are particularly troublesome for managers [e.g., small/early runs and large/late runs appear the same early in-season; @adkison-cunningham-2015].
@@ -45,6 +46,7 @@ In this chapter, I present an analysis that develops and evaluates the performan
 
 ### Estimates of migration timing
 
+\noindent
 In this analysis, the forecasted quantity that represented migration timing was the day at which 50% of the run passed an index location (hereafter, $D_{50}$). To inform this quantity for each year in the analysis, we used daily catch-per-unit-effort (CPUE) data from the Bethel Test Fishery (BTF) operated by the Alaska Department of Fish and Game (ADFG), which spans 1984 – 2016. The raw data were daily CPUE beginning on 1 June and ending 24 August each year. The cumulative sum of these daily CPUE values within a year follows a sigmoidal pattern reflecting the shape of the incoming salmon run which is characterized by relatively few early migrants, a peak where the majority of the fish are running, and relatively few late migrants. To estimate the median day of passage as a continuous variable, a logistic model was fitted to the cumulative proportion of daily CPUE of the form:
 
 \begin{equation}
@@ -56,33 +58,36 @@ where $p_{d,t}$ is the predicted cumulative proportion on Julian day $d$ in cale
 
 ### Environmental variables
 
+\noindent
 Environmental variables to be assessed for forecasting performance were chosen based on:
 
 1.  previously established association with salmon run timing,
 2.  availability for the Kuskokwim River during the years for which BTF index observations exist (1984 – 2016), and
 3.  availability for use in a pre-season forecast model (i.e., available no later than June 10th in the year for which the forecasted value would be used).
 
-
-
 Based on these criteria, four environmental variables were chosen for analysis: SST, percent sea ice cover (SIC), PDO, and land-based air temperature taken in Bethel, AK.
 
 #### PDO data
 
+\noindent
 Data collected for the PDO variable came from one of several indices produced by the National Oceanic and Atmospheric Administration (NOAA) (Mantua et al., 1997; http://research.jisao.washington.edu/pdo/PDO.latest.txt). The index is produced by taking the first principal component of monthly SST anomalies in the northern Pacific Ocean, after removing any global trends due to any systematic change over time (Mantua et al., 1997). Thus, for each year of the data set, a single monthly value was available for PDO. In the selection of relevant time periods (Section 2.3), we considered monthly PDO values from January to June of each year, as previous studies have found PDO values prior to the initiation of the run have predictive value for Chinook salmon populations (Beer, 2007; Keefer et al., 2008).
 
 #### Bethel air temperature data
 
+\noindent
 Air temperature data for Bethel, AK were accessed from the Alaska Climate Research Center (http://akclimate.org/acis_data). These data were available as daily means for each day of each year in the 1984 – 2016 data set. Daily air temperature values from the start of January to mid-June of each year were considered in the selection procedures.
 
 #### SST and SIC
 
+\noindent
 SST and SIC data were accessed from the NOAA Optimum Interpolation SST V2 High Resolution Dataset (Reynolds et al., 2007; http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html). These data were available as daily means for any 0.25° by 0.25° latitude by longitude grid cell on the globe. To limit the search, only grid cells within Kuskokwim Bay were selected for analysis (Figure 1) as that is the area that Chinook salmon bound for the Kuskokwim River likely aggregate prior to riverine entry. The area with grid cells ranged from 58.5° N to 60° N by 164.25° W to 162° W, which resulted in a total of 54 0.25° latitude by 0.25° longitude grid cells. For SST, four grid cells fell partially over land (resulting in 50 grid cells with daily data) and for SIC, five grid cells were partially over land (49 grid cells with daily data). “Empty” grid cells were excluded and the remaining grid cells were used for prediction. Previous analyses have used a simple average over a wide spatial area (e.g., Mundy and Evenson, 2011) to create a single value for SST or SIC each year. However, this is somewhat arbitrary and does not account for the possibility of certain areas having stronger timing signals than others or that these areas with stronger signals may change over time. Thus, the gridded spatial structure of these variables was retained and the treatment of this structure in the forecast analysis is discussed below in Section \@ref(rtf-models). Because of the time-intensive nature of the selection procedure described in Section \@ref(clim-windows), considered time periods for gridded variables were shortened based on preliminary correlation analyses showing excluded times had little or no correlation with $D_{50}$. Daily means for SST from mid-April to mid-June and SIC from mid-February to mid-May in each year were considered in the predictive variable selection techniques.
 
 ### Selection of predictive time periods {#clim-windows}
 
+\noindent
 Climatic variables are frequently associated with biological quantities for the purpose of prediction, however, oftentimes the average over an arbitrary time period, such as daily values in the month of February, is used based on a priori assumptions of the behavior of important factors (van de Pol et al., 2016). While this approach is simple to implement and explain, it is possible that a better time window (i.e., reliably more accurate) exists but is not considered. Furthermore, the importance of various time windows may change over time and the arbitrary selection of a single window does not allow for such changes to be detected. To avoid these issues, a rigorous temporal selection process, known as the sliding window algorithm (van de Pol et al., 2016), was implemented to determine the best predictive time period for each variable considered in the forecast model. To find the most reliable temporal window for prediction, this method evaluates all possible windows (subject to certain restrictions) over which to average for use in the forecast model. As input constraints, the sliding window algorithm used in this analysis required: (1) the start date of the first window to be evaluated, (2) the end date of the last window to be evaluated, and (3) the minimum window size of a candidate window. It then proceeded to evaluate all possible combinations of window averages (using only consecutive days). For example, if the start date of the first possible window was set to 1 May, the minimum window size was set to five days, and the end date of the last possible window was set to 30 May, the window algorithm would start by averaging the daily values between 1 May and 5 May for each year separately and would evaluate the predictive performance of that variable using forecast cross-validation (described below). Next, the algorithm would begin to increase the window size by one day on each iteration, averaging daily values and evaluating the predictive performance for 1 May to 6 May, then 1 May to 7 May, and so on, until it reached the largest window starting with 1 May (which would be 1 May to 30 May). Following completion of all windows starting with 1 May, the algorithm would proceed to evaluate all possible windows starting with 2 May, then 3 May, and so on, until it reached windows starting with 26 May. At this point, there would only be one window to be evaluated, since the minimum number of days to include in a candidate window was set at five days. In the analysis, five days was used as the minimum window size for all variables except PDO (which had monthly values), in which case the minimum window size was set such that a single month could constitute a window. Example R code for how the sliding window algorithm was implemented is provided in Appendix A.
 
-All windows were evaluated using a time series forecast cross-validation procedure, which is an out-of-sample technique for data that are collected through time (Arlot and Celisse, 2010). The procedure operated by producing a forecasted value of $D_{50}$ for year $t+1$ trained based on all data available from years $1,..., t$. It then continued for all $t = m, ..., n-1$, where $m$ is the minimum number of years necessary to fit the model (set at $m = 10$ in all cases) and $n$ is the number of years of available data. Then, absolute forecast error in $D_{50}$ was calculated based on all forecasted years as $|y_{t+1} - \hat{y}_{t+1}|$, and yearly forecast errors were averaged to obtain mean absolute error ($\overline{AE}$) which was used as the measure of model performance in window selection. The window with the lowest ($\overline{AE}$) was selected as the optimal window to average over for prediction. The forecasting cross-validation procedure was used as opposed to other out-of-sample validation procedures, such as $k$-fold or leave-one-out methods, because the data were collected through time and it does not make sense for the model to need to predict (for example) year 2010 from years 1984 – 2009 and 2011 – 2016, but rather it would always need to predict year $t+1$ from all previously-collected data. Example R code for how the forecast cross-validation was conducted is provided in Appendix A.
+All windows were evaluated using a time series forecast cross-validation procedure, which is an out-of-sample technique for data that are collected through time (Arlot and Celisse, 2010). The procedure operated by producing a forecasted value of $D_{50}$ for year $t+1$ trained based on all data available from years $1,..., t$. It then continued for all $t = m, ..., n-1$, where $m$ is the minimum number of years necessary to fit the model (set at $m = 10$ in all cases) and $n$ is the number of years of available data. Then, absolute forecast error in $D_{50}$ was calculated based on all forecasted years as $|y_{t+1} - \hat{y}_{t+1}|$, and yearly forecast errors were averaged to obtain mean absolute error ($\overline{\text{AE}}$) which was used as the measure of model performance in window selection. The window with the lowest ($\overline{\text{AE}}$) was selected as the optimal window to average over for prediction. The forecasting cross-validation procedure was used as opposed to other out-of-sample validation procedures, such as $k$-fold or leave-one-out methods, because the data were collected through time and it does not make sense for the model to need to predict (for example) year 2010 from years 1984 – 2009 and 2011 – 2016, but rather it would always need to predict year $t+1$ from all previously-collected data. Example R code for how the forecast cross-validation was conducted is provided in Appendix [A](#appendix-a).
 
 Although a recent R package has been released to conduct sliding climate window analyses (“climwin”; Bailey and van de Pol, 2015), the package can currently only assess candidate windows using Akiake’s Information Criterion (AIC) or $k$-fold cross-validation. Because the more specialized forecasting cross-validation technique was required for this analysis, custom R code was written to select the optimal window for each variable (Appendix A).
 
@@ -90,6 +95,7 @@ When forecasting $D_{50,t+1}$ from training data from $1,..., t$, a single optim
 
 ### Evaluated forecast models {#rtf-models}
 
+\noindent
 Linear regression was used to assess the forecast performance of each of the variables described above, both in isolation of and in combination with other variables. All possible subsets were evaluated (excluding interactive effects) for predictive ability through time, resulting in a total of 16 models ranging from the null (i.e., intercept only) model to the full (i.e., global) model (all four variables as additive predictors). 
 
 For the spatially explicit variables (i.e., SST and SIC), a more complex treatment was required to prevent all grid cell values from being used as predictors in a single model. To handle the spatial structure, grid cell-specific regression models were fitted, then model-averaging based on AIC was used to obtain a single forecast $D_{50}$ for each year (Burnham and Anderson, 2002). Under this approach, each grid cell $g$ received an AIC~c~ score:
@@ -99,6 +105,7 @@ For the spatially explicit variables (i.e., SST and SIC), a more complex treatme
   (\#eq:aicc)
 \end{equation}
 
+\noindent
 where $n$ is the number of data points used in each model, $\hat{\sigma}_g$  is the estimate of the residual standard deviation under grid $g$, and $K$ is the number of model parameters. The corrected version of AIC (AIC~c~) is recommended in cases where the ratio of $n$ to $K$ is small (Burnham and Anderson, 2002). Then, each grid cell received a $\Delta\text{AIC}_\text{c}$ score, representing its relative performance in comparison to the best grid cell:
 
 \begin{equation}
@@ -106,6 +113,7 @@ where $n$ is the number of data points used in each model, $\hat{\sigma}_g$  is 
   (\#eq:delta-aicc)
 \end{equation}
 
+\noindent
 where $\text{AIC}_{\text{c},min}$ is the minimum AIC~c~ across all grid cells. Model weights were then calculated as:
 
 \begin{equation}
@@ -113,6 +121,7 @@ where $\text{AIC}_{\text{c},min}$ is the minimum AIC~c~ across all grid cells. M
 (\#eq:aicc-weights)
 \end{equation}
 
+\noindent
 where $G$ is the number of grid cells. Grid cell-averaged predictions were then obtained as:
 
 \begin{equation}
@@ -120,28 +129,33 @@ where $G$ is the number of grid cells. Grid cell-averaged predictions were then 
 (\#eq:grid-avg-fcst)
 \end{equation}
 
+\noindent
 where $\hat{y}_{g,t+1}$ is the forecasted value of $D_{50}$ for grid cell $g$.
 
 ### Forecast uncertainty
 
+\noindent
 In addition to forecast accuracy, forecast precision is also of great importance. For models that did not require AIC~c~ model-averaging across grid cells, the following equation was used to produce a forecast standard error (SE):
 
 \begin{equation}
-  \text{SE}=\hat{\sigma} \sqrt{1 + \frac{1}{n} + \frac{(x-\bar{x})^2}{\sum_i^n(x_i-\bar{x})^2}}
+  \text{SE}=\hat{\sigma} \sqrt{1 + \frac{1}{n} + \frac{(x-\bar{x})^2}{\sum_i^n(x_i-\bar{x})^2}},
 (\#eq:se)
 \end{equation}
 
+\noindent
 where $n$ is the number of years the model was fitted to, $x$ is the value of the predictor variable used for forecasting, and $\bar{x}$ is the mean of all predictor values excluding the new value used for forecasting. For models that used AIC~c~ model-averaging (i.e., those including SST and SIC), the following equation was used to produce prediction SE:
 
 \begin{equation}
-  \text{SE}=\sum_g^G w_g \sqrt{\text{SE}_g^2+(\hat{y}_{g,t+1}-\hat{y}_{t+1})^2}
+  \text{SE}=\sum_g^G w_g \sqrt{\text{SE}_g^2+(\hat{y}_{g,t+1}-\hat{y}_{t+1})^2},
 (\#eq:mod-avg-se)
 \end{equation}
 
+\noindent
 where $\text{SE}_g$ is the prediction SE from grid cell $g$ calculated using equation \@ref(eq:se). This estimator of unconditional sampling standard error accounts for uncertainty within each model and the uncertainty due to model selection (Burnham and Anderson, 2002). Prediction intervals were calculated using the point estimate of prediction, the prediction SE, and appropriate quantiles from the corresponding $t$ distribution. 
 
 ### Forecast model selection {#model-selection}
 
+\noindent
 Given 16 forecast models, it is impossible to know which will perform the best at forecasting for the current year. Thus, three methods to obtain a forecast for $D_{50}$ were evaluated: (1) the null (i.e., intercept only) model, (2) the single model with the lowest forecast cross-validation score as of the last year, and (3) model-averaging across the ensemble of 16 forecast models based on AIC~c~ scores. According to Burnham and Anderson (2002), model-averaging should perform better than a single “best model” at prediction when there is a high degree of uncertainty about which model is best. This procedure was performed using equations \@ref(eq:aicc) - \@ref(eq:mod-avg-se), by substituting the prediction, prediction SE, and $K$ for forecast model $i$, in place of grid $g$. Prediction intervals based on model-averaged predictions and prediction SE present somewhat of a problem when the different models contributing to the average contain differing degrees of freedom as it is unclear how many standard errors the prediction limits should lie from the mean prediction. Thus, the estimator suggested by Burnham and Anderson (2002) of the “adjusted SE” (ASE) was used:
 
 \begin{equation}
@@ -154,10 +168,12 @@ where $t_{df,i,1-\alpha/2}$ is the $1-\alpha/2$ quantile of the $t$ distribution
 
 ### Retrospective forecast analysis
 
+\noindent
 The analysis was conducted in a retrospective forecast framework starting in 1994. All data after 1994 were ignored, optimal windows were selected for each of the four variables (and all grids for SST and SIC), all 16 models were fitted, a $D_{50}$ forecast was made for 1995 using the three approaches described in Section \@ref(model-selection), and each was evaluated for predictive accuracy. This process was repeated annually until the present (i.e., out-of-sample predictions made for 1995 – 2016), which allowed for the calculation of $\overline{\text{AE}}$ through time as if the forecast model would have been available beginning in spring 1995. In addition to $\overline{\text{AE}}$, median absolute error $\widetilde{\text{AE}}$) was calculated to validate prediction accuracy of estimates by ignoring the effect of outlying poor predictions.
 
 ### Value of forecast to run size assessments
 
+\noindent
 It is important to remember that the purpose of producing a run timing forecast is to aid in the interpretation of in-season indices of run size such as test fisheries. To evaluate the utility of having access to the run timing forecast model, the accuracy and precision of an imperfect abundance index for the Kuskokwim River were compared when informed using $D_{50}$ forecasts from the model-averaged and the null forecast models. The abundance index is denoted by EOS, and is the end-of-season cumulative CPUE observed in the BTF. In-season predictions of EOS were made for each year $t$, model $i$, and day $d$ in the season with: 
 
 \begin{equation}
@@ -178,10 +194,12 @@ To test the hypothesis that run timing is related to run size (e.g., small runs 
 
 ### Estimates of run timing
 
+\noindent
 The logistic curve fit the daily cumulative CPUE proportions well in all years of the BTF data set (Table \@ref(tab:rt-ests-table)), as indicated by an average residual standard error estimate of 0.022, with a maximum estimate of 0.038 in 1992. The majority (95%) of all residuals from all years fell between -0.056 and 0.044. Parameter estimates were quite precise, with $D_50$ having a smaller average coefficient of variation (CV) than h, (0.07% and 2.09%, respectively). Given this small degree of parameter uncertainty, it was ignored throughout the rest of the analysis.
 
 ### Variable-specific relationships
 
+\noindent
 Looking at each of the environmental variables in isolation of all others, it is clear that there is a distinct relationship between temperature-related environmental variables and Kuskokwim River Chinook salmon migration timing (\@ref(fig:relationships)). For illustration purposes, the figures for the two gridded variables (SST and SIC) were produced by taking an average across all grid cells weighted by the AIC~c~ weight for each grid cell. Air temperature, PDO, and SST all had negative relationships with $D_{50}$, whereas SIC had a positive relationship (\@ref(tab:coefs-table)).
 
 ## Discussion

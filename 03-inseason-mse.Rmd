@@ -1,4 +1,4 @@
-# Run Timing {#ch3}
+# Evaluation of Intra-Annual Harvest Control Rules via Closed-Loop Simulation {#ch3}
 
 ## Introduction
 
@@ -6,12 +6,16 @@ Here's chapter 3. It's about in-season simulation models for management strategy
 
 ## Methods
 
-We did some stuff
+I did some stuff.
 
 ## Results
 
-We found some stuff
-
-### Subsection of results
+I found some stuff.
 
 ## Discussion
+
+Here's what it means.
+
+_Insert Tables_
+
+_Insert Figures_

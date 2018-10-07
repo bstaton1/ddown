@@ -31,46 +31,6 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
 \bibliographystyle{apalike}
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -189,17 +149,17 @@ Fisheries}
 \keywords{Fisheries management, Bayesian inference, decision analysis}
 
 % Put the Thesis Adviser here. 
-\adviser{Adviser}
+\adviser{Matthew J. Catalano}
 
 % Put the committee here (including the adviser), one \professor for each. 
 % The advisor must be first, and the dean of the graduate school must be last.
-\professor{Professor1}
+\professor{Matthew J. Catalano, AFFILIATION}
 
-\professor{Professor2}
+\professor{Asheber Abebe, AFFILIATION}
 
-\professor{Professor3}
+\professor{Lewis G. Coggins, Jr., AFFILIATION}
 
-\professor{Professor4}
+\professor{Conor P. McGowan, AFFILIATION}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -237,13 +197,24 @@ Fisheries}
 \TitlePage 
 
 \doublespacing
+\setlength{\parskip}{0pt plus 0pt minus 0pt}
 
 \begin{abstract} 
-Abstract goes here.
+\noindent
+I'm going to write an abstract to go here. This is the first paragraph of the dissertation abstract, which will talk about chapter 1..
+
+This is the second paragraph of the dissertation abstract, which will talk broadly about chapter 2.
+
+This is the third paragraph of the dissertation abstract, which will talk broadly about chapter 3.
+
+This is the fourth paragraph of the dissertation abstract, which will talk broadly about chapter 4.
 \end{abstract}
 
 \begin{acknowledgments}
-This dissertation would not have been possible without the support of many people.
+\noindent
+Here is where I will thank everyone.
+
+Matt, Lew, Brendan, Mike, Sam, AL-HPC folks, Steve, Nick, Zach, Janessa. Family and Michelle. Folks at the lab. RStudio staff.
 \end{acknowledgments}
 
 \begin{singlespace}
@@ -262,6 +233,7 @@ This dissertation would not have been possible without the support of many peopl
 % \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 % \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 % \titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
 \setlength{\parskip}{0pt plus 0pt minus 0pt}
 
 \doublespacing
@@ -273,6 +245,7 @@ I used bookdown \citep{xie-2015} to make this document.
 
 \chapter{Introduction}\label{ch1}
 
+\noindent
 Pacific salmon (\emph{Oncorhynchus} spp.) constitute an integral natural
 resource in Alaska to subsistence, commercial, and recreational
 interests. There is a long history of resource development,
@@ -349,6 +322,7 @@ subsistence uses and other uses, and the sustained economic health of
 Alaska's fishing communities''.
 \end{quote}
 
+\noindent
 The policy goes on to say that managers should target ``\ldots{} to the
 extent possible, maximum sustained yield {[}MSY{]}''.
 
@@ -460,16 +434,16 @@ trade-off: to preserve stock diversity, some harvest must be foregone.
 Before the shape and magnitude of these types of
 ``harvest-biodiversity'' trade-offs are quantified, some understanding
 of the variation in substock productivity and carrying capacity is
-required. The multi-stock assessment framework developed in Chapter 3
-will be tailored to provide this information for these sorts of
-trade-off analyses and others that require similar information sources.
-Multi-stock assessments may assume one of several different model
-structures (e.g., by fitting separate models to the data from each stock
-or by fitting a single model to all data simultaneously). In some cases,
-one approach may be preferable over the other, and a primary objective
-of Chapter \ref{ch4} will be to evaluate the performance of a range of
-assessment strategies (in terms of accuracy and precision) across a
-range of biological and data quality conditions.
+required. The multi-stock assessment framework developed in Chapter
+\ref{ch4} will be tailored to provide this information for these sorts
+of trade-off analyses and others that require similar information
+sources. Multi-stock assessments may assume one of several different
+model structures (e.g., by fitting separate models to the data from each
+stock or by fitting a single model to all data simultaneously). In some
+cases, one approach may be preferable over the other, and a primary
+objective of Chapter \ref{ch4} will be to evaluate the performance of a
+range of assessment strategies (in terms of accuracy and precision)
+across a range of biological and data quality conditions.
 
 \newpage
 
@@ -536,6 +510,7 @@ precision of these assessments, particularly early in the season.
 
 \section{Introduction}\label{introduction}
 
+\noindent
 In-season management strategies for Pacific salmon (\emph{Oncorhynchus}
 spp.) fisheries rely heavily on indices of in-river abundance (e.g.,
 test fisheries, sonar counts, etc.) to inform harvest control rules that
@@ -741,6 +716,7 @@ salmon. The objectives were to
 \subsection{Estimates of migration
 timing}\label{estimates-of-migration-timing}
 
+\noindent
 In this analysis, the forecasted quantity that represented migration
 timing was the day at which 50\% of the run passed an index location
 (hereafter, \(D_{50}\)). To inform this quantity for each year in the
@@ -776,6 +752,7 @@ conditions or harvest on sampling was negligible).
 
 \subsection{Environmental variables}\label{environmental-variables}
 
+\noindent
 Environmental variables to be assessed for forecasting performance were
 chosen based on:
 
@@ -799,6 +776,7 @@ temperature taken in Bethel, AK.
 
 \subsubsection{PDO data}\label{pdo-data}
 
+\noindent
 Data collected for the PDO variable came from one of several indices
 produced by the National Oceanic and Atmospheric Administration (NOAA)
 (Mantua et al., 1997;
@@ -816,6 +794,7 @@ of the run have predictive value for Chinook salmon populations (Beer,
 \subsubsection{Bethel air temperature
 data}\label{bethel-air-temperature-data}
 
+\noindent
 Air temperature data for Bethel, AK were accessed from the Alaska
 Climate Research Center (\url{http://akclimate.org/acis_data}). These
 data were available as daily means for each day of each year in the 1984
@@ -824,6 +803,7 @@ to mid-June of each year were considered in the selection procedures.
 
 \subsubsection{SST and SIC}\label{sst-and-sic}
 
+\noindent
 SST and SIC data were accessed from the NOAA Optimum Interpolation SST
 V2 High Resolution Dataset (Reynolds et al., 2007;
 \url{http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html}).
@@ -855,6 +835,7 @@ predictive variable selection techniques.
 
 \subsection{Selection of predictive time periods}\label{clim-windows}
 
+\noindent
 Climatic variables are frequently associated with biological quantities
 for the purpose of prediction, however, oftentimes the average over an
 arbitrary time period, such as daily values in the month of February, is
@@ -906,17 +887,18 @@ necessary to fit the model (set at \(m = 10\) in all cases) and \(n\) is
 the number of years of available data. Then, absolute forecast error in
 \(D_{50}\) was calculated based on all forecasted years as
 \(|y_{t+1} - \hat{y}_{t+1}|\), and yearly forecast errors were averaged
-to obtain mean absolute error (\(\overline{AE}\)) which was used as the
-measure of model performance in window selection. The window with the
-lowest (\(\overline{AE}\)) was selected as the optimal window to average
-over for prediction. The forecasting cross-validation procedure was used
-as opposed to other out-of-sample validation procedures, such as
-\(k\)-fold or leave-one-out methods, because the data were collected
-through time and it does not make sense for the model to need to predict
-(for example) year 2010 from years 1984 -- 2009 and 2011 -- 2016, but
-rather it would always need to predict year \(t+1\) from all
-previously-collected data. Example R code for how the forecast
-cross-validation was conducted is provided in Appendix A.
+to obtain mean absolute error (\(\overline{\text{AE}}\)) which was used
+as the measure of model performance in window selection. The window with
+the lowest (\(\overline{\text{AE}}\)) was selected as the optimal window
+to average over for prediction. The forecasting cross-validation
+procedure was used as opposed to other out-of-sample validation
+procedures, such as \(k\)-fold or leave-one-out methods, because the
+data were collected through time and it does not make sense for the
+model to need to predict (for example) year 2010 from years 1984 -- 2009
+and 2011 -- 2016, but rather it would always need to predict year
+\(t+1\) from all previously-collected data. Example R code for how the
+forecast cross-validation was conducted is provided in Appendix
+\protect\hyperlink{appendix-a}{A}.
 
 Although a recent R package has been released to conduct sliding climate
 window analyses (``climwin''; Bailey and van de Pol, 2015), the package
@@ -946,6 +928,7 @@ the forecast analysis is discussed below in Section \ref{rtf-models}.
 
 \subsection{Evaluated forecast models}\label{rtf-models}
 
+\noindent
 Linear regression was used to assess the forecast performance of each of
 the variables described above, both in isolation of and in combination
 with other variables. All possible subsets were evaluated (excluding
@@ -967,6 +950,7 @@ received an AIC\textsubscript{c} score:
   \label{eq:aicc}
 \end{equation}
 
+\noindent
 where \(n\) is the number of data points used in each model,
 \(\hat{\sigma}_g\) is the estimate of the residual standard deviation
 under grid \(g\), and \(K\) is the number of model parameters. The
@@ -981,6 +965,7 @@ cell:
   \label{eq:delta-aicc}
 \end{equation}
 
+\noindent
 where \(\text{AIC}_{\text{c},min}\) is the minimum AIC\textsubscript{c}
 across all grid cells. Model weights were then calculated as:
 
@@ -989,6 +974,7 @@ across all grid cells. Model weights were then calculated as:
 \label{eq:aicc-weights}
 \end{equation}
 
+\noindent
 where \(G\) is the number of grid cells. Grid cell-averaged predictions
 were then obtained as:
 
@@ -997,21 +983,24 @@ were then obtained as:
 \label{eq:grid-avg-fcst}
 \end{equation}
 
+\noindent
 where \(\hat{y}_{g,t+1}\) is the forecasted value of \(D_{50}\) for grid
 cell \(g\).
 
 \subsection{Forecast uncertainty}\label{forecast-uncertainty}
 
+\noindent
 In addition to forecast accuracy, forecast precision is also of great
 importance. For models that did not require AIC\textsubscript{c}
 model-averaging across grid cells, the following equation was used to
 produce a forecast standard error (SE):
 
 \begin{equation}
-  \text{SE}=\hat{\sigma} \sqrt{1 + \frac{1}{n} + \frac{(x-\bar{x})^2}{\sum_i^n(x_i-\bar{x})^2}}
+  \text{SE}=\hat{\sigma} \sqrt{1 + \frac{1}{n} + \frac{(x-\bar{x})^2}{\sum_i^n(x_i-\bar{x})^2}},
 \label{eq:se}
 \end{equation}
 
+\noindent
 where \(n\) is the number of years the model was fitted to, \(x\) is the
 value of the predictor variable used for forecasting, and \(\bar{x}\) is
 the mean of all predictor values excluding the new value used for
@@ -1020,10 +1009,11 @@ forecasting. For models that used AIC\textsubscript{c} model-averaging
 produce prediction SE:
 
 \begin{equation}
-  \text{SE}=\sum_g^G w_g \sqrt{\text{SE}_g^2+(\hat{y}_{g,t+1}-\hat{y}_{t+1})^2}
+  \text{SE}=\sum_g^G w_g \sqrt{\text{SE}_g^2+(\hat{y}_{g,t+1}-\hat{y}_{t+1})^2},
 \label{eq:mod-avg-se}
 \end{equation}
 
+\noindent
 where \(\text{SE}_g\) is the prediction SE from grid cell \(g\)
 calculated using equation \eqref{eq:se}. This estimator of unconditional
 sampling standard error accounts for uncertainty within each model and
@@ -1034,6 +1024,7 @@ corresponding \(t\) distribution.
 
 \subsection{Forecast model selection}\label{model-selection}
 
+\noindent
 Given 16 forecast models, it is impossible to know which will perform
 the best at forecasting for the current year. Thus, three methods to
 obtain a forecast for \(D_{50}\) were evaluated: (1) the null (i.e.,
@@ -1068,6 +1059,7 @@ all cases.
 \subsection{Retrospective forecast
 analysis}\label{retrospective-forecast-analysis}
 
+\noindent
 The analysis was conducted in a retrospective forecast framework
 starting in 1994. All data after 1994 were ignored, optimal windows were
 selected for each of the four variables (and all grids for SST and SIC),
@@ -1086,6 +1078,7 @@ predictions.
 \subsection{Value of forecast to run size
 assessments}\label{value-of-forecast-to-run-size-assessments}
 
+\noindent
 It is important to remember that the purpose of producing a run timing
 forecast is to aid in the interpretation of in-season indices of run
 size such as test fisheries. To evaluate the utility of having access to
@@ -1143,6 +1136,7 @@ using \(\alpha = 0.05\).
 
 \subsection{Estimates of run timing}\label{estimates-of-run-timing}
 
+\noindent
 The logistic curve fit the daily cumulative CPUE proportions well in all
 years of the BTF data set (Table \ref{tab:rt-ests-table}), as indicated
 by an average residual standard error estimate of 0.022, with a maximum
@@ -1156,6 +1150,7 @@ analysis.
 \subsection{Variable-specific
 relationships}\label{variable-specific-relationships}
 
+\noindent
 Looking at each of the environmental variables in isolation of all
 others, it is clear that there is a distinct relationship between
 temperature-related environmental variables and Kuskokwim River Chinook
@@ -1178,45 +1173,45 @@ a positive relationship (\ref{tab:coefs-table}).
 \toprule
 Year & $D_{50,t}$ & $h_t$\\
 \midrule
-1984 & 176.45 & 0.06\\
-1985 & 172.86 & 0.02\\
-1986 & 171.12 & 0.01\\
-1987 & 179.18 & 0.06\\
-1988 & 170.85 & 0.07\\
+1984 & 173.82 & 0.03\\
+1985 & 169.36 & 0.05\\
+1986 & 170.95 & 0.10\\
+1987 & 169.48 & 0.10\\
+1988 & 176.09 & 0.10\\
 \addlinespace
-1989 & 177.46 & 0.02\\
-1990 & 174.08 & 0.02\\
-1991 & 171.36 & 0.02\\
-1992 & 179.39 & 0.10\\
-1993 & 167.02 & 0.08\\
+1989 & 172.45 & 0.07\\
+1990 & 172.25 & 0.04\\
+1991 & 168.38 & 0.02\\
+1992 & 167.03 & 0.08\\
+1993 & 176.37 & 0.10\\
 \addlinespace
-1994 & 171.64 & 0.08\\
-1995 & 169.77 & 0.02\\
-1996 & 173.29 & 0.04\\
-1997 & 171.26 & 0.03\\
-1998 & 174.93 & 0.02\\
+1994 & 176.16 & 0.09\\
+1995 & 169.34 & 0.04\\
+1996 & 179.07 & 0.08\\
+1997 & 173.85 & 0.05\\
+1998 & 170.47 & 0.08\\
 \addlinespace
-1999 & 171.74 & 0.09\\
-2000 & 174.71 & 0.02\\
-2001 & 169.61 & 0.03\\
-2002 & 171.30 & 0.08\\
-2003 & 179.36 & 0.09\\
+1999 & 171.65 & 0.05\\
+2000 & 173.92 & 0.07\\
+2001 & 170.33 & 0.09\\
+2002 & 165.83 & 0.01\\
+2003 & 172.19 & 0.05\\
 \addlinespace
-2004 & 173.79 & 0.07\\
-2005 & 173.69 & 0.08\\
-2006 & 172.16 & 0.06\\
-2007 & 178.50 & 0.07\\
-2008 & 165.60 & 0.02\\
+2004 & 173.82 & 0.09\\
+2005 & 167.87 & 0.02\\
+2006 & 170.95 & 0.04\\
+2007 & 179.05 & 0.02\\
+2008 & 171.57 & 0.09\\
 \addlinespace
-2009 & 176.42 & 0.05\\
-2010 & 176.56 & 0.03\\
-2011 & 173.19 & 0.03\\
-2012 & 173.76 & 0.08\\
-2013 & 172.08 & 0.05\\
+2009 & 175.41 & 0.07\\
+2010 & 168.54 & 0.01\\
+2011 & 170.55 & 0.07\\
+2012 & 170.43 & 0.06\\
+2013 & 173.46 & 0.04\\
 \addlinespace
-2014 & 169.57 & 0.04\\
-2015 & 176.87 & 0.09\\
-2016 & 173.29 & 0.06\\
+2014 & 171.71 & 0.07\\
+2015 & 171.41 & 0.07\\
+2016 & 173.80 & 0.08\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1304,7 +1299,8 @@ SIC & 169 & 12.15 & 4.36 & 0.36 & 19.05\\
   \label{fig:eos-preds}
 \end{figure}
 
-\chapter{Run Timing}\label{ch3}
+\chapter{Evaluation of Intra-Annual Harvest Control Rules via
+Closed-Loop Simulation}\label{ch3}
 
 \section{Introduction}\label{introduction-1}
 
@@ -1313,53 +1309,52 @@ strategy evaluations.
 
 \section{Methods}\label{methods-1}
 
-We did some stuff
+I did some stuff.
 
 \section{Results}\label{results-1}
 
-We found some stuff
-
-\subsection{Subsection of results}\label{subsection-of-results}
+I found some stuff.
 
 \section{Discussion}\label{discussion-1}
 
-\chapter{Multi-stock Spawner Recruit Analyses}\label{ch4}
+Here's what it means.
+
+\emph{Insert Tables}
+
+\emph{Insert Figures}
+
+\chapter{Simulation-based Evaluation of Assessment Approaches for
+Mixed-stock Pacific Salmon Fisheries}\label{ch4}
 
 \section{Introduction}\label{introduction-2}
 
-Here's chapter 4. It's about the multi-stock SRA estimation problem.
+Here's chapter 4. It's about different ways to estimate the biological
+reference points for a salmon system made up of multiple substocks with
+heterogeneity in size and productivity.
 
 \section{Methods}\label{methods-2}
 
-We did some stuff.
+I did some stuff.
 
 \section{Results}\label{results-2}
 
-We found some stuff
-
-\subsection{Subsection of results}\label{subsection-of-results-1}
+I found some stuff.
 
 \section{Discussion}\label{discussion-2}
 
-\chapter{Multi-stock Spawner Recruit Analyses}\label{ch4}
+Here's what it means.
 
-\section{Introduction}\label{introduction-3}
+\emph{Insert Tables}
 
-Here's chapter 4. It's about the multi-stock SRA estimation problem.
+\emph{Insert Figures}
 
-\section{Methods}\label{methods-3}
+\chapter{Conclusions}\label{ch5}
 
-We did some stuff.
+This chapter contains my thoughts on the topic of the dissertation. What
+was found, what will be useful to use in the future, what should be
+looked at in more detail?
 
-\section{Results}\label{results-3}
-
-We found some stuff
-
-\subsection{Subsection of results}\label{subsection-of-results-2}
-
-\section{Discussion}\label{discussion-3}
-
-\chapter*{Appendix A}\label{appendix-a}
+\hypertarget{appendix-a}{\chapter*{Appendix A}\label{appendix-a}}
 \addcontentsline{toc}{chapter}{Appendix A}
 
 \noindent
@@ -1408,60 +1403,60 @@ parts of the run timing forecast model approach in Chapter \ref{ch2}.
 \subsubsection*{Source Code}\label{source-code}
 \addcontentsline{toc}{subsubsection}{Source Code}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{forecast.CV =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y, start.ind, }\DataTypeTok{na.rm =}\NormalTok{ F, }\DataTypeTok{include.last.year.in.scores =}\NormalTok{ T) \{  }
-  \CommentTok{# total number of observed pairs}
-\NormalTok{  n =}\StringTok{ }\KeywordTok{length}\NormalTok{(x)}
-  \CommentTok{# validation end years}
-\NormalTok{  val.end =}\StringTok{ }\NormalTok{start.ind}\OperatorTok{:}\NormalTok{(n}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
-\NormalTok{  n.val =}\StringTok{ }\KeywordTok{length}\NormalTok{(val.end)}
-  \CommentTok{# containers}
-\NormalTok{  error =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
-\NormalTok{  abs.error =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
-\NormalTok{  pred.se =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
-  \CommentTok{# containers for training data}
-\NormalTok{  train.x =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{  train.y =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-  \CommentTok{# containers for validation data}
-\NormalTok{  val.x =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
-\NormalTok{  val.y =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
-\NormalTok{  pred.val.y =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(n.val)}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n.val) \{}
-    \CommentTok{# indices to train and validate over}
-\NormalTok{    train.ind =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{val.end[i]}
-\NormalTok{    val.ind =}\StringTok{ }\KeywordTok{max}\NormalTok{(train.ind) }\OperatorTok{+}\StringTok{ }\DecValTok{1}
-    \CommentTok{# store the training data}
-\NormalTok{    train.x[[i]] =}\StringTok{ }\NormalTok{x[train.ind]}
-\NormalTok{    train.y[[i]] =}\StringTok{ }\NormalTok{y[train.ind]}
-    \CommentTok{# store the validation data}
-\NormalTok{    val.x[i] =}\StringTok{ }\NormalTok{x[val.ind]}
-\NormalTok{    val.y[i] =}\StringTok{ }\NormalTok{y[val.ind]}
-    \CommentTok{# fit model to training data}
-\NormalTok{    temp.x =}\StringTok{ }\NormalTok{train.x[[i]]; temp.y =}\StringTok{ }\NormalTok{train.y[[i]]}
-\NormalTok{    fit =}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp.y }\OperatorTok{~}\StringTok{ }\NormalTok{temp.x)}
-\NormalTok{    sig =}\StringTok{ }\KeywordTok{summary}\NormalTok{(fit)}\OperatorTok{$}\NormalTok{sigma}
-    \CommentTok{# forecast}
-\NormalTok{    pred.val.y[i] =}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{temp.x =}\NormalTok{ val.x[i]))}
-    \CommentTok{# statistics}
-\NormalTok{    error[i] =}\StringTok{ }\NormalTok{val.y[i] }\OperatorTok{-}\StringTok{ }\NormalTok{pred.val.y[i]}
-\NormalTok{    abs.error[i] =}\StringTok{ }\KeywordTok{abs}\NormalTok{(error[i])}
-\NormalTok{  \}}
+\begin{verbatim}
+forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores = T) {  
+  # total number of observed pairs
+  n = length(x)
+  # validation end years
+  val.end = start.ind:(n-1)
+  n.val = length(val.end)
+  # containers
+  error = numeric(n.val)
+  abs.error = numeric(n.val)
+  pred.se = numeric(n.val)
+  # containers for training data
+  train.x = list()
+  train.y = list()
+  # containers for validation data
+  val.x = numeric(n.val)
+  val.y = numeric(n.val)
+  pred.val.y = numeric(n.val)
+  for (i in 1:n.val) {
+    # indices to train and validate over
+    train.ind = 1:val.end[i]
+    val.ind = max(train.ind) + 1
+    # store the training data
+    train.x[[i]] = x[train.ind]
+    train.y[[i]] = y[train.ind]
+    # store the validation data
+    val.x[i] = x[val.ind]
+    val.y[i] = y[val.ind]
+    # fit model to training data
+    temp.x = train.x[[i]]; temp.y = train.y[[i]]
+    fit = lm(temp.y ~ temp.x)
+    sig = summary(fit)$sigma
+    # forecast
+    pred.val.y[i] = predict(fit, newdata = data.frame(temp.x = val.x[i]))
+    # statistics
+    error[i] = val.y[i] - pred.val.y[i]
+    abs.error[i] = abs(error[i])
+  }
   
-  \ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\NormalTok{include.last.year.in.scores) \{}
-\NormalTok{    error[n.val] =}\StringTok{ }\OtherTok{NA}
-\NormalTok{    abs.error[n.val] =}\StringTok{ }\OtherTok{NA}
-\NormalTok{  \} }
+  if (!include.last.year.in.scores) {
+    error[n.val] = NA
+    abs.error[n.val] = NA
+  } 
   
-  \CommentTok{# return output}
-\NormalTok{  output =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{error =}\NormalTok{ error, }\DataTypeTok{abs.error =}\NormalTok{ abs.error, }\DataTypeTok{mae =} \KeywordTok{mean}\NormalTok{(abs.error, }\DataTypeTok{na.rm =}\NormalTok{ na.rm))}
-  \KeywordTok{return}\NormalTok{(output)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+  # return output
+  output = list(error = error, abs.error = abs.error, mae = mean(abs.error, na.rm = na.rm))
+  return(output)
+}
+\end{verbatim}
 
 \section*{Sliding Climate-Window}\label{sliding-climate-window}
 \addcontentsline{toc}{section}{Sliding Climate-Window}
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
 
 \bibliography{book.bib}
 
