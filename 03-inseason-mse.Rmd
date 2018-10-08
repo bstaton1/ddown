@@ -1,5 +1,16 @@
 # Evaluation of Intra-Annual Harvest Control Rules via Closed-Loop Simulation {#ch3}
 
+```{r echo = F, message = F, warning = F}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+rm(list = ls(all = T))
+knitr::opts_chunk$set(
+  fig.align = "center", warning = F, echo = F, message = F
+  )
+```
+
 ## Introduction
 
 Here's chapter 3. It's about in-season simulation models for management strategy evaluations.
@@ -16,6 +27,59 @@ I found some stuff.
 
 Here's what it means.
 
-_Insert Tables_
+\begin{singlespace}
+
+```{r}
+eq1 = "$N_s=N_{tot} \\pi_s$"
+desc1 = "Apportions total Chinook run size to subpopulations"
+
+eq2 = "$p^{\\prime}_{d,s} = \\frac{e^{\\frac{d-D_{50,s}}{h_s}}}{h_s \\left(1 + e^{\\frac{d-D_{50,s}}{h_s}} \\right)^2}$"
+desc2 = "Produces a time series of unstandardized entry timing values (logistic density function)"
+
+eq3 = "$p_{d,s}=\\frac{p^{\\prime}_{d,s}}{\\sum_d p^{\\prime}_{d,s}}$"
+desc3 = "Standardizes entry timing to sum to one for each Chinook subpopulation"
+
+eq4 = "$A_{d,1,s}=N_s p_{d,s}$"
+desc4 = "Populates first main stem reach with Chinook from each subpopulation"
+
+eq5 = "$A_{d,1,4}=\\phi_d \\sum_{s=1}^3 A_{d,1,s}$"
+desc5 = "Populates first reach with chum/sockeye main stem abundance"
+
+eq6 = "$S_{d,r,s}=\\psi_{r,s} \\cdot \\left(A_{d,r,s} - H_{d,r,s} \\right)$"
+desc6 = "Generates escapement in each reach on each day from each population"
+
+eq7 = "$A_{d+1,r+1,s}=A_{d,r,s}-H_{d,r,s}-S_{d,r,s}$"
+desc7 = "Transition main stem survivors to the next reach on the next day"
+
+eq8 = "$\\text{logit}(p_{E,d,r})=\\beta_0 + \\beta_1 full_{d,r} + \\beta_2 stop_{d,r} + \\beta_3 \\delta_{d-1,r,CH} + \\beta_4 \\delta_{d-1,r,CS} + \\beta+5 \\phi_{d,r}$"
+desc8 = "Effort response model; $full$ and $stop$ are binary indicators; $\\delta$ is the fraction of needed harvest obtained for Chinook ($CH$) and chum/sockeye ($CS$), and $\\phi$ is the local species ratio"
+
+eq9 = "$E_{d,r} p_{E,d,r} F_{d,r}$"
+desc9 = "Generates realized effort in each reach on each day"
+
+eq10 = "$H_{tot,d,r}=\\text{min} \\left(1 - e^{-E_{d,r} q} \\sum_{s=1}^4 A_{d,r,s}, E_{d,r} F_{d,r} CPB_{max} \\right)$"
+desc10 = "Generates total salmon harvest by reach and day"
+
+tab = data.frame(
+  Number = 1:10,
+  Equation = c(eq1, eq2, eq3, eq4, eq5, eq6, eq7, eq8, eq9, eq10),
+  Description = c(desc1, desc2, desc3, desc4, desc5, desc6, desc7, desc8, desc9, desc10)
+)
+
+colnames(tab) = c(
+  "\\textbf{\\#}",
+  "\\textbf{Equation}",
+  "\\textbf{Purpose/Description}")
+
+kable(tab, "latex", booktabs = T, escape = F,
+      align = "cll") %>%
+  kable_styling(full_width = F,
+                latex_options = c("striped", "scale_down")) %>%
+  column_spec(2, width = "20em", border_left = T) %>%
+  column_spec(3, width = "20em")
+  
+```
+
+\end{singlespace}
 
 _Insert Figures_

@@ -30,7 +30,7 @@ dois = c(
   "omalley-etal-2010" = "10.1098/rspb.2010.0762",
   "quinn-etal-2000" = "10.1111/j.0014-3820.2000.tb00569.x",
   "walters-holling-1990" = "10.2307/1938620",
-  # "mantua-etal-1997" = "10.1175/1520-0477(1997)078"
+  "mantua-etal-1997" = "10.1175/1520-0477(1997)078",
   "reynolds-etal-2007" = "10.1175/2007JCLI1824.1",
   "vandepol-etal-2016" = "10.1111/2041-210X.12590",
   "arlot-celisse-2010" = "10.1214/09-SS054",
@@ -41,6 +41,7 @@ dois = c(
 # obtain the items
 bibs = rcrossref::cr_cn(dois = dois, .progress = "text",
                         format = "bibtex")
+
 
 # rename the references
 bibs = sapply(1:length(bibs), function(r) {
