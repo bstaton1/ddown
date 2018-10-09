@@ -1,11 +1,12 @@
 ---
 title: ""
-author: "Ben Staton"
-date: "October 9, 2018"
+author: ""
 output: 
   html_document:
     highlight: null
 ---
+
+These notes were compiled by Ben Staton in helping to remember how to do some standard syntax for $\LaTeX$.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = F)
@@ -13,10 +14,15 @@ knitr::opts_chunk$set(eval = F)
 
 ## BibTeX containers
 
+More details [here](http://bib-it.sourceforge.net/help/fieldsAndEntryTypes.php#inproceedings)
+
+### Articles
+
 ```{r}
-@article{last-name-yyyy,
-  author = {First M. Last and T. O. Name},
-  year = {} ,
+# raw
+@article{,
+  author = {},
+  year = {},
   title = {},
   journal = {},
   volume = {},
@@ -25,9 +31,110 @@ knitr::opts_chunk$set(eval = F)
   url = {},
   doi = {}
 }
+
+# example
+@article{staton-etal-2017,
+  author = {Benjamin A. Staton and Matthew J. Catalano and Steven J. Fleischman},
+  year = {2017},
+  title = {From Sequential to Integrated Bayesian Analyses: Exploring the Continuum with a Pacific Salmon Spawner-Recruit Model},
+  journal = {Fisheries Research},
+  volume = {186},
+  number = {1},
+  pages = {237--247},
+  url = {https://www.sciencedirect.com/science/article/pii/S0165783616302946},
+  doi = {10.1016/j.fishres.2016.09.001}
+}
 ```
 
+### Whole Books
+
+```{r}
+# raw
+@book {,
+  author = {},
+  year = {},
+  title = {},
+  publisher = {},
+  note = {}
+}
+
+# example
+@book {hilborn-walters-1992,
+  author = {Ray Hilborn and Carl J. Walters},
+  year = {1992},
+  title = {Quantitative fisheries stock assessment: choice, dynamics, and uncertainty.},
+  publisher = {Springer US},
+  note = {ISBN 978-1461535980}
+}
+```
+
+### Conference Proceedings
+
+```{r}
+@inproceedings{,
+  author = {},
+  year = {},
+  title = {},
+  booktitle = {},
+  editor = {},
+  series = {},
+  volume = {},
+  pages = {},
+  publisher = {},
+  address = {}
+}
+```
+
+
+### Technical Reports
+
+E.g., agency reports
+
+```{r}
+# raw
+@techreport{,
+  author = {},
+  year = {},
+  title = {},
+  institution = {},
+  type = {},
+  number = {},
+  address = {},
+  url = {}
+}
+
+# example
+@techreport{smith-liller-2017,
+  author = {Nicholas J. Smith and Zachary W. Liller},
+  year = {2017},
+  title = {2017 Kuskokwim River Chinook Salmon Run Reconstruction and 2018 Forecast},
+  institution = {Alaska Department of Fish and Game},
+  type = {Regional Information Report},
+  number = {3A18-02},
+  address = {Anchorage, AK},
+  url = {http://www.adfg.alaska.gov/FedAidPDFs/RIR.3A.2018.02.pdf}
+}
+```
+
+
+### 
+
 ## $\LaTeX$ containers
+
+### Figures
+
+To insert a figure with a caption
+
+```{r}
+\begin{figure}
+  \centering
+  \includegraphics{path/to/image.png}
+  \caption{}
+  \label{fig:}
+\end{figure}
+```
+
+### Equation-Related
 
 Insert a numbered equation. Don't forget a tag!
 ```{r}
@@ -37,3 +144,14 @@ Insert a numbered equation. Don't forget a tag!
 \end{equation}
 ```
 
+Insert a centered block of equations with only one equation number.
+
+```{r}
+\begin{equation}
+  \begin{split}
+  first $ = eq_here \\
+  sec $ = eq_here
+  \end{split}
+(\#eq:)
+\end{equation}
+```

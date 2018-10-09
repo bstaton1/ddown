@@ -591,7 +591,8 @@ estuarine water column stability was hypothesized to impede riverine
 entry through two mechanisms:
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
 \item
   by presenting an osmotic barrier between freshwater riverine discharge
   and the saline ocean water which prevents osmotically incompetent
@@ -653,43 +654,44 @@ passage occurring between June \(14^{\text{th}}\) and July
 during freshwater migrations using primarily drift gillnet gear. The
 Kuskokwim River salmon fishery has a distinct cultural importance:
 nearly all inhabitants are native Alaskans belonging to the Yup'ik group
-and take salmon for subsistence purposes (Linderman and Bergstrom,
-2009). While commercial salmon fisheries operate within the river, these
-fishers often also participate in subsistence take and revenues from the
-sale of commercially-harvested salmon often contribute directly to
-participation in subsistence activities (Wolfe and Spaeder, 2009). To
-ensure long-term sustainable harvest, the Chinook salmon fishery is
-managed with a drainage-wide escapement goal derived from an
-age-structured state-space spawner-recruit analysis (Hamazaki et al.,
-2012; Staton et al., 2017). To meet these pre-determined escapement
-goals, in-season management strategies implement time, gear, and area
-closures based on limited and imprecise information regarding annual run
-size. The distant locations of the majority of escapement assessment
-projects makes direct measurement of escapement performance unavailable
-until late in the season. Thus, the primary sources of run size
-assessment information are (1) a pre-season run size forecast range
-(obtained as the previous year's run size estimate \(\pm \sim 20\%\))
-and (2) an in-river drift gillnet test fishery operated in Bethel, AK
-which has been implemented using consistent methods since 1984. The
-interpretation of this test fishery index suffers from the same issue of
-being confounded by run timing described earlier, making management
-decisions difficult. Without precise in-season indicators of run size,
-managers must often choose to either trust a pre-season run size
-forecast for the majority of the season or somehow place weights on the
-various run timing hypotheses when interpreting in-season data. Both
-options could lead to the wrong interpretation of the actual run size,
-which could have serious consequences for the management of the fishery
-in a given year (i.e., the unwarranted opening or closing the fishery
-resulting in severe under- or over-escapement). No published run timing
-forecast models currently exist for Kuskokwim River Chinook salmon but
-given the potential utility of independent run timing estimates for
-interpretation of in-season data, the development and evaluation of such
-a model is needed. The necessity of more accurate and precise in-season
-perceptions of run size is particularly evident in years with
-anticipated low runs, such as in recent years (i.e., since 2010), as
-this may allow managers to more effectively guard against
-over-exploitation while still allowing for limited harvest opportunities
-to support the cultural and subsistence needs of the region.
+and take salmon for subsistence purposes
+\citep{linderman-bergstrom-2009}. While commercial salmon fisheries
+operate within the river, these fishers often also participate in
+subsistence take and revenues from the sale of commercially-harvested
+salmon often contribute directly to participation in subsistence
+activities \citep{wolfe-spaeder-2009}. To ensure long-term sustainable
+harvest, the Chinook salmon fishery is managed with a drainage-wide
+escapement goal derived from an age-structured state-space
+spawner-recruit analysis \citep{hamazaki-etal-2012, staton-etal-2017a}.
+To meet these pre-determined escapement goals, in-season management
+strategies implement time, gear, and area closures based on limited and
+imprecise information regarding annual run size. The distant locations
+of the majority of escapement assessment projects makes direct
+measurement of escapement performance unavailable until late in the
+season. Thus, the primary sources of run size assessment information are
+(1) a pre-season run size forecast range (obtained as the previous
+year's run size estimate \(\pm \sim 20\%\)) and (2) an in-river drift
+gillnet test fishery operated in Bethel, AK which has been implemented
+using consistent methods since 1984. The interpretation of this test
+fishery index suffers from the same issue of being confounded by run
+timing described earlier, making management decisions difficult. Without
+precise in-season indicators of run size, managers must often choose to
+either trust a pre-season run size forecast for the majority of the
+season or somehow place weights on the various run timing hypotheses
+when interpreting in-season data. Both options could lead to the wrong
+interpretation of the actual run size, which could have serious
+consequences for the management of the fishery in a given year (i.e.,
+the unwarranted opening or closing the fishery resulting in severe
+under- or over-escapement). No published run timing forecast models
+currently exist for Kuskokwim River Chinook salmon but given the
+potential utility of independent run timing estimates for interpretation
+of in-season data, the development and evaluation of such a model is
+needed. The necessity of more accurate and precise in-season perceptions
+of run size is particularly evident in years with anticipated low runs,
+such as in recent years (i.e., since 2010), as this may allow managers
+to more effectively guard against over-exploitation while still allowing
+for limited harvest opportunities to support the cultural and
+subsistence needs of the region.
 
 In this chapter, I present an analysis that develops and evaluates the
 performance of a run timing forecast model for Kuskokwim River Chinook
@@ -757,7 +759,7 @@ Environmental variables to be assessed for forecasting performance were
 chosen based on:
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\def\labelenumi{(\arabic{enumi})}
 \tightlist
 \item
   previously established association with salmon run timing,
@@ -779,8 +781,8 @@ temperature taken in Bethel, AK.
 \noindent
 Data collected for the PDO variable came from one of several indices
 produced by the National Oceanic and Atmospheric Administration (NOAA)
-{[}\citet{mantua-etal-1997};
-\url{http://research.jisao.washington.edu/pdo/PDO.latest.txt}{]}. The
+\citep{mantua-etal-1997}\footnote{PDO data:
+  \url{http://research.jisao.washington.edu/pdo/PDO.latest.txt}}. The
 index is produced by taking the first principal component of monthly SST
 anomalies in the northern Pacific Ocean, after removing any global
 trends due to any systematic change over time \citep{mantua-etal-1997}.
@@ -796,18 +798,19 @@ data}\label{bethel-air-temperature-data}
 
 \noindent
 Air temperature data for Bethel, AK were accessed from the Alaska
-Climate Research Center\footnote{\url{http://akclimate.org/acis_data}}.
-These data were available as daily means for each day of each year in
-the 1984 -- 2016 data set. Daily air temperature values from the start
-of January to mid-June of each year were considered in the selection
-procedures.
+Climate Research Center\footnote{Alaska air temperature data:
+  \url{http://akclimate.org/acis_data}}. These data were available as
+daily means for each day of each year in the 1984 -- 2016 data set.
+Daily air temperature values from the start of January to mid-June of
+each year were considered in the selection procedures.
 
 \subsubsection{SST and SIC}\label{sst-and-sic}
 
 \noindent
 SST and SIC data were accessed from the NOAA Optimum Interpolation SST
-V2 High Resolution Dataset {[}\citet{reynolds-etal-2007};
-\url{http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html}{]}.
+V2 High Resolution Dataset \citep{reynolds-etal-2007}\footnote{Global
+  gridded SST and SIC:
+  \url{http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html}}.
 These data were available as daily means for any 0.25° by 0.25° latitude
 by longitude grid cell on the globe. To limit the search, only grid
 cells within Kuskokwim Bay were selected for analysis Figure
@@ -834,26 +837,76 @@ correlation with \(D_{50}\). Daily means for SST from mid-April to
 mid-June and SIC from mid-February to mid-May in each year were
 considered in the predictive variable selection techniques.
 
+\subsection{Forecast model}\label{reg-models}
+
+To produce a forecast of run timing, relationships between historical
+observed pairs of the environmental variables each year and \(D_{50,t}\)
+must be quantified. The simple linear regression framework was used to
+obtain these historical relationships:
+
+\begin{equation}
+  \begin{split}
+    D_{50,t} = \beta_0 + \beta_j x_{t,j} +,...,+ \beta_n x_{t,J} + \varepsilon_t, \\
+    \varepsilon_t \stackrel{\text{iid}}{\sim} N(0, \sigma) \\
+  \end{split}
+\label{eq:lin-reg}
+\end{equation}
+
+\noindent
+where \(D_{50,t}\) is the observed run timing value in year \(t\),
+\(x_{t,j}\) is the observed value of covariate \(j\) (of which there are
+\(J\) included in the model), \(\beta_0\) and \(\beta_j\) are
+coefficients linking the observed values of \(D_{50,t}\) with
+\(x_{t,j}\), \(\varepsilon_t\) are random residual effects that explain
+deviations of observed \(D_{50,t}\) from the fitted value and have
+constant variance equal to \(\sigma^2\).
+
+There are many such regression models that could be used to produce a
+run timing forecast (i.e., \(\hat{D}_{50,t+1}\)). This is because:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  there are four variables (PDO, air temperature, SST, and SIC) that
+  could be included,
+\item
+  each variable is temporally structured, i.e., there are daily or
+  monthly values for each variable, and
+\item
+  two variables (SST and SIC) are spatially-explicit, i.e., there are
+  different values for each day and year for different areas of
+  Kuskokwim Bay (Figure \ref{fig:ch2-map}).
+\end{enumerate}
+
+\noindent
+Item (1) deals with the specific values of \(j\) and \(J\) whereas items
+(2) and (3) deal with what values of \(x_{t}\) for a given \(j\) should
+take on.
+
 \subsection{Selection of predictive time periods}\label{clim-windows}
 
 \noindent
-Climatic variables are frequently associated with biological quantities
-for the purpose of prediction, however, oftentimes the average over an
-arbitrary time period, such as daily values in the month of February, is
-used based on a priori assumptions of the behavior of important factors
-\citep{vandepol-etal-2016}. While this approach is simple to implement
-and explain, it is possible that a better time window (i.e., reliably
-more accurate) exists but was not considered. Furthermore, the
-importance of various time windows may change over time and the
-arbitrary selection of a single window does not allow for such changes
-to be detected. To avoid these issues, a rigorous temporal selection
-process, known as the sliding climate window algorithm
-\citep[SCWA;][]{vandepol-etal-2016}, was implemented to determine the
-best predictive time period for each variable considered in the forecast
-model. To find the most reliable temporal window for prediction, the
-SCWA evaluates all possible windows (subject to certain restrictions)
-over which to average for use as the predictor variable in the forecast
-model. The following section provides the details of the SCWA.
+To fit the regression model in Equation \eqref{eq:lin-reg}, a single value
+for each \(x_{t,j}\) was required. The covariate data were temporally
+structured, however, indicating that some selection of which time
+periods to use to populate \(x_{t,j}\) was required. Oftentimes the
+average over an arbitrary time period, such as daily values in the month
+of February, is used based on \emph{a priori} assumptions of the
+behavior of important factors \citep{vandepol-etal-2016}. While this
+approach is simple to implement and explain, it is possible that a
+better time window (i.e., reliably more accurate) exists but was not
+considered. Furthermore, the importance of various time windows may
+change over time and the arbitrary selection of a single window does not
+allow for such changes to be detected. To avoid these issues, a rigorous
+temporal selection process, known as the sliding climate window
+algorithm \citep[SCWA;][]{vandepol-etal-2016}, was implemented to
+determine the best predictive time period for each variable considered
+in the forecast model. To find the most reliable temporal window for
+prediction, the SCWA evaluates all possible windows (subject to certain
+restrictions) over which to average for use as the predictor variable in
+the forecast model. The following section provides the details of the
+SCWA.
 
 \subsubsection{The SCWA}\label{the-scwa}
 
@@ -861,16 +914,15 @@ model. The following section provides the details of the SCWA.
 A ``window'' in this context is hereafter defined as a block of
 consecutive days in some portion of the year with starting
 day-of-the-year (DOY) denoted by \(D_F\) and ending day equal to
-\(D_L\). A selected window will have the daily measurements for a
-variable averaged for each year for use as the predictor variable a
-linear regression framework. As input constraints, the SCWA used in this
-analysis required:
+\(D_L\). The daily values within each evaluated window were averaged for
+the \(x_{t,j}\) value to be used in a linear regression framework. As
+input constraints, the SCWA used in this analysis required:
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\def\labelenumi{(\arabic{enumi})}
 \tightlist
 \item
-  the start date of the first window to be evaluated (\(D_1\)),
+  the start date of the first window to be evaluated (\(D_0\)),
 \item
   the end date of the last window to be evaluated (\(D_n\)), and
 \item
@@ -881,34 +933,35 @@ analysis required:
 The algorithm started with the earliest and smallest possible time
 window: \(D_F = D_0 = 1\) through
 \(D_L = D_0 + \Delta_{D,min} - 1 = 5\). The performance of this window
-was evaluated (see Section \ref{fcst-cv} below) and the result was
-stored for comparison to other candidate windows. For the next window,
-\(D_F\) would remain at \(D_0\), but \(D_L\) would be incremented by 1
-day (\(i=1\)). Thus, the endpoints of all candidate windows with
-\(D_F = D_0\) can be generalized as:
+when used to obtain \(x_{t,j}\) was evaluated (see Section \ref{fcst-cv}
+below) and the result was stored for comparison to other candidate
+windows. For the next window, \(D_F\) would remain at \(D_0\), but
+\(D_L\) would be incremented by 1 day (\(\ell=1\)). Thus, the endpoints
+of all candidate windows with \(D_F = D_0\) can be generalized as:
 
 \begin{equation}
-  [D_0, D_0 + \Delta_{D,min} - 1 + i],
+  [D_0, D_0 + \Delta_{D,min} - 1 + \ell],
 \label{eq:scwa-1}
 \end{equation}
 
 \noindent
-for each \(i = 0, 1, ..., n - 1\). For windows excluding \(D_0\), this
-generalizes to:
+for each \(\ell = 0, 1, ..., n - 1\), where \(n = D_L - D_F + 1\). For
+all windows, including those with \(D_F = D_0\), this generalizes to:
 
 \begin{equation}
-  [D_0 + j, D_0 + j + \Delta_{D,min} - 1 + i],
+  [D_0 + f, D_0 + f + \Delta_{D,min} - 1 + \ell],
 \label{eq:scwa-2}
 \end{equation}
 
 \noindent
-for each \(i = 0, 1, ..., n - \Delta_{D,min} - j\) and
-\(j = 0, 1, ..., n - \Delta_{D,min}\). Windows with
-\(j > n - \Delta_{D,min}\) would contain fewer than \(\Delta_{D_min}\)
-days. After evaluating all windows, the single window with the best
-predictive performance was used to obtain the forecast predictor
-variable for that data source (i.e., PDO \emph{versus} air temperature).
-As an example, consider the following inputs:
+for each \(f = 0, 1, ..., n - \Delta_{D,min}\) and
+\(\ell = 0, 1, ..., n - \Delta_{D,min} - f\). Windows with
+\(f > n - \Delta_{D,min}\) would contain fewer than \(\Delta_{D,min}\)
+days and are thus prohibited. After evaluating all windows, the single
+window with the best predictive performance was used to obtain the
+forecast predictor variable for that data source (i.e., PDO
+\emph{versus} air temperature). As an example, consider the following
+inputs:
 
 \begin{itemize}
 \tightlist
@@ -1218,45 +1271,45 @@ a positive relationship (\ref{tab:coefs-table}).
 \toprule
 Year & $D_{50,t}$ & $h_t$\\
 \midrule
-1984 & 169.52 & 0.01\\
-1985 & 175.24 & 0.08\\
-1986 & 178.85 & 0.09\\
-1987 & 173.28 & 0.08\\
-1988 & 169.82 & 0.03\\
+1984 & 168.52 & 0.05\\
+1985 & 174.25 & 0.02\\
+1986 & 175.78 & 0.08\\
+1987 & 168.30 & 0.02\\
+1988 & 171.39 & 0.07\\
 \addlinespace
-1989 & 167.50 & 0.02\\
-1990 & 174.91 & 0.05\\
-1991 & 178.57 & 0.08\\
-1992 & 166.44 & 0.07\\
-1993 & 168.08 & 0.06\\
+1989 & 177.78 & 0.05\\
+1990 & 171.38 & 0.01\\
+1991 & 168.56 & 0.06\\
+1992 & 169.37 & 0.10\\
+1993 & 172.65 & 0.07\\
 \addlinespace
-1994 & 176.13 & 0.06\\
-1995 & 176.64 & 0.10\\
-1996 & 173.82 & 0.02\\
-1997 & 172.88 & 0.01\\
-1998 & 167.09 & 0.05\\
+1994 & 167.50 & 0.10\\
+1995 & 177.44 & 0.06\\
+1996 & 176.56 & 0.02\\
+1997 & 176.36 & 0.03\\
+1998 & 173.51 & 0.07\\
 \addlinespace
-1999 & 170.04 & 0.07\\
-2000 & 166.84 & 0.03\\
-2001 & 175.31 & 0.06\\
-2002 & 176.62 & 0.06\\
-2003 & 173.46 & 0.10\\
+1999 & 175.89 & 0.02\\
+2000 & 178.22 & 0.06\\
+2001 & 170.12 & 0.02\\
+2002 & 172.12 & 0.07\\
+2003 & 175.36 & 0.07\\
 \addlinespace
-2004 & 170.77 & 0.01\\
-2005 & 171.56 & 0.07\\
-2006 & 176.64 & 0.02\\
-2007 & 177.46 & 0.04\\
-2008 & 165.76 & 0.07\\
+2004 & 172.85 & 0.10\\
+2005 & 167.91 & 0.09\\
+2006 & 175.79 & 0.04\\
+2007 & 176.12 & 0.05\\
+2008 & 173.92 & 0.09\\
 \addlinespace
-2009 & 173.67 & 0.07\\
-2010 & 169.28 & 0.10\\
-2011 & 176.80 & 0.09\\
-2012 & 177.08 & 0.01\\
-2013 & 170.00 & 0.04\\
+2009 & 170.23 & 0.09\\
+2010 & 174.87 & 0.09\\
+2011 & 170.81 & 0.09\\
+2012 & 173.50 & 0.02\\
+2013 & 166.47 & 0.04\\
 \addlinespace
-2014 & 174.96 & 0.04\\
-2015 & 168.67 & 0.06\\
-2016 & 171.97 & 0.05\\
+2014 & 173.17 & 0.04\\
+2015 & 175.24 & 0.07\\
+2016 & 164.38 & 0.10\\
 \bottomrule
 \end{tabular}
 \end{table}

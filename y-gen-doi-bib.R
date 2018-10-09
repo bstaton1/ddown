@@ -23,19 +23,20 @@ dois = c(
   "catalano-jones-2014" = "10.1080/02755947.2014.951801",
   "cooperman-etal-2010" = "10.1086/650473",
   "hasler-scholz-1983" = "10.1007/978-3-642-82070-0",
-  "hinch-etal-2012" = "10.1111/j.1095-8649.2012.03360.x",
+  # "hinch-etal-2012" = "10.1111/j.1095-8649.2012.03360.x",
   "hodgson-etal-2006" = "10.1111/j.1365-2419.2005.00354.x",
   "keefer-etal-2008" = "10.1577/T07-008.1",
   "mundy-evenson-2011" = "10.1093/icesjms/fsr080",
   "omalley-etal-2010" = "10.1098/rspb.2010.0762",
   "quinn-etal-2000" = "10.1111/j.0014-3820.2000.tb00569.x",
   "walters-holling-1990" = "10.2307/1938620",
-  "mantua-etal-1997" = "10.1175/1520-0477(1997)078",
+  # "mantua-etal-1997" = "10.1175/1520-0477(1997)078",
   "reynolds-etal-2007" = "10.1175/2007JCLI1824.1",
   "vandepol-etal-2016" = "10.1111/2041-210X.12590",
   "arlot-celisse-2010" = "10.1214/09-SS054",
   "bailey-vandepol-2016" = "10.1371/journal.pone.0167980",
-  "burnham-anderson-2002" = "10.1007/b97636"
+  "burnham-anderson-2002" = "10.1007/b97636",
+  "staton-etal-2017a" = "10.1016/j.fishres.2016.09.001"
   )
 
 # obtain the items

@@ -9,7 +9,6 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Ben Staton" />
 
 
 <title></title>
@@ -108,11 +107,16 @@ $(document).ready(function () {
 </div>
 
 
+<p>These notes were compiled by Ben Staton in helping to remember how to do some standard syntax for <span class="math inline">\(\LaTeX\)</span>.</p>
 <div id="bibtex-containers" class="section level2">
 <h2>BibTeX containers</h2>
-<pre class="r"><code>@article{last-name-yyyy,
-  author = {First M. Last and T. O. Name},
-  year = {} ,
+<p>More details <a href="http://bib-it.sourceforge.net/help/fieldsAndEntryTypes.php#inproceedings">here</a></p>
+<div id="articles" class="section level3">
+<h3>Articles</h3>
+<pre class="r"><code># raw
+@article{,
+  author = {},
+  year = {},
   title = {},
   journal = {},
   volume = {},
@@ -120,15 +124,115 @@ $(document).ready(function () {
   pages = {--},
   url = {},
   doi = {}
+}
+
+# example
+@article{staton-etal-2017,
+  author = {Benjamin A. Staton and Matthew J. Catalano and Steven J. Fleischman},
+  year = {2017},
+  title = {From Sequential to Integrated Bayesian Analyses: Exploring the Continuum with a Pacific Salmon Spawner-Recruit Model},
+  journal = {Fisheries Research},
+  volume = {186},
+  number = {1},
+  pages = {237--247},
+  url = {https://www.sciencedirect.com/science/article/pii/S0165783616302946},
+  doi = {10.1016/j.fishres.2016.09.001}
 }</code></pre>
+</div>
+<div id="whole-books" class="section level3">
+<h3>Whole Books</h3>
+<pre class="r"><code># raw
+@book {,
+  author = {},
+  year = {},
+  title = {},
+  publisher = {},
+  note = {}
+}
+
+# example
+@book {hilborn-walters-1992,
+  author = {Ray Hilborn and Carl J. Walters},
+  year = {1992},
+  title = {Quantitative fisheries stock assessment: choice, dynamics, and uncertainty.},
+  publisher = {Springer US},
+  note = {ISBN 978-1461535980}
+}</code></pre>
+</div>
+<div id="conference-proceedings" class="section level3">
+<h3>Conference Proceedings</h3>
+<pre class="r"><code>@inproceedings{,
+  author = {},
+  year = {},
+  title = {},
+  booktitle = {},
+  editor = {},
+  series = {},
+  volume = {},
+  pages = {},
+  publisher = {},
+  address = {}
+}</code></pre>
+</div>
+<div id="technical-reports" class="section level3">
+<h3>Technical Reports</h3>
+<p>E.g., agency reports</p>
+<pre class="r"><code># raw
+@techreport{,
+  author = {},
+  year = {},
+  title = {},
+  institution = {},
+  type = {},
+  number = {},
+  address = {},
+  url = {}
+}
+
+# example
+@techreport{smith-liller-2017,
+  author = {Nicholas J. Smith and Zachary W. Liller},
+  year = {2017},
+  title = {2017 Kuskokwim River Chinook Salmon Run Reconstruction and 2018 Forecast},
+  institution = {Alaska Department of Fish and Game},
+  type = {Regional Information Report},
+  number = {3A18-02},
+  address = {Anchorage, AK},
+  url = {http://www.adfg.alaska.gov/FedAidPDFs/RIR.3A.2018.02.pdf}
+}</code></pre>
+</div>
+<div id="section" class="section level3">
+<h3></h3>
+</div>
 </div>
 <div id="latex-containers" class="section level2">
 <h2><span class="math inline">\(\LaTeX\)</span> containers</h2>
+<div id="figures" class="section level3">
+<h3>Figures</h3>
+<p>To insert a figure with a caption</p>
+<pre class="r"><code>\begin{figure}
+  \centering
+  \includegraphics{path/to/image.png}
+  \caption{}
+  \label{fig:}
+\end{figure}</code></pre>
+</div>
+<div id="equation-related" class="section level3">
+<h3>Equation-Related</h3>
 <p>Insert a numbered equation. Don’t forget a tag!</p>
 <pre class="r"><code>\begin{equation}
   
 (\#eq:)
 \end{equation}</code></pre>
+<p>Insert a centered block of equations with only one equation number.</p>
+<pre class="r"><code>\begin{equation}
+  \begin{split}
+  first $ = eq_here \\
+  sec $ = eq_here
+  \end{split}
+(\#eq:)
+\end{equation}</code></pre>
+</div>
 </div>
 
 
