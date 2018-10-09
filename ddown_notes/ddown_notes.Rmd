@@ -1,0 +1,39 @@
+---
+title: ""
+author: "Ben Staton"
+date: "October 9, 2018"
+output: 
+  html_document:
+    highlight: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = F)
+```
+
+## BibTeX containers
+
+```{r}
+@article{last-name-yyyy,
+  author = {First M. Last and T. O. Name},
+  year = {} ,
+  title = {},
+  journal = {},
+  volume = {},
+  number = {},
+  pages = {--},
+  url = {},
+  doi = {}
+}
+```
+
+## $\LaTeX$ containers
+
+Insert a numbered equation. Don't forget a tag!
+```{r}
+\begin{equation}
+  
+(\#eq:)
+\end{equation}
+```
+

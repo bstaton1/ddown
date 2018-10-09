@@ -113,7 +113,7 @@ for each $i = 0, 1, ..., n - 1$. For windows excluding $D_0$, this generalizes t
 \end{equation}
 
 \noindent
-for each $i = 0, 1, ..., n - \Delta_{D,min} - j$ and $j = 0, 1, ..., n - \Delta_{D,min}$. Windows with $j > n - \Delta_{D,min}$ would contain fewer than $\Delta_{D_min}$ days. After evaluating all windows, the single window with the best predictive performance was used to obtain the forecast predictor variable for that data source (i.e., PDO _versus_ air temperature). As an example, consider the following inputs: 
+for each $i = 0, 1, ..., n - \Delta_{D,min} - j$ and $j = 0, 1, ..., n - \Delta_{D,min}$. Windows with $j > n - \Delta_{D,min}$ would contain fewer than $\Delta_{D,min}$ days. After evaluating all windows, the single window with the best predictive performance was used to obtain the forecast predictor variable for that data source (i.e., PDO _versus_ air temperature). As an example, consider the following inputs: 
 
 *  $D_0 = 1$ (i.e., the first day of the year), 
 *  $D_n = 31$ (i.e., January 31), and
