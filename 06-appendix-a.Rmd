@@ -26,7 +26,8 @@ This appendix contains the necessary code to perform two of the main parts of th
 
 #### Source Code {-}
 
-```{r, eval = T, echo = T, highlight=F}
+\begin{singlespace}
+\begin{verbatim}
 forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores = T) {  
   # total number of observed pairs
   n = length(x)
@@ -74,11 +75,12 @@ forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores =
   output = list(error = error, abs.error = abs.error, mae = mean(abs.error, na.rm = na.rm))
   return(output)
 }
-
-```
+\end{verbatim}
+\end{singlespace}
 
 ## Sliding Climate-Window {-}
 
+<!-- This makes space between the citations -->
 <!--  \setlength{\hangindent}{0.7cm} -->
 <!--  \hangindent=2em -->
 <!--  \hangafter=1 -->
