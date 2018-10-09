@@ -783,55 +783,56 @@ produced by the National Oceanic and Atmospheric Administration (NOAA)
 \url{http://research.jisao.washington.edu/pdo/PDO.latest.txt}{]}. The
 index is produced by taking the first principal component of monthly SST
 anomalies in the northern Pacific Ocean, after removing any global
-trends due to any systematic change over time (Mantua et al., 1997).
+trends due to any systematic change over time \citep{mantua-etal-1997}.
 Thus, for each year of the data set, a single monthly value was
 available for PDO. In the selection of relevant time periods (Section
-2.3), we considered monthly PDO values from January to June of each
-year, as previous studies have found PDO values prior to the initiation
-of the run have predictive value for Chinook salmon populations (Beer,
-2007; Keefer et al., 2008).
+\ref{clim-windows}), we considered monthly PDO values from January to
+June of each year, as previous studies have found PDO values prior to
+the initiation of the run have predictive value for Chinook salmon
+populations \citep{beer-2007, keefer-etal-2008}.
 
 \subsubsection{Bethel air temperature
 data}\label{bethel-air-temperature-data}
 
 \noindent
 Air temperature data for Bethel, AK were accessed from the Alaska
-Climate Research Center (\url{http://akclimate.org/acis_data}). These
-data were available as daily means for each day of each year in the 1984
--- 2016 data set. Daily air temperature values from the start of January
-to mid-June of each year were considered in the selection procedures.
+Climate Research Center\footnote{\url{http://akclimate.org/acis_data}}.
+These data were available as daily means for each day of each year in
+the 1984 -- 2016 data set. Daily air temperature values from the start
+of January to mid-June of each year were considered in the selection
+procedures.
 
 \subsubsection{SST and SIC}\label{sst-and-sic}
 
 \noindent
 SST and SIC data were accessed from the NOAA Optimum Interpolation SST
-V2 High Resolution Dataset {[}(\citet{reynolds-etal-2007};
+V2 High Resolution Dataset {[}\citet{reynolds-etal-2007};
 \url{http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html}{]}.
 These data were available as daily means for any 0.25° by 0.25° latitude
 by longitude grid cell on the globe. To limit the search, only grid
-cells within Kuskokwim Bay were selected for analysis (Figure 1) as that
-is the area that Chinook salmon bound for the Kuskokwim River likely
-aggregate prior to riverine entry. The area with grid cells ranged from
-58.5° N to 60° N by 164.25° W to 162° W, which resulted in a total of 54
-0.25° latitude by 0.25° longitude grid cells. For SST, four grid cells
-fell partially over land (resulting in 50 grid cells with daily data)
-and for SIC, five grid cells were partially over land (49 grid cells
-with daily data). ``Empty'' grid cells were excluded and the remaining
-grid cells were used for prediction. Previous analyses have used a
-simple average over a wide spatial area {[}e.g., mundy-evenson-2011{]}
-to create a single value for SST or SIC each year. However, this is
-somewhat arbitrary and does not account for the possibility of certain
-areas having stronger timing signals than others or that these areas
-with stronger signals may change over time. Thus, the gridded spatial
-structure of these variables was retained and the treatment of this
-structure in the forecast analysis is discussed below in Section
-\ref{rtf-models}. Because of the time-intensive nature of the selection
-procedure described in Section \ref{clim-windows}, considered time
-periods for gridded variables were shortened based on preliminary
-correlation analyses showing excluded times had little or no correlation
-with \(D_{50}\). Daily means for SST from mid-April to mid-June and SIC
-from mid-February to mid-May in each year were considered in the
-predictive variable selection techniques.
+cells within Kuskokwim Bay were selected for analysis Figure
+\ref{fig:ch2-map} as that is the area that Chinook salmon bound for the
+Kuskokwim River likely aggregate prior to riverine entry. The area with
+grid cells ranged from 58.5° N to 60° N by 164.25° W to 162° W, which
+resulted in a total of 54 0.25° latitude by 0.25° longitude grid cells.
+For SST, four grid cells fell partially over land (resulting in 50 grid
+cells with daily data) and for SIC, five grid cells were partially over
+land (49 grid cells with daily data). ``Empty'' grid cells were excluded
+and the remaining grid cells were used for prediction. Previous analyses
+have used a simple average over a wide spatial area
+\citep[e.g.,][]{mundy-evenson-2011} to create a single value for SST or
+SIC each year. However, this is somewhat arbitrary and does not account
+for the possibility of certain areas having stronger timing signals than
+others or that the areas with stronger signals may change over time.
+Thus, the gridded spatial structure of these variables was retained and
+the treatment of this structure in the forecast analysis is discussed
+below in Section \ref{rtf-models}. Because of the time-intensive nature
+of the selection procedure described in Section \ref{clim-windows},
+considered time periods for gridded variables were shortened based on
+preliminary correlation analyses showing excluded times had little or no
+correlation with \(D_{50}\). Daily means for SST from mid-April to
+mid-June and SIC from mid-February to mid-May in each year were
+considered in the predictive variable selection techniques.
 
 \subsection{Selection of predictive time periods}\label{clim-windows}
 
@@ -842,47 +843,99 @@ arbitrary time period, such as daily values in the month of February, is
 used based on a priori assumptions of the behavior of important factors
 \citep{vandepol-etal-2016}. While this approach is simple to implement
 and explain, it is possible that a better time window (i.e., reliably
-more accurate) exists but is not considered. Furthermore, the importance
-of various time windows may change over time and the arbitrary selection
-of a single window does not allow for such changes to be detected. To
-avoid these issues, a rigorous temporal selection process, known as the
-sliding window algorithm \citep{vandepol-etal-2016}, was implemented to
-determine the best predictive time period for each variable considered
-in the forecast model. To find the most reliable temporal window for
-prediction, this method evaluates all possible windows (subject to
-certain restrictions) over which to average for use in the forecast
-model. As input constraints, the sliding window algorithm used in this
-analysis required: (1) the start date of the first window to be
-evaluated, (2) the end date of the last window to be evaluated, and (3)
-the minimum window size of a candidate window. It then proceeded to
-evaluate all possible combinations of window averages (using only
-consecutive days). For example, if the start date of the first possible
-window was set to 1 May, the minimum window size was set to five days,
-and the end date of the last possible window was set to 30 May, the
-window algorithm would start by averaging the daily values between 1 May
-and 5 May for each year separately and would evaluate the predictive
-performance of that variable using forecast cross-validation (described
-below). Next, the algorithm would begin to increase the window size by
-one day on each iteration, averaging daily values and evaluating the
-predictive performance for 1 May to 6 May, then 1 May to 7 May, and so
-on, until it reached the largest window starting with 1 May (which would
-be 1 May to 30 May). Following completion of all windows starting with 1
-May, the algorithm would proceed to evaluate all possible windows
-starting with 2 May, then 3 May, and so on, until it reached windows
-starting with 26 May. At this point, there would only be one window to
-be evaluated, since the minimum number of days to include in a candidate
-window was set at five days. In the analysis, five days was used as the
-minimum window size for all variables except PDO (which had monthly
-values), in which case the minimum window size was set such that a
-single month could constitute a window. Example R code for how the
-sliding window algorithm was implemented is provided in Appendix
-\protect\hyperlink{appendix-a}{A}.
+more accurate) exists but was not considered. Furthermore, the
+importance of various time windows may change over time and the
+arbitrary selection of a single window does not allow for such changes
+to be detected. To avoid these issues, a rigorous temporal selection
+process, known as the sliding climate window algorithm
+\citep[SCWA;][]{vandepol-etal-2016}, was implemented to determine the
+best predictive time period for each variable considered in the forecast
+model. To find the most reliable temporal window for prediction, the
+SCWA evaluates all possible windows (subject to certain restrictions)
+over which to average for use as the predictor variable in the forecast
+model. The following section provides the details of the SCWA.
 
-All windows were evaluated using a time series forecast cross-validation
+\subsubsection{The SCWA}\label{the-scwa}
+
+\noindent
+A ``window'' in this context is hereafter defined as a block of
+consecutive days in some portion of the year with starting
+day-of-the-year (DOY) denoted by \(D_F\) and ending day equal to
+\(D_L\). A selected window will have the daily measurements for a
+variable averaged for each year for use as the predictor variable a
+linear regression framework. As input constraints, the SCWA used in this
+analysis required:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  the start date of the first window to be evaluated (\(D_1\)),
+\item
+  the end date of the last window to be evaluated (\(D_n\)), and
+\item
+  the minimum window size of a candidate window (\(\Delta_{D,min}\)).
+\end{enumerate}
+
+\noindent
+The algorithm started with the earliest and smallest possible time
+window: \(D_F = D_0 = 1\) through
+\(D_L = D_0 + \Delta_{D,min} - 1 = 5\). The performance of this window
+was evaluated (see Section \ref{fcst-cv} below) and the result was
+stored for comparison to other candidate windows. For the next window,
+\(D_F\) would remain at \(D_0\), but \(D_L\) would be incremented by 1
+day (\(i=1\)). Thus, the endpoints of all candidate windows with
+\(D_F = D_0\) can be generalized as:
+
+\begin{equation}
+  [D_0, D_0 + \Delta_{D,min} - 1 + i],
+\label{eq:scwa-1}
+\end{equation}
+
+\noindent
+for each \(i = 0, 1, ..., n - 1\). For windows excluding \(D_0\), this
+generalizes to:
+
+\begin{equation}
+  [D_0 + j, D_0 + j + \Delta_{D,min} - 1 + i],
+\label{eq:scwa-2}
+\end{equation}
+
+\noindent
+for each \(i = 0, 1, ..., n - \Delta_{D,min} - j\) and
+\(j = 0, 1, ..., n - \Delta_{D,min}\). Windows with
+\(j > n - \Delta_{D,min}\) would contain fewer than \(\Delta_{D_min}\)
+days. After evaluating all windows, the single window with the best
+predictive performance was used to obtain the forecast predictor
+variable for that data source (i.e., PDO \emph{versus} air temperature).
+As an example, consider the following inputs:
+
+\begin{itemize}
+\tightlist
+\item
+  \(D_0 = 1\) (i.e., the first day of the year),
+\item
+  \(D_n = 31\) (i.e., January 31), and
+\item
+  \(\Delta_{D,min}\) = 5.
+\end{itemize}
+
+The SCWA would start with January 1 - January 5, then do January 1-6,
+January 1-7, etc., January 1-31. Next, it would exclude January 1 from
+consideration and evaluate all windows starting with January 2. When it
+completes the one window starting with January 27, it must stop because
+windows starting later than January 27 would result in windows shorter
+than 5 days. Example R code for how the sliding window algorithm was
+implemented is provided in Appendix \protect\hyperlink{appendix-a}{A}.
+
+\subsubsection{Forecast cross-validation}\label{fcst-cv}
+
+A metric was needed to measure the performance of the many windows. This
+metric was obtained using a time series forecast cross-validation
 procedure, which is an out-of-sample technique for data that are
 collected through time \citep{arlot-celisse-2010}. The procedure
 operated by producing a forecasted value of \(D_{50}\) for year \(t+1\)
-trained based on all data available from years \(1,..., t\). It then
+trained based on all data available from years \(1, ..., t\). It then
 continued for all \(t = m, ..., n-1\), where \(m\) is the minimum number
 of years necessary to fit the model (set at \(m = 10\) in all cases) and
 \(n\) is the number of years of available data. Then, absolute forecast
@@ -894,29 +947,21 @@ the lowest (\(\overline{\text{AE}}\)) was selected as the optimal window
 to average over for prediction. The forecasting cross-validation
 procedure was used as opposed to other out-of-sample validation
 procedures, such as \(k\)-fold or leave-one-out methods, because the
-data were collected through time and it does not make sense for the
-model to need to predict (for example) year 2010 from years 1984 -- 2009
-and 2011 -- 2016, but rather it would always need to predict year
-\(t+1\) from all previously-collected data. Example R code for how the
-forecast cross-validation was conducted is provided in Appendix
+data were collected through time and it would never need to forecast
+(for example) year 2010 from years 1984 -- 2009 and 2011 -- 2016, but
+rather it would always need to predict year \(t+1\) from all
+previously-collected data. Example R code for how the forecast
+cross-validation was conducted is provided in Appendix
 \protect\hyperlink{appendix-a}{A}.
 
-Although a recent R package has been released to conduct sliding climate
-window analyses \citep[\texttt{\{climwin\}};][]{bailey-vandepol-2016},
-the package can currently only assess candidate windows using Akiake's
-Information Criterion (AIC) or \(k\)-fold cross-validation. Because the
-more specialized forecasting cross-validation technique was required for
-this analysis, custom R code was written to select the optimal window
-for each variable (Appendix \protect\hyperlink{appendix-a}{A}).
-
-When forecasting \(D_{50,t+1}\) from training data from \(1,..., t\), a
+When forecasting \(D_{50,t+1}\) from training data from \(1,...,t\), a
 single optimal climate window was selected for each variable and that
 window was used to estimate coefficients based on training data and
 obtain the environmental variable value for prediction in year \(t+1\)
 to forecast \(D_{50,t+1}\). When a new year of data was added to the
 training data (such as in the retrospective forecast analysis; Section
-2.7), the optimal window for each variable was re-assessed using the
-algorithm again. For PDO and Bethel air temperature, which had no
+\ref{retro}), the optimal window for each variable was re-assessed using
+the algorithm again. For PDO and Bethel air temperature, which had no
 spatial structure, the sliding window algorithm was used to select the
 range of monthly (PDO) or daily (Bethel air temperature) values to
 include in the predictive climate window for each year in the analysis.
@@ -1057,8 +1102,7 @@ and \(z_{1-\alpha/2}\) is the corresponding quantile of the \(z\) (i.e.,
 standard normal) distribution. The level \(\alpha = 0.05\) was used in
 all cases.
 
-\subsection{Retrospective forecast
-analysis}\label{retrospective-forecast-analysis}
+\subsection{Retrospective forecast analysis}\label{retro}
 
 \noindent
 The analysis was conducted in a retrospective forecast framework
@@ -1174,45 +1218,45 @@ a positive relationship (\ref{tab:coefs-table}).
 \toprule
 Year & $D_{50,t}$ & $h_t$\\
 \midrule
-1984 & 170.96 & 0.09\\
-1985 & 173.56 & 0.03\\
-1986 & 170.75 & 0.01\\
-1987 & 169.74 & 0.08\\
-1988 & 178.31 & 0.06\\
+1984 & 169.52 & 0.01\\
+1985 & 175.24 & 0.08\\
+1986 & 178.85 & 0.09\\
+1987 & 173.28 & 0.08\\
+1988 & 169.82 & 0.03\\
 \addlinespace
-1989 & 180.28 & 0.02\\
-1990 & 175.64 & 0.07\\
-1991 & 172.18 & 0.07\\
-1992 & 169.08 & 0.05\\
-1993 & 175.74 & 0.06\\
+1989 & 167.50 & 0.02\\
+1990 & 174.91 & 0.05\\
+1991 & 178.57 & 0.08\\
+1992 & 166.44 & 0.07\\
+1993 & 168.08 & 0.06\\
 \addlinespace
-1994 & 175.74 & 0.04\\
-1995 & 170.83 & 0.03\\
-1996 & 171.93 & 0.04\\
-1997 & 180.35 & 0.05\\
-1998 & 180.29 & 0.02\\
+1994 & 176.13 & 0.06\\
+1995 & 176.64 & 0.10\\
+1996 & 173.82 & 0.02\\
+1997 & 172.88 & 0.01\\
+1998 & 167.09 & 0.05\\
 \addlinespace
-1999 & 179.58 & 0.07\\
-2000 & 174.47 & 0.08\\
-2001 & 175.44 & 0.06\\
-2002 & 169.58 & 0.02\\
-2003 & 174.78 & 0.02\\
+1999 & 170.04 & 0.07\\
+2000 & 166.84 & 0.03\\
+2001 & 175.31 & 0.06\\
+2002 & 176.62 & 0.06\\
+2003 & 173.46 & 0.10\\
 \addlinespace
-2004 & 172.06 & 0.04\\
-2005 & 174.19 & 0.03\\
-2006 & 165.35 & 0.07\\
-2007 & 167.66 & 0.09\\
-2008 & 173.69 & 0.05\\
+2004 & 170.77 & 0.01\\
+2005 & 171.56 & 0.07\\
+2006 & 176.64 & 0.02\\
+2007 & 177.46 & 0.04\\
+2008 & 165.76 & 0.07\\
 \addlinespace
-2009 & 170.59 & 0.02\\
-2010 & 171.03 & 0.06\\
-2011 & 170.08 & 0.05\\
-2012 & 176.52 & 0.01\\
-2013 & 172.64 & 0.07\\
+2009 & 173.67 & 0.07\\
+2010 & 169.28 & 0.10\\
+2011 & 176.80 & 0.09\\
+2012 & 177.08 & 0.01\\
+2013 & 170.00 & 0.04\\
 \addlinespace
-2014 & 175.40 & 0.03\\
-2015 & 176.89 & 0.07\\
-2016 & 174.91 & 0.10\\
+2014 & 174.96 & 0.04\\
+2015 & 168.67 & 0.06\\
+2016 & 171.97 & 0.05\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1432,6 +1476,7 @@ parts of the run timing forecast model approach in Chapter \ref{ch2}.
 \subsubsection*{Source Code}\label{source-code}
 \addcontentsline{toc}{subsubsection}{Source Code}
 
+\begin{singlespace}
 \begin{verbatim}
 forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores = T) {  
   # total number of observed pairs
@@ -1481,6 +1526,7 @@ forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores =
   return(output)
 }
 \end{verbatim}
+\end{singlespace}
 
 \section*{Sliding Climate-Window}\label{sliding-climate-window}
 \addcontentsline{toc}{section}{Sliding Climate-Window}
