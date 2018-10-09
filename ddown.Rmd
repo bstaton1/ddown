@@ -1,3 +1,87 @@
+--- 
+title: "Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries"
+author: "Ben Staton"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [cites-without-doi.bib, cites-with-doi.bib]
+biblio-style: apalike
+link-citations: true
+description: "This is my dissertation. I'm writing it with bookdown!"
+fontsize: 12pt
+toc: false
+---
+
+# Preface {-}
+
+I used bookdown [@xie-2015] to make this document.
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction {#ch1}
+
+```{r echo = F, message = F, warning = F}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+rm(list = ls(all = T))
+knitr::opts_chunk$set(
+  fig.align = "center", warning = F, echo = F, message = F
+  )
+```
+
+\noindent
+Pacific salmon (_Oncorhynchus_ spp.) constitute an integral natural resource in Alaska to subsistence, commercial, and recreational interests. There is a long history of resource development, exploitation, regulation, and dependence on these resources within the region [@cooley-1963]. In many cases, the resource use is dictated by the locality of the system; for example, stocks located near urban areas are often primarily exploited by recreational fishers whereas more remote stocks often constitute commercial and/or subsistence uses. This proposed dissertation focuses on the challenges and solutions in the assessment and management of these more remote stocks and the subsistence fisheries that rely heavily upon them.
+
+Wild Pacific salmon represent a fantastic natural resource, which results largely from their unique life history strategy. Pacific salmon exhibit a migratory strategy known as anadromy: they spawn in freshwater where eggs hatch and juveniles rear for several years. Juveniles then migrate to the ocean where they spend the majority of their lives feeding on abundant prey resources. Once reaching maturity, adults return to their natal streams to spawn and complete the life cycle. The result of this life history strategy is an incredibly productive resource that grows entirely on its own and delivers itself to harvesters when the time comes for exploitation.
+
+Like for all exploited natural resources, the management of Pacific salmon fisheries involves making decisions about how to exploit the resource in order to best attain a suite of biological, social, and economic objectives [@walters-1986]. These decisions are intrinsically difficult due to conflicting objectives and uncertainties in system state, system response to management actions, and implementation [@walters-holling-1990]. Put another way, assuming a manager knows exactly what they wish to obtain, getting there is made difficult by not knowing how large the harvestable surplus is, how the stock will respond to harvesting, or that their management action will actually obtain what is desired. Despite these difficulties, a decision must be made [without decision-making there is no management; @hilborn-walters-1992] and the consequences, whether favorable or undesirable, must be accepted. Thus, I would argue that the science of monitoring, assessment, and prediction in the context of Pacific salmon fisheries is tasked with identifying trade-offs and reducing uncertainty, both of which insert difficulty into the decision-making process as discussed below. 
+
+The management of Pacific salmon fisheries can be thought of as a hierarchy of (1) guiding objectives, (2) management strategies to attain objectives, and (3) tactics to implement the management strategies (Table \ref{tab:mgmt-hierarchy-table}). At the upper level, long-term decisions are made about the objectives of the resource exploitation. These long-term objectives constitute what could be referred to as fundamental objectives: they are desired endpoints, but do not at all imply how they should be attained. These fundamental objectives often involve notions of sustainability and maintenance of biological diversity and often include social objectives such as maximization and stability of harvest. Already, it is clear that these fundamental objectives are often conflicting. For example, consider the objective of maximizing harvest: in fisheries that harvest multiple stocks (i.e., distinct spawning units), oftentimes maximum harvest may only obtained by overexploiting weak stock components and possibly reducing diversity. As another example, consider the objective of long-term sustainability: in order to ensure that the stock is sustained, some level of harvest fluctuations must be accepted (lower harvests must be allowed when the stock is at low abundance). These conflicting objectives imply that trade-offs exist (all objectives cannot be maximized simultaneously). It is worth noting here that the decisions made at the uppermost level of the management hierarchy are purely social and economic and salmon stock assessment scientists should play little-to-no advisory or advocacy roles in making these decisions [@walters-martell-2004]. The Policy for the Management of Sustainable Salmon Fisheries (5 AAC 39.222) states that the objectives of salmon management in Alaska are 
+
+> “…to ensure conservation of salmon and salmon’s required marine and aquatic habitats, protection of customary and traditional subsistence uses and other uses, and the sustained economic health of Alaska’s fishing communities”. 
+
+\noindent
+The policy goes on to say that managers should target “… to the extent possible, maximum sustained yield [MSY]”.
+
+The second level of the management hierarchy is made up of harvest strategies and policies that guide how the long term objectives are to be obtained. The State of Alaska has selected the fixed escapement policy as the management strategy to obtain the long-term objectives of sustainability and yields that are close to the maximum. These escapement goals are given as ranges that dictate the target number of spawning adults each year; any portion of the stock above the escapement goal is considered surplus (excess biological production) and should be harvested. Uncertainty at this intermediate level of the management hierarchy (i.e., regarding the optimal escapement goal) is often a result of incomplete understanding of system status and function. For example, in order to determine what the optimal escapement goal should be to obtain MSY, knowledge of stock productivity and carrying capacity are required. These quantities are often derived using spawner-recruit analyses, which are inherently uncertain: data are rarely informative about the shape of the true underlying spawner-recruit relationship but instead provide a probabilistic distribution of expected outcomes at a given stock size [@walters-martell-2004]. Traditionally, it has been thought that these uncertainties can be reduced by more monitoring and the development of rigorous assessment and prediction models to better understand system function. However, it has often been argued that while monitoring and assessment models are obviously important (performance relative to objectives must be measured), true understanding of system behavior comes only from experimentation in management [the concept of “active adaptive management”; @walters-1986]. The classic example is to assess the maximum productivity of the stock (i.e., in the absence of density dependent mortality), the spawning stock must be forced to small sizes and the resulting recruitments must be observed. However, management actions that ensure these observations are made are undesirable to many managers and stakeholders, considering that exploiting a stock down to these low levels is risky [@walters-1986].
+
+At the lower level in the management hierarchy, intra-annual (or in-season) decisions are made regarding how to exploit the current year’s run to attain the long-term objectives. In other words, given a management strategy (i.e., fixed escapement), the manager is still tasked with deciding how to best implement the fishery within a year to ensure the strategy is followed. As will be illustrated in this proposed dissertation, these decisions at the intra-annual level of the management hierarchy are often poorly informed by data which often results in indecisiveness, subjectivity, non-transparency, frustration, and missed opportunities.
+
+This proposed dissertation will be partitioned into three chapters, each that expands on and investigates the performance of potential solutions to the aforementioned difficulties in Pacific management in Western Alaska. Each chapter will focus on the Kuskokwim River drainage in Western Alaska, which is characterized by being a large drainage (>50,000 km^2^), harvests are taken by primarily subsistence users who are nearly all native Alaskans, and the primary species of interest being Chinook salmon. Although this proposed dissertation is quite narrow in its geographical and biological focus, a wide range of management issues will be addressed and the developed tools and assessment methods will be evaluated thoroughly. Furthermore, the concepts and tools discussed, developed, and evaluated will be generalizable to other stocks with similar spatial structures, exploitation characteristics, and population dynamics.
+
+Chapter \@ref(ch2) will work at the intra-annual level of the hierarchy to develop and evaluate the performance of a run timing forecast model that can be used to aid in the interpretation of in-season data. As will be shown, uncertainty in run timing makes the interpretation of in-season data incredibly difficult. For example, consider a case in which an abundance index has produced high counts early in the season when compared to the historical average. This observation is consistent with at least two run scenarios: (1) a small run with early run timing or (2) a large run with average timing. There is a large discrepancy in the amount of harvestable surplus suggested by each of these discrete scenarios, leading to a large amount of uncertainty about how the fishery should be executed. The overall objective of Chapter \@ref(ch2) will be to develop and evaluate the reliability of a run timing forecast model for Kuskokwim River Chinook salmon. A secondary goal of Chapter \@ref(ch2) will be to formally assess the utility of having access to the run timing forecast model in terms of reducing uncertainty and bias in run size indices used in intra-annual management decisions.
+
+Chapter \@ref(ch3) will again address the lowest level of the management hierarchy (i.e., intra-annual decision-making), but in this case in a more direct sense using an analysis framework known broadly as Management Strategy Evaluation (MSE). This analysis will seek to evaluate several harvest control tactics to identify strategies that perform well at attaining pre-defined objectives (e.g., meeting the escapement goal, distributing harvest equally across villages and stock components, etc.) across a range of biological states (e.g., run size, stock composition, and run timing). This analysis is needed because while the fixed escapement strategy seems simple to execute, actually doing so is made difficult largely due to uncertainty regarding the size of the incoming run (i.e., the amount of harvestable surplus is not known). Additionally, there may be a set of tactics that perform well at limiting harvest in low run size years but doing so in a “fair way’, where the burdens of shortages aren’t carried primarily by a certain subset of resource users. If a consistent set of rules or triggers could be identified that perform reasonably well at meeting management objectives without precise knowledge of run size, it could prove very useful to managers and decision making within the region.
+
+Chapter \@ref(ch4) will move up the hierarchy to the second level and will seek to extend the single stock assessment models currently used in many systems in Alaska to multi-stock assessments. When an aggregate stock is made up of several distinct components, each with their own productivity, it is likely that exploitation at some level (e.g., 50%) results in the more productive components being under-exploited while the weaker stocks may be over-exploited. This reality implies a trade-off: to preserve stock diversity, some harvest must be foregone. Before the shape and magnitude of these types of “harvest-biodiversity” trade-offs are quantified, some understanding of the variation in substock productivity and carrying capacity is required. The multi-stock assessment framework developed in Chapter \@ref(ch4) will be tailored to provide this information for these sorts of trade-off analyses and others that require similar information sources. Multi-stock assessments may assume one of several different model structures (e.g., by fitting separate models to the data from each stock or by fitting a single model to all data simultaneously). In some cases, one approach may be preferable over the other, and a primary objective of Chapter \@ref(ch4) will be to evaluate the performance of a range of assessment strategies (in terms of accuracy and precision) across a range of biological and data quality conditions.
+
+\newpage
+
+```{r mgmt-hierarchy-table}
+tab = data.frame(
+  ex = c("Ensure sustainability", "Maximize harvest", "Stabilize harvest", "Maximize economic value",
+         "Constant escapement", "Constant exploitation rate", "Constant catch", "Adaptive exploitation",
+         "Triggers and thresholds", "Time, area, gear restrictions", "Limited participation"),
+  
+  src = c("Relative importance of objectives", "Problem boundaries", " ", " ",
+          "Stock productivity", "Stock status", "Drivers of stock change", "Shape/magnitude of trade-offs",
+          "Harvestable surplus", "Uninformative data", "Fisher behavior")
+)
+
+colnames(tab) = c("\\textbf{Examples}", "\\textbf{Sources of Uncertainty}")
+knitr::kable(tab, "latex", booktabs = T,
+             caption = "One way of viewing the structure of renewable natural resource (including salmon) management as described in the text, including examples of alternatives and sources of uncertainty at each level.", escape = F) %>%
+  kable_styling() %>%
+  group_rows("Overarching Objectives", 1,4, hline_after = T) %>%
+  group_rows("Inter-annual Strategies", 5, 8, hline_after = T) %>%
+  group_rows("Intra-annual Tactics", 9, 11, hline_after = T)
+```
+
+<!--chapter:end:01-intro.Rmd-->
+
 # Development and Evaluation of a Migration Timing Forecast Model for Kuskokwim River Chinook Salmon {#ch2}
 
 ```{r echo = F, message = F, warning = F}
@@ -402,3 +486,214 @@ knitr::kable(tab, "latex", booktabs = T, escape = F,
   \caption{In-season predictions of end of season cumulative BTF CPUE under the model-averaged forecast using environmental variables and the forecast under the null model in 2013 and 2014. Intended to illustrate cases in which a manager would benefit from having access to the model-averaged run timing forecast model using environmental variables (2014) and when the null model would have performed better (2013). Horizontal lines are the true end of season cumulative BTF CPUE, dark grey regions are 50$\%$ confidence intervals, and light grey regions are 95$\%$ confidence intervals. Grey vertical lines indicate the period when key harvest decisions are made.}
   \label{fig:eos-preds}
 \end{figure}
+
+<!--chapter:end:02-rt-fcst.Rmd-->
+
+# Evaluation of Intra-Annual Harvest Control Rules via Closed-Loop Simulation {#ch3}
+
+```{r echo = F, message = F, warning = F}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+rm(list = ls(all = T))
+knitr::opts_chunk$set(
+  fig.align = "center", warning = F, echo = F, message = F
+  )
+```
+
+## Introduction
+
+Here's chapter 3. It's about in-season simulation models for management strategy evaluations.
+
+## Methods
+
+I did some stuff.
+
+## Results
+
+I found some stuff.
+
+## Discussion
+
+Here's what it means.
+
+\begin{singlespace}
+
+```{r}
+eq1 = "$N_s=N_{tot} \\pi_s$"
+desc1 = "Apportions total Chinook run size to subpopulations"
+
+eq2 = "$p^{\\prime}_{d,s} = \\frac{e^{\\frac{d-D_{50,s}}{h_s}}}{h_s \\left(1 + e^{\\frac{d-D_{50,s}}{h_s}} \\right)^2}$"
+desc2 = "Produces a time series of unstandardized entry timing values (logistic density function)"
+
+eq3 = "$p_{d,s}=\\frac{p^{\\prime}_{d,s}}{\\sum_d p^{\\prime}_{d,s}}$"
+desc3 = "Standardizes entry timing to sum to one for each Chinook subpopulation"
+
+eq4 = "$A_{d,1,s}=N_s p_{d,s}$"
+desc4 = "Populates first main stem reach with Chinook from each subpopulation"
+
+eq5 = "$A_{d,1,4}=\\phi_d \\sum_{s=1}^3 A_{d,1,s}$"
+desc5 = "Populates first reach with chum/sockeye main stem abundance"
+
+eq6 = "$S_{d,r,s}=\\psi_{r,s} \\cdot \\left(A_{d,r,s} - H_{d,r,s} \\right)$"
+desc6 = "Generates escapement in each reach on each day from each population"
+
+eq7 = "$A_{d+1,r+1,s}=A_{d,r,s}-H_{d,r,s}-S_{d,r,s}$"
+desc7 = "Transition main stem survivors to the next reach on the next day"
+
+eq8 = "$\\text{logit}(p_{E,d,r})=\\beta_0 + \\beta_1 full_{d,r} + \\beta_2 stop_{d,r} + \\beta_3 \\delta_{d-1,r,CH} + \\beta_4 \\delta_{d-1,r,CS} + \\beta+5 \\phi_{d,r}$"
+desc8 = "Effort response model; $full$ and $stop$ are binary indicators; $\\delta$ is the fraction of needed harvest obtained for Chinook ($CH$) and chum/sockeye ($CS$), and $\\phi$ is the local species ratio"
+
+eq9 = "$E_{d,r} p_{E,d,r} F_{d,r}$"
+desc9 = "Generates realized effort in each reach on each day"
+
+eq10 = "$H_{tot,d,r}=\\text{min} \\left(1 - e^{-E_{d,r} q} \\sum_{s=1}^4 A_{d,r,s}, E_{d,r} F_{d,r} CPB_{max} \\right)$"
+desc10 = "Generates total salmon harvest by reach and day"
+
+tab = data.frame(
+  Number = 1:10,
+  Equation = c(eq1, eq2, eq3, eq4, eq5, eq6, eq7, eq8, eq9, eq10),
+  Description = c(desc1, desc2, desc3, desc4, desc5, desc6, desc7, desc8, desc9, desc10)
+)
+
+colnames(tab) = c(
+  "\\textbf{\\#}",
+  "\\textbf{Equation}",
+  "\\textbf{Purpose/Description}")
+
+kable(tab, "latex", booktabs = T, escape = F,
+      align = "cll") %>%
+  kable_styling(full_width = F,
+                latex_options = c("striped", "scale_down")) %>%
+  column_spec(2, width = "20em", border_left = T) %>%
+  column_spec(3, width = "20em")
+  
+```
+
+\end{singlespace}
+
+_Insert Figures_
+
+<!--chapter:end:03-inseason-mse.Rmd-->
+
+# Simulation-based Evaluation of Assessment Approaches for Mixed-stock Pacific Salmon Fisheries {#ch4}
+
+## Introduction
+
+Here's chapter 4. It's about different ways to estimate the biological reference points for a salmon system made up of multiple substocks with heterogeneity in size and productivity.
+
+## Methods
+
+I did some stuff.
+
+## Results
+
+I found some stuff.
+
+## Discussion
+
+Here's what it means.
+
+_Insert Tables_
+
+_Insert Figures_
+
+<!--chapter:end:04-multistock-sra.Rmd-->
+
+# Conclusions {#ch5}
+
+This chapter contains my thoughts on the topic of the dissertation. What was found, what will be useful to use in the future, what should be looked at in more detail?
+
+<!--chapter:end:05-conclusion.Rmd-->
+
+# Appendix A {-#appendix-a}
+
+\noindent
+This appendix contains the necessary code to perform two of the main parts of the run timing forecast model approach in Chapter \@ref(ch2).
+
+## Forecast Cross-Validation {-}
+
+#### Function Name {-}
+
+`forecast.CV`
+
+#### Purpose {-}
+
+#### Arguments {-}
+
+\noindent
+\textbf{Arguments:}
+
+1. `x`: a vector containing the time series of the x-variable
+2.  `y`: a vector containing the time series of the y-variable
+3.  `start.ind`: the index to start the forecast cross-validation (e.g., 10 would train to 10 years and start forecasting in the $11^{\text{th}}$, then continue until present).
+4.  `na.rm`: logical; do you wish to remove `NA` observations before calculating summary statistics?
+5.  `include.last.year.in.scores`: logical; do you wish to have the last year of `y` to influence the cross-validation score?
+
+#### Psuedocode {-}
+
+#### Source Code {-}
+
+\begin{singlespace}
+\begin{verbatim}
+forecast.CV = function(x, y, start.ind, na.rm = F, include.last.year.in.scores = T) {  
+  # total number of observed pairs
+  n = length(x)
+  # validation end years
+  val.end = start.ind:(n-1)
+  n.val = length(val.end)
+  # containers
+  error = numeric(n.val)
+  abs.error = numeric(n.val)
+  pred.se = numeric(n.val)
+  # containers for training data
+  train.x = list()
+  train.y = list()
+  # containers for validation data
+  val.x = numeric(n.val)
+  val.y = numeric(n.val)
+  pred.val.y = numeric(n.val)
+  for (i in 1:n.val) {
+    # indices to train and validate over
+    train.ind = 1:val.end[i]
+    val.ind = max(train.ind) + 1
+    # store the training data
+    train.x[[i]] = x[train.ind]
+    train.y[[i]] = y[train.ind]
+    # store the validation data
+    val.x[i] = x[val.ind]
+    val.y[i] = y[val.ind]
+    # fit model to training data
+    temp.x = train.x[[i]]; temp.y = train.y[[i]]
+    fit = lm(temp.y ~ temp.x)
+    sig = summary(fit)$sigma
+    # forecast
+    pred.val.y[i] = predict(fit, newdata = data.frame(temp.x = val.x[i]))
+    # statistics
+    error[i] = val.y[i] - pred.val.y[i]
+    abs.error[i] = abs(error[i])
+  }
+  
+  if (!include.last.year.in.scores) {
+    error[n.val] = NA
+    abs.error[n.val] = NA
+  } 
+  
+  # return output
+  output = list(error = error, abs.error = abs.error, mae = mean(abs.error, na.rm = na.rm))
+  return(output)
+}
+\end{verbatim}
+\end{singlespace}
+
+## Sliding Climate-Window {-}
+
+<!-- This makes space between the citations -->
+<!--  \setlength{\hangindent}{0.7cm} -->
+<!--  \hangindent=2em -->
+<!--  \hangafter=1 -->
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+
+<!--chapter:end:06-appendix-a.Rmd-->
+
