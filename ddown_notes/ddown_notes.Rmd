@@ -155,3 +155,6 @@ Insert a centered block of equations with only one equation number.
 (\#eq:)
 \end{equation}
 ```
+
+## Cross-referencing
+

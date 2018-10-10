@@ -125,6 +125,12 @@ Fisheries}
 %\renewcommand\cftfigafterpnum{\vskip\baselineskip}
 %\renewcommand\cfttabafterpnum{\vskip\baselineskip}
 
+% remove double spacing from itemized lists
+\usepackage{enumitem}
+% \setlist[itemize]{noitemsep}
+\setlist{before=\singlespacing,after=\singlespacing}
+
+
 %%%%%Format rules: Normal margins are 1 in. If you need to print with 1.5in margins, uncomment the line below
 %\oddsidemargin0.5in \textwidth6in
 
@@ -789,10 +795,8 @@ index is produced by taking the first principal component of monthly SST
 anomalies in the northern Pacific Ocean, after removing any global
 trends due to any systematic change over time \citep{mantua-etal-1997}.
 Thus, for each year of the data set, a single monthly value was
-available for PDO. In the selection of relevant time periods (Section
-\ref{clim-windows}), we considered monthly PDO values from January to
-June of each year, as previous studies have found PDO values prior to
-the initiation of the run have predictive value for Chinook salmon
+available for PDO. Previous studies have found PDO values prior to the
+initiation of the run have predictive value for Chinook salmon
 populations \citep{beer-2007, keefer-etal-2008}.
 
 \subsubsection{Bethel air temperature
@@ -803,8 +807,6 @@ Air temperature data for Bethel, AK were accessed from the Alaska
 Climate Research Center\footnote{Alaska air temperature data:
   \url{http://akclimate.org/acis_data}}. These data were available as
 daily means for each day of each year in the 1984 -- 2016 data set.
-Daily air temperature values from the start of January to mid-June of
-each year were considered in the selection procedures.
 
 \subsubsection{SST and SIC}\label{sst-and-sic}
 
@@ -831,13 +833,7 @@ for the possibility of certain areas having stronger timing signals than
 others or that the areas with stronger signals may change over time.
 Thus, the gridded spatial structure of these variables was retained and
 the treatment of this structure in the forecast analysis is discussed
-below in Section \ref{rtf-models}. Because of the time-intensive nature
-of the selection procedure described in Section \ref{clim-windows},
-considered time periods for gridded variables were shortened based on
-preliminary correlation analyses showing excluded times had little or no
-correlation with \(D_{50}\). Daily means for SST from mid-April to
-mid-June and SIC from mid-February to mid-May in each year were
-considered in the predictive variable selection techniques.
+below in Section \ref{rtf-models}.
 
 \subsection{Forecast model}\label{reg-models}
 
@@ -983,6 +979,12 @@ windows starting later than January 27 would result in windows shorter
 than 5 days. Example R code for how the sliding window algorithm was
 implemented is provided in Appendix \protect\hyperlink{appendix-a}{A}.
 
+The values of \(D_0\) and \(D_L\) for the four covariates are shown in
+Table \ref{tab:scwa-dates-table}. For air temperature, SST, and SIC
+\(\Delta_{D,min}\) was set to 5. Note that because PDO was available in
+monthly values only, each month was treated as ``day'' in the algorithm
+described above and \(\Delta_{D,min}\) was set to 1.
+
 \subsubsection{Forecast cross-validation}\label{fcst-cv}
 
 A metric was needed to measure the performance of the many windows. This
@@ -990,21 +992,22 @@ metric was obtained using a time series forecast cross-validation
 procedure, which is an out-of-sample technique for data that are
 collected through time \citep{arlot-celisse-2010}. The procedure
 operated by producing a forecasted value of \(D_{50}\) for year \(t+1\)
-trained based on all data available from years \(1, ..., t\). It then
-continued for all \(t = m, ..., n-1\), where \(m\) is the minimum number
-of years necessary to fit the model (set at \(m = 10\) in all cases) and
-\(n\) is the number of years of available data. Then, absolute forecast
-error in \(D_{50}\) was calculated based on all forecasted years as
-\(|y_{t+1} - \hat{y}_{t+1}|\), and yearly forecast errors were averaged
-to obtain mean absolute error (\(\overline{\text{AE}}\)) which was used
-as the measure of model performance in window selection. The window with
-the lowest (\(\overline{\text{AE}}\)) was selected as the optimal window
-to average over for prediction. The forecasting cross-validation
-procedure was used as opposed to other out-of-sample validation
-procedures, such as \(k\)-fold or leave-one-out methods, because the
-data were collected through time and it would never need to forecast
-(for example) year 2010 from years 1984 -- 2009 and 2011 -- 2016, but
-rather it would always need to predict year \(t+1\) from all
+trained based on all data \(x_{t,j}\) available from years
+\(1, ..., t\). It then continued for all \(t = m, ..., n-1\), where
+\(m\) is the minimum number of years necessary to fit the model (set at
+\(m = 10\) in all cases) and \(n\) is the number of years of available
+data. Then, absolute forecast error in was calculated based on all
+forecasted years as \(|D_{50,t+1} - \hat{D}_{50,t+1}|\), and yearly
+forecast errors were averaged to obtain mean absolute error
+(\(\overline{\text{AE}}\)) which was used as the measure of model
+performance in window selection. The window with the lowest
+(\(\overline{\text{AE}}\)) was selected as the optimal window to average
+over for prediction. The forecasting cross-validation procedure was used
+as opposed to other out-of-sample validation procedures, such as
+\(k\)-fold or leave-one-out methods, because the data were collected
+through time and the forecast model would never need to predict (for
+example) year 2010 from years 1984 -- 2009 and 2011 -- 2016, but rather
+it would always need to predict year \(t+1\) from all
 previously-collected data. Example R code for how the forecast
 cross-validation was conducted is provided in Appendix
 \protect\hyperlink{appendix-a}{A}.
@@ -1017,28 +1020,28 @@ to forecast \(D_{50,t+1}\). When a new year of data was added to the
 training data (such as in the retrospective forecast analysis; Section
 \ref{retro}), the optimal window for each variable was re-assessed using
 the algorithm again. For PDO and Bethel air temperature, which had no
-spatial structure, the sliding window algorithm was used to select the
-range of monthly (PDO) or daily (Bethel air temperature) values to
-include in the predictive climate window for each year in the analysis.
-For SST and SIC which contained a series of 50 and 49 grid cells,
-respectively, each with unique daily values, the sliding window
-algorithm was used on each grid cell separately. The result was 50
-unique grid cell-specific windows for SST and 49 windows for SIC for
-each year of the analysis. The treatment of this spatial structure in
-the forecast analysis is discussed below in Section \ref{rtf-models}.
+spatial structure, the SCWA was used to select the range of monthly
+(PDO) or daily (Bethel air temperature) values to include in the
+predictive climate window for each year in the analysis. For SST and SIC
+which contained a series of 50 and 49 grid cells, respectively, each
+with unique daily values, the SCWA was used on each grid cell
+separately. The result was 50 unique grid cell-specific windows for SST
+and 49 windows for SIC for each year of the analysis. The treatment of
+this spatial structure in the forecast analysis is discussed below in
+Section \ref{rtf-models}.
 
 \subsection{Evaluated forecast models}\label{rtf-models}
 
 \noindent
-Linear regression was used to assess the forecast performance of each of
-the variables described above, both in isolation of and in combination
-with other variables. All possible subsets were evaluated (excluding
-interactive effects) for predictive ability through time, resulting in a
-total of 16 models ranging from the null (i.e., intercept only) model to
-the full (i.e., global) model (all four variables as additive
-predictors).
+Linear regression {[}Equation \eqref{eq:lin-reg}{]} was used to assess the
+forecast performance of each of the variables described above, both in
+isolation of and in combination with other variables. All possible
+subsets were evaluated (excluding interactive effects) for predictive
+ability through time, resulting in a total of 16 models ranging from the
+null (i.e., intercept only) model to the full (i.e., global) model (all
+four variables as additive predictors).
 
-For the spatially explicit variables (i.e., SST and SIC), a more complex
+For the spatially-explicit variables (i.e., SST and SIC), a more complex
 treatment was required to prevent all grid cell values from being used
 as predictors in a single model. To handle the spatial structure, grid
 cell-specific regression models were fitted, then model-averaging based
@@ -1068,7 +1071,8 @@ cell:
 
 \noindent
 where \(\text{AIC}_{\text{c},min}\) is the minimum AIC\textsubscript{c}
-across all grid cells. Model weights were then calculated as:
+across all grid cells. Model (grid cell) weights were then calculated
+as:
 
 \begin{equation}
   w_g=\frac{e^{-0.5\Delta_g}}{\sum_j^G e^{-0.5\Delta_j}},
@@ -1118,7 +1122,7 @@ produce prediction SE:
 where \(\text{SE}_g\) is the prediction SE from grid cell \(g\)
 calculated using equation \eqref{eq:se}. This estimator of unconditional
 sampling standard error accounts for uncertainty within each model and
-the uncertainty due to model selection (Burnham and Anderson, 2002).
+the uncertainty due to model selection \citep{burnham-anderson-2002}.
 Prediction intervals were calculated using the point estimate of
 prediction, the prediction SE, and appropriate quantiles from the
 corresponding \(t\) distribution.
@@ -1128,11 +1132,23 @@ corresponding \(t\) distribution.
 \noindent
 Given 16 forecast models, it is impossible to know which will perform
 the best at forecasting for the current year. Thus, three methods to
-obtain a forecast for \(D_{50}\) were evaluated: (1) the null (i.e.,
-intercept only) model, (2) the single model with the lowest forecast
-cross-validation score as of the last year, and (3) model-averaging
-across the ensemble of 16 forecast models based on AIC\textsubscript{c}
-scores. According to Burnham and Anderson (2002), model-averaging should
+obtain a forecast for \(D_{50}\) were evaluated:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  the null (i.e., intercept only) model,
+\item
+  the single model with the lowest forecast cross-validation score as of
+  the last year, and
+\item
+  model-averaging across the ensemble of 16 forecast models based on
+  AIC\textsubscript{c} scores.
+\end{enumerate}
+
+\noindent
+According to \citet{burnham-anderson-2002}, model-averaging should
 perform better than a single ``best model'' at prediction when there is
 a high degree of uncertainty about which model is best. This procedure
 was performed using equations \eqref{eq:aicc} - \eqref{eq:mod-avg-se}, by
@@ -1142,7 +1158,7 @@ model-averaged predictions and prediction SE present somewhat of a
 problem when the different models contributing to the average contain
 differing degrees of freedom as it is unclear how many standard errors
 the prediction limits should lie from the mean prediction. Thus, the
-estimator suggested by Burnham and Anderson (2002) of the ``adjusted
+estimator suggested by \citet{burnham-anderson-2002} of the ``adjusted
 SE'' (ASE) was used:
 
 \begin{equation}
@@ -1185,10 +1201,12 @@ size such as test fisheries. To evaluate the utility of having access to
 the run timing forecast model, the accuracy and precision of an
 imperfect abundance index for the Kuskokwim River were compared when
 informed using \(D_{50}\) forecasts from the model-averaged and the null
-forecast models. The abundance index is denoted by EOS, and is the
-end-of-season cumulative CPUE observed in the BTF. In-season predictions
-of EOS were made for each year \(t\), model \(i\), and day \(d\) in the
-season with:
+forecast models. The abundance index is denoted by \(\text{EOS}_t\), and
+is the end-of-season cumulative CPUE observed in the BTF in year \(t\).
+Under the assumption of constant catchability, \(\text{EOS}_t\) should
+be proportional to total abundance, with deviations introduced by
+sampling noise. In-season predictions of \(\text{EOS}_t\) were made for
+each year \(t\), model \(i\), and day \(d\) in the season with:
 
 \begin{equation}
   \widehat{\text{EOS}}_{d,t,i}=\frac{\text{CCPUE}_{d,t}}{\hat{p}_{d,t,i}},
@@ -1197,28 +1215,32 @@ season with:
 
 \noindent
 where \(\text{CCPUE}_{d,t}\) is the cumulative CPUE caught at the BTF
-through day \(d\) in forecasting year \(t\), \(\hat{p}_{d,t,i}\) is the
-predicted cumulative proportion of the run that had passed the BTF
-location on day \(d\) in year \(t\) from model \(i\) (i.e.,
-model-averaged \emph{versus} null forecast model) obtained by inserting
-the forecasted value of \(D_{50}\) into the logistic equation
-\eqref{eq:logistic}. Uncertainty in the run timing forecast model was
-propagated to \(\text{EOS}_{d,t,i}\) using the delta method (Bolker,
-2008). As the parameter \(h\) is also unknown in-season, the mean of all
-historical \(h_t\) was used as the point estimate, and the variance and
-correlation with \(D_{50,t}\) was included in the covariance matrix
-supplied to the delta method. Accuracy was assessed using proportional
-bias \((\widehat{\text{EOS}}_{d,t,i} - \text{EOS}_t)/\text{EOS}_t\) and
-precision was assessed using the SE of \(\widehat{\text{EOS}}_{d,t,i}\).
-Both accuracy and precision measures were compared between the null and
-the model-averaged forecast model on 15 June, 30 June, 15 July, and 30
-July each year a forecast was available (1995 - 2016). Using the null
-model to obtain \(\hat{p}_d\) is essentially what would be done in the
-absence of an environmental forecast variable model for \(D_{50}\).
+through day \(d\) in forecasting year \(t\)
+\(\left(\text{CCPUE}_d = \sum_{j=1}^{d} CPUE_j \right)\),
+\(\hat{p}_{d,t,i}\) is the predicted cumulative proportion of the run
+that had passed the BTF location on day \(d\) in year \(t\) from model
+\(i\) (i.e., model-averaged \emph{versus} null forecast model) obtained
+by inserting the forecasted value of \(D_{50}\) into the logistic
+function {[}Equation \eqref{eq:logistic}{]}. Uncertainty in the run timing
+forecast model was propagated to \(\text{EOS}_{d,t,i}\) using the delta
+method \citep{bolker-2008}. As the parameter \(h\) is also unknown
+in-season, the mean of all historical \(h_t\) was used as the point
+estimate, and the variance and correlation with \(D_{50,t}\) was
+included in the covariance matrix supplied to the delta method. Accuracy
+was assessed using proportional bias
+\(\left(\widehat{\text{EOS}}_{d,t,i} - \text{EOS}_t\right)/\text{EOS}_t\)
+and precision was assessed using the SE of
+\(\widehat{\text{EOS}}_{d,t,i}\). Both accuracy and precision measures
+were compared between the null and the model-averaged forecast model on
+June 15, June 30, July 15, and July 30 each year a forecast was
+available (1995 - 2016). Using the null model to obtain \(\hat{p}_d\) is
+essentially what would be done in the absence of an environmental
+forecast variable model for \(D_{50}\).
 
 \subsection{Investigation of a run timing versus run size
 relationship}\label{investigation-of-a-run-timing-versus-run-size-relationship}
 
+\noindent
 To test the hypothesis that run timing is related to run size (e.g.,
 small runs are typically early, or \emph{vice versa}), two models were
 investigated for their predictive performance using the forecast
@@ -1228,9 +1250,9 @@ Run size was obtained from a maximum likelihood run reconstruction model
 that compiles all assessment information (i.e., 20 escapement count
 indices, harvest estimates, drainage-wide mark-recapture estimates,
 etc.) to estimate the run size that makes the collected data most likely
-to have been observed (Bue et al., 2012). The forecast absolute errors
-in each year were then compared using a two-tailed paired \(t\)-test
-using \(\alpha = 0.05\).
+to have been observed \citep{bue-etal-2012}. The forecast absolute
+errors in each year were then compared using a two-tailed paired
+\(t\)-test using \(\alpha = 0.05\).
 
 \section{Results}\label{results}
 
@@ -1261,7 +1283,203 @@ AIC\textsubscript{c} weight for each grid cell. Air temperature, PDO,
 and SST all had negative relationships with \(D_{50}\), whereas SIC had
 a positive relationship (\ref{tab:coefs-table}).
 
+\subsection{Selected climate windows}\label{selected-climate-windows}
+
+\noindent
+It was difficult to generalize on the climate windows selected for each
+variable based on forecast cross-validation performance, because the
+selected windows changed with each new year of data and SST and SIC had
+windows for each grid cell; however, some noteworthy patterns arose.
+First, the best window for PDO was consistently the value for the month
+of May for each year the forecasts were produced (not shown). Second,
+selected windows for air temperature fluctuated from year to year to
+some extent, but long windows were consistently selected for all years
+after 1999, and generally spanned early February to late May (Figure
+\ref{fig:window-changes}a). Third, selected windows through time were
+substantially more variable for most grid cells for SST and SIC,
+although many grid cells remained relatively constant or became more
+``focused'' as more years of data were added (Figures
+\ref{fig:window-changes}b1-4, \ref{fig:window-changes}c1-4). In general,
+chosen windows for SST began in early to mid-May and ended in late May
+or early June (Figure \ref{fig:window-changes}b1-4) whereas windows
+starting in early April and ending in mid to late April were
+predominately chosen for SIC (Figure \ref{fig:window-changes}c1-4). The
+selected climate windows in southern-most grid cells appeared more
+stable for SST (Figure \ref{fig:window-changes} panels b3 and b4),
+whereas climate windows in northern grid cells appeared more stable for
+SIC (Figure \ref{fig:window-changes} panels c1 and c2; stable in the
+sense that the optimal windows changed less as new years were added to
+the training data).
+
+\subsection{Forecast performance}\label{forecast-performance}
+
+\noindent
+Of the three investigated forecasting methods (null model, model with
+lowest forecast cross-validation error up to the forecasting year, and
+AIC\textsubscript{c} model-averaging), the null model had the lowest
+\(\overline{\text{AE}}\) from 1995 to 2016 (2.64 days; Figure
+\ref{fig:forecasts}). AIC\textsubscript{c} model-averaging performed
+better than using the single model with the lowest cross-validation
+score (3.04 versus 3.34, respectively; Figure \ref{fig:forecasts}).
+However, these patterns were not consistent across the entire time
+series. For the period of 1996 to 2008, the model-averaged forecast had
+a lower \(\overline{\text{AE}}\) than the null model, and for the period
+of 2009 to 2015, the model-averaged forecast had approximately the same
+or lower \(\overline{\text{AE}}\) scores (Figure \ref{fig:ae-changes}).
+It was due in a large part to 2016 that the model-averaged forecast had
+a slightly higher \(\overline{\text{AE}}\) than the null model. Each
+model in the ensemble of 16 models (except the null) predicted an
+extremely early run in 2016 when in fact the observed run timing in 2016
+was close to the historical (1984 -- 2015) average (Figure 4). A similar
+case happened in 2015 (Figure \ref{fig:forecasts}). Expressing
+prediction error in terms of median absolute error
+(\(\widetilde{\text{AE}}\)) resulted in lower average errors (null =
+2.08, single best = 2.56, and model-averaged = 2.35), indicating that
+extreme prediction errors (i.e., outliers) influenced the value of
+\(\overline{\text{AE}}\). However, the relative differences in
+prediction error between models were approximately the same as for
+\(\overline{\text{AE}}\), indicating outliers affected the prediction
+error scores for each model similarly. Additionally, by comparing the
+width of the prediction intervals in Figure \ref{fig:forecasts} across
+forecasting approaches, it was clear that model-averaging substantially
+reduced prediction uncertainty (SE) in relation to the null and single
+best model approaches.
+
+To compare performance in average versus extreme years among forecasting
+approaches, \(\overline{\text{AE}}\) was further calculated in a more
+specific way: based on how similar or dissimilar the included years were
+to the mean observed run timing across all years. As would be expected,
+the null model performed well when only years with \(D_{50}\) within
+\(\pm 1\) days of the average were in included in the calculation of
+\(\overline{\text{AE}}\) (Figure \ref{fig:mae-subsets}a), but its
+accuracy became increasingly worse as years with more extreme realized
+\(D_{50}\) values were included in the calculation (increasing
+\(x\)-axis values in Figure \ref{fig:mae-subsets}a). The two
+environmental variable forecast approaches (model-averaging or the
+single ``best'' model in each year) performed relatively equally well
+across this continuum and neither \(\overline{\text{AE}}\) score was
+sensitive to the overall similarity or dissimilarity the included years
+had with average run timing (Figure \ref{fig:mae-subsets}a). The lower
+panel shows the relative frequency with which these various \(X\)
+scenarios occurred, indicating how much information each scenario
+contributed to the overall \(\overline{\text{AE}}\). On the other hand,
+the null model only performed as well as the model-averaged forecast
+when years with \(D_{50} \pm 0.5\) days outside of the mean were
+considered (Figure \ref{fig:mae-subsets}b). As only more extreme years
+were considered in \(\overline{\text{AE}}\) (increasing \(x\)-axis
+values in Figure \ref{fig:mae-subsets}b), the null model rapidly
+performed worse and the model-averaged forecast remained relatively
+insensitive to the degree of extremity (Figure \ref{fig:mae-subsets}b).
+
+\subsection{Value to in-season run size
+assessments}\label{value-to-in-season-run-size-assessments}
+
+\noindent
+When the model-averaged and null model forecasts for \(D_{50,t}\) were
+retrospectively used to aid in in-season run assessment based on daily
+cumulative BTF CPUE, it was evident that the range of possible
+\(\widehat{\text{EOS}}_{d,t}\) was substantially smaller when the
+model-averaged forecast was used as opposed to the null forecast. This
+is evident by the average daily standard errors of
+\(\widehat{\text{EOS}}_{d,t}\) on June 15, June 30, July 15, and July
+30: 256.97, 62.23, 6.69, 0.59 for the model-averaged forecast model and
+337.19, 72.63, 6.90, and 0.57 for the null forecast, respectively. The
+reduction in the first two evaluated days is of key importance. In terms
+of accuracy, however, the forecast model did not perform better at
+informing EOS predictions than the null model. On the same days, the
+average proportional bias {[}(estimate -- observed)/observed{]} using
+the model-averaged \(D_{50,t}\) forecast was 0.152, 0.006, -0.024,
+-0.008 as opposed to 0.145, -0.035, -0.027, and -0.008 under the null
+model forecast. A visual example of two years is provided in Figure
+\ref{fig:eos-preds}. The upper panels show the time series of
+\(\widehat{\text{EOS}}_{d}\) when the model-averaged and the null model
+forecast models were used to inform the location of the logistic
+cumulative timing curve in 2013 and 2014. The horizontal line shows the
+observed EOS. 2013 is an example of when the null model would have been
+preferable to use (in terms of accuracy) and 2014 shows a case when the
+model-averaged forecast would have performed better.
+
+\subsection{Run timing versus run size
+relationship}\label{run-timing-versus-run-size-relationship}
+
+\noindent
+There appeared to be no evidence to lend support for the hypothesis that
+run timing and run size are related for the Kuskokwim River Chinook
+salmon stock. On average, \(D_{50}\) occurred 0.01 (95\% CL; -0.03 --
+0.004) days earlier for each 1,000 fish increase in run size, which was
+not significantly different than no effect of run size on run timing
+(\(p = 0.153, R^2 = 0.07\)). Additionally, based on forecast
+cross-validation, the model that included run size did not perform
+better at prediction than the null model. On average, the null model
+resulted in an estimated absolute forecast error of 0.2 (95\% CL; -1.07
+-- 0.68) days less than the run size model (\(p = 0.64\)).
+
 \section{Discussion}\label{discussion}
+
+The environmental relationships with run timing I detected for the
+Kuskokwim River Chinook salmon stock are consistent with patterns found
+elsewhere in the region
+\citep[e.g.,][]{mundy-evenson-2011, hodgson-etal-2006}. Specifically, I
+found that warmer years were typically associated with
+earlier-than-average runs as were years with less-than-average SIC.
+These findings are consistent with the water column stability hypothesis
+suggested by \citet{mundy-evenson-2011}. The amount of unexplained
+variation in the Kuskokwim model appears to be comparable between the
+Yukon River Chinook salmon stock as well \citep{mundy-evenson-2011}.
+Using the relationships shown in Figure \ref{fig:relationships}, the
+correlation with \(D_{50}\) was -0.52, -0.64, and 0.62 for air
+temperature, SST, and SIC, respectively. For the Yukon River Chinook
+salmon stock, \citet{mundy-evenson-2011} found correlations of -0.59,
+-0.72, and 0.66 for the same variables but measured at different spatial
+and temporal scales and with approximately 10 more years of data
+included (Table 2 in \citet{mundy-evenson-2011}). These similar
+correlations indicate the signals given by environmental variables are
+of relatively equal strength between these two systems. Given these
+similarities, future research applying our framework to Yukon River
+Chinook salmon (and other stocks) may enhance the applicability of our
+approach, if it could be shown that doing so would improve the accuracy
+of run timing predictions over other methods.
+
+Given the overall strength of the environmental relationships, it is
+somewhat surprising that the null model forecast performed better on
+average than did the model-averaged forecast. This could, potentially,
+be due to the fact that a variety of biological \citetext{\citealp[size;
+e.g.,][ and morphology]{bromaghin-2005}; \citealp{hamon-etal-2000}} and
+abiotic factors (temperature; e.g., \citet{salinger-anderson-2006},
+river discharge; e.g., \citet{keefer-etal-2004}, and migration distance;
+e.g., \citet{eiler-etal-2015}{]} may affect migration rate (and
+subsequently, encounter probability) and catchability, introducing
+additional variability in my run timing estimates. Future research that
+accounts for these effects on encounter probability or catchability
+could offer improved predictions of run timing. Regardless of the
+underlying drivers, the overall prevalence of years with average run
+timing likely led to the enhanced performance of the null model. It is
+not surprising, however, that the model-averaged forecast performed
+better than the supposedly single ``best'' model. This finding is
+consistent with the literature on model-averaging predictions
+\citep{burnham-anderson-2004}. Although the null model performed better
+in the long-term average (i.e., lower \(\overline{\text{AE}}\) as of
+2016), there are reasons a manager may still justifiably prefer the
+model-averaged forecast. First, the difference in
+\(\overline{\text{AE}}\) between the model-averaged forecast and the
+null model was 0.4 days, which is small relative to the amount of annual
+variation in run timing (a 17 day range for D50 over 33 years). Second,
+the model-averaged forecast performed equally well in terms of forecast
+accuracy regardless of the type of run timing it was used to forecast
+(i.e., prediction error equal in extreme early/late and average years;
+Figure \ref{fig:mae-subsets}b). In contrast, the null model only
+performed comparably well in years with run timing within \(\pm 3\) days
+from average and error increased precipitously in more extreme years.
+Third, the 95\% prediction intervals from the null model seemed too wide
+as 100\% of the observations fell within the intervals, whereas 92\% of
+the observations fell within the prediction intervals from the
+model-averaged forecast (which is closer to the ideal coverage, i.e.,
+95\%). Prediction uncertainty was lower under the model-averaged
+forecast than the null model, which would ultimately lead to fewer run
+timing scenarios being considered to explain the observed in-season data
+(e.g., the earliest or latest scenarios could be excluded earlier in the
+season) leading to more certain interpretation of in-season indices of
+run size.
 
 \begin{singlespace}
 
@@ -1273,45 +1491,45 @@ a positive relationship (\ref{tab:coefs-table}).
 \toprule
 Year & $D_{50,t}$ & $h_t$\\
 \midrule
-1984 & 173.35 & 0.09\\
-1985 & 170.70 & 0.08\\
-1986 & 170.22 & 0.09\\
-1987 & 177.61 & 0.07\\
-1988 & 173.68 & 0.03\\
+1984 & 168.86 & 0.03\\
+1985 & 174.83 & 0.06\\
+1986 & 171.87 & 0.02\\
+1987 & 171.78 & 0.10\\
+1988 & 174.84 & 0.10\\
 \addlinespace
-1989 & 168.69 & 0.05\\
-1990 & 175.71 & 0.08\\
-1991 & 168.36 & 0.07\\
-1992 & 173.09 & 0.04\\
-1993 & 180.85 & 0.06\\
+1989 & 170.14 & 0.09\\
+1990 & 171.30 & 0.03\\
+1991 & 179.25 & 0.07\\
+1992 & 175.42 & 0.03\\
+1993 & 170.09 & 0.05\\
 \addlinespace
-1994 & 174.67 & 0.07\\
-1995 & 172.21 & 0.08\\
-1996 & 174.17 & 0.05\\
-1997 & 177.44 & 0.06\\
-1998 & 174.02 & 0.05\\
+1994 & 170.41 & 0.08\\
+1995 & 172.74 & 0.10\\
+1996 & 172.37 & 0.02\\
+1997 & 183.17 & 0.05\\
+1998 & 172.20 & 0.01\\
 \addlinespace
-1999 & 170.35 & 0.05\\
-2000 & 170.57 & 0.06\\
-2001 & 171.68 & 0.06\\
-2002 & 180.06 & 0.02\\
-2003 & 170.12 & 0.06\\
+1999 & 168.57 & 0.08\\
+2000 & 179.29 & 0.09\\
+2001 & 174.18 & 0.02\\
+2002 & 170.55 & 0.09\\
+2003 & 170.41 & 0.07\\
 \addlinespace
-2004 & 170.04 & 0.03\\
-2005 & 168.63 & 0.07\\
-2006 & 171.36 & 0.07\\
-2007 & 170.97 & 0.01\\
-2008 & 179.17 & 0.02\\
+2004 & 176.54 & 0.02\\
+2005 & 177.54 & 0.04\\
+2006 & 174.90 & 0.05\\
+2007 & 172.33 & 0.07\\
+2008 & 169.09 & 0.05\\
 \addlinespace
-2009 & 173.69 & 0.01\\
-2010 & 173.25 & 0.09\\
-2011 & 176.61 & 0.05\\
-2012 & 173.08 & 0.08\\
-2013 & 177.61 & 0.06\\
+2009 & 174.90 & 0.07\\
+2010 & 172.70 & 0.09\\
+2011 & 175.98 & 0.04\\
+2012 & 171.24 & 0.04\\
+2013 & 175.45 & 0.02\\
 \addlinespace
-2014 & 174.61 & 0.02\\
-2015 & 168.75 & 0.02\\
-2016 & 175.89 & 0.03\\
+2014 & 169.72 & 0.03\\
+2015 & 165.96 & 0.05\\
+2016 & 175.04 & 0.01\\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -30,19 +30,25 @@ dois = c(
   "omalley-etal-2010" = "10.1098/rspb.2010.0762",
   "quinn-etal-2000" = "10.1111/j.0014-3820.2000.tb00569.x",
   "walters-holling-1990" = "10.2307/1938620",
-  # "mantua-etal-1997" = "10.1175/1520-0477(1997)078",
   "reynolds-etal-2007" = "10.1175/2007JCLI1824.1",
   "vandepol-etal-2016" = "10.1111/2041-210X.12590",
   "arlot-celisse-2010" = "10.1214/09-SS054",
   "bailey-vandepol-2016" = "10.1371/journal.pone.0167980",
   "burnham-anderson-2002" = "10.1007/b97636",
-  "staton-etal-2017a" = "10.1016/j.fishres.2016.09.001"
+  "staton-etal-2017a" = "10.1016/j.fishres.2016.09.001",
+  "bromaghin-2005" = "10.1016/j.fishres.2005.03.004",
+  "keefer-etal-2004" = "10.1111/j.0022-1112.2004.00522.x",
+  "eiler-etal-2015" = "10.1371/journal.pone.0123127",
+  "salinger-anderson-2006" = "10.1577/T04-181.1"
+  # "hamon-etal-2000" = "10.1577/1548-8659"
   )
+
+# test a new doi
+# rcrossref::cr_cn(dois = "10.1577/T04-181.1", format =)
 
 # obtain the items
 bibs = rcrossref::cr_cn(dois = dois, .progress = "text",
                         format = "bibtex")
-
 
 # rename the references
 bibs = sapply(1:length(bibs), function(r) {

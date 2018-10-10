@@ -36,6 +36,12 @@
 %\renewcommand\cftfigafterpnum{\vskip\baselineskip}
 %\renewcommand\cfttabafterpnum{\vskip\baselineskip}
 
+% remove double spacing from itemized lists
+\usepackage{enumitem}
+% \setlist[itemize]{noitemsep}
+\setlist{before=\singlespacing,after=\singlespacing}
+
+
 %%%%%Format rules: Normal margins are 1 in. If you need to print with 1.5in margins, uncomment the line below
 %\oddsidemargin0.5in \textwidth6in
 
