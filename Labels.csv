@@ -1,0 +1,17 @@
+Sections,,,,Equations,,,Figures,,,Tables,
+Text,Level,Label,,Description,Label,,Description,Label,,Description,Lable
+,,,,Convert Umsy to alpha,umsy-to-alpha,,Shape of trade-offs - hypothetical,trade-off-plot,,SSM notation,ch4-notation-table
+,,,,Basic Ricker equation,basic-ricker,,,,,,
+,,,,Linearized Ricker (fixed),lin-ricker-fixed,,,,,,
+,,,,Linearized Ricker (mixed),lin-ricker-mixed,,,,,,
+,,,,Random alpha,random-alpha,,,,,,
+,,,,Random alpha errors,random-alpha-errors,,,,,,
+,,,,Unfished equilibrium R,unfished-R0,,,,,,
+,,,,Predict recruits from spawners in SSM,tsm-ricker-pred,,,,,,
+,,,,Draw recruitment anomalies from MVN,tsm-ricker-anomalies,,,,,,
+,,,,Create omega with AR(1) process,tsm-omega,,,,,,
+,,,,"Sample p_y,a",dirichlet,,,,,,
+,,,,Allocate R to N using p,tsm-get-N,,,,,,
+,,,,Get harvest for stock j in year t,tsm-get-H,,,,,,
+,,,,Get escapement for stock j in year t,tsm-get-S,,,,,,
+,,,,Convert CV to lognormal sigma,cv2sig,,,,,,
