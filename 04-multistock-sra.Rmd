@@ -208,9 +208,81 @@ Three alternate formulations of the state-space model will be evaluated, and all
 
 #### Data sources
 
+AYKDBMS
+
 #### Data preparation
 
+_Need to turn partial aerial surveys into total annual escapement estimates_
+
 ##### Substock escapement
+
+\noindent
+For substocks monitored _via_ weir, $S_{obs,t,j}$ was taken to be the total estimated weir passage each year (**CITE ADF&G REPORT**) with a CV of 5\%. Substocks monitored _via_ aerial survey needed special care, however. Surveys have been flown only once per year on a relatively small fraction of each tributary system, resulting in them being indices of escapement rather than estimates of total escapement. The later of these two information sources was desired however, because it allows calculation of biological reference points that are expressed in terms of the scale of the population (e.g., $S_{\text{MAX}}$), rather than as a rate (i.e., $U_t$). Note that if only estimates of $U_{\text{MSY}}$ were required, no accounting for the partial count would be necessary.
+
+The approach developed to estimate total escapement from single-pass aerial surveys involved:
+
+(a) mapping the distribution of detected telemetry-tagged Chinook salmon against distribution of the aerial survey counts. This comparison allowed for an expansion to estimate how many salmon would have been counted if the entire tributary had been flown.
+
+(b) obtaining and applying an "observability" correction factor for the temporal problem of counting a dynamic pool at one point in its trajectory. This correction factor was based on the relationship between paired weir and aerial counts on $n=3$ of the systems in the analysis.
+
+\noindent
+_Spatial expansion_
+
+\noindent
+The core of the the spatial expansion estimator is the assumption:
+
+\begin{equation}
+  \frac{A_{f,t,j}}{T_{f,t,j}} = \frac{A_{u,t,j}}{T_{u,t,j}},
+  (\#eq:air-expand1)
+\end{equation}
+
+\noindent
+where the quantities $A$ and $T$ represent fish and tags, respectively in flown ($A_f$ and $T_f$) and unflown ($A_u$ and $T_u$) reaches in year $t$ and for substock $j$. This assumption states that the ratio of spawners per one tagged spawner is the same between flown and unflown river sections at the time of the aerial index count and the aerial telemetry flights. Equation \@ref(eq:air-expand1) and can be rearranged as:
+
+\begin{equation}
+  A_{u,t,j} = A_{f,t,j} \frac{T_{u,t,j}}{T_{f,t,j}},
+  (\#eq:air-expand2)
+\end{equation}
+
+\noindent
+If we assume $T_{u,t,j}$ is a binomial random variable, we have:
+
+\begin{equation}
+  T_{u,t,j} \sim \text{Binomial}(\pi_j,T_{u,t,j} + T_{f,t,j}).
+  (\#eq:air-expand-binomial)
+\end{equation}
+
+\noindent
+Here, $\pi_j$ represents the probability that a tagged fish in spawning tributary $j$ was outside of the survey flight reach at the time of the aerial telemetry flight. If we rearrange $\pi_j$ to be on the odds scale, we have:
+
+\begin{equation}
+  \psi_j=\frac{\pi_j}{1-\pi_j}.
+  (\#eq:air-expand-odds)
+\end{equation}
+
+\noindent
+Estimated expansion factors are shown in Table \@ref(tab:expansion-table). The odds value $\psi_j$ can be substitiuted for the division term in Equation \@ref(eq:air-expand2) which gives:
+
+\begin{equation}
+  A_{u,t,j} = A_{f,t,j} \psi_j.
+  (\#eq:air-expand3)
+\end{equation}
+
+\noindent
+To obtain the total number of fish that would have been counted had the entire subdrainage been flown ($\hat{A}_{t,j}$), we can simply sum the components:
+
+\begin{equation}
+  \hat{A}_{t,j} = A_{f,t,j} + A_{u,t,j}.
+  (\#eq:air-expand4)
+\end{equation}
+
+\noindent
+Substistituion of Equation \@ref(eq:air-expand3) into \@ref(eq:air-expand4) and factoring gives the estimator:
+
+\begin{equation}
+  \hat{A}_{t,j}=A_{f,t,j}(1 + \psi_j).
+  (\#eq:air-expand-final)
+\end{equation}
 
 ##### Aggregate harvest
 
