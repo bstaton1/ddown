@@ -108,6 +108,7 @@ Fisheries}
 \usepackage{tikz}
 \usepackage{pgf}
 \usepackage{color,soul}
+\usepackage{float}
 
 \usepackage{amsmath,amsthm, amsfonts, mathrsfs, graphicx, setspace, fullpage, color}
 \usepackage{natbib, appendix}
@@ -1680,47 +1681,47 @@ forecasts with data from the run.
 \toprule
 Year & $D_{50,t}$ & $h_t$\\
 \midrule
-1984 & 169.19 & 0.05\\
-1985 & 172.05 & 0.06\\
-1986 & 176.59 & 0.01\\
-1987 & 172.33 & 0.09\\
-1988 & 174.35 & 0.03\\
+1984 & 172.78 & 0.04\\
+1985 & 174.01 & 0.06\\
+1986 & 173.94 & 0.06\\
+1987 & 168.81 & 0.01\\
+1988 & 168.99 & 0.07\\
 \addlinespace
-1989 & 174.76 & 0.05\\
-1990 & 172.32 & 0.07\\
-1991 & 181.01 & 0.10\\
-1992 & 174.27 & 0.01\\
-1993 & 172.18 & 0.08\\
+1989 & 175.93 & 0.06\\
+1990 & 174.13 & 0.02\\
+1991 & 173.27 & 0.10\\
+1992 & 176.29 & 0.05\\
+1993 & 171.81 & 0.08\\
 \addlinespace
-1994 & 172.34 & 0.05\\
-1995 & 178.68 & 0.09\\
-1996 & 173.87 & 0.03\\
-1997 & 168.43 & 0.03\\
-1998 & 178.42 & 0.09\\
+1994 & 170.51 & 0.10\\
+1995 & 173.94 & 0.09\\
+1996 & 177.38 & 0.06\\
+1997 & 178.21 & 0.07\\
+1998 & 174.49 & 0.02\\
 \addlinespace
-1999 & 169.61 & 0.10\\
-2000 & 170.55 & 0.05\\
-2001 & 175.00 & 0.07\\
-2002 & 175.33 & 0.04\\
-2003 & 177.17 & 0.06\\
+1999 & 181.11 & 0.06\\
+2000 & 173.68 & 0.06\\
+2001 & 176.19 & 0.08\\
+2002 & 179.26 & 0.03\\
+2003 & 173.03 & 0.01\\
 \addlinespace
-2004 & 172.21 & 0.03\\
-2005 & 171.59 & 0.07\\
-2006 & 170.38 & 0.06\\
-2007 & 163.96 & 0.03\\
-2008 & 173.52 & 0.05\\
+2004 & 179.88 & 0.08\\
+2005 & 173.92 & 0.06\\
+2006 & 173.84 & 0.07\\
+2007 & 170.02 & 0.03\\
+2008 & 173.49 & 0.05\\
 \addlinespace
-2009 & 173.38 & 0.08\\
-2010 & 178.10 & 0.03\\
-2011 & 178.53 & 0.10\\
-2012 & 173.04 & 0.01\\
-2013 & 173.11 & 0.07\\
+2009 & 172.51 & 0.06\\
+2010 & 177.68 & 0.04\\
+2011 & 169.81 & 0.03\\
+2012 & 167.93 & 0.02\\
+2013 & 173.93 & 0.04\\
 \addlinespace
-2014 & 173.84 & 0.04\\
-2015 & 175.83 & 0.03\\
-2016 & 174.79 & 0.03\\
-2017 & 169.94 & 0.04\\
-2018 & 174.49 & 0.06\\
+2014 & 169.77 & 0.03\\
+2015 & 176.11 & 0.03\\
+2016 & 176.39 & 0.05\\
+2017 & 179.15 & 0.09\\
+2018 & 173.43 & 0.06\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -2021,6 +2022,162 @@ simulation-estimation. The objectives will be to
 \end{enumerate}
 
 \section{Methods}\label{methods-2}
+
+\subsection{Study System}\label{study-system}
+
+\subsection{Data sources}\label{data-sources}
+
+All data for this analysis are available to the public, primarily on the
+Arctic-Yukon-Kuskokwim Database Management System (AYKDBMS)\footnote{\url{http://www.adfg.alaska.gov/CommFishR3/WebSite/AYKDBMSWebsite/Default.aspx}}.
+Cases in which other data sources were necessary are highlighted in the
+description below, e.g., the telemetry data needed to perform the
+expansion of aerial survey counts described in Section
+\ref{air-expansion}.
+
+\subsubsection{Substock escapement}\label{air-expansion}
+
+\noindent
+For substocks monitored \emph{via} weir, \(S_{obs,t,j}\) was taken to be
+the total estimated weir passage each year (\textbf{CITE ADF\&G REPORT})
+with a CV of 5\%. Substocks monitored \emph{via} aerial survey needed
+special care, however. Surveys have been flown only once per year on a
+relatively small fraction of each tributary system, resulting in them
+being indices of escapement rather than estimates of total escapement.
+The later of these two information sources was desired however, because
+it allows calculation of biological reference points that are expressed
+in terms of the scale of the population (e.g., \(S_{\text{MAX}}\)),
+rather than as a rate (i.e., \(U_t\)). Note that if only estimates of
+\(U_{\text{MSY}}\) were required, no accounting for the partial count
+would be necessary.
+
+The approach I developed to estimate total escapement from single-pass
+aerial surveys involved:
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  mapping the distribution of detected telemetry-tagged Chinook salmon
+  against distribution of the aerial survey counts. This comparison
+  allowed for an expansion to estimate how many salmon would have been
+  counted if the entire tributary had been flown.
+\item
+  obtaining and applying an ``observability'' correction factor for the
+  temporal problem of counting a dynamic pool at one point in its
+  trajectory. This correction factor was based on the relationship
+  between paired weir and aerial counts on \(n=3\) of the systems in the
+  analysis.
+\end{enumerate}
+
+\noindent
+\emph{Spatial expansion}
+
+\noindent
+The core of the the spatial expansion estimator was the assumption:
+
+\begin{equation}
+  \frac{A_{f,t,j}}{T_{f,t,j}} = \frac{A_{u,t,j}}{T_{u,t,j}},
+  \label{eq:air-expand1}
+\end{equation}
+
+\noindent
+where the quantities \(A\) and \(T\) represent fish and tags,
+respectively in flown (\(A_f\) and \(T_f\)) and unflown (\(A_u\) and
+\(T_u\)) reaches in year \(t\) and for substock \(j\). This assumption
+states that the ratio of spawners per one tagged spawner is the same
+between flown and unflown river sections at the time of the aerial index
+count and the aerial telemetry flights. Equation \eqref{eq:air-expand1}
+and can be rearranged as:
+
+\begin{equation}
+  A_{u,t,j} = A_{f,t,j} \frac{T_{u,t,j}}{T_{f,t,j}}.
+  \label{eq:air-expand2}
+\end{equation}
+
+\noindent
+If \(T_{u,t,j}\) is assumed to be a binomial random variable, then:
+
+\begin{equation}
+  T_{u,t,j} \sim \text{Binomial}(\pi_j,T_{u,t,j} + T_{f,t,j}).
+  \label{eq:air-expand-binomial}
+\end{equation}
+
+\noindent
+Here, \(\pi_j\) represents the probability that a tagged fish in
+spawning tributary \(j\) was outside of the survey flight reach at the
+time of the aerial telemetry flight. When \eqref{eq:air-expand-binomial}
+is rearranged to put \(\pi_j\) on the odds scale, then:
+
+\begin{equation}
+  \psi_j=\frac{\pi_j}{1-\pi_j}.
+  \label{eq:air-expand-odds}
+\end{equation}
+
+\noindent
+Estimated expansion factors \(\psi_j\) and \(\pi_j\) are shown in Table
+\ref{tab:expansion-table}. The odds value \(\psi_j\) can be substitiuted
+for the division term in \eqref{eq:air-expand2} which gives:
+
+\begin{equation}
+  A_{u,t,j} = A_{f,t,j} \psi_j.
+  \label{eq:air-expand3}
+\end{equation}
+
+\noindent
+To obtain the total number of fish that would have been counted had the
+entire subdrainage been flown (\(\hat{A}_{t,j}\)), the compnents can be
+summed:
+
+\begin{equation}
+  \hat{A}_{t,j} = A_{f,t,j} + A_{u,t,j}.
+  \label{eq:air-expand4}
+\end{equation}
+
+\noindent
+Substistituion of \eqref{eq:air-expand3} into \eqref{eq:air-expand4} and
+factoring gives the estimator:
+
+\begin{equation}
+  \hat{A}_{t,j}=A_{f,t,j}(1 + \psi_j).
+  \label{eq:air-expand-final}
+\end{equation}
+
+The spatial expansion model was integrated with the temporal expansion
+model described below into a single model fitted in the Bayesian
+framework.
+
+\noindent
+\emph{Temporal Expansion}
+
+\noindent
+The temporal expansion model was necessary because the aerial surveys to
+count escapement were flown only once per tributary per year, and total
+tributary-level escapement was desired for this analysis. The temporal
+expansion I developed operated by first regressing \(n = 16\)
+observations of paired weir count (\(W_i\)) and spatially-expanded
+aerial counts (\(\hat{A}_{i}\); given by \eqref{eq:air-expand-final}) on
+the same tributary systems (\(n = 3\)) in the same years:
+
+\[W_i = \beta_0 + \beta_1 \hat{A}_i + \varepsilon_i\]
+
+\noindent
+where
+
+\[\varepsilon_i \sim \text{N}(0,\sigma_W)\]
+
+The estimated coefficients \(\hat{\beta}_0\) and \(\hat{\beta}_1\)
+(Table \ref{tab:temp-expand-table}) were then applied to tributary
+systems with an aerial count but not a weir count:
+
+\[\hat{S}_{t,j}=\hat{\beta}_0 + \hat{\beta}_1 \hat{A}_{t,j} \]
+
+For stocks that had both weirs and aerial surveys, the weir count was
+used as \(\hat{S}_{t,j}\) as opposed to using the expansion in
+\eqref{eq:temp-expansion-final}. The fitted relationship is shown in
+Figure \textbf{XX}.
+
+\paragraph{Aggregate harvest}\label{aggregate-harvest}
+
+\paragraph{Age composition}\label{age-composition}
 
 This analysis will be conducted in both an empirical and a
 simulation-estimation framework to evaluate the sensitivity and
@@ -2419,126 +2576,6 @@ covariance matrix will be fully estimated as in the full model.
 \subsection{Analysis of Kuskokwim River substock
 data}\label{analysis-of-kuskokwim-river-substock-data}
 
-\subsubsection{Data sources}\label{data-sources}
-
-AYKDBMS
-
-\subsubsection{Data preparation}\label{data-preparation}
-
-\emph{Need to turn partial aerial surveys into total annual escapement
-estimates}
-
-\paragraph{Substock escapement}\label{substock-escapement}
-
-\noindent
-For substocks monitored \emph{via} weir, \(S_{obs,t,j}\) was taken to be
-the total estimated weir passage each year (\textbf{CITE ADF\&G REPORT})
-with a CV of 5\%. Substocks monitored \emph{via} aerial survey needed
-special care, however. Surveys have been flown only once per year on a
-relatively small fraction of each tributary system, resulting in them
-being indices of escapement rather than estimates of total escapement.
-The later of these two information sources was desired however, because
-it allows calculation of biological reference points that are expressed
-in terms of the scale of the population (e.g., \(S_{\text{MAX}}\)),
-rather than as a rate (i.e., \(U_t\)). Note that if only estimates of
-\(U_{\text{MSY}}\) were required, no accounting for the partial count
-would be necessary.
-
-The approach developed to estimate total escapement from single-pass
-aerial surveys involved:
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\item
-  mapping the distribution of detected telemetry-tagged Chinook salmon
-  against distribution of the aerial survey counts. This comparison
-  allowed for an expansion to estimate how many salmon would have been
-  counted if the entire tributary had been flown.
-\item
-  obtaining and applying an ``observability'' correction factor for the
-  temporal problem of counting a dynamic pool at one point in its
-  trajectory. This correction factor was based on the relationship
-  between paired weir and aerial counts on \(n=3\) of the systems in the
-  analysis.
-\end{enumerate}
-
-\noindent
-\emph{Spatial expansion}
-
-\noindent
-The core of the the spatial expansion estimator is the assumption:
-
-\begin{equation}
-  \frac{A_{f,t,j}}{T_{f,t,j}} = \frac{A_{u,t,j}}{T_{u,t,j}},
-  \label{eq:air-expand1}
-\end{equation}
-
-\noindent
-where the quantities \(A\) and \(T\) represent fish and tags,
-respectively in flown (\(A_f\) and \(T_f\)) and unflown (\(A_u\) and
-\(T_u\)) reaches in year \(t\) and for substock \(j\). This assumption
-states that the ratio of spawners per one tagged spawner is the same
-between flown and unflown river sections at the time of the aerial index
-count and the aerial telemetry flights. Equation \eqref{eq:air-expand1}
-and can be rearranged as:
-
-\begin{equation}
-  A_{u,t,j} = A_{f,t,j} \frac{T_{u,t,j}}{T_{f,t,j}},
-  \label{eq:air-expand2}
-\end{equation}
-
-\noindent
-If we assume \(T_{u,t,j}\) is a binomial random variable, we have:
-
-\begin{equation}
-  T_{u,t,j} \sim \text{Binomial}(\pi_j,T_{u,t,j} + T_{f,t,j}).
-  \label{eq:air-expand-binomial}
-\end{equation}
-
-\noindent
-Here, \(\pi_j\) represents the probability that a tagged fish in
-spawning tributary \(j\) was outside of the survey flight reach at the
-time of the aerial telemetry flight. If we rearrange \(\pi_j\) to be on
-the odds scale, we have:
-
-\begin{equation}
-  \psi_j=\frac{\pi_j}{1-\pi_j}.
-  \label{eq:air-expand-odds}
-\end{equation}
-
-\noindent
-Estimated expansion factors are shown in Table
-\ref{tab:expansion-table}. The odds value \(\psi_j\) can be substitiuted
-for the division term in Equation \eqref{eq:air-expand2} which gives:
-
-\begin{equation}
-  A_{u,t,j} = A_{f,t,j} \psi_j.
-  \label{eq:air-expand3}
-\end{equation}
-
-\noindent
-To obtain the total number of fish that would have been counted had the
-entire subdrainage been flown (\(\hat{A}_{t,j}\)), we can simply sum the
-components:
-
-\begin{equation}
-  \hat{A}_{t,j} = A_{f,t,j} + A_{u,t,j}.
-  \label{eq:air-expand4}
-\end{equation}
-
-\noindent
-Substistituion of Equation \eqref{eq:air-expand3} into
-\eqref{eq:air-expand4} and factoring gives the estimator:
-
-\begin{equation}
-  \hat{A}_{t,j}=A_{f,t,j}(1 + \psi_j).
-  \label{eq:air-expand-final}
-\end{equation}
-
-\paragraph{Aggregate harvest}\label{aggregate-harvest}
-
-\paragraph{Age composition}\label{age-composition}
-
 \subsection{Simulation-estimation
 analysis}\label{simulation-estimation-analysis}
 
@@ -2613,6 +2650,59 @@ $a_{max}$ & The last age recruits can mature & 1\\
 
 \clearpage
 
+\singlespacing
+
+\begin{table}[H]
+
+\caption{\label{tab:spat-expand-table}The estimated spatial expansion factors for the various aerial survey projects.
+      In cases where multiple projects were flown in a larger subdrainage, the expanded counts
+      were summed to obtain an estimate for the larger subdrainage, as noted in the footnotes.}
+\centering
+\begin{tabular}[t]{lcclcclcc}
+\toprule
+Aerial Survey & $\pi_j$ & $1 + \psi_j$\\
+\midrule
+Kisaralik & \makecell[c]{0.59\\(0.42 -- 0.75)} & \makecell[c]{2.46\\(1.72 -- 4.04)}\\
+Salmon (Aniak)$^1$ & \makecell[c]{0.04\\(0.01 -- 0.12)} & \makecell[c]{1.04\\(1.01 -- 1.14)}\\
+Aniak$^1$ & \makecell[c]{0.41\\(0.37 -- 0.47)} & \makecell[c]{1.71\\(1.58 -- 1.87)}\\
+Kipchuk$^1$ & \makecell[c]{0.09\\(0.04 -- 0.17)} & \makecell[c]{1.1\\(1.04 -- 1.21)}\\
+Holokuk & \makecell[c]{0.37\\(0.23 -- 0.53)} & \makecell[c]{1.59\\(1.3 -- 2.12)}\\
+\addlinespace
+Oskawalik & \makecell[c]{0.44\\(0.29 -- 0.6)} & \makecell[c]{1.79\\(1.4 -- 2.52)}\\
+Holitna & \makecell[c]{0.79\\(0.75 -- 0.83)} & \makecell[c]{4.78\\(4.04 -- 5.73)}\\
+Cheeneetnuk$^2$ & \makecell[c]{0.25\\(0.16 -- 0.38)} & \makecell[c]{1.34\\(1.18 -- 1.61)}\\
+Gagaryah$^2$ & \makecell[c]{0.08\\(0.02 -- 0.19)} & \makecell[c]{1.08\\(1.02 -- 1.24)}\\
+Salmon (Pitka Fork)$^3$ & \makecell[c]{0.4\\(0.3 -- 0.5)} & \makecell[c]{1.66\\(1.42 -- 2.01)}\\
+\addlinespace
+Bear$^3$ & \makecell[c]{0.05\\(0 -- 0.22)} & \makecell[c]{1.05\\(1 -- 1.28)}\\
+Upper Pitka Fork$^3$ & \makecell[c]{0.62\\(0.48 -- 0.75)} & \makecell[c]{2.62\\(1.92 -- 4)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\(^1\) Tributaries of the Aniak subdrainage
+
+\(^2\) Tributaries of the Swift subdrainage
+
+\(^3\) Tributaries of the Pitka subdrainage
+
+\begin{table}[H]
+
+\caption{\label{tab:temp-expand-table}The estimated temporal expansion parameters for converting spatially-expanded aerial counts to estimates of subdrainage-wide escapement abundance each year.}
+\centering
+\begin{tabular}[t]{llcclcc}
+\toprule
+  & \textbf{Parameter} & \textbf{Estimate}\\
+\midrule
+b0 & $\hat{\beta_0}$ & \makecell[c]{1.9\\(-60.71 -- 62.4)}\\
+b1 & $\hat{\beta_1}$ & \makecell[c]{2.3\\(1.76 -- 2.85)}\\
+sig & $\hat{\sigma_W}$ & \makecell[c]{4992.15\\(3376.54 -- 7565.08)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/trade-off-plot.png}
@@ -2628,6 +2718,8 @@ $a_{max}$ & The last age recruits can mature & 1\\
   \caption{The frequency of escapement sampling for each substock sampled in the Kuskokwim River. Black points indicate years that were sampled for substocks monitored with a weir and grey points indicate years sampled for substocks monitored with aerial surveys. The vertical black line shows a break where > 50\% of the years were monitored for a stock.}
   \label{fig:obs-freq}
 \end{figure}
+
+\doublespacing
 
 \chapter{Conclusions}\label{ch5}
 
