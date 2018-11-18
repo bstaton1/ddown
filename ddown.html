@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries</title>
+  <meta name="description" content="This is my dissertation. I’m writing it with bookdown!">
+  <meta name="generator" content="bookdown <!--bookdown:version--> and GitBook 2.6.7">
+
+  <meta property="og:title" content="Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is my dissertation. I’m writing it with bookdown!" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries" />
+  
+  <meta name="twitter:description" content="This is my dissertation. I’m writing it with bookdown!" />
+  
+
+<meta name="author" content="Ben Staton">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries</h1>
+<h4 class="author"><em>Ben Staton</em></h4>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+<!--bookdown:toc2:start-->
+<!--bookdown:toc2:end-->
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:toc:end-->
+<!--bookdown:body:start-->
+<div id="preface" class="section level1 unnumbered">
+<h1>Preface</h1>
+<p>I used bookdown <span class="citation">(Xie <a href="#ref-xie-2015">2015</a>)</span> to make this document.</p>
+<!--chapter:end:index.Rmd-->
+</div>
+<div id="ch1" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>Placeholder</p>
+<!--chapter:end:01-intro.Rmd-->
+</div>
+<div id="ch2" class="section level1">
+<h1><span class="header-section-number">2</span> Development and Evaluation of a Migration Timing Forecast Model for Kuskokwim River Chinook Salmon</h1>
+<div id="abstract" class="section level2 unnumbered">
+<h2>Abstract</h2>
+<p>Annual variation in adult salmon migration timing makes the interpretation of in-season assessment data difficult, leading to much in-season uncertainty in run size. We developed and evaluated a run timing forecast model for the Kuskokwim River Chinook salmon stock, located in western Alaska, intended to aid in reducing this source of uncertainty. An objective and adaptive approach (using model-averaging and a sliding window algorithm to select predictive time periods, both calibrated annually) was adopted to deal with multidimensional selection of four climatic variables and was based entirely on predictive performance. Forecast cross-validation was used to evaluate the performance of three forecasting approaches: the null (i.e., intercept only) model, the single model with the lowest mean absolute error, and a model-averaged forecast across 16 nested linear models. As of 2018, the null model had the lowest mean absolute error ( days), although the model-averaged forecast performed as well or better than the null model in the majority of retrospective years. The model-averaged forecast had a consistent mean absolute error regardless of the type of year (i.e., average or extreme early/late) the forecast was made for, which was not true of the null model. The availability of the run timing forecast was not found to increase overall accuracy of in-season run assessments in relation to the null model, but was found to substantially increase the precision of these assessments, particularly early in the season.</p>
+</div>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<p>In-season management strategies for Pacific salmon (<em>Oncorhynchus</em> spp.) fisheries rely heavily on indices of in-river abundance (e.g., test fisheries, sonar counts, etc.) to inform harvest control rules that attempt to attain the balance of meeting pre-determined escapement objectives while allowing adequate opportunity for harvest <span class="citation">(Catalano and Jones <a href="#ref-catalano-jones-2014">2014</a>)</span>. However, because indices of abundance are confounded by the phenology (i.e., timing) of the migration, their interpretation is very difficult in-season. For example, smaller-than-average index values early in the season could be due to either a small run with average timing or by a late large run, when interpreted in the context of historical years <span class="citation">(Adkison and Cunningham <a href="#ref-adkison-cunningham-2015">2015</a>)</span>. This ultimately leads to great uncertainty about how much of the incoming run has passed, which is a key piece of information that dictates fishery harvest opportunities. There exists no information in the current year’s abundance index to inform the manager if (for example) 25% or 75% of the run has passed on any given day. Yet, depending which is true, the optimal management decision could be vastly different. Thus, in-season assessment typically involves some characterization of the variation in historical run timing to formulate a range of possible run size scenarios that could be representative of the current year’s run size. However, given the amount of variation in historical run timing, these scenarios are rarely informative during the majority of the migration, when key harvest decisions are being made because the run scenarios may span all possible run sizes. As a result, the pre-season run size forecast remains the most precise piece of information for much of the season. If it were possible to predict the timing of the incoming run (e.g., earlier- or later-than-average) with some level of confidence, it could prove valuable for in-season assessment and decision-making by reducing uncertainty in run size predictions.</p>
+<p>While previous research has uncovered several key physiological mechanisms that are involved with natal homing <span class="citation">(Hasler and Scholz <a href="#ref-hasler-scholz-1983">1983</a>)</span> and return migrations of adult salmon to freshwater environments <span class="citation">(Cooperman et al. <a href="#ref-cooperman-etal-2010">2010</a>; S. J. Cooke et al. <a href="#ref-cooke-etal-2008">2008</a>; <span class="citeproc-not-found" data-reference-id="hinch-etal-2012"><strong>???</strong></span>)</span>, the exact physiological and behavioral responses of adult salmon to relatively small-scale environmental gradients within estuaries, which are likely the ultimate determinants of freshwater entry timing, are still poorly understood. Despite this uncertainty, several hypotheses have been put forth that are broadly consistent with the observed timing patterns of several species across a large geographic area (i.e., western and southwestern Alaska). Two primary influences have been suggested: genetic <span class="citation">(Quinn, Unwin, and Kinnison <a href="#ref-quinn-etal-2000">2000</a>; J. J. Anderson and Beer <a href="#ref-anderson-beer-2009">2009</a>; OMalley, Ford, and Hard <a href="#ref-omalley-etal-2010">2010</a>)</span> and environmental <span class="citation">(HODGSON et al. <a href="#ref-hodgson-etal-2006">2006</a>; Matthew L. Keefer, Peery, and Caudill <a href="#ref-keefer-etal-2008">2008</a>)</span> mechanisms. Substantial evidence exists to suggest that both genetic and environmental controls are involved in determining migration timing, however it is broadly thought that genetic variation influences sub-stock variation (i.e., different tributary spawning groups within the same major river basin) and environmental variation influences the timing of the aggregate (i.e., basin-wide) run <span class="citation">(Matthew L. Keefer, Peery, and Caudill <a href="#ref-keefer-etal-2008">2008</a>; J. J. Anderson and Beer <a href="#ref-anderson-beer-2009">2009</a>)</span>. This is consistent with the notion that genetically distinct components of the aggregate run behave differently as a result of their life history strategies and/or the characteristics of their specific spawning grounds <span class="citation">(e.g., sub-stocks that must travel farther in-river to reach spawning grounds enter freshwater earlier; Clark et al. <a href="#ref-clark-etal-2015">2015</a>; sub-stocks that spawn in tributaries influenced by warmer lakes enable later spawning; Burger, Wilmot, and Wangaard <a href="#ref-burger-etal-1985">1985</a>)</span> but that certain environmental conditions act on the aggregate run to either hasten or delay freshwater entry. It has also been suggested that run size may have an influence on migration timing, although empirical support for this claim seems to be lacking. If there were indeed relationships between run timing and run size, these need to be quantified as certain combinations are particularly troublesome for managers <span class="citation">(e.g., small/early runs and large/late runs appear the same early in-season; Adkison and Cunningham <a href="#ref-adkison-cunningham-2015">2015</a>)</span>.</p>
+<p>At the aggregate population scale, which is the focus of this Chapter, it has been observed that migrations occurring in the spring and summer generally occur earlier in years with warmer spring temperatures [<span class="citation">Mundy and Evenson (<a href="#ref-mundy-evenson-2011">2011</a>)</span>; hodgson-etal-2006]. <span class="citation">Mundy and Evenson (<a href="#ref-mundy-evenson-2011">2011</a>)</span> suggested that this pattern may be explained by the stability of the estuarine water column where adult salmon stage in preparation for riverine entry (or alternatively, marine exit). High estuarine water column stability was hypothesized to impede riverine entry through two mechanisms:</p>
+<ol style="list-style-type: decimal">
+<li>by presenting an osmotic barrier between freshwater riverine discharge and the saline ocean water which prevents osmotically incompetent individuals from crossing and,</li>
+<li>by preventing freshwater competent individuals from receiving olfactory cues essential to the homeward migration.</li>
+</ol>
+<p>Thus, <span class="citation">Mundy and Evenson (<a href="#ref-mundy-evenson-2011">2011</a>)</span> hypothesized that years in which the estuarine water column is stable over a longer period of time would be associated with later migration timing. Although water column stability is a difficult variable to measure over large spatial scales, several variables that are known to influence it are available at large scales via remote sensing (e.g., satellite observations). Such variables are sea ice cover which prevents wind-driven mixing, associated local temperature-related variables like land-based air temperature or sea surface temperature (SST), and broader scale indicators such as the Pacific Decadal Oscillation (PDO), an index of temperature anomalies in the northern Pacific Ocean. Observational studies across the North American range of Chinook salmon have found environmental-run timing correlations that are consistent with this hypothesis <span class="citation">(HODGSON et al. <a href="#ref-hodgson-etal-2006">2006</a>; Matthew L. Keefer, Peery, and Caudill <a href="#ref-keefer-etal-2008">2008</a>; Mundy and Evenson <a href="#ref-mundy-evenson-2011">2011</a>)</span>. Even if the water column stability hypothesis is incorrect, observed patterns suggest that environmental variables may be useful in forecasting run timing with some level of accuracy and certainty.</p>
+<p>Several efforts have been made at exploiting these environmental-run timing relationships to develop run timing forecast models for Pacific salmon migrations. <span class="citation">Mundy and Evenson (<a href="#ref-mundy-evenson-2011">2011</a>)</span> developed a model for Yukon River Chinook salmon (<em>O. tshawytscha</em>) that used air temperature, SST, and ice cover to predict the day at which the <span class="math inline">\(15^{\text{th}}\)</span> and <span class="math inline">\(50^{\text{th}}\)</span> percentiles of the run passed a test fishery index location. Their model predictions fit the observed data well (nearly always within seven days, usually within three days), although out-of-sample predictive ability was not presented. <span class="citation">Matthew L. Keefer, Peery, and Caudill (<a href="#ref-keefer-etal-2008">2008</a>)</span> developed a similar framework for Columbia River spring run Chinook salmon and found run timing relationships with river discharge, river temperature, and ocean condition indices (e.g., PDO). Their best model explained 49% of the variation in median run timing with variation in the environmental variables. <span class="citation">J. J. Anderson and Beer (<a href="#ref-anderson-beer-2009">2009</a>)</span> continued this work on the Columbia River spring Chinook stock, but added genetic components to their analysis based on the arrival timing of precocious males. Their findings revealed that both environmental variables and changes in abundance of genetically distinct populations, which had their own distinct migration timing and affected overall run timing of the spring Chinook salmon run in the Columbia River. These advancements have shown that relationships between migration timing and environmental variables exist and may have utility for use in forecasting efforts.</p>
+<p>The Kuskokwim River, located in western Alaska, is the second largest river system in the state and supports culturally and economically important Chinook salmon fisheries. Chinook salmon return beginning in late May and continue through early August, with the median date of passage occurring between June 14 and July 2. Fisheries within the region harvest salmon in-river during freshwater migrations using primarily drift gillnet gear. The Kuskokwim River salmon fishery has a distinct cultural importance: nearly all inhabitants are native Alaskans belonging to the Yup’ik group and take salmon for subsistence purposes <span class="citation">(Linderman and Bergstrom <a href="#ref-linderman-bergstrom-2009">2009</a>)</span>. While commercial salmon fisheries operate within the river, these fishers often also participate in subsistence take and revenues from the sale of commercially-harvested salmon often contribute directly to participation in subsistence activities <span class="citation">(Wolfe and Spaeder <a href="#ref-wolfe-spaeder-2009">2009</a>)</span>. To ensure long-term sustainable harvest, the Chinook salmon fishery is managed with a drainage-wide escapement goal derived from an age-structured state-space spawner-recruit analysis <span class="citation">(T. Hamazaki et al. <a href="#ref-hamazaki-etal-2012">2012</a>; Staton, Catalano, and Fleischman <a href="#ref-staton-etal-2017a">2017</a>)</span>. To meet these pre-determined escapement goals, in-season management strategies implement time, gear, and area closures based on limited and imprecise information regarding annual run size. The distant locations of the majority of escapement assessment projects makes direct measurement of escapement performance unavailable until late in the season. Thus, the primary sources of run size assessment information are (1) a pre-season run size forecast range (obtained as the previous year’s run size estimate <span class="math inline">\(\pm \sim 20\%\)</span>) and (2) an in-river drift gillnet test fishery operated in Bethel, AK which has been implemented using consistent methods since 1984. The interpretation of this test fishery index suffers from the same issue of being confounded by run timing described earlier, making management decisions difficult. Without precise in-season indicators of run size, managers must often choose to either trust a pre-season run size forecast for the majority of the season or somehow place weights on the various run timing hypotheses when interpreting in-season data. Both options could lead to the wrong interpretation of the actual run size, which could have serious consequences for the management of the fishery in a given year (i.e., the unwarranted opening or closing the fishery resulting in severe under- or over-escapement). No published run timing forecast models currently exist for Kuskokwim River Chinook salmon but given the potential utility of independent run timing estimates for interpretation of in-season data, the development and evaluation of such a model is needed. The necessity of more accurate and precise in-season perceptions of run size is particularly evident in years with anticipated low runs, such as in recent years (i.e., since 2010), as this may allow managers to more effectively guard against over-exploitation while still allowing for limited harvest opportunities to support the cultural and subsistence needs of the region.</p>
+<p>In this chapter, I present an analysis that develops and evaluates the performance of a run timing forecast model for Kuskokwim River Chinook salmon. The objectives were to</p>
+<ol style="list-style-type: decimal">
+<li>quantify historical run timing,</li>
+<li>develop a run timing forecast model using environmental variables selected based on out-of-sample predictive performance</li>
+<li>assess the utility of the forecasting model for improving predictions of end-of-season test fishery indices of run size,</li>
+<li>determine if there is a relationship between run size and run timing for the Kuskokwim River Chinook salmon stock.</li>
+</ol>
+</div>
+<div id="methods" class="section level2">
+<h2><span class="header-section-number">2.2</span> Methods</h2>
+<div id="estimates-of-migration-timing" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Estimates of migration timing</h3>
+<p>In this analysis, the forecasted quantity that represented migration timing was the day at which 50% of the run passed an index location (hereafter, <span class="math inline">\(D_{50}\)</span>). To inform this quantity for each year in the analysis, we used daily catch-per-unit-effort (CPUE) data from the Bethel Test Fishery (BTF) operated by the Alaska Department of Fish and Game (ADF&amp;G), which spans 1984 – 2018. The raw data were daily CPUE beginning on June 1 and ending August 24 each year. The cumulative sum of these daily CPUE values within a year follows a sigmoidal pattern reflecting the shape of the incoming salmon run which is characterized by relatively few early migrants, a peak where the majority of the fish are running, and relatively few late migrants. To estimate the median day of passage as a continuous variable, a logistic model was fitted to the cumulative proportion of daily CPUE of the form:</p>
+<span class="math display">\[\begin{equation}
+  p_{d,t}=\frac{1}{1 + e^{-h_t (d - D_{50,t})}},
+  (\#eq:logistic)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(p_{d,t}\)</span> is the predicted cumulative proportion on day-of-the-year (DOY) <span class="math inline">\(d\)</span> in calendar year <span class="math inline">\(t\)</span>, <span class="math inline">\(h_t\)</span> is the parameter that controls the steepness of the curve (i.e., duration of the run), and <span class="math inline">\(D_{50,t}\)</span> is the day at which 50% of the total annual CPUE was caught in year <span class="math inline">\(t\)</span>. Annual estimates of <span class="math inline">\(D_{50,t}\)</span> and <span class="math inline">\(h_t\)</span> were obtained by fitting <span class="math inline">\(p_{d,t}\)</span> to observed daily cumulative proportion by minimizing the sum of squared deviations from the model prediction. Uncertainty in these parameter estimates was not further considered in the analysis as the uncertainty was negligible. Further, the use of the BTF daily CPUE values to infer the location and shape of year-specific logistic timing curves made the assumption that these data provided an accurate representation of daily run strength within a year (i.e., that the influence of weather conditions or harvest on sampling was negligible).</p>
+</div>
+<div id="environmental-variables" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Environmental variables</h3>
+<p>Environmental variables to be assessed for forecasting performance were chosen based on three criteria:</p>
+<ol style="list-style-type: decimal">
+<li>previously established association with salmon run timing,</li>
+<li>availability for the Kuskokwim River during the years for which BTF index observations exist (1984 – 2018), and</li>
+<li>availability for use in a pre-season forecast model (i.e., available no later than June 10<sup>th</sup> in the year for which the forecasted value would be used).</li>
+</ol>
+<p>Based on these criteria, four environmental variables were chosen for analysis: SST, percent sea ice cover (SIC), PDO, and land-based air temperature taken in Bethel, AK.</p>
+<div id="pdo-data" class="section level4">
+<h4><span class="header-section-number">2.2.2.1</span> PDO data</h4>
+<p>Data collected for the PDO variable came from one of several indices produced by the National Oceanic and Atmospheric Administration (NOAA) <span class="citation">(Mantua et al. <a href="#ref-mantua-etal-1997">2017</a>)</span><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The index is produced by taking the first principal component of monthly SST anomalies in the northern Pacific Ocean, after removing any global trends due to any systematic change over time <span class="citation">(Mantua et al. <a href="#ref-mantua-etal-1997">2017</a>)</span>. Thus, for each year of the data set, a single monthly value was available for PDO. Previous studies have found PDO values prior to the initiation of the run have predictive value for Chinook salmon populations <span class="citation">(J. J. Beer <a href="#ref-beer-2007">2007</a>; Matthew L. Keefer, Peery, and Caudill <a href="#ref-keefer-etal-2008">2008</a>)</span>.</p>
+</div>
+<div id="bethel-air-temperature-data" class="section level4">
+<h4><span class="header-section-number">2.2.2.2</span> Bethel air temperature data</h4>
+<p>Air temperature data for Bethel, AK were accessed from the Alaska Climate Research Center<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. These data were available as daily means for each day of each year in the 1984 – 2018 data set.</p>
+</div>
+<div id="sst-and-sic" class="section level4">
+<h4><span class="header-section-number">2.2.2.3</span> SST and SIC</h4>
+<p>SST and SIC data were accessed from the NOAA Optimum Interpolation SST V2 High Resolution Dataset <span class="citation">(Reynolds et al. <a href="#ref-reynolds-etal-2007">2007</a>)</span><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. These data were available as daily means for any 0.25° by 0.25° latitude by longitude grid cell on the globe. To limit the search, only grid cells within Kuskokwim Bay were selected for analysis Figure  as that is the area that Chinook salmon bound for the Kuskokwim River likely aggregate prior to riverine entry. The area with grid cells ranged from 58.5° N to 60° N by 164.25° W to 162° W, which resulted in a total of 54 0.25° latitude by 0.25° longitude grid cells. For SST, four grid cells fell partially over land (resulting in 50 grid cells with daily data) and for SIC, five grid cells were partially over land (49 grid cells with daily data). “Empty” grid cells were excluded and the remaining grid cells were used for prediction. Previous analyses have used a simple average over a wide spatial area <span class="citation">(e.g., Mundy and Evenson <a href="#ref-mundy-evenson-2011">2011</a>)</span> to create a single value for SST or SIC each year. However, this is somewhat arbitrary and does not account for the possibility of certain areas having stronger timing signals than others or that the areas with stronger signals may change over time. Thus, the gridded spatial structure of these variables was retained and the treatment of this structure in the forecast analysis is discussed below in Section @ref(rtf-models).</p>
+</div>
+</div>
+<div id="reg-models" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Forecast model</h3>
+<p>To produce a forecast of run timing, relationships between historical observed pairs of the environmental variables each year and <span class="math inline">\(D_{50,t}\)</span> must be quantified. The simple linear regression framework was used to obtain these historical relationships:</p>
+<span class="math display">\[\begin{equation}
+  \begin{split}
+    D_{50,t} = \beta_0 + \beta_j x_{t,j} +,...,+ \beta_n x_{t,J} + \varepsilon_t, \\
+    \varepsilon_t \stackrel{\text{iid}}{\sim} N(0, \sigma) \\
+  \end{split}
+(\#eq:lin-reg)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(D_{50,t}\)</span> is the observed run timing value in year <span class="math inline">\(t\)</span>, <span class="math inline">\(x_{t,j}\)</span> is the observed value of covariate <span class="math inline">\(j\)</span> (of which there are <span class="math inline">\(J\)</span> included in the model), <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_j\)</span> are coefficients linking the observed values of <span class="math inline">\(D_{50,t}\)</span> with <span class="math inline">\(x_{t,j}\)</span>, <span class="math inline">\(\varepsilon_t\)</span> are random residual effects that explain deviations of observed <span class="math inline">\(D_{50,t}\)</span> from the fitted value and have constant variance equal to <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>There are many such regression models that could be used to produce a run timing forecast (i.e., <span class="math inline">\(\hat{D}_{50,t+1}\)</span>). This is because:</p>
+<ol style="list-style-type: decimal">
+<li>there are four variables (PDO, air temperature, SST, and SIC) that could be included,</li>
+<li>each variable is temporally structured, i.e., there are daily or monthly values for each variable, and</li>
+<li>two variables (SST and SIC) are spatially-explicit, i.e., there are different values for each day and year for different areas of Kuskokwim Bay (Figure ).</li>
+</ol>
+<p>Item (1) deals with the specific values of <span class="math inline">\(j\)</span> and <span class="math inline">\(J\)</span> whereas items (2) and (3) deal with what values of <span class="math inline">\(x_{t}\)</span> for a given <span class="math inline">\(j\)</span> should take on.</p>
+</div>
+<div id="clim-windows" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Selection of predictive time periods</h3>
+<p>To fit the regression model in Equation @ref(eq:lin-reg), a single value for each <span class="math inline">\(x_{t,j}\)</span> was required. The covariate data were temporally structured, however, indicating that some selection of which time periods to use to populate <span class="math inline">\(x_{t,j}\)</span> was required. Oftentimes the average over an arbitrary time period, such as daily values in the month of February, is used based on <em>a priori</em> assumptions of the behavior of important factors <span class="citation">(Pol et al. <a href="#ref-vandepol-etal-2016">2016</a>)</span>. While this approach is simple to implement and explain, it is possible that a better time window (i.e., reliably more accurate) exists but was not considered. Furthermore, the importance of various time windows may change over time and the arbitrary selection of a single window does not allow for such changes to be detected. To avoid these issues, a rigorous temporal selection process, known as the sliding climate window algorithm <span class="citation">(SCWA; Pol et al. <a href="#ref-vandepol-etal-2016">2016</a>)</span>, was implemented to determine the best predictive time period for each variable considered in the forecast model. To find the most reliable temporal window for prediction, the SCWA evaluates all possible windows (subject to certain restrictions) over which to average for use as the predictor variable in the forecast model. The following section provides the details of the SCWA.</p>
+<div id="the-scwa" class="section level4">
+<h4><span class="header-section-number">2.2.4.1</span> The SCWA</h4>
+<p>A “window” in this context is hereafter defined as a block of consecutive days in some portion of the year with starting day-of-the-year (DOY) denoted by <span class="math inline">\(D_F\)</span> and ending day equal to <span class="math inline">\(D_L\)</span>. The daily values within each evaluated window were averaged for the <span class="math inline">\(x_{t,j}\)</span> value to be used in a linear regression framework. As input constraints, the SCWA used in this analysis required:</p>
+<ol style="list-style-type: decimal">
+<li>the start date of the first window to be evaluated (<span class="math inline">\(D_0\)</span>),</li>
+<li>the end date of the last window to be evaluated (<span class="math inline">\(D_n\)</span>), and</li>
+<li>the minimum window size of a candidate window (<span class="math inline">\(\Delta_{D,min}\)</span>).</li>
+</ol>
+<p>The algorithm started with the earliest and smallest possible time window: <span class="math inline">\(D_F = D_0 = 1\)</span> through <span class="math inline">\(D_L = D_0 + \Delta_{D,min} - 1 = 5\)</span>. The performance of this window when used to obtain <span class="math inline">\(x_{t,j}\)</span> was evaluated (see Section @ref(fcst-cv) below) and the result was stored for comparison to other candidate windows. For the next window, <span class="math inline">\(D_F\)</span> would remain at <span class="math inline">\(D_0\)</span>, but <span class="math inline">\(D_L\)</span> would be incremented by 1 day (<span class="math inline">\(\ell=1\)</span>). Thus, the endpoints of all candidate windows with <span class="math inline">\(D_F = D_0\)</span> can be generalized as:</p>
+<span class="math display">\[\begin{equation}
+  [D_0, D_0 + \Delta_{D,min} - 1 + \ell],
+(\#eq:scwa-1)
+\end{equation}\]</span>
+<p>for each <span class="math inline">\(\ell = 0, 1, ..., n - 1\)</span>, where <span class="math inline">\(n = D_L - D_F + 1\)</span>. For all windows, including those with <span class="math inline">\(D_F = D_0\)</span>, this generalizes to:</p>
+<span class="math display">\[\begin{equation}
+  [D_0 + f, D_0 + f + \Delta_{D,min} - 1 + \ell],
+(\#eq:scwa-2)
+\end{equation}\]</span>
+<p>for each <span class="math inline">\(f = 0, 1, ..., n - \Delta_{D,min}\)</span> and <span class="math inline">\(\ell = 0, 1, ..., n - \Delta_{D,min} - f\)</span>. Windows with <span class="math inline">\(f &gt; n - \Delta_{D,min}\)</span> would contain fewer than <span class="math inline">\(\Delta_{D,min}\)</span> days and are thus prohibited. After evaluating all windows, the single window with the best predictive performance was used to obtain the forecast predictor variable for that data source (i.e., PDO <em>versus</em> air temperature). As an example, consider the following inputs:</p>
+<ul>
+<li><span class="math inline">\(D_0 = 1\)</span> (i.e., the first day of the year),</li>
+<li><span class="math inline">\(D_n = 31\)</span> (i.e., January 31), and</li>
+<li><span class="math inline">\(\Delta_{D,min}\)</span> = 5.</li>
+</ul>
+<p>The SCWA would start with January 1 - January 5, then do January 1-6, January 1-7, etc., January 1-31. Next, it would exclude January 1 from consideration and evaluate all windows starting with January 2. When it completes the one window starting with January 27, it must stop because windows starting later than January 27 would result in windows shorter than 5 days. Example R code for how the sliding window algorithm was implemented is provided in Appendix <a href="#appendix-a">A</a>.</p>
+<p>The values of <span class="math inline">\(D_0\)</span> and <span class="math inline">\(D_L\)</span> for the four covariates are shown in Table . For air temperature, SST, and SIC <span class="math inline">\(\Delta_{D,min}\)</span> was set to 5. Note that because PDO was available in monthly values only, each month was treated as “day” in the algorithm described above and <span class="math inline">\(\Delta_{D,min}\)</span> was set to 1.</p>
+</div>
+<div id="fcst-cv" class="section level4">
+<h4><span class="header-section-number">2.2.4.2</span> Forecast cross-validation</h4>
+<p>A metric was needed to measure the performance of the many windows. This metric was obtained using a time series forecast cross-validation procedure, which is an out-of-sample technique for data that are collected through time <span class="citation">(Arlot and Celisse <a href="#ref-arlot-celisse-2010">2010</a>)</span>. The procedure operated by producing a forecasted value of <span class="math inline">\(D_{50}\)</span> for year <span class="math inline">\(t+1\)</span> trained based on all data <span class="math inline">\(x_{t,j}\)</span> available from years <span class="math inline">\(1, ..., t\)</span>. It then continued for all <span class="math inline">\(t = m, ..., n-1\)</span>, where <span class="math inline">\(m\)</span> is the minimum number of years necessary to fit the model (set at <span class="math inline">\(m = 10\)</span> in all cases) and <span class="math inline">\(n\)</span> is the number of years of available data. Then, absolute forecast error in was calculated based on all forecasted years as <span class="math inline">\(|D_{50,t+1} - \hat{D}_{50,t+1}|\)</span>, and yearly forecast errors were averaged to obtain mean absolute error (<span class="math inline">\(\overline{\text{AE}}\)</span>) which was used as the measure of model performance in window selection. The window with the lowest (<span class="math inline">\(\overline{\text{AE}}\)</span>) was selected as the optimal window to average over for prediction. The forecasting cross-validation procedure was used as opposed to other out-of-sample validation procedures, such as <span class="math inline">\(k\)</span>-fold or leave-one-out methods, because the data were collected through time and the forecast model would never need to predict (for example) year 2010 from years 1984 – 2009 and 2011 – 2018, but rather it would always need to predict year <span class="math inline">\(t+1\)</span> from all previously-collected data. Example R code for how the forecast cross-validation was conducted is provided in Appendix <a href="#appendix-a">A</a>.</p>
+<p>When forecasting <span class="math inline">\(D_{50,t+1}\)</span> from training data from <span class="math inline">\(1,...,t\)</span>, a single optimal climate window was selected for each variable and that window was used to estimate coefficients based on training data and obtain the environmental variable value for prediction in year <span class="math inline">\(t+1\)</span> to forecast <span class="math inline">\(D_{50,t+1}\)</span>. When a new year of data was added to the training data (such as in the retrospective forecast analysis; Section @ref(retro)), the optimal window for each variable was re-assessed using the algorithm again. For PDO and Bethel air temperature, which had no spatial structure, the SCWA was used to select the range of monthly (PDO) or daily (Bethel air temperature) values to include in the predictive climate window for each year in the analysis. For SST and SIC which contained a series of 50 and 49 grid cells, respectively, each with unique daily values, the SCWA was used on each grid cell separately. The result was 50 unique grid cell-specific windows for SST and 49 windows for SIC for each year of the analysis. The treatment of this spatial structure in the forecast analysis is discussed below in Section @ref(rtf-models).</p>
+</div>
+</div>
+<div id="rtf-models" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> Evaluated forecast models</h3>
+<p>Linear regression [Equation @ref(eq:lin-reg)] was used to assess the forecast performance of each of the variables described above, both in isolation of and in combination with other variables. All possible subsets were evaluated (excluding interactive effects) for predictive ability through time, resulting in a total of 16 models ranging from the null (i.e., intercept only) model to the full (i.e., global) model (all four variables as additive predictors).</p>
+<p>For the spatially-explicit variables (i.e., SST and SIC), a more complex treatment was required to prevent all grid cell values from being used as predictors in a single model. To handle the spatial structure, grid cell-specific regression models were fitted, then model-averaging based on AIC was used to obtain a single forecast <span class="math inline">\(D_{50}\)</span> for each year <span class="citation">(Burnham and Anderson <a href="#ref-burnham-anderson-2002">2004</a>)</span>. Under this approach, each grid cell <span class="math inline">\(g\)</span> received an AIC<sub>c</sub> score:</p>
+<span class="math display">\[\begin{equation}
+  \text{AIC}_{c,g}=n \log{\left(\hat{\sigma}_g^2\right) + 2K + \frac{2K(K+1)}{n-K-1}},
+  (\#eq:aicc)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(n\)</span> is the number of data points used in each model, <span class="math inline">\(\hat{\sigma}_g\)</span> is the estimate of the residual standard deviation under grid <span class="math inline">\(g\)</span>, and <span class="math inline">\(K\)</span> is the number of model parameters. The corrected version of AIC (AIC<sub>c</sub>) is recommended in cases where the ratio of <span class="math inline">\(n\)</span> to <span class="math inline">\(K\)</span> is small (Burnham and Anderson, 2002). Then, each grid cell received a <span class="math inline">\(\Delta\text{AIC}_\text{c}\)</span> score, representing its relative performance in comparison to the best grid cell:</p>
+<span class="math display">\[\begin{equation}
+  \Delta_g=\text{AIC}_{\text{c},g}-\text{AIC}_{\text{c},min},
+  (\#eq:delta-aicc)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\text{AIC}_{\text{c},min}\)</span> is the minimum AIC<sub>c</sub> across all grid cells. Model (grid cell) weights were then calculated as:</p>
+<span class="math display">\[\begin{equation}
+  w_g=\frac{e^{-0.5\Delta_g}}{\sum_j^G e^{-0.5\Delta_j}},
+(\#eq:aicc-weights)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(G\)</span> is the number of grid cells. Grid cell-averaged predictions were then obtained as:</p>
+<span class="math display">\[\begin{equation}
+  \hat{y}_{t+1}=\sum_g^G w_g \hat{y}_{g,t+1},
+(\#eq:grid-avg-fcst)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\hat{y}_{g,t+1}\)</span> is the forecasted value of <span class="math inline">\(D_{50}\)</span> for grid cell <span class="math inline">\(g\)</span>.</p>
+</div>
+<div id="forecast-uncertainty" class="section level3">
+<h3><span class="header-section-number">2.2.6</span> Forecast uncertainty</h3>
+<p>In addition to forecast accuracy, forecast precision is also of great importance. For models that did not require AIC<sub>c</sub> model-averaging across grid cells, the following equation was used to produce a forecast standard error (SE):</p>
+<span class="math display">\[\begin{equation}
+  \text{SE}=\hat{\sigma} \sqrt{1 + \frac{1}{n} + \frac{(x-\bar{x})^2}{\sum_i^n(x_i-\bar{x})^2}},
+(\#eq:se)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(n\)</span> is the number of years the model was fitted to, <span class="math inline">\(x\)</span> is the value of the predictor variable used for forecasting, and <span class="math inline">\(\bar{x}\)</span> is the mean of all predictor values excluding the new value used for forecasting. For models that used AIC<sub>c</sub> model-averaging (i.e., those including SST and SIC), the following equation was used to produce prediction SE:</p>
+<span class="math display">\[\begin{equation}
+  \text{SE}=\sum_g^G w_g \sqrt{\text{SE}_g^2+(\hat{y}_{g,t+1}-\hat{y}_{t+1})^2},
+(\#eq:mod-avg-se)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\text{SE}_g\)</span> is the prediction SE from grid cell <span class="math inline">\(g\)</span> calculated using equation @ref(eq:se). This estimator of unconditional sampling standard error accounts for uncertainty within each model and the uncertainty due to model selection <span class="citation">(Burnham and Anderson <a href="#ref-burnham-anderson-2002">2004</a>)</span>. Prediction intervals were calculated using the point estimate of prediction, the prediction SE, and appropriate quantiles from the corresponding <span class="math inline">\(t\)</span> distribution.</p>
+</div>
+<div id="model-selection" class="section level3">
+<h3><span class="header-section-number">2.2.7</span> Forecast model selection</h3>
+<p>Given 16 forecast models, it is impossible to know which will perform the best at forecasting for the current year. Thus, three methods to obtain a forecast for <span class="math inline">\(D_{50}\)</span> were evaluated:</p>
+<ol style="list-style-type: decimal">
+<li>the null (i.e., intercept only) model,</li>
+<li>the single model with the lowest forecast cross-validation score as of the last year, and</li>
+<li>model-averaging across the ensemble of 16 forecast models based on AIC<sub>c</sub> scores.</li>
+</ol>
+<p>According to <span class="citation">Burnham and Anderson (<a href="#ref-burnham-anderson-2002">2004</a>)</span>, model-averaging should perform better than a single “best model” at prediction when there is a high degree of uncertainty about which model is best. This procedure was performed using equations @ref(eq:aicc) - @ref(eq:mod-avg-se), by substituting the prediction, prediction SE, and <span class="math inline">\(K\)</span> for forecast model <span class="math inline">\(i\)</span>, in place of grid <span class="math inline">\(g\)</span>. Prediction intervals based on model-averaged predictions and prediction SE present somewhat of a problem when the different models contributing to the average contain differing degrees of freedom as it is unclear how many standard errors the prediction limits should lie from the mean prediction. Thus, the estimator suggested by <span class="citation">Burnham and Anderson (<a href="#ref-burnham-anderson-2002">2004</a>)</span> of the “adjusted SE” (ASE) was used:</p>
+<span class="math display">\[\begin{equation}
+  ASE=\sum_i^{16} w_i \sqrt{\left(\frac{t_{df_i,1-\alpha/2}}{z_{1-\alpha/2}}\right)^2 \text{SE}_i^2+(\hat{y}_{i,t+1}-\hat{y}_{t+1})^2},
+(\#eq:ase)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(t_{df,i,1-\alpha/2}\)</span> is the <span class="math inline">\(1-\alpha/2\)</span> quantile of the <span class="math inline">\(t\)</span> distribution with degrees of freedom equal to that of model <span class="math inline">\(i\)</span> and <span class="math inline">\(z_{1-\alpha/2}\)</span> is the corresponding quantile of the <span class="math inline">\(z\)</span> (i.e., standard normal) distribution. The level <span class="math inline">\(\alpha = 0.05\)</span> was used in all cases.</p>
+</div>
+<div id="retro" class="section level3">
+<h3><span class="header-section-number">2.2.8</span> Retrospective forecast analysis</h3>
+<p>The analysis was conducted in a retrospective forecast framework starting in 1994. All data after 1994 were ignored, optimal windows were selected for each of the four variables (and all grids for SST and SIC), all 16 models were fitted, a <span class="math inline">\(D_{50}\)</span> forecast was made for 1995 using the three approaches described in Section @ref(model-selection), and each was evaluated for predictive accuracy. This process was repeated annually until the present (i.e., out-of-sample predictions made for 1995 – 2018), which allowed for the calculation of <span class="math inline">\(\overline{\text{AE}}\)</span> through time as if the forecast model would have been available beginning in spring 1995. In addition to <span class="math inline">\(\overline{\text{AE}}\)</span>, median absolute error <span class="math inline">\(\widetilde{\text{AE}}\)</span>) was calculated to validate prediction accuracy of estimates by ignoring the effect of outlying poor predictions.</p>
+</div>
+<div id="value-of-forecast-to-run-size-assessments" class="section level3">
+<h3><span class="header-section-number">2.2.9</span> Value of forecast to run size assessments</h3>
+<p>It is important to remember that the purpose of producing a run timing forecast is to aid in the interpretation of in-season indices of run size such as test fisheries. To evaluate the utility of having access to the run timing forecast model, the accuracy and precision of an imperfect abundance index for the Kuskokwim River were compared when informed using <span class="math inline">\(D_{50}\)</span> forecasts from the model-averaged and the null forecast models. The abundance index is denoted by <span class="math inline">\(\text{EOS}_t\)</span>, and is the end-of-season cumulative CPUE observed in the BTF in year <span class="math inline">\(t\)</span>. Under the assumption of constant catchability, <span class="math inline">\(\text{EOS}_t\)</span> should be proportional to total abundance, with deviations introduced by sampling noise. In-season predictions of <span class="math inline">\(\text{EOS}_t\)</span> were made for each year <span class="math inline">\(t\)</span>, model <span class="math inline">\(i\)</span>, and day <span class="math inline">\(d\)</span> in the season with:</p>
+<span class="math display">\[\begin{equation}
+  \widehat{\text{EOS}}_{d,t,i}=\frac{\text{CCPUE}_{d,t}}{\hat{p}_{d,t,i}},
+(\#eq:eos)
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\text{CCPUE}_{d,t}\)</span> is the cumulative CPUE caught at the BTF through day <span class="math inline">\(d\)</span> in forecasting year <span class="math inline">\(t\)</span> <span class="math inline">\(\left(\text{CCPUE}_d = \sum_{j=1}^{d} CPUE_j \right)\)</span>, <span class="math inline">\(\hat{p}_{d,t,i}\)</span> is the predicted cumulative proportion of the run that had passed the BTF location on day <span class="math inline">\(d\)</span> in year <span class="math inline">\(t\)</span> from model <span class="math inline">\(i\)</span> (i.e., model-averaged <em>versus</em> null forecast model) obtained by inserting the forecasted value of <span class="math inline">\(D_{50}\)</span> into the logistic function [Equation @ref(eq:logistic)]. Uncertainty in the run timing forecast model was propagated to <span class="math inline">\(\text{EOS}_{d,t,i}\)</span> using the delta method <span class="citation">(Bolker <a href="#ref-bolker-2008">2008</a>)</span>. As the parameter <span class="math inline">\(h\)</span> is also unknown in-season, the mean of all historical <span class="math inline">\(h_t\)</span> was used as the point estimate, and the variance and correlation with <span class="math inline">\(D_{50,t}\)</span> was included in the covariance matrix supplied to the delta method. Accuracy was assessed using proportional bias <span class="math inline">\(\left(\widehat{\text{EOS}}_{d,t,i} - \text{EOS}_t\right)/\text{EOS}_t\)</span> and precision was assessed using the SE of <span class="math inline">\(\widehat{\text{EOS}}_{d,t,i}\)</span>. Both accuracy and precision measures were compared between the null and the model-averaged forecast model on June 15, June 30, July 15, and July 30 each year a forecast was available (1995 - 2018). Using the null model to obtain <span class="math inline">\(\hat{p}_d\)</span> is essentially what would be done in the absence of an environmental forecast variable model for <span class="math inline">\(D_{50}\)</span>.</p>
+</div>
+<div id="investigation-of-a-run-timing-versus-run-size-relationship" class="section level3">
+<h3><span class="header-section-number">2.2.10</span> Investigation of a run timing versus run size relationship</h3>
+<p>To test the hypothesis that run timing is related to run size (e.g., small runs are typically early, or <em>vice versa</em>), two models were investigated for their predictive performance using the forecast cross-validation criteria: the null model and a model that included run size as a predictive covariate in place of the environmental variables. Run size was obtained from a maximum likelihood run reconstruction model that compiles all assessment information (i.e., 20 escapement count indices, harvest estimates, drainage-wide mark-recapture estimates, etc.) to estimate the run size that makes the collected data most likely to have been observed <span class="citation">(Bue et al. <a href="#ref-bue-etal-2012">2012</a>)</span>. The forecast absolute errors in each year were then compared using a two-tailed paired <span class="math inline">\(t\)</span>-test using <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+</div>
+</div>
+<div id="results" class="section level2">
+<h2><span class="header-section-number">2.3</span> Results</h2>
+<div id="estimates-of-run-timing" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Estimates of run timing</h3>
+<p>The logistic curve fit the daily cumulative CPUE proportions well in all years of the BTF data set (Table @ref(tab:rt-ests-table)), as indicated by an average residual standard error estimate of , with a maximum estimate of  in . The majority (95%) of all residuals from all years fell between . Parameter estimates were quite precise, with <span class="math inline">\(D_{50}\)</span> having a smaller average coefficient of variation (CV) than <span class="math inline">\(h\)</span>, (, respectively). Given this small degree of parameter uncertainty, it was ignored throughout the rest of the analysis.</p>
+</div>
+<div id="variable-specific-relationships" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Variable-specific relationships</h3>
+<p>Looking at each of the environmental variables in isolation of all others, it is clear that there is a distinct relationship between temperature-related environmental variables and Kuskokwim River Chinook salmon migration timing (@ref(fig:relationships)). For illustration purposes, the figures for the two gridded variables (SST and SIC) were produced by taking an average across all grid cells weighted by the AIC<sub>c</sub> weight for each grid cell. Air temperature, PDO, and SST all had negative relationships with <span class="math inline">\(D_{50}\)</span>, whereas SIC had a positive relationship (@ref(tab:coefs-table)).</p>
+</div>
+<div id="selected-climate-windows" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Selected climate windows</h3>
+<p>It was difficult to generalize on the climate windows selected for each variable based on forecast cross-validation performance, because the selected windows changed with each new year of data and SST and SIC had windows for each grid cell; however, some noteworthy patterns arose. First, the best window for PDO was consistently the value for the month of May for each year the forecasts were produced (not shown). Second, selected windows for air temperature fluctuated from year to year to some extent, but long windows were consistently selected for all years after 1999, and generally spanned early February to late May (Figure a). Third, selected windows through time were substantially more variable for most grid cells for SST and SIC, although many grid cells remained relatively constant or became more “focused” as more years of data were added (Figures b1-4, c1-4). In general, chosen windows for SST began in early to mid-May and ended in late May or early June (Figure b1-4) whereas windows starting in early April and ending in mid to late April were predominately chosen for SIC (Figure c1-4). The selected climate windows in southern-most grid cells appeared more stable for SST (Figure  panels b3 and b4), whereas climate windows in northern grid cells appeared more stable for SIC (Figure  panels c1 and c2; stable in the sense that the optimal windows changed less as new years were added to the training data).</p>
+</div>
+<div id="forecast-performance" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Forecast performance</h3>
+<p>Of the three investigated forecasting methods (null model, model with lowest forecast cross-validation error up to the forecasting year, and AIC<sub>c</sub> model-averaging), the null model had the lowest <span class="math inline">\(\overline{\text{AE}}\)</span> from 1995 to 2018 (2.64 days; Figure ). AIC<sub>c</sub> model-averaging performed better than using the single model with the lowest cross-validation score (3.04 versus 3.34, respectively; Figure ). However, these patterns were not consistent across the entire time series. For the period of 1996 to 2008, the model-averaged forecast had a lower <span class="math inline">\(\overline{\text{AE}}\)</span> than the null model, and for the period of 2009 to 2015, the model-averaged forecast had approximately the same or lower <span class="math inline">\(\overline{\text{AE}}\)</span> scores (Figure ). It was due in a large part to 2016 that the model-averaged forecast had a slightly higher <span class="math inline">\(\overline{\text{AE}}\)</span> than the null model. Each model in the ensemble of 16 models (except the null) predicted an extremely early run in 2016 when in fact the observed run timing in 2016 was close to the historical (1984 – 2015) average (Figure 4). A similar case happened in 2015 (Figure ). Expressing prediction error in terms of median absolute error (<span class="math inline">\(\widetilde{\text{AE}}\)</span>) resulted in lower average errors (null = 2.08, single best = 2.56, and model-averaged = 2.35), indicating that extreme prediction errors (i.e., outliers) influenced the value of <span class="math inline">\(\overline{\text{AE}}\)</span>. However, the relative differences in prediction error between models were approximately the same as for <span class="math inline">\(\overline{\text{AE}}\)</span>, indicating outliers affected the prediction error scores for each model similarly. Additionally, by comparing the width of the prediction intervals in Figure  across forecasting approaches, it was clear that model-averaging substantially reduced prediction uncertainty (SE) in relation to the null and single best model approaches.</p>
+<p>To compare performance in average versus extreme years among forecasting approaches, <span class="math inline">\(\overline{\text{AE}}\)</span> was further calculated in a more specific way: based on how similar or dissimilar the included years were to the mean observed run timing across all years. As would be expected, the null model performed well when only years with <span class="math inline">\(D_{50}\)</span> within <span class="math inline">\(\pm 1\)</span> days of the average were in included in the calculation of <span class="math inline">\(\overline{\text{AE}}\)</span> (Figure a), but its accuracy became increasingly worse as years with more extreme realized <span class="math inline">\(D_{50}\)</span> values were included in the calculation (increasing <span class="math inline">\(x\)</span>-axis values in Figure a). The two environmental variable forecast approaches (model-averaging or the single “best” model in each year) performed relatively equally well across this continuum and neither <span class="math inline">\(\overline{\text{AE}}\)</span> score was sensitive to the overall similarity or dissimilarity the included years had with average run timing (Figure a). The lower panel shows the relative frequency with which these various <span class="math inline">\(X\)</span> scenarios occurred, indicating how much information each scenario contributed to the overall <span class="math inline">\(\overline{\text{AE}}\)</span>. On the other hand, the null model only performed as well as the model-averaged forecast when years with <span class="math inline">\(D_{50} \pm 0.5\)</span> days outside of the mean were considered (Figure b). As only more extreme years were considered in <span class="math inline">\(\overline{\text{AE}}\)</span> (increasing <span class="math inline">\(x\)</span>-axis values in Figure b), the null model rapidly performed worse and the model-averaged forecast remained relatively insensitive to the degree of extremity (Figure b).</p>
+</div>
+<div id="value-to-in-season-run-size-assessments" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> Value to in-season run size assessments</h3>
+<p>When the model-averaged and null model forecasts for <span class="math inline">\(D_{50,t}\)</span> were retrospectively used to aid in in-season run assessment based on daily cumulative BTF CPUE, it was evident that the range of possible <span class="math inline">\(\widehat{\text{EOS}}_{d,t}\)</span> was substantially smaller when the model-averaged forecast was used as opposed to the null forecast. This is evident by the average daily standard errors of <span class="math inline">\(\widehat{\text{EOS}}_{d,t}\)</span> on June 15, June 30, July 15, and July 30: 256.97, 62.23, 6.69, 0.59 for the model-averaged forecast model and 337.19, 72.63, 6.90, and 0.57 for the null forecast, respectively. The reduction in the first two evaluated days is of key importance. In terms of accuracy, however, the forecast model did not perform better at informing EOS predictions than the null model. On the same days, the average proportional bias [(estimate – observed)/observed] using the model-averaged <span class="math inline">\(D_{50,t}\)</span> forecast was 0.152, 0.006, -0.024, -0.008 as opposed to 0.145, -0.035, -0.027, and -0.008 under the null model forecast. A visual example of two years is provided in Figure . The upper panels show the time series of <span class="math inline">\(\widehat{\text{EOS}}_{d}\)</span> when the model-averaged and the null model forecast models were used to inform the location of the logistic cumulative timing curve in 2013 and 2014. The horizontal line shows the observed EOS. 2013 is an example of when the null model would have been preferable to use (in terms of accuracy) and 2014 shows a case when the model-averaged forecast would have performed better.</p>
+</div>
+<div id="run-timing-versus-run-size-relationship" class="section level3">
+<h3><span class="header-section-number">2.3.6</span> Run timing versus run size relationship</h3>
+<p>There appeared to be no evidence to lend support for the hypothesis that run timing and run size are related for the Kuskokwim River Chinook salmon stock. On average, <span class="math inline">\(D_{50}\)</span> occurred 0.01 (95% CL; -0.03 – 0.004) days earlier for each 1,000 fish increase in run size, which was not significantly different than no effect of run size on run timing (<span class="math inline">\(p = 0.153, R^2 = 0.07\)</span>). Additionally, based on forecast cross-validation, the model that included run size did not perform better at prediction than the null model. On average, the null model resulted in an estimated absolute forecast error of 0.2 (95% CL; -1.07 – 0.68) days less than the run size model (<span class="math inline">\(p = 0.64\)</span>).</p>
+</div>
+</div>
+<div id="discussion" class="section level2">
+<h2><span class="header-section-number">2.4</span> Discussion</h2>
+<p>The environmental relationships with run timing I detected for the Kuskokwim River Chinook salmon stock are consistent with patterns found elsewhere in the region <span class="citation">(e.g., Mundy and Evenson <a href="#ref-mundy-evenson-2011">2011</a>; HODGSON et al. <a href="#ref-hodgson-etal-2006">2006</a>)</span>. Specifically, I found that warmer years were typically associated with earlier-than-average runs as were years with less-than-average SIC. These findings are consistent with the water column stability hypothesis suggested by <span class="citation">Mundy and Evenson (<a href="#ref-mundy-evenson-2011">2011</a>)</span>. The amount of unexplained variation in the Kuskokwim model appears to be comparable between the Yukon River Chinook salmon stock as well <span class="citation">(Mundy and Evenson <a href="#ref-mundy-evenson-2011">2011</a>)</span>. Using the relationships shown in Figure , the correlation with <span class="math inline">\(D_{50}\)</span> was -0.52, -0.64, and 0.62 for air temperature, SST, and SIC, respectively. For the Yukon River Chinook salmon stock, <span class="citation">Mundy and Evenson (<a href="#ref-mundy-evenson-2011">2011</a>)</span> found correlations of -0.59, -0.72, and 0.66 for the same variables but measured at different spatial and temporal scales and with approximately 10 more years of data included <span class="citation">(Table 2 in Mundy and Evenson <a href="#ref-mundy-evenson-2011">2011</a>)</span>. These similar correlations indicate the signals given by environmental variables are of relatively equal strength between these two systems. Given these similarities, future research applying our framework to Yukon River Chinook salmon (and other stocks) may enhance the applicability of our approach, if it could be shown that doing so would improve the accuracy of run timing predictions over other methods.</p>
+<p>Given the overall strength of the environmental relationships, it is somewhat surprising that the null model forecast performed better on average than did the model-averaged forecast. This could, potentially, be due to the fact that a variety of biological <span class="citation">(size; e.g., Bromaghin <a href="#ref-bromaghin-2005">2005</a> and morphology; <span class="citeproc-not-found" data-reference-id="hamon-etal-2000"><strong>???</strong></span>)</span> and abiotic factors <span class="citation">(temperature; e.g., Salinger and Anderson <a href="#ref-salinger-anderson-2006">2006</a>, river discharge; e.g., M. L. Keefer et al. <a href="#ref-keefer-etal-2004">2004</a>, and migration distance; e.g., Eiler, Evans, and Schreck <a href="#ref-eiler-etal-2015">2015</a>)</span> may affect migration rate (and subsequently, encounter probability) and catchability, introducing additional variability in my run timing estimates. Future research that accounts for these effects on encounter probability or catchability could offer improved predictions of run timing. Regardless of the underlying drivers, the overall prevalence of years with average run timing likely led to the enhanced performance of the null model. It is not surprising, however, that the model-averaged forecast performed better than the supposedly single “best” model. This finding is consistent with the literature on model-averaging predictions <span class="citation">(<span class="citeproc-not-found" data-reference-id="burnham-anderson-2004"><strong>???</strong></span>)</span>. Although the null model performed better in the long-term average (i.e., lower <span class="math inline">\(\overline{\text{AE}}\)</span> as of 2018), there are reasons a manager may still justifiably prefer the model-averaged forecast. First, the difference in <span class="math inline">\(\overline{\text{AE}}\)</span> between the model-averaged forecast and the null model was  days, which is small relative to the amount of annual variation in run timing (a  day range for <span class="math inline">\(D_{50}\)</span> over  years). Second, the model-averaged forecast performed equally well in terms of forecast accuracy regardless of the type of run timing it was used to forecast (i.e., prediction error equal in extreme early/late and average years; Figure b). In contrast, the null model only performed comparably well in years with run timing within <span class="math inline">\(\pm 3\)</span> days from average and error increased precipitously in more extreme years. Third, the 95% prediction intervals from the null model seemed too wide as  of the observations fell within the intervals, whereas  of the observations fell within the prediction intervals from the model-averaged forecast (which is closer to the ideal coverage, i.e., 95%). Prediction uncertainty was lower under the model-averaged forecast than the null model, which would ultimately lead to fewer run timing scenarios being considered to explain the observed in-season data (e.g., the earliest or latest scenarios could be excluded earlier in the season) leading to more certain interpretation of in-season indices of run size.</p>
+<p>As for the value of having access to a run timing forecast to in-season run size assessments, our findings showed that on average it is preferable to use the environmental forecast over the null forecast. It should be emphasized that we did not evaluate the ability to assess actual run size, only an index of run size (<span class="math inline">\(\text{EOS}_t\)</span>). Though because <span class="math inline">\(\text{EOS}_t\)</span> can be expressed as a function of actual run size (and vice versa), more precise predictions of <span class="math inline">\(\text{EOS}_t\)</span> should presumably result in more precise predictions of actual run size. In terms of prediction error, both approaches led to positive average biases on 15 June ().  These biases are likely the result of asymmetry in the timing curve detected by the BTF. However, the key difference between approaches was the reduced uncertainty in <span class="math inline">\(\text{EOS}_t\)</span> predictions when using the model-averaged forecast due to the exclusion of extreme early or late runs which lead to extreme low and high <span class="math inline">\(\text{EOS}_t\)</span> predictions early in the season. The null model was forced to always consider these scenarios, resulting in greater uncertainty in <span class="math inline">\(\text{EOS}_t\)</span> predictions, particularly between June 15 and June 30 when key management decisions are made. Due to the large amount of uncertainty under the null model (which is essentially the currently-used method), <span class="math inline">\(\text{EOS}_t\)</span> predictions go largely ignored for much of the season and the pre-season run size forecast is trusted instead. If the environmental variable forecast model were to be used, it likely would provide managers with more information when making decisions.</p>
+<p>The sliding window algorithm was an objective, adaptive, and data-driven tool for temporal selection of environmental predictors and therefore may be more appropriate than choosing a time window based on a priori assumptions, particularly in forecasting applications. The algorithm relied on the data and predictive performance to select the window used for the next year’s forecast. This framework allowed for predictor variables to change adaptively as a more accurate window became apparent. This quality of the sliding window algorithm makes it intuitive and potentially preferable in the face of a changing climate. However, the algorithm was computationally intensive. The R code to select windows for all variables/grids for the retrospective forecasting procedure took approximately 1.5 days to complete on a desktop computer with a 3.60 GHz processor with four cores and 32 GB of RAM. Each year took approximately 3.5 hours to complete (depending on the number of years the forecast cross-validation procedure was conducted on). The flexibility of the approach also hinders the ability to typify a year as “warm” or “cold”, as these criteria may change when an additional year of data is included and a new window is selected. An additional drawback of the sliding window algorithm is that it may be difficult to explain to managers and stakeholders, which may lead to confusion and distrust in the method.</p>
+<p>Model-averaging across grid cells for SST and SIC was also an objective, adaptive, and data-driven, (though computationally-intensive) solution for dealing with the spatial nature of predicting run timing from these two variables. Of course, it would be possible to average all daily values across grid cells each year and perform the sliding window algorithm on these means. However, this would ignore the fact that some grid cells inherently have a stronger timing signal and would likely insert more variation into the predictive relationship. Additionally, the model had the flexibility to place more weight on different grid cells as more years of data were added, again adding to the flexibility of our overall approach which may be preferable in the face of a changing climate. However, the inherent complexity of including the spatial structure again makes it more difficult to typify a year as “warm” or “cold” as there are many values each year for SIC and SST and the strength of the run timing signal given by each grid cell varies.</p>
+<p>These two complexities to our analysis (sliding window selection and model-averaging across spatial grid cells) made the interpretation of effect sizes and selected windows difficult in a biologically-meaningful way because the best windows and spatial grid cells could change from year to year. We generally see this flexibility based on predictive performance as more important for this particular analysis than biological inference on research topics like determining the most influential variable on run timing variation or determining the migration route of Chinook salmon through Kuskokwim Bay. These examples remain exciting research questions for the future, however our focus was on the prediction of a single quantity, <span class="math inline">\(D_{50}\)</span>, which could aid in in-season decision-making. A separate issue confounding biological interpretation is that each variable had some direct or indirect link to temperature, suggesting that there is strong potential for multicollinearity among predictor variables. It is well known that correlated predictor variables can result in biased coefficient estimates and variance inflation <span class="citation">(Neter et al. <a href="#ref-neter-etal-1996">1996</a>)</span>. This was one reason coefficient estimates were only presented in the single-predictor case (), as we caution against their interpretation in this particular case. However, our focus was entirely on predictive ability, which is generally thought to be unaffected by multicollinearity <span class="citation">(Graham <a href="#ref-graham-2003">2003</a>)</span>.</p>
+<p>An important caveat of our analysis is that we assumed a negligible influence of downstream harvest on the BTF timing index. This assumption was likely violated in some years but the magnitude of the impact is unknown. From 2008 to 2015, the average exploitation rate by only villages downstream of the BTF index was  (versus  for villages across the whole drainage), thus there is the potential for a downstream harvest bias on perceived run timing. Moderate to high exploitation rates would not necessarily bias the BTF index if the timing of the harvest was similar to the run. However, in the Kuskokwim, subsistence harvest has historically focused on the early portion of the run (Hamazaki, 2011). When coupled with moderate exploitation rates (i.e., 17%), this early nature of the fishery is likely to have resulted in detected timing curves that were biased late (due to early fish being removed before they are sampled by the BTF) to some unknown degree. Historical and future interpretation of the BTF is further complicated by the operation of the fishery, such as a recent regulatory measure which mandates that no directed Chinook fishery may begin on or before 11 June. We suspect that the magnitude of the bias in the index due to the timing of downstream harvest would be small and would not likely affect the general conclusions of our analysis (although residual variation in environmental-run timing relationships would likely be lower if accounted for). We suggest that future studies should attempt to develop methods that remove harvest effects from the BTF index and other similar indices and assess the magnitude of potential bias. Even if harvest bias could be removed from the index, addressing bias in the test fishery index would be unfeasible during the season because spatially and temporally explicit harvest data are often unavailable until the season has concluded, and the data regarding the temporal distribution are fragmentary. It was unsurprising that no meaningful relationship exists between estimated run size and run timing. Given that small/early and large/late runs are problematic for in-season management <span class="citation">(Adkison and Cunningham <a href="#ref-adkison-cunningham-2015">2015</a>)</span>, we see the lack of a relationship as beneficial to the management effort. In other words, a small run is no more likely to be early than it is to be late, and the same is true of large runs. For managers, this means that although these small/early or large/late scenarios have occurred in the past, they need not be particularly worried about them due to an overwhelming prevalence over other run size/run timing scenarios.</p>
+<p>There is evidence to suggest that, on a population demographic scale, sub-stock structure and relative stock composition may influence the run timing of the aggregate. For example, <span class="citation">Clark et al. (<a href="#ref-clark-etal-2015">2015</a>)</span> showed that Chinook salmon that travel farther in the drainage to spawn (i.e., headwaters) enter the main stem earlier in the season. This point is supported in the Kuskokwim River based on unpublished ADFG radio telemetry data, which show that the date at which 50% of headwaters fish were tagged occurred as many as 10 or 11 days earlier than tagging of fish bound for middle river and lower river tributaries. Thus, it is more appropriate to view the timing curve detected by the BTF index as a mixture distribution made up of several distinct sub-stocks, each entering at different times. The cumulative effect of this is one curve that looks logistic likely because the various stocks overlap to a large extent. However, it is not difficult to see that if in some years the headwaters sub-stocks made up a greater proportion of the aggregate stock than the lower and middle river sub-stocks, the timing curve of the aggregate would be earlier than if other stocks had a greater contribution. Using genetic techniques, <span class="citation">J. J. Anderson and Beer (<a href="#ref-anderson-beer-2009">2009</a>)</span> found that variations in the relative abundances of the populations composing the spring Chinook salmon run in the Columbia River, USA, explained 62% of the variation in annual run timing. This is a source of variation that was not accounted for in this analysis for at least two reasons. First, the resolution to divide the aggregate curve into its sub-stock components is not available: Kuskokwim River Chinook telemetry studies were conducted from 2003 – 2007 and 2015 – 2016 and the aggregate timing curve does not deviate enough from the smooth logistic curve to separate the different sub-stock components. Second, information on the relative contribution both in the past and in the forecast year would be necessary to include this complexity in the run timing forecast. This detailed level of sub-stock information is not available for the Kuskokwim River. The telemetry data can shed some light on these issues, but they are confounded by factors like harvest timing <span class="citation">(some stocks may be harvested preferentially purely due to the timing of the fishery, which does not mirror that of the aggregate run; Toshihide Hamazaki <a href="#ref-hamazaki-2011">2008</a>)</span> or the potential of tagging stock components in some proportion other than their true contribution.</p>
+<p>Methods exist to incorporate run timing forecasts from our analysis into in-season assessment and management efforts. Our daily predictions of EOS, which is an index of run size, could be used to predict the total end-of-season run size on each day using a regression model that relates historical reconstructed total run abundance and EOS. These in-season run predictions could be used to update pre-season run size forecasts with in-season data using methods such as inverse variance weighting <span class="citation">(e.g., <span class="citeproc-not-found" data-reference-id="walters-buckingham-1975"><strong>???</strong></span>)</span> or Bayesian inference [e.g., fried-hilborn-1988]. Information-updating may be preferable in cases when the pre-season run forecast is biased, because it would allow for the perception of run size to pull away from the forecast when in-season data suggest it is highly unlikely. As we have shown here, uncertainty in EOS predictions is a function of the precision in the anticipated proportion of the run completed-to-date (<span class="math inline">\(p_{d,t}\)</span>; equation ). Our analysis suggests that incorporating run timing forecasts into estimates of <span class="math inline">\(p_{d,t}\)</span> (and thus <span class="math inline">\(\text{EOS}_t\)</span>) may provide managers with more certainty regarding interpretation of in-season abundance indices, which would facilitate updating of pre-season forecasts with data from the run.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--chapter:end:02-rt-fcst.Rmd-->
+</div>
+</div>
+<div id="ch3" class="section level1">
+<h1><span class="header-section-number">3</span> Evaluation of Intra-Annual Harvest Control Rules via Closed-Loop Simulation</h1>
+<p>Placeholder</p>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+</div>
+<div id="methods-1" class="section level2">
+<h2><span class="header-section-number">3.2</span> Methods</h2>
+</div>
+<div id="results-1" class="section level2">
+<h2><span class="header-section-number">3.3</span> Results</h2>
+</div>
+<div id="discussion-1" class="section level2">
+<h2><span class="header-section-number">3.4</span> Discussion</h2>
+<!--chapter:end:03-inseason-mse.Rmd-->
+</div>
+</div>
+<div id="ch4" class="section level1">
+<h1><span class="header-section-number">4</span> Simulation-based Evaluation of Assessment Approaches for Single-Species, Mixed-stock Pacific Salmon Fisheries</h1>
+<p>Placeholder</p>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+</div>
+<div id="methods-2" class="section level2">
+<h2><span class="header-section-number">4.2</span> Methods</h2>
+<div id="regression-based-models" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Regression-based models</h3>
+<div id="mixed-effect-linear-regression" class="section level4">
+<h4><span class="header-section-number">4.2.1.1</span> Mixed-effect linear regression</h4>
+</div>
+<div id="independent-regression-models" class="section level4">
+<h4><span class="header-section-number">4.2.1.2</span> Independent regression models</h4>
+</div>
+<div id="brood-table-reconstruction" class="section level4">
+<h4><span class="header-section-number">4.2.1.3</span> Brood table reconstruction</h4>
+</div>
+</div>
+<div id="the-full-state-space-model" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> The full state-space model</h3>
+<div id="process-submodel-brood-year-processes" class="section level4">
+<h4><span class="header-section-number">4.2.2.1</span> Process submodel: brood year processes</h4>
+</div>
+<div id="process-submodel-calendar-year-processes" class="section level4">
+<h4><span class="header-section-number">4.2.2.2</span> Process submodel: calendar-year processes</h4>
+</div>
+<div id="observation-submodel" class="section level4">
+<h4><span class="header-section-number">4.2.2.3</span> Observation submodel</h4>
+</div>
+</div>
+<div id="alternate-state-space-models" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Alternate state-space models</h3>
+</div>
+<div id="analysis-of-kuskokwim-river-substock-data" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Analysis of Kuskokwim River substock data</h3>
+<div id="data-sources" class="section level4">
+<h4><span class="header-section-number">4.2.4.1</span> Data sources</h4>
+</div>
+<div id="data-preparation" class="section level4">
+<h4><span class="header-section-number">4.2.4.2</span> Data preparation</h4>
+<div id="substock-escapement" class="section level5">
+<h5><span class="header-section-number">4.2.4.2.1</span> Substock escapement</h5>
+</div>
+<div id="aggregate-harvest" class="section level5">
+<h5><span class="header-section-number">4.2.4.2.2</span> Aggregate harvest</h5>
+</div>
+<div id="age-composition" class="section level5">
+<h5><span class="header-section-number">4.2.4.2.3</span> Age composition</h5>
+</div>
+</div>
+</div>
+<div id="simulation-estimation-analysis" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> Simulation-estimation analysis</h3>
+<div id="operating-model-biological-submodel" class="section level4">
+<h4><span class="header-section-number">4.2.5.1</span> Operating model: Biological submodel</h4>
+</div>
+<div id="operating-model-observation-submodel" class="section level4">
+<h4><span class="header-section-number">4.2.5.2</span> Operating model: Observation submodel</h4>
+</div>
+</div>
+<div id="metrics-of-model-performance" class="section level3">
+<h3><span class="header-section-number">4.2.6</span> Metrics of model performance</h3>
+</div>
+</div>
+<div id="results-2" class="section level2">
+<h2><span class="header-section-number">4.3</span> Results</h2>
+</div>
+<div id="discussion-2" class="section level2">
+<h2><span class="header-section-number">4.4</span> Discussion</h2>
+<!--chapter:end:04-multistock-sra.Rmd-->
+</div>
+</div>
+<div id="ch5" class="section level1">
+<h1><span class="header-section-number">5</span> Conclusions</h1>
+<p>This chapter contains my thoughts on the topic of the dissertation. What was found, what will be useful to use in the future, what should be looked at in more detail?</p>
+
+<!--chapter:end:05-conclusion.Rmd-->
+<div id="refs" class="references">
+<div id="ref-adkison-cunningham-2015">
+<p>Adkison, Milo D., and Curry J. Cunningham. 2015. “The Effects of Salmon Abundance and Run Timing on the Performance of Management by Emergency Order.” Edited by Bror Jonsson. <em>Canadian Journal of Fisheries and Aquatic Sciences</em> 72 (10). Canadian Science Publishing: 1518–26. doi:<a href="https://doi.org/10.1139/cjfas-2015-0174">10.1139/cjfas-2015-0174</a>.</p>
+</div>
+<div id="ref-anderson-beer-2009">
+<p>Anderson, James J., and W. Nicholas Beer. 2009. “Oceanic, Riverine, and Genetic Influences on Spring Chinook Salmon Migration Timing.” <em>Ecological Applications</em> 19 (8). Wiley: 1989–2003. doi:<a href="https://doi.org/10.1890/08-0477.1">10.1890/08-0477.1</a>.</p>
+</div>
+<div id="ref-arlot-celisse-2010">
+<p>Arlot, Sylvain, and Alain Celisse. 2010. “A Survey of Cross-Validation Procedures for Model Selection.” <em>Statistics Surveys</em> 4 (0). Institute of Mathematical Statistics: 40–79. doi:<a href="https://doi.org/10.1214/09-ss054">10.1214/09-ss054</a>.</p>
+</div>
+<div id="ref-beer-2007">
+<p>Beer, J. J. 2007. “Appendix 7: Run Timing of Adult Chinook Salmon Passing Bonneville Dam on the Columbia River.” In <em>Columbia River Salmon Passage (Crisp) Model Monitoring and Evaluating Support Annual Report, October 1, 2006 - September 30 2007</em>. Portland, OR: U.S. Department of Energy, Bonneville Power Administration, Oregon Division of Fish; Wildlife.</p>
+</div>
+<div id="ref-bolker-2008">
+<p>Bolker, B. M. 2008. <em>Ecological Models and Data in R</em>. Princeton University Press. <a href="https://press.princeton.edu/titles/8709.html" class="uri">https://press.princeton.edu/titles/8709.html</a>.</p>
+</div>
+<div id="ref-bromaghin-2005">
+<p>Bromaghin, Jeffrey F. 2005. “A Versatile Net Selectivity Model, with Application to Pacific Salmon and Freshwater Species of the Yukon River, Alaska.” <em>Fisheries Research</em> 74 (1-3). Elsevier BV: 157–68. doi:<a href="https://doi.org/10.1016/j.fishres.2005.03.004">10.1016/j.fishres.2005.03.004</a>.</p>
+</div>
+<div id="ref-bue-etal-2012">
+<p>Bue, B. G., K. L. Schaberg, Z. W. Liller, and D. B. Molyneaux. 2012. “Estimates of the Historic Run and Escapement for the Chinook Salmon Stock Returning to the Kuskokwim River, 1976-2011.” Fishery Data Series 12-49. Anchorage, AK: Alaska Department of Fish; Game. <a href="http://www.adfg.alaska.gov/FedAidPDFs/FDS12-49.pdf" class="uri">http://www.adfg.alaska.gov/FedAidPDFs/FDS12-49.pdf</a>.</p>
+</div>
+<div id="ref-burger-etal-1985">
+<p>Burger, Carl V., Richard L. Wilmot, and David B. Wangaard. 1985. “Comparison of Spawning Areas and Times for Two Runs of Chinook Salmon (Oncorhynchus Tshawytscha) in the Kenai River, Alaska.” <em>Canadian Journal of Fisheries and Aquatic Sciences</em> 42 (4). Canadian Science Publishing: 693–700. doi:<a href="https://doi.org/10.1139/f85-089">10.1139/f85-089</a>.</p>
+</div>
+<div id="ref-burnham-anderson-2002">
+<p>Burnham, Kenneth P., and David R. Anderson, eds. 2004. <em>Model Selection and Multimodel Inference</em>. Springer New York. doi:<a href="https://doi.org/10.1007/b97636">10.1007/b97636</a>.</p>
+</div>
+<div id="ref-catalano-jones-2014">
+<p>Catalano, Matthew J., and Michael L. Jones. 2014. “A Simulation-Based Evaluation of in-Season Management Tactics for Anadromous Fisheries: Accounting for Risk in the Yukon River Fall Chum Salmon Fishery.” <em>North American Journal of Fisheries Management</em> 34 (6). Wiley: 1227–41. doi:<a href="https://doi.org/10.1080/02755947.2014.951801">10.1080/02755947.2014.951801</a>.</p>
+</div>
+<div id="ref-clark-etal-2015">
+<p>Clark, Sydney C., Theresa L. Tanner, Suresh A. Sethi, Kale T. Bentley, and Daniel E. Schindler. 2015. “Migration Timing of Adult Chinook Salmon into the Togiak River, Alaska, Watershed: Is There Evidence for Stock Structure?” <em>Transactions of the American Fisheries Society</em> 144 (4). Wiley: 829–36. doi:<a href="https://doi.org/10.1080/00028487.2015.1031281">10.1080/00028487.2015.1031281</a>.</p>
+</div>
+<div id="ref-cooke-etal-2008">
+<p>Cooke, Steven J., S. G. Hinch, A. P. Farrell, D. A. Patterson, K. Miller-Saunders, D. W. Welch, M. R. Donaldson, et al. 2008. “Developing a Mechanistic Understanding of Fish Migrations by Linking Telemetry with Physiology, Behavior, Genomics and Experimental Biology: An Interdisciplinary Case Study on Adult Fraser River Sockeye Salmon.” <em>Fisheries</em> 33 (7). Wiley: 321–39. doi:<a href="https://doi.org/10.1577/1548-8446-33.7.321">10.1577/1548-8446-33.7.321</a>.</p>
+</div>
+<div id="ref-cooperman-etal-2010">
+<p>Cooperman, M. S., S. G. Hinch, G. T. Crossin, S. J. Cooke, D. A. Patterson, I. Olsson, A. G. Lotto, et al. 2010. “Effects of Experimental Manipulations of Salinity and Maturation Status on the Physiological Condition and Mortality of Homing Adult Sockeye Salmon Held in a Laboratory.” <em>Physiological and Biochemical Zoology</em> 83 (3). University of Chicago Press: 459–72. doi:<a href="https://doi.org/10.1086/650473">10.1086/650473</a>.</p>
+</div>
+<div id="ref-eiler-etal-2015">
+<p>Eiler, John H., Allison N. Evans, and Carl B. Schreck. 2015. “Migratory Patterns of Wild Chinook Salmon Oncorhynchus Tshawytscha Returning to a Large, Free-Flowing River Basin.” Edited by Stephanie M. Carlson. <em>PLOS ONE</em> 10 (4). Public Library of Science (PLoS): e0123127. doi:<a href="https://doi.org/10.1371/journal.pone.0123127">10.1371/journal.pone.0123127</a>.</p>
+</div>
+<div id="ref-graham-2003">
+<p>Graham, Michael H. 2003. “CONFRONTING MULTICOLLINEARITY IN ECOLOGICAL MULTIPLE REGRESSION.” <em>Ecology</em> 84 (11). Wiley: 2809–15. doi:<a href="https://doi.org/10.1890/02-3114">10.1890/02-3114</a>.</p>
+</div>
+<div id="ref-hamazaki-etal-2012">
+<p>Hamazaki, T., M. J. Evenson, S. J. Fleischman, and K. L. Schaberg. 2012. “Spawner-Recruit Analysis and Escapement Goal Recommendation for Chinook Salmon in the Kuskokwim River Drainage.” Fishery Manuscript Series 12-08. Anchorage, AK: Alaska Department of Fish; Game. <a href="http://www.adfg.alaska.gov/FedAidPDFs/FMS12-08.pdf" class="uri">http://www.adfg.alaska.gov/FedAidPDFs/FMS12-08.pdf</a>.</p>
+</div>
+<div id="ref-hamazaki-2011">
+<p>Hamazaki, Toshihide. 2008. “When People Argue About Fish, the Fish Disappear.” <em>Fisheries</em> 33 (10). Wiley: 495–501. doi:<a href="https://doi.org/10.1577/1548-8446-33.10.495">10.1577/1548-8446-33.10.495</a>.</p>
+</div>
+<div id="ref-hasler-scholz-1983">
+<p>Hasler, Arthur D., and Allan T. Scholz. 1983. <em>Olfactory Imprinting and Homing in Salmon</em>. Springer Berlin Heidelberg. doi:<a href="https://doi.org/10.1007/978-3-642-82070-0">10.1007/978-3-642-82070-0</a>.</p>
+</div>
+<div id="ref-hodgson-etal-2006">
+<p>HODGSON, SAYRE, THOMAS P. QUINN, RAY HILBORN, ROBERT C. FRANCIS, and DONALD E. ROGERS. 2006. “Marine and Freshwater Climatic Factors Affecting Interannual Variation in the Timing of Return Migration to Fresh Water of Sockeye Salmon (Oncorhynchus Nerka).” <em>Fisheries Oceanography</em> 15 (1). Wiley: 1–24. doi:<a href="https://doi.org/10.1111/j.1365-2419.2005.00354.x">10.1111/j.1365-2419.2005.00354.x</a>.</p>
+</div>
+<div id="ref-keefer-etal-2004">
+<p>Keefer, M. L., C. A. Peery, M. A. Jepson, and L. C. Stuehrenberg. 2004. “Upstream Migration Rates of Radio-Tagged Adult Chinook Salmon in Riverine Habitats of the Columbia River Basin.” <em>Journal of Fish Biology</em> 65 (4). Wiley: 1126–41. doi:<a href="https://doi.org/10.1111/j.0022-1112.2004.00522.x">10.1111/j.0022-1112.2004.00522.x</a>.</p>
+</div>
+<div id="ref-keefer-etal-2008">
+<p>Keefer, Matthew L., Christopher A. Peery, and Christopher C. Caudill. 2008. “Migration Timing of Columbia River Spring Chinook Salmon: Effects of Temperature, River Discharge, and Ocean Environment.” <em>Transactions of the American Fisheries Society</em> 137 (4). Wiley: 1120–33. doi:<a href="https://doi.org/10.1577/t07-008.1">10.1577/t07-008.1</a>.</p>
+</div>
+<div id="ref-linderman-bergstrom-2009">
+<p>Linderman, J. C., and D. J. Bergstrom. 2009. “Kuskokwim Management Area: Salmon Escapement, Harvest, and Management.” In <em>Pacific Salmon: Ecology and Management of Western Alaska’s Populations</em>, edited by C. C. Krueger and C. E. Zimmerman, 541–99. American Fisheries Society Symposium 70. Bethesda, MD.</p>
+</div>
+<div id="ref-mantua-etal-1997">
+<p>Mantua, N. J., S. R. Hare, Y. Zhang, J. M. Wallace, and R. C. Francis. 2017. “A Pacific Interdecadal Oscillation with Impacts on Salmon Production.” <em>Bulletin of the American Meterological Society</em> 78 (6): 1069–79. doi:<a href="https://doi.org/10.1175/1520-0477(1997)078&lt;1069:APICOW&gt;2.0.CO;2">10.1175/1520-0477(1997)078&lt;1069:APICOW&gt;2.0.CO;2</a>.</p>
+</div>
+<div id="ref-mundy-evenson-2011">
+<p>Mundy, P. R., and D. F. Evenson. 2011. “Environmental Controls of Phenology of High-Latitude Chinook Salmon Populations of the Yukon River, North America, with Application to Fishery Management.” <em>ICES Journal of Marine Science</em> 68 (6). Oxford University Press (OUP): 1155–64. doi:<a href="https://doi.org/10.1093/icesjms/fsr080">10.1093/icesjms/fsr080</a>.</p>
+</div>
+<div id="ref-neter-etal-1996">
+<p>Neter, J., M. H. Kutner, C.J. Nachtsheim, and W. Wasserman. 1996. <em>Applied Linear Statistical Models</em>. Chicago, IL USA: Irwin.</p>
+</div>
+<div id="ref-omalley-etal-2010">
+<p>OMalley, K. G., M. J. Ford, and J. J. Hard. 2010. “Clock Polymorphism in Pacific Salmon: Evidence for Variable Selection Along a Latitudinal Gradient.” <em>Proceedings of the Royal Society B: Biological Sciences</em> 277 (1701). The Royal Society: 3703–14. doi:<a href="https://doi.org/10.1098/rspb.2010.0762">10.1098/rspb.2010.0762</a>.</p>
+</div>
+<div id="ref-vandepol-etal-2016">
+<p>Pol, Martijn van de, Liam D. Bailey, Nina McLean, Laurie Rijsdijk, Callum R. Lawson, and Lyanne Brouwer. 2016. “Identifying the Best Climatic Predictors in Ecology and Evolution.” Edited by Olivier Gimenez. <em>Methods in Ecology and Evolution</em> 7 (10). Wiley: 1246–57. doi:<a href="https://doi.org/10.1111/2041-210x.12590">10.1111/2041-210x.12590</a>.</p>
+</div>
+<div id="ref-quinn-etal-2000">
+<p>Quinn, Thomas P., Martin J. Unwin, and Michael T. Kinnison. 2000. “EVOLUTION OF TEMPORAL ISOLATION IN THE WILD: GENETIC DIVERGENCE IN TIMING OF MIGRATION AND BREEDING BY INTRODUCED CHINOOK SALMON POPULATIONS.” <em>Evolution</em> 54 (4). Wiley: 1372–85. doi:<a href="https://doi.org/10.1111/j.0014-3820.2000.tb00569.x">10.1111/j.0014-3820.2000.tb00569.x</a>.</p>
+</div>
+<div id="ref-reynolds-etal-2007">
+<p>Reynolds, Richard W., Thomas M. Smith, Chunying Liu, Dudley B. Chelton, Kenneth S. Casey, and Michael G. Schlax. 2007. “Daily High-Resolution-Blended Analyses for Sea Surface Temperature.” <em>Journal of Climate</em> 20 (22). American Meteorological Society: 5473–96. doi:<a href="https://doi.org/10.1175/2007jcli1824.1">10.1175/2007jcli1824.1</a>.</p>
+</div>
+<div id="ref-salinger-anderson-2006">
+<p>Salinger, David H., and James J. Anderson. 2006. “Effects of Water Temperature and Flow on Adult Salmon Migration Swim Speed and Delay.” <em>Transactions of the American Fisheries Society</em> 135 (1). Wiley: 188–99. doi:<a href="https://doi.org/10.1577/t04-181.1">10.1577/t04-181.1</a>.</p>
+</div>
+<div id="ref-staton-etal-2017a">
+<p>Staton, Benjamin A., Matthew J. Catalano, and Steven J. Fleischman. 2017. “From Sequential to Integrated Bayesian Analyses: Exploring the Continuum with a Pacific Salmon Spawner-Recruit Model.” <em>Fisheries Research</em> 186 (February). Elsevier BV: 237–47. doi:<a href="https://doi.org/10.1016/j.fishres.2016.09.001">10.1016/j.fishres.2016.09.001</a>.</p>
+</div>
+<div id="ref-wolfe-spaeder-2009">
+<p>Wolfe, R. J., and J. Spaeder. 2009. “People and Salmon of the Yukon and Kuskokwim Drainages and Norton Sound in Alaska: Fishery Harvests, Culture Change, and Local Knowledge System.” In <em>Pacific Salmon: Ecology and Management of Western Alaska’s Populations</em>, edited by C. C. Krueger and C. E. Zimmerman, 349–79. American Fisheries Society Symposium 70. Bethesda, MD.</p>
+</div>
+<div id="ref-xie-2015">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>PDO data: <a href="http://research.jisao.washington.edu/pdo/PDO.latest.txt" class="uri">http://research.jisao.washington.edu/pdo/PDO.latest.txt</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Alaska air temperature data: <a href="http://akclimate.org/acis_data" class="uri">http://akclimate.org/acis_data</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Global gridded SST and SIC: <a href="http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html" class="uri">http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html</a><a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+<!--bookdown:body:end-->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+    </div>
+  </div>
+<!--bookdown:config-->
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

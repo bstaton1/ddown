@@ -1,3 +1,5 @@
 # Conclusions {#ch5}
 
 This chapter contains my thoughts on the topic of the dissertation. What was found, what will be useful to use in the future, what should be looked at in more detail?
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
