@@ -1,0 +1,34 @@
+\contentsline {chapter}{Abstract}{ii}{Doc-Start}
+\contentsline {chapter}{Acknowledgments}{iii}{Doc-Start}
+\contentsline {chapter}{List of Figures}{v}{Doc-Start}
+\contentsline {chapter}{List of Tables}{vi}{Doc-Start}
+\contentsline {chapter}{Preface}{1}{Doc-Start}
+\contentsline {chapter}{\numberline {1}Assessment Approaches for Single-Species, Mixed-stock Pacific Salmon Fisheries: Empirical and Simulation-Evaluation Applications}{2}{chapter.1}
+\contentsline {section}{Abstract}{2}{section*.1}
+\contentsline {section}{\numberline {1.1}Introduction}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Methods}{6}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Analytical approach}{6}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Study system}{7}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Data sources}{7}{subsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.3.1}Substock escapement}{7}{subsubsection.1.2.3.1}
+\contentsline {paragraph}{\numberline {1.2.3.1.1}Spatial expansion}{8}{paragraph.1.2.3.1.1}
+\contentsline {paragraph}{\numberline {1.2.3.1.2}Temporal Expansion}{10}{paragraph.1.2.3.1.2}
+\contentsline {subsubsection}{\numberline {1.2.3.2}Aggregate harvest}{11}{subsubsection.1.2.3.2}
+\contentsline {subsubsection}{\numberline {1.2.3.3}Age composition}{11}{subsubsection.1.2.3.3}
+\contentsline {subsection}{\numberline {1.2.4}Regression-based models}{12}{subsection.1.2.4}
+\contentsline {subsubsection}{\numberline {1.2.4.1}Mixed-effect linear regression}{12}{subsubsection.1.2.4.1}
+\contentsline {subsubsection}{\numberline {1.2.4.2}Independent regression models}{14}{subsubsection.1.2.4.2}
+\contentsline {subsubsection}{\numberline {1.2.4.3}Brood table reconstruction}{15}{subsubsection.1.2.4.3}
+\contentsline {subsection}{\numberline {1.2.5}The full state-space model}{15}{subsection.1.2.5}
+\contentsline {subsubsection}{\numberline {1.2.5.1}Process submodel: brood year processes}{16}{subsubsection.1.2.5.1}
+\contentsline {subsubsection}{\numberline {1.2.5.2}Process submodel: calendar-year processes}{19}{subsubsection.1.2.5.2}
+\contentsline {subsubsection}{\numberline {1.2.5.3}Observation submodel}{20}{subsubsection.1.2.5.3}
+\contentsline {subsection}{\numberline {1.2.6}Alternate state-space models}{20}{subsection.1.2.6}
+\contentsline {subsection}{\numberline {1.2.7}Parameter estimation}{21}{subsection.1.2.7}
+\contentsline {subsection}{\numberline {1.2.8}Simulation-estimation analysis}{21}{subsection.1.2.8}
+\contentsline {subsubsection}{\numberline {1.2.8.1}Operating model: Biological submodel}{21}{subsubsection.1.2.8.1}
+\contentsline {subsubsection}{\numberline {1.2.8.2}Operating model: Observation submodel}{22}{subsubsection.1.2.8.2}
+\contentsline {subsection}{\numberline {1.2.9}Metrics of model performance}{22}{subsection.1.2.9}
+\contentsline {section}{\numberline {1.3}Results}{22}{section.1.3}
+\contentsline {section}{\numberline {1.4}Discussion}{23}{section.1.4}
+\contentsline {chapter}{Bibliography}{31}{figure.caption.8}
