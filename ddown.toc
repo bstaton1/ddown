@@ -24,11 +24,11 @@
 \contentsline {subsubsection}{\numberline {1.2.5.2}Process submodel: calendar-year processes}{19}{subsubsection.1.2.5.2}
 \contentsline {subsubsection}{\numberline {1.2.5.3}Observation submodel}{20}{subsubsection.1.2.5.3}
 \contentsline {subsection}{\numberline {1.2.6}Alternate state-space models}{20}{subsection.1.2.6}
-\contentsline {subsection}{\numberline {1.2.7}Parameter estimation}{21}{subsection.1.2.7}
-\contentsline {subsection}{\numberline {1.2.8}Simulation-estimation analysis}{21}{subsection.1.2.8}
-\contentsline {subsubsection}{\numberline {1.2.8.1}Operating model: Biological submodel}{21}{subsubsection.1.2.8.1}
-\contentsline {subsubsection}{\numberline {1.2.8.2}Operating model: Observation submodel}{22}{subsubsection.1.2.8.2}
-\contentsline {subsection}{\numberline {1.2.9}Metrics of model performance}{22}{subsection.1.2.9}
-\contentsline {section}{\numberline {1.3}Results}{22}{section.1.3}
+\contentsline {subsection}{\numberline {1.2.7}Computation}{21}{subsection.1.2.7}
+\contentsline {subsection}{\numberline {1.2.8}Simulation-estimation analysis}{22}{subsection.1.2.8}
+\contentsline {subsubsection}{\numberline {1.2.8.1}Operating model: Biological submodel}{22}{subsubsection.1.2.8.1}
+\contentsline {subsubsection}{\numberline {1.2.8.2}Operating model: Observation submodel}{23}{subsubsection.1.2.8.2}
+\contentsline {subsection}{\numberline {1.2.9}Metrics of model performance}{23}{subsection.1.2.9}
+\contentsline {section}{\numberline {1.3}Results}{23}{section.1.3}
 \contentsline {section}{\numberline {1.4}Discussion}{23}{section.1.4}
-\contentsline {chapter}{Bibliography}{31}{figure.caption.8}
+\contentsline {chapter}{Bibliography}{37}{figure.caption.14}

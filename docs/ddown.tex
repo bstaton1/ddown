@@ -225,6 +225,8 @@ This is the fourth paragraph of the dissertation abstract, which will talk broad
 Here is where I will thank everyone.
 
 Matt, Lew, Brendan, Mike, Sam, AL-HPC folks, Steve, Nick, Zach, Janessa. Family and Michelle. Folks at the lab. RStudio staff.
+
+This work was made possible in part by a grant of high performance computing resources and technical support from the Alabama Supercomputer Authority.
 \end{acknowledgments}
 
 \begin{singlespace}
@@ -363,7 +365,7 @@ level of additional model complexity comes at computational costs, as
 these models are well-suited for Bayesian inference with Markov Chain
 Monte Carlo (MCMC) methods \citep[Ch. 4]{newman-etal-2014}, but has been
 shown to reduce bias in estimates in some circumstances
-{[}\citet{su-peterman-2012}; walters-martell-2004{]}.
+\citep{su-peterman-2012, walters-martell-2004}.
 
 In the Kuskokwim River Chinook salmon fishery, there has been recent
 interest in considering biodiversity to explicitly inform the
@@ -666,7 +668,7 @@ total number of fish successfully aged for each year and substock was
 retained for data-weighting purposes for the state-space models (see
 Section \ref{ssm-obs-model}).
 
-\subsection{Regression-based models}\label{regression-based-models}
+\subsection{Regression-based models}\label{reg-methods}
 
 \noindent
 Two regression-based approaches to estimating \citet{ricker-1954}
@@ -675,8 +677,7 @@ spawner-recruit parameters in the multi-stock case were assessed:
 and (\emph{b}) independent regression models. A description of each
 method is provided in the sections that follow.
 
-\subsubsection{Mixed-effect linear
-regression}\label{mixed-effect-linear-regression}
+\subsubsection{Mixed-effect linear regression}\label{lme-methods}
 
 \noindent
 The \citet{ricker-1954} spawner-recruit model can be written as:
@@ -760,8 +761,7 @@ hierarchical fashion allows for the sharing of information such that the
 more intensively-assessed substocks can help inform those that are more
 data-poor.
 
-\subsubsection{Independent regression
-models}\label{independent-regression-models}
+\subsubsection{Independent regression models}\label{lm-methods}
 
 \noindent
 The mixed-effect model may have the benefit of sharing information to
@@ -1028,8 +1028,7 @@ and used in lognormal likelihoods to fit the time series \(S_{t,j}\) to
 composition was fitted using parameter vectors \(q_{t,1:n_a,j}\) and
 observed vectors of (\(q_{obs,t,1:n_a,j} ESS_{t,j}\)).
 
-\subsection{Alternate state-space
-models}\label{alternate-state-space-models}
+\subsection{Alternate state-space models}\label{alt-ssm-models}
 
 \noindent
 Three alternate formulations of the state-space model will be evaluated,
@@ -1065,7 +1064,7 @@ the model. In other words, these are two key structural uncertainties
 where it is important to know if the complex versions are estimable with
 a reasonable amount of data.
 
-\subsection{Parameter estimation}\label{parameter-estimation}
+\subsection{Computation}\label{computation}
 
 All parameter estimation was conducted in the Bayesian framework using
 JAGS \citep{plummer-2017} implemented using R \citep{r-cite} and the R
@@ -1073,46 +1072,92 @@ package \texttt{\{jagsUI\}} \citep{r-jagsUI} for interfacing with JAGS
 from R, as well as the \texttt{\{coda\}} \citep{r-coda} package and a
 package of my own creation \texttt{\{codaTools\}} \citep{r-codaTools}.
 
+\noindent
+MCMC settings were as follows for the linear regression models:
+
+\begin{itemize}
+\tightlist
+\item
+  Burn-in:
+\item
+  Post-burn-in:
+\item
+  Thinning interval:
+\item
+  Chains:
+\end{itemize}
+
+\noindent
+Settings were as follows for the state-space models:
+
+\begin{itemize}
+\tightlist
+\item
+  Burn-in:
+\item
+  Post-burn-in:
+\item
+  Thinning interval:
+\item
+  Chains:
+\end{itemize}
+
+Posterior convergence was assessed using visual inspection of the MCMC
+sampling behavior and the Brooks-Gelman-Rubin convergence diagostic
+(CITE). Adequate sampling was further verified for key estimated
+quantities using the effective sample size and the Raftery-Lewis
+diagnostic (CITE).
+
+As a result of the long model runs and the large number of simulated
+salmon populations, this analysis required more computing power than the
+previous chapters. I conducted this analysis by sending jobs to the
+Alabama High Performance Computing Center. The most complex state-space
+model took approximately 2.5 -- 3 days to complete using the settings
+listed above.
+
 \subsection{Simulation-estimation
 analysis}\label{simulation-estimation-analysis}
 
 \subsubsection{Operating model: Biological
 submodel}\label{operating-model-biological-submodel}
 
+\noindent
 Given that the state-space model is a much more natural model of this
 system (which has intrinsic time series properties) than the
-regression-based versions, it will be used as the foundation operating
-model (i.e., state-generating model). The biological submodel will be
-more complex than the most complex estimation model -- namely in regards
-to the maturity schedule, which will have a modest level of substock
-variability but with highly correlated brood year variability. In order
-to serve as the state-generating model for the simulation, the
+regression-based versions, it will be used as the foundation of the
+operating model (i.e., state-generating model). The biological submodel
+will be more complex than the most complex estimation model -- namely in
+regards to the maturity schedule, which will have a modest level of
+substock variability but with highly correlated brood year variability.
+In order to serve as the state-generating model for the simulation, the
 state-space model needs only to be populated with true parameters,
-initial states, and a harvest control rule. I will use a fixed
-escapement policy with implementation error to ensure the data time
-series are generated with patterns consistent with realistic
-exploitation patterns (the policy will not be updated as more data are
-available). I will generate \(n_j\) = 12 substocks with different
-parameters \(U_{\text{MSY},j}\) and \(S_{\text{MSY},j}\) which (as a
-starting point) will be informed from random draws from the joint
-posterior distribution of 13 substocks from the Kuskokwim River
-drainage.
+initial states, and a harvest control rule. I will use a exploitation
+rate policy (chosen to maximize yield without overfishing more than 30\%
+of the substocks) with a modest amount of implementation error to ensure
+the data time series are generated with patterns consistent with
+realistic exploitation patterns. I generated \(n_j\) = 13 substocks with
+different parameters \(U_{\text{MSY},j}\) and \(S_{\text{MSY},j}\) which
+took on the values of random posterior draws from the most complex
+state-space model.
 
 \subsubsection{Operating model: Observation
 submodel}\label{operating-model-observation-submodel}
 
 For a given set of simulated true states, a set of observed states
-(\(S_{obs,t,j}\), \(H_{obs,t}\), \(q_{obs,t,a}\)) will be generated by
+(\(S_{obs,t,j}\), \(H_{obs,t}\), \(q_{obs,t,a,j}\)) will be generated by
 adding sampling error to each year, which will represent the value that
 would be observed if the sampling project operated that year.
 Observation errors in escapement and harvest estimates will be lognormal
 and multinomial for the age composition, as assumed in the state-space
 estimation model. Frequency of sampling on each substock (i.e.,
 simulated data collection) will be set to approximately mimic the
-Kuskokwim River historical monitoring program. Approximately half of the
-substocks will have age composition data sampled in the same years as
-escapement, and aggregate harvest (\(H_{obs,t}\)) will be available
-every year in each simulation.
+Kuskokwim River historical monitoring program. The sampling frequency
+was designed to continue to generate sampling schedules until one was
+found that ensured no substocks had fewer than 3 observations of
+\(\text{RPS}_{obs,y,s}\) which allowed the linear regression models to
+include all substocks. Aggregate harvest (\(H_{obs,t}\)) was assumed to
+be available every year in each simulation and it was assumed that the
+exploitation rate could be estimated in an unbiased fashion.
 
 \subsection{Metrics of model
 performance}\label{metrics-of-model-performance}
@@ -1124,6 +1169,30 @@ I found some stuff.
 \section{Discussion}\label{discussion}
 
 Here's what it means.
+
+\clearpage
+
+\begin{table}
+
+\caption{\label{tab:models-table}Summary of evaluated models in this analysis.}
+\centering
+\begin{tabular}[t]{lrllll}
+\toprule
+Abbreviation & $n_j$ & Unique $\sigma_j$ & AR(1) & Shared Recruitment Dynamics & Described in Section(s)\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Regression-Based Models}}\\
+\hspace{1em}LM & 10 & Yes & No & Independent residuals & \ref{lm-methods}\\
+\hspace{1em}LME & 10 & No & No & Independent residuals & \ref{lme-methods}\\
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{State-Space Models}}\\
+\hspace{1em}vm & 13 & No & Yes & Single $\rho$ bounded by [-0.05 -- 1) & \ref{ssm-model}; \ref{alt-ssm-models}\\
+\hspace{1em}Vm & 13 & Yes & Yes & Unique $\rho_{i,j}$ & \ref{ssm-model}; \ref{alt-ssm-models}\\
+\hspace{1em}vM & 13 & No & Yes & Same as vm & \ref{ssm-model}; \ref{alt-ssm-models}\\
+\hspace{1em}VM & 13 & Yes & Yes & Same as Vm & \ref{ssm-model}\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \clearpage
 
@@ -1200,6 +1269,62 @@ $\hat{\sigma_W}$ & \makecell[c]{4992.15\\(3376.54 -- 7565.08)}\\
 
 \clearpage
 
+\begin{landscape}\begin{table}[H]
+
+\caption{\label{tab:lm-ssm-ests-table}Estimated population parameters for Kuskokwim River Chinook salmon compared between assessment models, including the regression-based estimators. Only 10 of the 13 substocks had enough data to fit the linear regression model, the three missing stocks were discarded in the calculation of the summaries presented for the state-space models. Quantities with a bar and a $j$ subscript denote averages over substocks, those with no subscript are the appropriate reference points for the aggregate of the 13 substocks.}
+\centering
+\begin{tabular}[t]{lcccccclcccccclcccccclcccccclcccccclcccccclcccccc}
+\toprule
+\multicolumn{1}{c}{\bfseries } & \multicolumn{2}{c}{\bfseries Regression-Based Models} & \multicolumn{4}{c}{\bfseries State-Space Models} \\
+\cmidrule(l{2pt}r{2pt}){2-3} \cmidrule(l{2pt}r{2pt}){4-7}
+\textbf{Parameter} & \textbf{LM} & \textbf{LME} & \textbf{vm} & \textbf{Vm} & \textbf{vM} & \textbf{VM}\\
+\midrule
+$\alpha_j$ & \makecell[c]{7.71\\(4.46 -- 19.88)} & \makecell[c]{4.63\\(3.22 -- 7.54)} & \makecell[c]{2.94\\(1.92 -- 4.95)} & \makecell[c]{2.64\\(1.87 -- 3.92)} & \makecell[c]{3.28\\(2.25 -- 4.92)} & \makecell[c]{2.84\\(2.02 -- 4.03)}\\
+$\bar{U}_{\text{MSY},j}$ & \makecell[c]{0.57\\(0.47 -- 0.68)} & \makecell[c]{0.51\\(0.41 -- 0.6)} & \makecell[c]{0.39\\(0.25 -- 0.52)} & \makecell[c]{0.36\\(0.24 -- 0.49)} & \makecell[c]{0.45\\(0.32 -- 0.56)} & \makecell[c]{0.4\\(0.28 -- 0.52)}\\
+$\bar{S}_{\text{MSY},j}$ & \makecell[c]{2,500\\(1,900 -- 5,200)} & \makecell[c]{2,600\\(2,100 -- 3,800)} & \makecell[c]{3,700\\(2,300 -- 7,100)} & \makecell[c]{4,200\\(2,500 -- 7,800)} & \makecell[c]{3,500\\(2,700 -- 5,400)} & \makecell[c]{3,700\\(2,800 -- 5,600)}\\
+$\bar{S}_{\text{MAX},j}$ & \makecell[c]{4,900\\(3,200 -- 22,500)} & \makecell[c]{5,600\\(3,900 -- 21,400)} & \makecell[c]{16,300\\(7,400 -- 83,800)} & \makecell[c]{16,800\\(7,800 -- 64,100)} & \makecell[c]{9,500\\(5,900 -- 42,700)} & \makecell[c]{9,600\\(6,100 -- 26,400)}\\
+$\bar{S}_{\text{eq},j}$ & \makecell[c]{6,800\\(5,200 -- 13,200)} & \makecell[c]{6,700\\(4,300 -- 9,200)} & \makecell[c]{8,400\\(5,200 -- 15,600)} & \makecell[c]{9,400\\(5,600 -- 17,200)} & \makecell[c]{8,300\\(6,400 -- 12,300)} & \makecell[c]{8,600\\(6,600 -- 12,600)}\\
+\addlinespace
+$\bar{\sigma}_{R,j}$ & \makecell[c]{NA\\(NA -- NA)} & \makecell[c]{NA\\(NA -- NA)} & \makecell[c]{1.02\\(0.9 -- 1.17)} & \makecell[c]{1.11\\(0.91 -- 1.33)} & \makecell[c]{0.85\\(0.75 -- 0.98)} & \makecell[c]{0.85\\(0.73 -- 1.01)}\\
+$U_{\text{MSY}}$ & \makecell[c]{0.78\\(0.6 -- 0.97)} & \makecell[c]{0.68\\(0.49 -- 0.84)} & \makecell[c]{0.43\\(0.21 -- 0.66)} & \makecell[c]{0.4\\(0.2 -- 0.6)} & \makecell[c]{0.48\\(0.33 -- 0.63)} & \makecell[c]{0.45\\(0.3 -- 0.61)}\\
+$S_{\text{MSY}}$ & \makecell[c]{16,100\\(4,100 -- 33,000)} & \makecell[c]{18,800\\(8,600 -- 31,900)} & \makecell[c]{25,800\\(8,800 -- 64,300)} & \makecell[c]{30,700\\(10,700 -- 73,100)} & \makecell[c]{29,500\\(17,300 -- 45,300)} & \makecell[c]{33,700\\(19,700 -- 50,900)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\clearpage
+
+\begin{table}[H]
+
+\caption{\label{tab:ssm-ests-table}Estimated population parameters and biological reference points for Kuskokwim River Chinook salmon compared between the four evaluated versions of the state-space assessment model assessment models. Unlike in Figure \ref{tab:lm-ssm-ests-table}, all 13 of the substocks were included in the caluclation of these summaries. Quantities with a bar and a $j$ subscript denote averages over substock-specific parameters. Reference points with no subscript are the appropriate reference points for the aggregate of the 10 substocks.}
+\centering
+\begin{tabular}[t]{lcccccclcccccclcccccclcccccclcccccc}
+\toprule
+\textbf{Parameter} & \textbf{vm} & \textbf{Vm} & \textbf{vM} & \textbf{VM}\\
+\midrule
+$\alpha_j$ & \makecell[c]{2.75\\(1.91 -- 4.35)} & \makecell[c]{2.44\\(1.78 -- 3.5)} & \makecell[c]{3.21\\(2.25 -- 4.66)} & \makecell[c]{2.81\\(2.03 -- 4.18)}\\
+$\bar{U}_{\text{MSY},j}$ & \makecell[c]{0.37\\(0.25 -- 0.49)} & \makecell[c]{0.33\\(0.22 -- 0.44)} & \makecell[c]{0.44\\(0.32 -- 0.55)} & \makecell[c]{0.39\\(0.28 -- 0.5)}\\
+$\bar{S}_{\text{MSY},j}$ & \makecell[c]{4,100\\(2,700 -- 6,900)} & \makecell[c]{4,300\\(2,600 -- 8,200)} & \makecell[c]{3,800\\(2,900 -- 6,000)} & \makecell[c]{3,600\\(2,800 -- 5,900)}\\
+$\bar{S}_{\text{MAX},j}$ & \makecell[c]{16,700\\(9,100 -- 72,200)} & \makecell[c]{19,300\\(9,800 -- 81,100)} & \makecell[c]{10,400\\(6,400 -- 46,900)} & \makecell[c]{10,000\\(6,200 -- 37,500)}\\
+$\bar{S}_{\text{eq},j}$ & \makecell[c]{9,300\\(6,100 -- 15,300)} & \makecell[c]{9,500\\(5,800 -- 17,900)} & \makecell[c]{9,000\\(6,900 -- 13,400)} & \makecell[c]{8,500\\(6,600 -- 13,200)}\\
+\addlinespace
+$\bar{\sigma}_{R,j}$ & \makecell[c]{1.02\\(0.9 -- 1.17)} & \makecell[c]{1.25\\(1.05 -- 1.49)} & \makecell[c]{0.85\\(0.75 -- 0.98)} & \makecell[c]{0.99\\(0.85 -- 1.18)}\\
+$U_{\text{MSY}}$ & \makecell[c]{0.39\\(0.23 -- 0.59)} & \makecell[c]{0.37\\(0.19 -- 0.57)} & \makecell[c]{0.47\\(0.32 -- 0.62)} & \makecell[c]{0.46\\(0.31 -- 0.63)}\\
+$S_{\text{MSY}}$ & \makecell[c]{41,300\\(16,400 -- 81,900)} & \makecell[c]{40,600\\(13,800 -- 93,300)} & \makecell[c]{41,300\\(24,900 -- 64,300)} & \makecell[c]{41,600\\(23,300 -- 64,200)}\\
+$\phi$ & \makecell[c]{0.33\\(0.12 -- 0.49)} & \makecell[c]{0.32\\(0.13 -- 0.49)} & \makecell[c]{0.27\\(0.06 -- 0.44)} & \makecell[c]{0.3\\(0.11 -- 0.48)}\\
+$\pi_1$ & \makecell[c]{0.27\\(0.265 -- 0.275)} & \makecell[c]{0.271\\(0.266 -- 0.276)} & \makecell[c]{0.232\\(0.204 -- 0.263)} & \makecell[c]{0.234\\(0.203 -- 0.264)}\\
+\addlinespace
+$\pi_2$ & \makecell[c]{0.379\\(0.374 -- 0.384)} & \makecell[c]{0.379\\(0.373 -- 0.384)} & \makecell[c]{0.371\\(0.336 -- 0.406)} & \makecell[c]{0.372\\(0.337 -- 0.407)}\\
+$\pi_3$ & \makecell[c]{0.327\\(0.322 -- 0.332)} & \makecell[c]{0.327\\(0.321 -- 0.332)} & \makecell[c]{0.359\\(0.324 -- 0.392)} & \makecell[c]{0.357\\(0.323 -- 0.392)}\\
+$\pi_4$ & \makecell[c]{0.024\\(0.022 -- 0.025)} & \makecell[c]{0.024\\(0.022 -- 0.025)} & \makecell[c]{0.037\\(0.027 -- 0.049)} & \makecell[c]{0.037\\(0.027 -- 0.049)}\\
+$D$ & \makecell[c]{NA\\(NA -- NA)} & \makecell[c]{NA\\(NA -- NA)} & \makecell[c]{17.95\\(13.32 -- 23.74)} & \makecell[c]{18.28\\(13.63 -- 24.06)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/trade-off-plot.png}
@@ -1230,8 +1355,35 @@ $\hat{\sigma_W}$ & \makecell[c]{4992.15\\(3376.54 -- 7565.08)}\\
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/obs-fraction.png}
-  \caption{Estimated Chinook salmon escapement for substocks within the Kuskokwim River drainage. "Drainage-wide" refers to the aggregate population estimates provided by a maximum likelihood run reconstruction model. "This analysis" refers to the estimated portion of the aggregate run included in this analysis (not all tributaries are monitored).}
+  \caption{Estimated Chinook salmon escapement for substocks within the Kuskokwim River drainage. `Drainage-wide' refers to the aggregate population estimates provided by a maximum likelihood run reconstruction model. `This analysis' refers to the estimated portion of the aggregate run included in this analysis (not all tributaries have been monitored).}
   \label{fig:obs-fraction}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/Size-v-Prod.jpg}
+  \caption{Caption goes here.}
+  \label{fig:size-v-prod}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/R-v-S.jpg}
+  \caption{Caption goes here.}
+  \label{fig:r-v-s}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/rhos.jpg}
+  \caption{Caption goes here.}
+  \label{fig:rhos}
 \end{figure}
 
 \doublespacing

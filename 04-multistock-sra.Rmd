@@ -35,9 +35,9 @@ Before these trade-offs are considered by managers in a well-informed way, the s
 \noindent
 This proposed chapter will pertain to salmon systems for which there is a reasonable amount of data available for a significant portion of the substocks and in situations where spawner-recruitment analysis estimates are desired for each. 
 
-The methods to fit spawner-recruit models can be grouped into two broad categories: time-independent error models [i.e., @clark-etal-2009] and state-space (i.e., time series) models [@fleischman-etal-2013; @su-peterman-2012]. The independent error models typically take on a regression analytical method, and is thus subject to substantial pitfalls when dealing with data with inherent time-dependent properties and oftentimes large amounts of observation error [@walters-martell-2004]. The state-space class of models captures the process of recruitment events leading to future spawners while simultaneously accounting for variability in the biological and measurement processes that gave rise to the observed data [@devalpine-hastings-2002; @fleischman-etal-2013]. Including this level of additional model complexity comes at computational costs, as these models are well-suited for Bayesian inference with Markov Chain Monte Carlo (MCMC) methods [@newman-etal-2014, Ch. 4], but has been shown to reduce bias in estimates in some circumstances [@su-peterman-2012; walters-martell-2004]. 
+The methods to fit spawner-recruit models can be grouped into two broad categories: time-independent error models [i.e., @clark-etal-2009] and state-space (i.e., time series) models [@fleischman-etal-2013; @su-peterman-2012]. The independent error models typically take on a regression analytical method, and is thus subject to substantial pitfalls when dealing with data with inherent time-dependent properties and oftentimes large amounts of observation error [@walters-martell-2004]. The state-space class of models captures the process of recruitment events leading to future spawners while simultaneously accounting for variability in the biological and measurement processes that gave rise to the observed data [@devalpine-hastings-2002; @fleischman-etal-2013]. Including this level of additional model complexity comes at computational costs, as these models are well-suited for Bayesian inference with Markov Chain Monte Carlo (MCMC) methods [@newman-etal-2014, Ch. 4], but has been shown to reduce bias in estimates in some circumstances [@su-peterman-2012; @walters-martell-2004]. 
 
-In the Kuskokwim River Chinook salmon fishery, there has been recent interest in considering biodiversity to explicitly inform the drainage-wide escapement goal. In conducting the spawner-recruit analysis to inform such policy analyses, it will be difficult to determine which method is appropriate, given many possible model structures, sparse data, and unknown sampling biases. Before strong inferences can be made from the ultimate trade-off analyses of interest, the performance of the estimation models used to parameterize them needs to be evaluated, as well as the appropriate level of model complexity needed to address the problem with sufficient accuracy. In this final chapter, I evaluate the performance of a range of assessment models for mixed-stock salmon fishery via simulation-estimation. The objectives will be to:
+In the Kuskokwim River Chinook salmon fishery, there has been recent interest in considering biodiversity to explicitly inform the drainage-wide escapement goal. In conducting the spawner-recruit analysis to inform such policy analyses, it will be difficult to determine which method is appropriate, given many possible model structures, sparse data, and unknown sampling biases. Before strong inferences can be made from the ultimate trade-off analyses of interest, the performance of the estimation models used to parameterize them needs to be evaluated, as well as the appropriate level of model complexity needed to address the problem with sufficient accuracy. In this final chapter, I evaluate the performance of a range of assessment models for mixed-stock salmon fisheries via simulation-estimation. The objectives will be to:
 
 (1)  develop a set of varyingly-complex multi-stock versions of the state-space spawner-recruit models that have been rapidly gaining popularity, particularly in Alaska [@walters-martell-2004; @su-peterman-2012; @fleischman-etal-2013; @staton-etal-2017-intseq],
 
@@ -173,12 +173,12 @@ Note that $S_{obs,t}$ and $H_{obs,t}$ do not have $j$ subscripts denoting partic
 
 Age composition data were necessary to reconstruct brood tables for age-structured salmon populations (see Section \@ref(lm-btable)). Age data used in this analysis came from the ADF&G standardized age, sex, and length sampling program operated at the weir projects. All sampled fish that were not aged successfully were discarded as were samples corresponding to the rare ages of 3 (0.2 and 1.1) and 8 (1.6 and 2.5) such that only fish successfully aged as between 4 and 7 were included. It is possible that older or younger fish may have the systematic tendency to return early or late in the run, and this could introduce biases if age sampling was not conducted proportionally to fish passage throughout the season. To adjust for this possibility, a weighted-average scheme was applied to obtain the age composition estimates for each substock and year with data.  Daily age samples were stratified into two-week strata and strata-specific proportions-at-age were calculated. These strata-specific age compositions were then averaged across strata within a year and stock weighted by the number of Chinook salmon estimated to have passed the weir in each stratum. The total number of fish successfully aged for each year and substock was retained for data-weighting purposes for the state-space models (see Section \@ref(ssm-obs-model)). 
 
-### Regression-based models
+### Regression-based models {#reg-methods}
 
 \noindent
 Two regression-based approaches to estimating @ricker-1954 spawner-recruit parameters in the multi-stock case were assessed: (_a_) a single mixed-effect regression model with random intercepts and (_b_) independent regression models. A description of each method is provided in the sections that follow.
 
-#### Mixed-effect linear regression
+#### Mixed-effect linear regression {#lme-methods}
 
 \noindent
 The @ricker-1954 spawner-recruit model can be written as:
@@ -220,7 +220,7 @@ It is not difficult to conceive a multi-stock formulation of this model by inclu
 \noindent
 It does not make sense to include substock-level random effects on the slope, given that $\beta$ is a capacity parameter related to the compensatory effect of resource limitation experienced by juveniles, likely in the freshwater environment (i.e., amount of habitat as opposed to quality of habitat). Fitting the individual substock models in this hierarchical fashion allows for the sharing of information such that the more intensively-assessed substocks can help inform those that are more data-poor. 
 
-#### Independent regression models
+#### Independent regression models {#lm-methods}
 
 \noindent
 The mixed-effect model may have the benefit of sharing information to make some substocks more estimable, but it should also have the tendency to pull the extreme $\alpha_j$ (those in the tails of the hyperdistribution) toward $\alpha$. This behavior may not be preferable for policy recommendations, as it should tend to dampen the extent of heterogeneity estimated in $\alpha_j$. For this reason, independent regression estimates for each substock will also be obtained (i.e., the full fixed effects model) for evaluation.
@@ -341,7 +341,7 @@ Three data sources were be used to fit the model: observed (estimated) escapemen
 \noindent
 and used in lognormal likelihoods to fit the time series $S_{t,j}$ to $S_{obs,t,j}$ and $H_t$ to $H_{obs,t}$. Calendar year age composition was fitted using parameter vectors $q_{t,1:n_a,j}$ and observed vectors of ($q_{obs,t,1:n_a,j} ESS_{t,j}$).
 
-### Alternate state-space models
+### Alternate state-space models {#alt-ssm-models}
 
 \noindent
 Three alternate formulations of the state-space model will be evaluated, and all are simplifications of the full model described above regarding the structure of (1) the covariance matrix on recruitment residuals and (2) the maturity process. The simplest model will not include brood year variability in maturity schedules and $\Sigma_R$ will be constructed by estimating a single $\sigma_R^2$ and $\rho$, and populating the diagonal elements with $\sigma_R^2$ and off-diagonal elements with $\rho \sigma_R^2$. One drawback of constructing $\Sigma_R$ this way is that $\rho < -0.05$ for a $13 \times 13$ covariance matrix results in positive-indefiniteness, which is prohibited by JAGS. Thus, a constraint is required to maintain $-0.05 \le \rho < 1$ to prevent the sampler from crashing. In one intermediate model, brood year maturation variability will be included but the covariance matrix will be constructed as in the simplest model. In the other intermediate model, brood year variability in maturation will not be included but the covariance matrix will be fully estimated as in the full model.
@@ -391,6 +391,26 @@ I found some stuff.
 ## Discussion
 
 Here's what it means.
+
+\clearpage
+
+```{r models-table}
+abbrev = c("LM", "LME", "vm", "Vm", "vM", "VM")
+nj = c(10, 10, 13, 13, 13, 13)
+sig = c("Yes", "No", "No", "Yes", "No", "Yes")
+ar1 = c(rep("No", 2), rep("Yes", "4"))
+rho = c(rep("Independent residuals", 2), "Single $\\rho$ bounded by [-0.05 -- 1)", "Unique $\\rho_{i,j}$", "Same as vm", "Same as Vm")
+describedin = c("\\ref{lm-methods}", "\\ref{lme-methods}", "\\ref{ssm-model}; \\ref{alt-ssm-models}", "\\ref{ssm-model}; \\ref{alt-ssm-models}", "\\ref{ssm-model}; \\ref{alt-ssm-models}", "\\ref{ssm-model}")
+
+tab = data.frame(abbrev, nj, sig, ar1, rho, describedin)
+
+colnames(tab) = c("Abbreviation", "$n_j$", "Unique $\\sigma_j$", "AR(1)", "Shared Recruitment Dynamics", "Described in Section(s)")
+
+kable(tab, "latex", booktabs = T, escape = F, 
+      caption = "Summary of evaluated models in this analysis.") %>%
+  group_rows("Regression-Based Models", 1, 2) %>%
+  group_rows("State-Space Models", 3, 6)
+```
 
 \clearpage
 
@@ -477,6 +497,85 @@ kable(ests, "latex", booktabs = T, align = "lcc",
 
 \clearpage
 
+```{r lm-ssm-ests-table}
+ests = read.csv("tab/Ch4/lm_ssm_ests_table.csv", stringsAsFactors = F)
+
+latex_params = c(
+  alpha = "$\\alpha_j$",
+  Umsy = "$\\bar{U}_{\\text{MSY},j}$",
+  Smsy = "$\\bar{S}_{\\text{MSY},j}$",
+  Smax = "$\\bar{S}_{\\text{MAX},j}$",
+  Seq = "$\\bar{S}_{\\text{eq},j}$",
+  sig = "$\\bar{\\sigma}_{R,j}$",
+  UMSY = "$U_{\\text{MSY}}$",
+  SMSY = "$S_{\\text{MSY}}$"
+)
+
+rownames(ests) = ests[,"param"]
+ests = ests[,-which(colnames(ests) == "param")]
+ests = ests[names(latex_params),]
+ests = apply(ests, 2, add_break)
+
+ests = cbind(param = unname(latex_params), ests)
+rownames(ests) = NULL
+colnames(ests) = 
+  paste("\\textbf{", 
+        c("Parameter", "LM", "LME", "vm", "Vm", "vM", "VM"), 
+        "}", sep = "")
+
+kable(ests, "latex", booktabs = T, align = "lcccccc", 
+      caption = "Estimated population parameters for Kuskokwim River Chinook salmon compared between assessment models, including the regression-based estimators. Only 10 of the 13 substocks had enough data to fit the linear regression model, the three missing stocks were discarded in the calculation of the summaries presented for the state-space models. Quantities with a bar and a $j$ subscript denote averages over substocks, those with no subscript are the appropriate reference points for the aggregate of the 13 substocks.",
+      escape = F) %>%
+  kable_styling(latex_options = c("HOLD_position")) %>%
+  add_header_above(header = c("", "Regression-Based Models" = 2, "State-Space Models" = 4), bold = T) %>% landscape()
+```
+
+\clearpage
+
+```{r ssm-ests-table}
+ests = read.csv("tab/Ch4/ssm_ests_table.csv", stringsAsFactors = F)
+
+ests[is.na(ests)] = "NA(NA -- NA)"
+ests$param = stringr::str_replace_all(ests$param, "\\[|\\]", "")
+
+latex_params = c(
+  alpha = "$\\alpha_j$",
+  Umsy = "$\\bar{U}_{\\text{MSY},j}$",
+  Smsy = "$\\bar{S}_{\\text{MSY},j}$",
+  Smax = "$\\bar{S}_{\\text{MAX},j}$",
+  Seq = "$\\bar{S}_{\\text{eq},j}$",
+  sig = "$\\bar{\\sigma}_{R,j}$",
+  UMSY = "$U_{\\text{MSY}}$",
+  SMSY = "$S_{\\text{MSY}}$",
+  phi = "$\\phi$",
+  pi1 = "$\\pi_1$",
+  pi2 = "$\\pi_2$",
+  pi3 = "$\\pi_3$",
+  pi4 = "$\\pi_4$",
+  D = "$D$"
+)
+
+rownames(ests) = ests[,"param"]
+ests = ests[,-which(colnames(ests) == "param")]
+ests = ests[names(latex_params),]
+ests = apply(ests, 2, add_break)
+
+ests = cbind(param = unname(latex_params), ests)
+rownames(ests) = NULL
+colnames(ests) = 
+  paste("\\textbf{", 
+        c("Parameter", "vm", "Vm", "vM", "VM"), 
+        "}", sep = "")
+
+kable(ests, "latex", booktabs = T, align = "lcccccc", 
+      caption = "Estimated population parameters and biological reference points for Kuskokwim River Chinook salmon compared between the four evaluated versions of the state-space assessment model assessment models. Unlike in Figure \\ref{tab:lm-ssm-ests-table}, all 13 of the substocks were included in the caluclation of these summaries. Quantities with a bar and a $j$ subscript denote averages over substock-specific parameters. Reference points with no subscript are the appropriate reference points for the aggregate of the 10 substocks.",
+      escape = F) %>%
+  kable_styling(latex_options = c("HOLD_position"))
+```
+
+
+\clearpage
+
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/trade-off-plot.png}
@@ -507,8 +606,35 @@ kable(ests, "latex", booktabs = T, align = "lcc",
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/obs-fraction.png}
-  \caption{Estimated Chinook salmon escapement for substocks within the Kuskokwim River drainage. "Drainage-wide" refers to the aggregate population estimates provided by a maximum likelihood run reconstruction model. "This analysis" refers to the estimated portion of the aggregate run included in this analysis (not all tributaries are monitored).}
+  \caption{Estimated Chinook salmon escapement for substocks within the Kuskokwim River drainage. `Drainage-wide' refers to the aggregate population estimates provided by a maximum likelihood run reconstruction model. `This analysis' refers to the estimated portion of the aggregate run included in this analysis (not all tributaries have been monitored).}
   \label{fig:obs-fraction}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/Size-v-Prod.jpg}
+  \caption{Caption goes here.}
+  \label{fig:size-v-prod}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/R-v-S.jpg}
+  \caption{Caption goes here.}
+  \label{fig:r-v-s}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/rhos.jpg}
+  \caption{Caption goes here.}
+  \label{fig:rhos}
 \end{figure}
 
 
