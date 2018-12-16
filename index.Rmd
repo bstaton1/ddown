@@ -4,15 +4,11 @@ author: "Ben Staton"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [cites-without-doi.bib, cites-with-doi.bib]
-biblio-style: apalike
+biblio-style: myapalike
 link-citations: true
 description: "This is my dissertation. I'm writing it with bookdown!"
 fontsize: 12pt
 toc: false
 ---
-
-# Preface {-}
-
-I used bookdown [@xie-2015] to make this document.
 
 
