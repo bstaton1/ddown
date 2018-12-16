@@ -30,7 +30,7 @@
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
-\bibliographystyle{apalike}
+\bibliographystyle{myapalike}
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -134,6 +134,9 @@ Fisheries}
 % \setlist[itemize]{noitemsep}
 \setlist{before=\doublespacing,after=\doublespacing}
 
+% citation style: remove the comma between author and year 
+\setcitestyle{aysep={}}
+% \setlength{\bibhang}{2em}
 
 %%%%%Format rules: Normal margins are 1 in. If you need to print with 1.5in margins, uncomment the line below
 %\oddsidemargin0.5in \textwidth6in
@@ -249,11 +252,6 @@ This work was made possible in part by a grant of high performance computing res
 \setlength{\parskip}{0pt plus 0pt minus 0pt}
 
 \doublespacing
-
-\chapter*{Preface}\label{preface}
-\addcontentsline{toc}{chapter}{Preface}
-
-I used bookdown \citep{xie-2015} to make this document.
 
 \chapter{Assessment Approaches for Single-Species, Mixed-stock Pacific
 Salmon Fisheries: Empirical and Simulation-Evaluation
@@ -378,8 +376,8 @@ the performance of the estimation models used to parameterize them needs
 to be evaluated, as well as the appropriate level of model complexity
 needed to address the problem with sufficient accuracy. In this final
 chapter, I evaluate the performance of a range of assessment models for
-mixed-stock salmon fishery via simulation-estimation. The objectives
-will be to:
+mixed-stock salmon fisheries \emph{via} simulation-estimation. The
+objectives will be to:
 
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
@@ -439,7 +437,7 @@ and returning to the various tributaries enter through the bulk of the
 fishery as a mixed-stock, though Chinook salmon stocks traveling to the
 headwaters have been illustrated to enter the main stem earliest in the
 summer migration \citep{smith-liller-2017} so a limited ability to
-direct harvest towards or away from these stocks is possible
+direct harvest toward or away from these stocks is possible by
 manipulating the front portion of the fishery
 (\hl{reference to chapter 3}). It is acknowledged that the assessment
 program does not sample all tributaries within the Kuskokwim River.
@@ -508,10 +506,10 @@ The core of the the spatial expansion estimator was the assumption:
 \noindent
 where the quantities \(A\) and \(T\) represent fish and tags,
 respectively in flown (\(A_f\) and \(T_f\)) and unflown (\(A_u\) and
-\(T_u\)) reaches in year \(t\) and for aerial survey montoring \(i\).
-This assumption states that the ratio of spawners per one tagged spawner
-is the same between flown and unflown river sections at the time of the
-aerial index count and the aerial telemetry flights. Equation
+\(T_u\)) reaches in year \(t\) and for aerial survey monitoring project
+\(i\). This assumption states that the ratio of spawners per one tagged
+spawner is the same between flown and unflown river sections at the time
+of the aerial index count and the aerial telemetry flights. Equation
 \eqref{eq:air-expand1} and can be rearranged as:
 
 \begin{equation}
@@ -718,7 +716,7 @@ with two primary issues:
 \def\labelenumi{(\arabic{enumi})}
 \item
   ignoring the intrinsic time linkage whereby brood year recruits (part
-  of the response variable) make up the escapement for the one or more
+  of the response variable) make up the escapement for one or more
   future brood years (the predictor variable), which then produce the
   future recruits (response variables) and
 \item
@@ -779,7 +777,7 @@ independent regression estimates for each substock will also be obtained
 An important consideration in the use of the regression-based method is
 in how \(\text{RPS}_{y,j}\) is obtained. Only the states \(S_{y,j}\) are
 ever directly observed; \(R_{y,j}\) is observed (for Chinook salmon)
-over for calendar years as not all fish mature and make the spawning
+over four calendar years as not all fish mature and make the spawning
 migration at the same age. Thus, in order to completely observe one
 \(\text{RPS}_{y,j}\) outcome, escapement must be monitored in year \(y\)
 and escapement, harvest, and age composition must be monitored in the
@@ -787,7 +785,7 @@ subsequent years \(y+4\), \(y+5\), \(y+6\), and \(y+7\). It is evident
 that missing one year of sampling (which is a common occurrence; Figure
 \ref{fig:obs-freq}) can lead to issues with this approach. Only
 completely observed \(\text{RPS}_{y,j}\) data were used for this
-analysis, with the exception of missage count data. For substocks with
+analysis, with the exception of missing count data. For substocks with
 no age composition data (i.e., those monitored \emph{via} aerial
 survey), the average age composition each year across substocks that
 have data was used to reconstruct \(\text{RPS}_{y,j}\), but will be
@@ -805,18 +803,19 @@ model structures are described in the subsequent section.
 
 The state-space formulation of a multi-stock spawner recruit analysis
 developed and evaluated here is an extension of various single-stock
-versions (e.g., Fleischman et al. 2013). \citet{walters-etal-2008} used
-a similar model using maximum likelihood methods to provide estimates of
-\textgreater{}50 substocks in the Skeena River drainage, British
-Columbia. The model presented here will be fitted in the Bayesian mode
-of inference using the program JAGS \citep{plummer-2017}, and will relax
-certain assumptions made by \citet{walters-etal-2008} such as the
-important notion of perfectly-shared recruitment residuals (i.e.,
-anomalies -- deviations from the expected population response). It will
-also have the ability to relax the assumption of constant maturity
-schedules across brood years. See Table \ref{tab:ch4-notation-table} for
-a description of the index notation, in particular note the difference
-between the brood year index \(y\) and the calendar year index \(t\).
+versions \citep[e.g.,][]{fleischman-etal-2013}.
+\citet{walters-etal-2008} used a similar model using maximum likelihood
+methods to provide estimates of \textgreater{}50 substocks in the Skeena
+River drainage, British Columbia. The model presented here will be
+fitted in the Bayesian mode of inference using the program JAGS
+\citep{plummer-2017}, and will relax certain assumptions made by
+\citet{walters-etal-2008} such as the important notion of
+perfectly-shared recruitment residuals (i.e., anomalies -- deviations
+from the expected population response). It will also have the ability to
+relax the assumption of constant maturity schedules across brood years.
+See Table \ref{tab:ch4-notation-table} for a description of the index
+notation, in particular note the difference between the brood year index
+\(y\) and the calendar year index \(t\).
 
 The state-space model can be partitioned into two submodels: (\emph{a})
 the process submodel which generates the true states of \(R_{y,j}\) and
@@ -912,14 +911,18 @@ of the total process error attributable to serial autocorrelation,
 a covariance matrix representing the white noise portion of the total
 recruitment process variance. The covariance matrix \(\Sigma_R\) was
 estimated such that each substock was assigned a unique variance and
-covariance with each other substock. The multivariate normal errors were
-on the log scale so that the variability on \(R_{y,j}\) was lognormal,
-which is the most commonly used error distribution for describing
-spawner-recruit data sets \citep{walters-martell-2004}. Further, the
-multivariate normal was used as opposed to \(n_j\) separate normal
-distributions so that the degree of synchrony in brood-year recruitment
-deviations (i.e., process errors) among substocks could be captured and
-freely estimated.
+covariance with each other substock. This was achieved using an inverse
+Wishart prior distribution, with degrees of freedom equal to \(n_j + 1\)
+and the scale matrix populated with zero-value elements along the
+off-diagonals and 1 along the diagonal elements, which inserts little
+information about the covariance matrix \(\Sigma_R\)
+\citep{plummer-2017}. The multivariate normal errors were on the log
+scale so that the variability on \(R_{y,j}\) was lognormal, which is the
+most commonly used error distribution for describing spawner-recruit
+data sets \citep{walters-martell-2004}. Further, the multivariate normal
+was used as opposed to \(n_j\) separate normal distributions so that the
+degree of synchrony in brood-year recruitment deviations (i.e., process
+errors) among substocks could be captured and freely estimated.
 
 The maturity schedule is an important component of age-structured
 spawner-recruit models, as it determines which calendar years the brood
@@ -961,7 +964,7 @@ processes}\label{ssm-cproc-model}
 
 \noindent
 In order to link \(R_{y,j}\) with calendar year observations of
-escapement from each substock, \(R_{y,j}\) will be allocated to calendar
+escapement from each substock, \(R_{y,j}\) was allocated to calendar
 year runs:
 
 \begin{equation}
@@ -971,9 +974,9 @@ year runs:
 
 \noindent
 where \(N_{t,j}\) is the run abundance in calendar year \(t\) from
-substock \(j\). The harvest process will be modeled using a freely
-estimated annual exploitation rate (\(U_t\)) time series for
-fully-vulnerable substocks:
+substock \(j\). The harvest process was modeled using a freely estimated
+annual exploitation rate (\(U_t\)) time series, which was assumed to
+apply equally to all substocks:
 
 \begin{equation}
   H_{t,j}=N_{t,j} U_t,
@@ -981,7 +984,7 @@ fully-vulnerable substocks:
 \end{equation}
 
 \noindent
-and escapement will be obtained as:
+and escapement was obtained as:
 
 \begin{equation}
   S_{t,j}=N_{t,j} (1 - U_t).
@@ -1031,22 +1034,25 @@ observed vectors of (\(q_{obs,t,1:n_a,j} ESS_{t,j}\)).
 \subsection{Alternate state-space models}\label{alt-ssm-models}
 
 \noindent
-Three alternate formulations of the state-space model will be evaluated,
-and all are simplifications of the full model described above regarding
+Three alternate formulations of the state-space model were evaluated,
+and all were simplifications of the full model described above regarding
 the structure of (1) the covariance matrix on recruitment residuals and
-(2) the maturity process. The simplest model will not include brood year
-variability in maturity schedules and \(\Sigma_R\) will be constructed
-by estimating a single \(\sigma_R^2\) and \(\rho\), and populating the
-diagonal elements with \(\sigma_R^2\) and off-diagonal elements with
-\(\rho \sigma_R^2\). One drawback of constructing \(\Sigma_R\) this way
-is that \(\rho < -0.05\) for a \(13 \times 13\) covariance matrix
-results in positive-indefiniteness, which is prohibited by JAGS. Thus, a
-constraint is required to maintain \(-0.05 \le \rho < 1\) to prevent the
-sampler from crashing. In one intermediate model, brood year maturation
+(2) the maturity process (see Table \ref{tab:models-table} for a
+summary). The simplest model will not include brood year variability in
+maturity schedules and \(\Sigma_R\) will be constructed by estimating a
+single \(\sigma_R^2\) and \(\rho\), and populating the diagonal elements
+with \(\sigma_R^2\) and off-diagonal elements with \(\rho \sigma_R^2\).
+This simplest model will be denoted SSM-vm throughout the rest of this
+chapter. One drawback of constructing \(\Sigma_R\) this way is that
+\(\rho < -0.05\) for a \(13 \times 13\) covariance matrix results in
+positive-indefiniteness, which is prohibited by JAGS. Thus, a constraint
+is required to maintain \(-0.05 \le \rho < 1\) to prevent the sampler
+from crashing. In one intermediate model (SSM-vM), brood year maturation
 variability will be included but the covariance matrix will be
-constructed as in the simplest model. In the other intermediate model,
-brood year variability in maturation will not be included but the
-covariance matrix will be fully estimated as in the full model.
+constructed as in the simplest model. In the other intermediate model
+(SSM-Vm), brood year variability in maturation will not be included but
+the covariance matrix will be fully estimated as in the full model
+(SSM-VM).
 
 Certainly there are other model structures that could have been
 evaluated. For example, additional of complexity to the AR(1) time
@@ -1069,8 +1075,14 @@ a reasonable amount of data.
 All parameter estimation was conducted in the Bayesian framework using
 JAGS \citep{plummer-2017} implemented using R \citep{r-cite} and the R
 package \texttt{\{jagsUI\}} \citep{r-jagsUI} for interfacing with JAGS
-from R, as well as the \texttt{\{coda\}} \citep{r-coda} package and a
-package of my own creation \texttt{\{codaTools\}} \citep{r-codaTools}.
+from R, as well as the \texttt{\{coda\}} \citep{r-coda} package. I wrote
+two packages to simplify the workflow of this analysis: one to handle
+the generation of simulated age-structured salmon populations from a
+mixed-stock fishery \citep[\texttt{\{SimSR\}};][]{r-SimSR} and one to
+handle the fitting and summarization of model output
+\citep[\texttt{\{FitSR\}};][]{r-SimSR}. Additionally, I made extensive
+use of another package I wrote for summarizing the output of JAGS models
+\citep[\texttt{\{codaTools\}};][]{r-codaTools}.
 
 \noindent
 MCMC settings were as follows for the linear regression models:
@@ -1124,21 +1136,20 @@ submodel}\label{operating-model-biological-submodel}
 \noindent
 Given that the state-space model is a much more natural model of this
 system (which has intrinsic time series properties) than the
-regression-based versions, it will be used as the foundation of the
+regression-based versions, it was used as the foundation of the
 operating model (i.e., state-generating model). The biological submodel
-will be more complex than the most complex estimation model -- namely in
-regards to the maturity schedule, which will have a modest level of
-substock variability but with highly correlated brood year variability.
-In order to serve as the state-generating model for the simulation, the
-state-space model needs only to be populated with true parameters,
-initial states, and a harvest control rule. I will use a exploitation
-rate policy (chosen to maximize yield without overfishing more than 30\%
-of the substocks) with a modest amount of implementation error to ensure
-the data time series are generated with patterns consistent with
-realistic exploitation patterns. I generated \(n_j\) = 13 substocks with
-different parameters \(U_{\text{MSY},j}\) and \(S_{\text{MSY},j}\) which
-took on the values of random posterior draws from the most complex
-state-space model.
+was more complex than the most complex estimation model -- namely in
+regards to the maturity schedule, which had a modest level of substock
+variability but with highly correlated brood year variability. In order
+to serve as the state-generating model for the simulation, the
+state-space model needed only to be populated with true parameters,
+initial states, and a harvest control rule. I used an exploitation rate
+policy (chosen to maximize yield without overfishing more than 30\% of
+the substocks) with a modest amount of implementation error to ensure
+the data time series were generated with enough contrast in spawner
+abundance. I generated \(n_j\) = 13 substocks with different parameters
+\(U_{\text{MSY},j}\) and \(S_{\text{MSY},j}\) which took on the values
+of random posterior draws from the most complex state-space model.
 
 \subsubsection{Operating model: Observation
 submodel}\label{operating-model-observation-submodel}
@@ -1330,6 +1341,15 @@ $D$ & \makecell[c]{NA\\(NA -- NA)} & \makecell[c]{NA\\(NA -- NA)} & \makecell[c]
   \includegraphics{img/Ch4/trade-off-plot.png}
   \caption{Visualization of how different types of hetergeneity in substock productivity and size influence the shape of trade-offs in mixed-stock salmon fisheries. Solid black likes are the case where stock types are split evenly among large/small and productive/unproductive stocks. Dotted black likes are the case where all small stocks are productive and all large stocks are unproductive, and dashed lines are the opposite (i.e., all big stocks are productive). (\textit{a}) Equilibrium aggregate harvest and proportion of substocks overfished plotted against the exploitation rate (\textit{b}) value of the biodiversity objective (0 = all stocks overfished) plotted against the value of harvest (the long term proportion of the aggregate MSY attained). Notice that when all big stocks are productive (dashed lines), the trade-off is steeper, i.e., more harvest must be sacrificed in order to ensure a greater fraction of substocks are not overfished. }
   \label{fig:trade-off-plot}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/ch4-map.jpg}
+  \caption{Map of the Kuskokwim River drainage, with the 13 drainage basins representing unique spawning units (substocks) used in this analysis. Black points show the location of weir projects, black sections of river indicate the reaches flown as part of aerial surveys. Drainages monitored via both aerial survey and weir used the weir counts to inform escapement estimates in this analysis, with the exception of the Aniak drainage (4), for which aerial survey data were much more abundant than the weir data.}
+  \label{fig:ch4-map}
 \end{figure}
 
 \clearpage
