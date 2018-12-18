@@ -1,33 +1,32 @@
 \contentsline {chapter}{Abstract}{ii}{Doc-Start}
 \contentsline {chapter}{Acknowledgments}{iii}{Doc-Start}
-\contentsline {chapter}{List of Figures}{v}{Doc-Start}
-\contentsline {chapter}{List of Tables}{vii}{Doc-Start}
-\contentsline {chapter}{\numberline {1}Assessment Approaches for Single-Species, Mixed-stock Pacific Salmon Fisheries: Empirical and Simulation-Evaluation Applications}{1}{chapter.1}
+\contentsline {chapter}{List of Figures}{vi}{Doc-Start}
+\contentsline {chapter}{List of Tables}{viii}{Doc-Start}
+\contentsline {chapter}{\numberline {1}Development and Evaluation of a Migration Timing Forecast Model for Kuskokwim River Chinook Salmon}{1}{chapter.1}
 \contentsline {section}{Abstract}{1}{section*.1}
 \contentsline {section}{\numberline {1.1}Introduction}{2}{section.1.1}
-\contentsline {section}{\numberline {1.2}Methods}{5}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Analytical approach}{5}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Study system}{6}{subsection.1.2.2}
-\contentsline {subsection}{\numberline {1.2.3}Data sources}{6}{subsection.1.2.3}
-\contentsline {subsubsection}{\numberline {1.2.3.1}Substock escapement}{6}{subsubsection.1.2.3.1}
-\contentsline {paragraph}{\numberline {1.2.3.1.1}Spatial expansion}{7}{paragraph.1.2.3.1.1}
-\contentsline {paragraph}{\numberline {1.2.3.1.2}Temporal Expansion}{9}{paragraph.1.2.3.1.2}
-\contentsline {subsubsection}{\numberline {1.2.3.2}Aggregate harvest}{10}{subsubsection.1.2.3.2}
-\contentsline {subsubsection}{\numberline {1.2.3.3}Age composition}{10}{subsubsection.1.2.3.3}
-\contentsline {subsection}{\numberline {1.2.4}Regression-based models}{11}{subsection.1.2.4}
-\contentsline {subsubsection}{\numberline {1.2.4.1}Mixed-effect linear regression}{11}{subsubsection.1.2.4.1}
-\contentsline {subsubsection}{\numberline {1.2.4.2}Independent regression models}{13}{subsubsection.1.2.4.2}
-\contentsline {subsubsection}{\numberline {1.2.4.3}Brood table reconstruction}{14}{subsubsection.1.2.4.3}
-\contentsline {subsection}{\numberline {1.2.5}The full state-space model}{14}{subsection.1.2.5}
-\contentsline {subsubsection}{\numberline {1.2.5.1}Process submodel: brood year processes}{15}{subsubsection.1.2.5.1}
-\contentsline {subsubsection}{\numberline {1.2.5.2}Process submodel: calendar-year processes}{18}{subsubsection.1.2.5.2}
-\contentsline {subsubsection}{\numberline {1.2.5.3}Observation submodel}{19}{subsubsection.1.2.5.3}
-\contentsline {subsection}{\numberline {1.2.6}Alternate state-space models}{19}{subsection.1.2.6}
-\contentsline {subsection}{\numberline {1.2.7}Computation}{20}{subsection.1.2.7}
-\contentsline {subsection}{\numberline {1.2.8}Simulation-estimation analysis}{22}{subsection.1.2.8}
-\contentsline {subsubsection}{\numberline {1.2.8.1}Operating model: Biological submodel}{22}{subsubsection.1.2.8.1}
-\contentsline {subsubsection}{\numberline {1.2.8.2}Operating model: Observation submodel}{22}{subsubsection.1.2.8.2}
-\contentsline {subsection}{\numberline {1.2.9}Metrics of model performance}{23}{subsection.1.2.9}
-\contentsline {section}{\numberline {1.3}Results}{23}{section.1.3}
-\contentsline {section}{\numberline {1.4}Discussion}{23}{section.1.4}
-\contentsline {chapter}{Bibliography}{38}{figure.caption.15}
+\contentsline {section}{\numberline {1.2}Methods}{7}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Estimates of migration timing}{7}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Environmental variables}{8}{subsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.2.1}PDO data}{9}{subsubsection.1.2.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2.2}Bethel air temperature data}{9}{subsubsection.1.2.2.2}
+\contentsline {subsubsection}{\numberline {1.2.2.3}SST and SIC}{9}{subsubsection.1.2.2.3}
+\contentsline {subsection}{\numberline {1.2.3}Forecast model}{10}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Selection of predictive time periods}{11}{subsection.1.2.4}
+\contentsline {subsubsection}{\numberline {1.2.4.1}The SCWA}{11}{subsubsection.1.2.4.1}
+\contentsline {subsubsection}{\numberline {1.2.4.2}Forecast cross-validation}{13}{subsubsection.1.2.4.2}
+\contentsline {subsection}{\numberline {1.2.5}Evaluated forecast models}{14}{subsection.1.2.5}
+\contentsline {subsection}{\numberline {1.2.6}Forecast uncertainty}{15}{subsection.1.2.6}
+\contentsline {subsection}{\numberline {1.2.7}Forecast model selection}{16}{subsection.1.2.7}
+\contentsline {subsection}{\numberline {1.2.8}Retrospective forecast analysis}{17}{subsection.1.2.8}
+\contentsline {subsection}{\numberline {1.2.9}Value of forecast to run size assessments}{17}{subsection.1.2.9}
+\contentsline {subsection}{\numberline {1.2.10}Investigation of a run timing versus run size relationship}{19}{subsection.1.2.10}
+\contentsline {section}{\numberline {1.3}Results}{19}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Estimates of run timing}{19}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Variable-specific relationships}{20}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Selected climate windows}{20}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}Forecast performance}{21}{subsection.1.3.4}
+\contentsline {subsection}{\numberline {1.3.5}Value to in-season run size assessments}{23}{subsection.1.3.5}
+\contentsline {subsection}{\numberline {1.3.6}Run timing versus run size relationship}{24}{subsection.1.3.6}
+\contentsline {section}{\numberline {1.4}Discussion}{24}{section.1.4}
+\contentsline {chapter}{Bibliography}{45}{figure.caption.14}
