@@ -1,32 +1,23 @@
 \contentsline {chapter}{Abstract}{ii}{Doc-Start}
 \contentsline {chapter}{Acknowledgments}{iii}{Doc-Start}
-\contentsline {chapter}{List of Figures}{vi}{Doc-Start}
-\contentsline {chapter}{List of Tables}{viii}{Doc-Start}
-\contentsline {chapter}{\numberline {1}Development and Evaluation of a Migration Timing Forecast Model for Kuskokwim River Chinook Salmon}{1}{chapter.1}
-\contentsline {section}{Abstract}{1}{section*.1}
-\contentsline {section}{\numberline {1.1}Introduction}{2}{section.1.1}
-\contentsline {section}{\numberline {1.2}Methods}{7}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Estimates of migration timing}{7}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Environmental variables}{8}{subsection.1.2.2}
-\contentsline {subsubsection}{\numberline {1.2.2.1}PDO data}{9}{subsubsection.1.2.2.1}
-\contentsline {subsubsection}{\numberline {1.2.2.2}Bethel air temperature data}{9}{subsubsection.1.2.2.2}
-\contentsline {subsubsection}{\numberline {1.2.2.3}SST and SIC}{9}{subsubsection.1.2.2.3}
-\contentsline {subsection}{\numberline {1.2.3}Forecast model}{10}{subsection.1.2.3}
-\contentsline {subsection}{\numberline {1.2.4}Selection of predictive time periods}{11}{subsection.1.2.4}
-\contentsline {subsubsection}{\numberline {1.2.4.1}The SCWA}{11}{subsubsection.1.2.4.1}
-\contentsline {subsubsection}{\numberline {1.2.4.2}Forecast cross-validation}{13}{subsubsection.1.2.4.2}
-\contentsline {subsection}{\numberline {1.2.5}Evaluated forecast models}{14}{subsection.1.2.5}
-\contentsline {subsection}{\numberline {1.2.6}Forecast uncertainty}{15}{subsection.1.2.6}
-\contentsline {subsection}{\numberline {1.2.7}Forecast model selection}{16}{subsection.1.2.7}
-\contentsline {subsection}{\numberline {1.2.8}Retrospective forecast analysis}{17}{subsection.1.2.8}
-\contentsline {subsection}{\numberline {1.2.9}Value of forecast to run size assessments}{17}{subsection.1.2.9}
-\contentsline {subsection}{\numberline {1.2.10}Investigation of a run timing versus run size relationship}{19}{subsection.1.2.10}
-\contentsline {section}{\numberline {1.3}Results}{19}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Estimates of run timing}{19}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Variable-specific relationships}{20}{subsection.1.3.2}
-\contentsline {subsection}{\numberline {1.3.3}Selected climate windows}{20}{subsection.1.3.3}
-\contentsline {subsection}{\numberline {1.3.4}Forecast performance}{21}{subsection.1.3.4}
-\contentsline {subsection}{\numberline {1.3.5}Value to in-season run size assessments}{23}{subsection.1.3.5}
-\contentsline {subsection}{\numberline {1.3.6}Run timing versus run size relationship}{24}{subsection.1.3.6}
-\contentsline {section}{\numberline {1.4}Discussion}{24}{section.1.4}
-\contentsline {chapter}{Bibliography}{45}{figure.caption.14}
+\contentsline {chapter}{List of Figures}{v}{Doc-Start}
+\contentsline {chapter}{List of Tables}{vi}{Doc-Start}
+\contentsline {chapter}{\numberline {1}Evaluation of Intra-Annual Harvest Control Rules via Closed-Loop Simulation}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Methods}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Results}{1}{section.1.3}
+\contentsline {section}{\numberline {1.4}Discussion}{1}{section.1.4}
+\contentsline {chapter}{\numberline {A}Parameterization of the Operating Model in Chapter \ref {ch3}}{3}{appendix.A}
+\contentsline {section}{\numberline {A.1}Biological quantities}{3}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Chinook salmon total abundance}{3}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Chinook salmon run timing}{4}{subsection.A.1.2}
+\contentsline {subsubsection}{\numberline {A.1.2.1}Aggregate timing}{4}{subsubsection.A.1.2.1}
+\contentsline {subsubsection}{\numberline {A.1.2.2}Substock-specific timing}{4}{subsubsection.A.1.2.2}
+\contentsline {subsection}{\numberline {A.1.3}Chinook salmon substock composition}{5}{subsection.A.1.3}
+\contentsline {subsection}{\numberline {A.1.4}Spatial distribution of escapement}{5}{subsection.A.1.4}
+\contentsline {subsection}{\numberline {A.1.5}Species ratios}{6}{subsection.A.1.5}
+\contentsline {section}{\numberline {A.2}Sociological quantities}{7}{section.A.2}
+\contentsline {subsection}{\numberline {A.2.1}Needed salmon harvest by river reach}{7}{subsection.A.2.1}
+\contentsline {subsection}{\numberline {A.2.2}Maximum daily effort by river reach}{8}{subsection.A.2.2}
+\contentsline {chapter}{\numberline {B}Validation of the Operating Model in Chapter \ref {ch3}}{14}{appendix.B}
+\contentsline {chapter}{Bibliography}{19}{figure.caption.7}

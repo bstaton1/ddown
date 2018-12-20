@@ -1,0 +1,36 @@
+# Validation of the Operating Model in Chapter \@ref(ch3)
+
+For any closed-loop simulation model, the reliability of inferences drawn will be conditional on the ability of the model components to capture the important behavioral properties of the real system. Here, I provide a brief validation that the fishery component of the operating model does in fact provide a reasonable model of the real system when the fishery was unrestricted.
+
+First, I thought it important that the model be able to replicate the relationship between total Chinook salmon run size and total subsistence salmon harvest. Capturing this pattern was important to ensure that the fishery would not inadvertently harvest an unrealistically large or small amount of fish in different run sizes if management mistakes were made, which would confound my conclusions. As shown in Figure \@ref(fig:HvN), this historical relationship has been quite noisy for the observed historical time series, though an increasing pattern has emerged: in general, more fish have been harvested in years with large runs than years with small runs. I found that by tuning the catchability ($q$) and effort response coefficients, I was able to reproduce the pattern and variability quite well.
+
+The next behavior of interest was the spatiotemporal distribution of harvest. Because in-river salmon fisheries are sequential, fish harvested in one area are invulnerable to harvest (and escapement) in upriver areas. It also means that communities in downriver communities may finish fishing earlier in the season because they are the first to experience favorable fishing conditions (i.e., high in-river abundance and resulting catch rates; in the Kuskokwim River drying weather also plays an important role). If the timing of harvest was not captured adequately, this would be an indication that the effort response coefficients were improperly tuned and could result in unrealistic conclusions. The patterns and variability in the day of the year at which various percentiles of Chinook salmon harvest was attained by reach compared between observed data and the modeled outcomes are shown in Figure \@ref(fig:temporal-harvest). It seems that the patterns and variability in harvest timing were reasonably well-captured, particularly for downriver reaches. Reaches 14, 15, 16 and 22 seemed to have had the largest deviations between observed and modeled patterns, but given communities in these reaches harvest a negligible amount of Chinook salmon in comparison to the downriver villages (Figure \@ref(fig:spatial-harvest)), I was not concerned by this finding. 
+
+The final important characteristic was the spatial distribution of end-of-season harvest. Accurately representing this component of the system would further indicate model adequacy. Figure \@ref(fig:spatial-harvest)) shows a comparison of the proportion of total drainage-wide Chinook salmon subsistence harvest attributable to communities in each reach between observed and modeled outcomes. While the overall pattern was fully captured, there were moderate deviations between the model and observations in reaches 2, 3, and 4.
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/FigureB1_noline.jpg}
+  \caption{Observed and modeled Chinook salmon subsistence harvest as a function of total Chinook salmon run size. Individual black dots are historical realizations in years with no harvest restrictions on the subsistence salmon fishery. Individual grey dots are modeled outcomes, each representing a hypothetical salmon run with different random subpopulation compositions, run timing, and species ratios.}
+  \label{fig:HvN}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/FigureB2.jpg}
+  \caption{Comparison of the day of the year at which various percentiles of Chinook salmon harvest was attained by reach between observed and modeled outcomes. Variability in the observed boxplots is due to inter-annual variability in run size and timing and represents between-simulation variability for the modeled outcomes. Reach numbers are ordered from downriver to upriver. Note that not all reaches contain communities that harvest salmon.}
+  \label{fig:temporal-harvest}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/FigureB3.jpg}
+  \caption{Comparison of the proportion of total drainage-wide Chinook salmon subsistence harvest attributable to communities in each reach between observed and modeled outcomes. Variability in the observed boxplots is due to inter-annual variability, and represents between-simulation variability for the modeled outcomes. Reach numbers are ordered from downriver to upriver. Note that not all reaches contain communities that harvest salmon.}
+  \label{fig:spatial-harvest}
+\end{figure}
