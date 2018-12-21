@@ -1,4 +1,4 @@
-# Evaluation of Intra-Annual Harvest Control Rules via Closed-Loop Simulation {#ch3}
+# Evaluation of Intra-Annual Harvest Control Rules For Kuskokwim River Chinook salmon using Closed-Loop Simulation {#ch3}
 
 ```{r echo = F, message = F, warning = F}
 library(dplyr)
@@ -13,7 +13,41 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-Here's chapter 3. It's about in-season simulation models for management strategy evaluations.
+\noindent
+In-season harvest management of Pacific salmon fisheries in large river systems is undertaken in the presence of a large amount of uncertainty about how to schedule fishing opportunities. In order to manage in a fully-informed way, a manager would require continuous and accurate information on arrival timing, run size, fleet dynamics, and harvest. With knowledge on these components, it would be theoretically possible to perfectly harvest the surplus each year [@adkison-cunningham-2015]. In reality, these quantities, when estimates are available, are often highly uncertain [@adkison-peterman-2000; @flynn-hilborn-2004; @hyun-etal-2012] which results in difficult decision-making about how to best implement fishing opportunities in order to meet a set of pre-defined objectives.
+
+In addition to the substantial uncertainty in decision-making, there are often sharp trade-offs between competing objectives, such as the desire to provide adequate and equitable harvest opportunity versus the desire to ensure adequate escapement [@catalano-jones-2014] and spreading exploitation evenly among stock subcomponents [@carney-adkison-2014; @adkison-cunningham-2015]. When given the task of balancing trade-offs such as these, the manager has the ability to manipulate the fishing gear used as well as the spatiotemporal distribution of fishing effort, though it is rarely clear as to how to manipulate these management "levers" to achieve the desired outcomes. Presumably, different strategies to performing these manipulations (termed "management strategies" or "harvest control rules") will exhibit differential performance at meeting the objectives and balancing trade-offs, though without testing them it is difficult to have confidence in which among them will provide the best chances of success.
+
+Management Strategy Evaluation (MSE) has been proposed as a powerful tool for determining how to manage exploited natural resource systems with competing management objectives [@cooke-1999; @butterworth-2007]. MSE is a stochastic simulation-based analytical technique whereby management strategies are evaluated by comparing their relative performance at meeting pre-defined objectives under simulated (though realistic) conditions. A management strategy can be thought of as all of the steps that encompass the collection of data, subsequent analyses, and resulting decision-making surrounding the exploitation of a resource. The MSE approach tests a range of such strategies to find the one(s) that are likely to be most robust to uncertainty and balance trade-offs. This approach is powerful as it can provide general insights without having to test strategies on the real system, which would be incredibly time-intensive (each year is one sample) and costly given that some candidate strategies can be risky [@walters-martell-2004]. @punt-etal-2014 outline a set of seven steps to an MSE that must be conducted in order for the analysis to be meaningful:
+
+(1)	identification of management objectives and performance measures for each; preferably under the direction of stakeholders and managers,
+
+(2)	identification of the key uncertainties present in the system (biological, assessment, implementation, etc.),
+
+(3)	identification of candidate management strategies for evaluation,
+
+(4)	development of one or more models that serve as the representation of the real system including reasonably realistic representations of biological and fishery components (termed the "operating model"),
+
+(5)	selection of parameters to drive the operating model in accordance with the real system,
+
+(6)	simulation of executing each strategy using the operating model(s), and
+
+(7)	summary of performance measures, and presentation to managers and stakeholders.
+
+\noindent
+While MSE analyses are most often used in multi-year evaluations [@cooke-1999], the same concept can be applied to evaluate the performance of in-season strategies at meeting shorter-term objectives as well.
+
+Two broad classes of strategies could be conceived for in-season salmon management: effort control using either a fixed schedule or a more-involved (and data-intensive) process of opening and closing the fishery based on in-season data [i.e., management by emergency order, @adkison-cunningham-2015]. There exist many substrategies that fall into these two broad categories based on the characteristics of the fishery and the timeliness and reliability of information available to managers. @carney-adkison-2014 evaluated these two strategies for sockeye salmon stocks in Bristol Bay, Alaska, and found trade-offs between maximizing harvest and reducing inter-annual variability in harvest magnitude as well as spreading harvest pressure among substock components. @su-adkison-2002 evaluated a set of schedule-based strategies that ranged in their aggressiveness and found differences in strategy performance based on which objective carried most weight in value functions, which of course implies that trade-offs exist.
+
+An MSE analysis for subsistence salmon fisheries in large drainages (such as the Yukon and Kuskokwim systems in Western Alaska) necessitates different considerations than these two examples which focused on commercial fisheries. While the types of strategies considered and conservation-based objectives (adequate escapement and temporally-distributed harvest) are broadly consistent, the fleet dynamics and harvest-based objectives may be different. Subsistence fishers are less concerned with maximizing harvest as they are with maintaining consistent harvests that meet their needs between years and that harvest opportunities allow exploitation consistent with cultural practices (i.e., time of season and frequency of opportunities). The fleet dynamics of subsistence fisheries are quite different than commercial fisheries in that they are limited by processing capacity and have a fixed targeted harvest for the season. Due to this processing capacity, harvest of targeted species (such as Chinook salmon) in subsistence fisheries are limited by the species composition, sometimes expressed as a ratio of chum/sockeye:Chinook salmon. Subsistence fishers must stop fishing when they reach their processing capacity, and when this ratio is high (e.g., > 20), the catch will be dominated by chum/sockeye. In-season harvest control rules have that acknowledge these characteristics have not been evaluated for subsistence salmon fisheries, highlighting a clear need for work that focuses on this topic.
+
+In this chapter, I investigate the performance of a variety of in-season harvest control rules for subsistence salmon fisheries in large drainage systems using a MSE approach. Though the analysis will be tailored to the Kuskokwim River Chinook salmon subsistence fishery, the framework developed will be general enough for application to other in-river salmon fisheries in large drainages in which the primary users are subsistence fishers. The objectives of the analysis will be to:
+
+(1) develop a closed loop simulation model of the Kuskokwim River fishery system that allows simulation of a wide range of biological conditions,
+
+(2) assess the performance of several realistic harvest control rules that capture a range of complexity in their management dexterity and need for information, and
+
+(3) highlight the strength of trade-offs between competing objectives, and find control rules that might balance them better than others.
 
 ## Methods
 

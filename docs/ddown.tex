@@ -253,13 +253,153 @@ Catalano, Coggins, Connors, Jones, Dobson, Farmer, Fleischman, Smith, Liller, Es
 
 \doublespacing
 
-\chapter{Evaluation of Intra-Annual Harvest Control Rules via
-Closed-Loop Simulation}\label{ch3}
+\chapter{Evaluation of Intra-Annual Harvest Control Rules For Kuskokwim
+River Chinook salmon using Closed-Loop Simulation}\label{ch3}
 
 \section{Introduction}\label{introduction}
 
-Here's chapter 3. It's about in-season simulation models for management
-strategy evaluations.
+\noindent
+In-season harvest management of Pacific salmon fisheries in large river
+systems is undertaken in the presence of a large amount of uncertainty
+about how to schedule fishing opportunities. In order to manage in a
+fully-informed way, a manager would require continuous and accurate
+information on arrival timing, run size, fleet dynamics, and harvest.
+With knowledge on these components, it would be theoretically possible
+to perfectly harvest the surplus each year
+\citep{adkison-cunningham-2015}. In reality, these quantities, when
+estimates are available, are often highly uncertain
+\citep{adkison-peterman-2000, flynn-hilborn-2004, hyun-etal-2012} which
+results in difficult decision-making about how to best implement fishing
+opportunities in order to meet a set of pre-defined objectives.
+
+In addition to the substantial uncertainty in decision-making, there are
+often sharp trade-offs between competing objectives, such as the desire
+to provide adequate and equitable harvest opportunity versus the desire
+to ensure adequate escapement \citep{catalano-jones-2014} and spreading
+exploitation evenly among stock subcomponents
+\citep{carney-adkison-2014, adkison-cunningham-2015}. When given the
+task of balancing trade-offs such as these, the manager has the ability
+to manipulate the fishing gear used as well as the spatiotemporal
+distribution of fishing effort, though it is rarely clear as to how to
+manipulate these management ``levers'' to achieve the desired outcomes.
+Presumably, different strategies to performing these manipulations
+(termed ``management strategies'' or ``harvest control rules'') will
+exhibit differential performance at meeting the objectives and balancing
+trade-offs, though without testing them it is difficult to have
+confidence in which among them will provide the best chances of success.
+
+Management Strategy Evaluation (MSE) has been proposed as a powerful
+tool for determining how to manage exploited natural resource systems
+with competing management objectives
+\citep{cooke-1999, butterworth-2007}. MSE is a stochastic
+simulation-based analytical technique whereby management strategies are
+evaluated by comparing their relative performance at meeting pre-defined
+objectives under simulated (though realistic) conditions. A management
+strategy can be thought of as all of the steps that encompass the
+collection of data, subsequent analyses, and resulting decision-making
+surrounding the exploitation of a resource. The MSE approach tests a
+range of such strategies to find the one(s) that are likely to be most
+robust to uncertainty and balance trade-offs. This approach is powerful
+as it can provide general insights without having to test strategies on
+the real system, which would be incredibly time-intensive (each year is
+one sample) and costly given that some candidate strategies can be risky
+\citep{walters-martell-2004}. \citet{punt-etal-2014} outline a set of
+seven steps to an MSE that must be conducted in order for the analysis
+to be meaningful:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  identification of management objectives and performance measures for
+  each; preferably under the direction of stakeholders and managers,
+\item
+  identification of the key uncertainties present in the system
+  (biological, assessment, implementation, etc.),
+\item
+  identification of candidate management strategies for evaluation,
+\item
+  development of one or more models that serve as the representation of
+  the real system including reasonably realistic representations of
+  biological and fishery components (termed the ``operating model''),
+\item
+  selection of parameters to drive the operating model in accordance
+  with the real system,
+\item
+  simulation of executing each strategy using the operating model(s),
+  and
+\item
+  summary of performance measures, and presentation to managers and
+  stakeholders.
+\end{enumerate}
+
+\noindent
+While MSE analyses are most often used in multi-year evaluations
+\citep{cooke-1999}, the same concept can be applied to evaluate the
+performance of in-season strategies at meeting shorter-term objectives
+as well.
+
+Two broad classes of strategies could be conceived for in-season salmon
+management: effort control using either a fixed schedule or a
+more-involved (and data-intensive) process of opening and closing the
+fishery based on in-season data \citep[i.e., management by emergency
+order,][]{adkison-cunningham-2015}. There exist many substrategies that
+fall into these two broad categories based on the characteristics of the
+fishery and the timeliness and reliability of information available to
+managers. \citet{carney-adkison-2014} evaluated these two strategies for
+sockeye salmon stocks in Bristol Bay, Alaska, and found trade-offs
+between maximizing harvest and reducing inter-annual variability in
+harvest magnitude as well as spreading harvest pressure among substock
+components. \citet{su-adkison-2002} evaluated a set of schedule-based
+strategies that ranged in their aggressiveness and found differences in
+strategy performance based on which objective carried most weight in
+value functions, which of course implies that trade-offs exist.
+
+An MSE analysis for subsistence salmon fisheries in large drainages
+(such as the Yukon and Kuskokwim systems in Western Alaska) necessitates
+different considerations than these two examples which focused on
+commercial fisheries. While the types of strategies considered and
+conservation-based objectives (adequate escapement and
+temporally-distributed harvest) are broadly consistent, the fleet
+dynamics and harvest-based objectives may be different. Subsistence
+fishers are less concerned with maximizing harvest as they are with
+maintaining consistent harvests that meet their needs between years and
+that harvest opportunities allow exploitation consistent with cultural
+practices (i.e., time of season and frequency of opportunities). The
+fleet dynamics of subsistence fisheries are quite different than
+commercial fisheries in that they are limited by processing capacity and
+have a fixed targeted harvest for the season. Due to this processing
+capacity, harvest of targeted species (such as Chinook salmon) in
+subsistence fisheries are limited by the species composition, sometimes
+expressed as a ratio of chum/sockeye:Chinook salmon. Subsistence fishers
+must stop fishing when they reach their processing capacity, and when
+this ratio is high (e.g., \textgreater{} 20), the catch will be
+dominated by chum/sockeye. In-season harvest control rules have that
+acknowledge these characteristics have not been evaluated for
+subsistence salmon fisheries, highlighting a clear need for work that
+focuses on this topic.
+
+In this chapter, I investigate the performance of a variety of in-season
+harvest control rules for subsistence salmon fisheries in large drainage
+systems using a MSE approach. Though the analysis will be tailored to
+the Kuskokwim River Chinook salmon subsistence fishery, the framework
+developed will be general enough for application to other in-river
+salmon fisheries in large drainages in which the primary users are
+subsistence fishers. The objectives of the analysis will be to:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  develop a closed loop simulation model of the Kuskokwim River fishery
+  system that allows simulation of a wide range of biological
+  conditions,
+\item
+  assess the performance of several realistic harvest control rules that
+  capture a range of complexity in their management dexterity and need
+  for information, and
+\item
+  highlight the strength of trade-offs between competing objectives, and
+  find control rules that might balance them better than others.
+\end{enumerate}
 
 \section{Methods}\label{methods}
 
@@ -306,435 +446,6 @@ Here's what it means.
 \emph{Insert Figures}
 
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
-
-\appendix
-
-
-\chapter{Parameterization of the Operating Model in Chapter
-\ref{ch3}}\label{parameterization-of-the-operating-model-in-chapter-refch3}
-
-\noindent
-There were two main components of the operating model that needed to be
-parameterized based on observed information for it to adequately
-represent the dynamics of the real Kuskokwim River subsistence salmon
-fishery:
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\item
-  \emph{Biological}: abundance, timing, spatial characteristics of the
-  salmon populations (three Chinook salmon substocks and one aggregate
-  stock of chum and sockeye salmon) and
-\item
-  \emph{Sociological}: spatial distribution of effort and desired/needed
-  harvest and temporal aspects of the effort dynamics.
-\end{enumerate}
-
-\noindent
-This appendix describes how empirical information collected in the
-Kuskokwim River drainage was used to parameterize the operating model
-used in the Chapter \ref{ch3} analysis.
-
-\section{Biological quantities}\label{biological-quantities}
-
-\subsection{Chinook salmon total
-abundance}\label{chinook-salmon-total-abundance}
-
-\noindent
-Drainage-wide total Chinook salmon run abundance was informed by
-\citet{liller-etal-2018}, which reported estimates in the years 1976 --
-2017 from a maximum likelihood run reconstruction model. The model was
-fitted to 20 escapement indices, commercial fishery
-catch-per-unit-effort, and nine years of drainage-wide estimates of
-total abundance obtained \emph{via} large-scale mark-recapture
-experiments. Based on \citet{liller-etal-2018}, drainage-wide Chinook
-salmon abundance has varied between 79,238 (in 2012) and 411,724 (in
-1994), with a mean of 216,929 and standard deviation of 87,556. A kernel
-density estimator was fitted to this distribution, and the cumulative
-density function was obtained to allow sampling of continuous run sizes
-in accordance with the historical frequency of run sizes (Figure
-\ref{fig:N-plot}). The distribution was truncated at the smallest and
-largest runs on record as of 2017 \(\pm\) 30,000 fish.
-
-\subsection{Chinook salmon run timing}\label{chinook-salmon-run-timing}
-
-\subsubsection{Aggregate timing}\label{aggregate-timing}
-
-\noindent
-Run timing information for the aggregate Chinook salmon stock was
-available from the Bethel Test Fishery \citep{bue-lipka-2016}, which has
-produced a daily value of catch-per-unit-effort for each day between
-June 1 and August 24 for the years 1984 -- 2018. The estimates of
-location (\(D_{50}\)) and inverse scale (\(h\)) of a logistic function
-shown in Table \ref{tab:rt-ests-table} were used to quantify the timing
-with which the simulated aggregate Chinook salmon stock runs through the
-lower river.
-
-\subsubsection{Substock-specific timing}\label{substock-specific-timing}
-
-\noindent
-The timing of the specific Chinook salmon substocks (i.e., those
-spawning in lower, middle, and upper river tributaries) were informed by
-radio telemetry studies \citep{stuby-2007, smith-liller-2017}. The tag
-date and final tributary of each fish was available for the years 2003
--- 2007 and 2015 -- 2016. In the first block of years, the tagging site
-was located near Kalskag, which excluded any fish spawning in lower
-river tributaries. In the second block of years, the tag site was moved
-near the Johnson River, which allowed the inclusion of fish spawning in
-the lower river tributaries. Logistic models \eqref{eq:logistic} were
-fitted to the data from each substock and year separately to obtain
-estimates of the \(D_{50}\) for each substock in each year data were
-available, and differences in \(D_{50}\) for the middle river substocks
-and each of the other substocks were calculated (Table
-\ref{tab:d50-devs-table}). For parameterizing the run timing of middle
-river substocks, random values drawn from the aggregate population
-estimates were used, and random uniform deviations for the lower river
-and upper river \(D_{50}\) were used in accordance with the deviations
-shown in Table \ref{tab:d50-devs-table} (i.e., lower river substocks had
-a \(D_{50}\) value that was anywhere between 0 and 3 days later than
-that of the middle river, and upper river substocks had a value that was
-between 5 and 10 days earlier than middle river substocks.
-
-\subsection{Chinook salmon substock
-composition}\label{chinook-salmon-substock-composition}
-
-\noindent
-Substock composition, or the fraction of the aggregate Chinook salmon
-run that was made up of fish from each substock, was informed by the
-proportions of telemetry fish that spawned in each region in the years
-2015 and 2016. Only these years were used because
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\item
-  they allowed the incorporation of information from lower river fish
-  and
-\item
-  the management of the fishery resulted in less selection of upper
-  river substocks in the harvest because fishing was pushed later in the
-  season than in the 2003 -- 2007 block of years.
-\end{enumerate}
-
-\noindent
-In each run of the operating model, a random Dirichlet vector was drawn
-with parameter vector equal to {[}lower = 20, middle = 58, upper =
-22{]}, which results in an expectation roughly equal to the average
-contribution in 2015 and 2016. The use of a Dirichlet distribution with
-these parameters generated a modest amount of variability around the
-expected substock composition.
-
-\subsection{Spatial distribution of escapement}\label{calc-esc-p}
-
-\noindent
-Due to the spatial nature of the operating model, it was important to
-capture the behavior of fish becoming invulnerable to harvest by
-swimming up a spawning tributary. This aspect was informed using data
-from the telemetry studies: it was possible to quantify the fraction of
-all tagged fish that made it to a particular reach that ultimately
-spawned in a tributary with a confluence in that reach in each year.
-These fractions were averaged across years and the average was used to
-dictate how many fish from each substock \(s\) in reach \(r\) on day
-\(d\) would ``peel off'' from the mainstem into a tributary in that
-reach on that day. For the aggregate chum/sockeye stock, which does not
-have this kind of information, the substock structure was removed. These
-estimates are shown in Table \ref{tab:esc-p-table}.
-
-\subsection{Species ratios}\label{species-ratios}
-
-\noindent
-Because chum and sockeye salmon lack the abundance data available for
-Chinook salmon, their daily entry dynamics were modeled using observed
-species ratios from the Bethel Test Fishery. These data were prepared by
-taking the catch-per-unit-effort of chum salmon plus sockeye salmon, and
-dividing it by the catch-per-unit-effort of Chinook salmon on each day
-of each year for which data were available (assuming the subsistence
-fishery uses the same gill net mesh sizes as the Bethel Test Fishery,
-which is a largely valid assumption in recent years). This represents
-how many vulnerable chum/sockeye salmon were available for harvest
-relative to Chinook salmon. Daily values that couldn't be calculated
-(i.e., when zero Chinook salmon were caught) were populated with the
-average value for all years for which a species ratio could be
-calculated on that same day. These annual time series were highly
-variable from day to day, likely as a result of sampling variability, so
-a cubic spline smoother was fitted to remove this variability. The time
-series of smoothed ratios from all years is shown in Figure
-\ref{fig:ratios-plot}.
-
-\section{Sociological quantities}\label{sociological-quantities}
-
-\subsection{Needed salmon harvest by river
-reach}\label{needed-salmon-harvest-by-river-reach}
-
-\noindent
-The term ``minimally needed salmon harvest'' salmon harvest refers to
-the amount of salmon that would satisfy the very basics of the
-subsistence needs of fishers in the drainage -- without meeting this
-level it is reasonable to assume the fishing population is experiencing
-hardship. ``Maximally needed salmon harvest'' represents the salmon
-harvest that would completely meet their needs (i.e., if they could
-harvest as many fish as they would like). The Alaska Board of Fisheries
-has produced ranges for each species, termed the ``Amounts Reasonably
-Necessary for Subsistence''" (ANS) and represents the drainage-wide
-range of harvest by species needed to sustain subsistence fishers each
-year. These ANS ranges are 67,200 -- 109,800 for Chinook salmon and
-73,400 -- 175,100 for chum/sockeye salmon. In this analysis, the lower
-bound of the ANS range was used to specify minimally needed salmon
-harvest by species, and the upper bound of the range was used to specify
-maximally needed salmon harvests. Minimal harvest needs were used to
-measure the attainment of management objectives and maximally needed
-amounts were used to drive the dynamics of the effort model.
-
-However, these values are only available for the entire drainage -- they
-are not partitioned to individual villages. For this analysis, a minimal
-and maximal value was needed for the villages located within each reach.
-The drainage-wide totals were thus partitioned by calculating the
-average fraction that villages in each reach have harvested of the
-drainage-wide. \citet{hamazaki-2011} present year-, species- and
-village-specific salmon harvests for the period (1990 -- 2009), and data
-through 2015 can be found in \citet{carroll-hamazaki-2012},
-\citet{shelden-etal-2014}, \citet{shelden-etal-2015},
-\citet{shelden-etal-2016a}, and \citet{shelden-etal-2016b}. Only years
-1990 -- 2000 were included for the spatial distribution of salmon need
-because stakeholders indicated the restrictions in recent years make the
-harvest proportions non-representative and that the earlier years are
-more reflective of how harvest should be distributed. The partitioned
-values by species are shown in Table \ref{tab:socio-spatial-table}.
-
-\subsection{Maximum daily effort by river
-reach}\label{maximum-daily-effort-by-river-reach}
-
-\noindent
-A key aspect of the sociological component to the operating model was
-the spatial distribution of maximum fishing effort, i.e., the greatest
-number of boat days that can be exerted by villages in each reach when
-the fishery is open. This maximum effort was altered as the simulated
-salmon season progressed based on the effort response submodel (Section
-\ref{effort-response}). The important characteristic to capture is the
-proportion of all effort that is attributable to each reach, i.e.~the
-scale is not important as the efficiency of any one unit can be adjusted
-by altering the \(q\) parameter (Section \ref{harvest-model}). To
-determine how effort should be apportioned to each reach, I devised a
-simple index of effort for each village and year based on the number of
-reported fishing households. The Alaska Department of Fish and Game has
-collected this information since 1990, and it is presented in the same
-studies that quantified subsistence harvest patterns:
-\citet{hamazaki-2011}, \citet{carroll-hamazaki-2012},
-\citet{shelden-etal-2014}, \citet{shelden-etal-2015},
-\citet{shelden-etal-2016a}, and \citet{shelden-etal-2016b}. The data
-were reported as the number of households that ``usually fish'' and the
-number of households that ``do not usually fish'' as surveyed each year
-(as well as the number of ``unknown'' fishing status households). First,
-I apportioned any unknown households probabilistically to the other two
-categories by assuming the information was missing at random: if 60\% of
-the fishing households belonged to the ``usually fishes'' category in a
-village in a year, I apportioned 60\% of the unknown households to
-``usually fishes'' and 40\% to ``does not usually fish''. I then
-calculated the effort index for each village as 1 * usually fishers +
-0.5 * not usually fishers, summed the values across villages within each
-reach and year, calculated the annual proportion belonging in each
-reach, and averaged these values across years.
-
-\clearpage
-\singlespacing
-
-\begin{longtable}[t]{>{\bfseries}lcclcclcc}
-\caption{\label{tab:d50-devs-table}Difference between $D_{50}$ for tagged fish destined for lower or upper river tributaries and those destined for middle river tributaries. These estimates were used to inform Chinook salmon substock-specific run timing.}\\
-\toprule
-\textbf{Year} & \textbf{Lower} & \textbf{Upper}\\
-\midrule
-2003 &  & -2.0\\
-2004 &  & -9.5\\
-2005 &  & -4.9\\
-2006 &  & -7.8\\
-2007 &  & -2.5\\
-\addlinespace
-2015 & -0.7 & -10.7\\
-2016 & 2 & -9.8\\
-\bottomrule
-\end{longtable}
-
-\clearpage
-
-\begin{longtable}[t]{clccccclccccclccccclccccclccccclcccc}
-\caption{\label{tab:esc-p-table}Spatial distribution of escapement in the operating model. The number in each cell represents the fraction of fish from a stock that make it to a reach and survive the fishery that ultimately escape and spawn in a tributary with a confluence with the main stem Kuskokwim located in that reach. These estimates were obtained from radio telemetry studies as described in Section \ref{calc-esc-p}, and the chum/sockeye salmon estimates were obtained by removing the substock structure from the Chinook salmon data.}\\
-\toprule
-\multicolumn{1}{c}{\bfseries } & \multicolumn{1}{c}{\bfseries } & \multicolumn{3}{c}{\bfseries Chinook Salmon} & \multicolumn{1}{c}{\bfseries } \\
-\cmidrule(l{2pt}r{2pt}){3-5}
-\textbf{Reach \#} & \textbf{Tributaries in Reach} & \textbf{Lower} & \textbf{Middle} & \textbf{Upper} & \textbf{Chum/Sockeye}\\
-\midrule
-\addlinespace[0.3em]
-\multicolumn{36}{l}{\textbf{Lower River}}\\
-\hline
-\hspace{1em}4 & Kwethluk & 65.3\% & 0\% & 0\% & 12.4\%\\
-\hspace{1em}5 & Kasigluk, Kisaralik & 80.1\% & 0\% & 0\% & 6\%\\
-\hspace{1em}6 & Tuluksak & 100\% & 0\% & 0\% & 1.7\%\\
-\addlinespace[0.3em]
-\hline
-\multicolumn{36}{l}{\textbf{Middle River}}\\
-\hline
-\hspace{1em}9 & Aniak & 0\% & 28.1\% & 0\% & 24.6\%\\
-\hspace{1em}10 & Owhat & 0\% & 0.5\% & 0\% & 0.4\%\\
-\hspace{1em}11 & Holokuk, Sue Creek, Veahna & 0\% & 3.7\% & 0\% & 3.4\%\\
-\hspace{1em}12 & Oskawalik & 0\% & 2.7\% & 0\% & 2.4\%\\
-\hspace{1em}13 & Crooked Creek, George & 0\% & 6\% & 0\% & 4.8\%\\
-\hspace{1em}15 & Vreeland, Holitna & 0\% & 77.3\% & 0\% & 64.6\%\\
-\hspace{1em}16 & Stony & 0\% & 32.8\% & 0\% & 25.8\%\\
-\hspace{1em}17 & Swift, Tatlawiksuk & 0\% & 100\% & 0\% & 55.9\%\\
-\addlinespace[0.3em]
-\hline
-\multicolumn{36}{l}{\textbf{Upper River}}\\
-\hline
-\hspace{1em}20 & Selatna, Black & 0\% & 0\% & 6\% & 6\%\\
-\hspace{1em}22 & Takotna & 0\% & 0\% & 17.5\% & 17.5\%\\
-\hspace{1em}24 & Middle Fork & 0\% & 0\% & 94\% & 94\%\\
-\hspace{1em}26 & South Fork, East Fork & 0\% & 0\% & 100\% & 100\%\\
-\bottomrule
-\end{longtable}
-
-\clearpage
-
-\begin{landscape}\begin{table}
-
-\caption{\label{tab:socio-spatial-table}Key sociological quantities used in the operating model, broken down by spatial area (reach). Each reach is 35 km in main stem river length. Effort is expressed in the maximum number of boats fishing per day. The \% columns represent the average fraction of the total harvest by species that was harvested by villages within each reach over the period 1990 -- 2000. Harvest values have been rounded to the nearest 100 for ease of presentation, but the total column represents the sum of non-rounded quantities. Although these data were available through 2015, region stakeholders indicated that the recent years have been contaminated by harvest restrictions, and that these earlier years would be more representative.}
-\centering
-\begin{tabular}[t]{lllllllll}
-\toprule
-\multicolumn{1}{c}{\bfseries } & \multicolumn{1}{c}{\bfseries } & \multicolumn{1}{c}{\bfseries } & \multicolumn{3}{c}{\bfseries Chinook Salmon} & \multicolumn{3}{c}{\bfseries Chum/Sockeye Salmon} \\
-\cmidrule(l{2pt}r{2pt}){4-6} \cmidrule(l{2pt}r{2pt}){7-9}
-\textbf{Reach \#} & \textbf{Villages in Reach} & \textbf{Effort} & \textbf{\%} & \textbf{Min.} & \textbf{Max.} & \textbf{\%} & \textbf{Min.} & \textbf{Max.}\\
-\midrule
-\addlinespace[0.3em]
-\multicolumn{9}{l}{\textbf{Lower River}}\\
-\hline
-\hspace{1em}1 & Tuntutuliak, Eek & 42 & 7.6\% & 5,100 & 8,300 & 6.2\% & 4,600 & 10,900\\
-\hspace{1em}2 & Atmautluak, Kasigluk, Nunapitchuk & 74 & 11\% & 7,400 & 12,000 & 13.6\% & 10,000 & 23,900\\
-\hspace{1em}3 & Napakiak, Napaskiak, Oscarville, Bethel & 415 & 40.5\% & 27,200 & 44,500 & 34.1\% & 25,000 & 59,600\\
-\hspace{1em}4 & Kwethluk, Akiachak & 74 & 17.2\% & 11,600 & 18,900 & 15.2\% & 11,200 & 26,600\\
-\hspace{1em}5 & Akiak & 18 & 4.3\% & 2,900 & 4,800 & 4.9\% & 3,600 & 8,600\\
-\hspace{1em}6 & Tuluksak & 21 & 3.9\% & 2,600 & 4,300 & 4.4\% & 3,300 & 7,800\\
-\addlinespace[0.3em]
-\hline
-\multicolumn{9}{l}{\textbf{Middle River}}\\
-\hline
-\hspace{1em}8 & Lower Kalskag, Upper Kalskag & 33 & 5.1\% & 3,400 & 5,600 & 4.2\% & 3,100 & 7,400\\
-\hspace{1em}9 & Aniak & 46 & 4.2\% & 2,800 & 4,600 & 4.6\% & 3,400 & 8,100\\
-\hspace{1em}10 & Chuathbaluk & 9 & 1.3\% & 900 & 1,400 & 2.1\% & 1,600 & 3,700\\
-\hspace{1em}13 & Crooked Creek & 9 & 1\% & 600 & 1,100 & 1.5\% & 1,100 & 2,600\\
-\hspace{1em}14 & Red Devil & 6 & 0.3\% & 200 & 400 & 1.1\% & 800 & 2,000\\
-\hspace{1em}15 & Sleetmute & 12 & 1.1\% & 800 & 1,200 & 2.1\% & 1,500 & 3,600\\
-\hspace{1em}16 & Lime Village, Stony River & 10 & 0.7\% & 500 & 700 & 4\% & 3,000 & 7,000\\
-\addlinespace[0.3em]
-\hline
-\multicolumn{9}{l}{\textbf{Upper River}}\\
-\hline
-\hspace{1em}22 & McGrath, Nikolai, Takotna, Telida & 42 & 1.7\% & 1,100 & 1,800 & 1.9\% & 1,400 & 3,300\\
-\textbf{\hspace{1em}Total} & \textbf{} & \textbf{800} & \textbf{100\%} & \textbf{67,200} & \textbf{109,800} & \textbf{100\%} & \textbf{73,400} & \textbf{175,100}\\
-\bottomrule
-\end{tabular}
-\end{table}
-\end{landscape}
-
-\clearpage
-
-\begin{figure}
-  \centering
-  \includegraphics{img/Ch3/N-plot.jpg}
-  \caption{Distribution of total drainage-wide run size for Kuskokwim River Chinook salmon, as presented in \cite{liller-etal-2018}. This distribution was used to generate the run size of the aggregate Chinook salmon populations entering the fishery system in a simulated year. The secondary $y$-axis represents the probability of a run falling below a given run size according to the historical frequency of run sizes; where the solid line shows the empirical cumulative distribution function and the dashed line shows one obtained by fitting a kernel density smoother to the empirical data. The fitted distribution was used for simulation to prevent the same 42 run size values from being replicated in the analysis.}
-  \label{fig:N-plot}
-\end{figure}
-
-\clearpage
-
-\begin{figure}
-  \centering
-  \includegraphics{img/Ch3/ratios-plot.jpg}
-  \caption{Smoothed species ratios of chum+sockeye:Chinook salmon as detected by the Bethel Test Fishery. Individual grey lines represent separate years from 1984 -- 2017, the grey region represents the central 50\% of all smoothed ratios on each day and the thick black line represents the daily median. Only this time period is shown because at ratios larger than 20, the differences in the influence of chum/sockeye salmon on Chinook salmon harvest by the subsistence fishery are negligable.}
-  \label{fig:ratios-plot}
-\end{figure}
-
-\clearpage
-
-\doublespacing
-
-\chapter{Validation of the Operating Model in Chapter
-\ref{ch3}}\label{validation-of-the-operating-model-in-chapter-refch3}
-
-For any closed-loop simulation model, the reliability of inferences
-drawn will be conditional on the ability of the model components to
-capture the important behavioral properties of the real system. Here, I
-provide a brief validation that the fishery component of the operating
-model does in fact provide a reasonable model of the real system when
-the fishery was unrestricted.
-
-First, I thought it important that the model be able to replicate the
-relationship between total Chinook salmon run size and total subsistence
-salmon harvest. Capturing this pattern was important to ensure that the
-fishery would not inadvertently harvest an unrealistically large or
-small amount of fish in different run sizes if management mistakes were
-made, which would confound my conclusions. As shown in Figure
-\ref{fig:HvN}, this historical relationship has been quite noisy for the
-observed historical time series, though an increasing pattern has
-emerged: in general, more fish have been harvested in years with large
-runs than years with small runs. I found that by tuning the catchability
-(\(q\)) and effort response coefficients, I was able to reproduce the
-pattern and variability quite well.
-
-The next behavior of interest was the spatiotemporal distribution of
-harvest. Because in-river salmon fisheries are sequential, fish
-harvested in one area are invulnerable to harvest (and escapement) in
-upriver areas. It also means that communities in downriver communities
-may finish fishing earlier in the season because they are the first to
-experience favorable fishing conditions (i.e., high in-river abundance
-and resulting catch rates; in the Kuskokwim River drying weather also
-plays an important role). If the timing of harvest was not captured
-adequately, this would be an indication that the effort response
-coefficients were improperly tuned and could result in unrealistic
-conclusions. The patterns and variability in the day of the year at
-which various percentiles of Chinook salmon harvest was attained by
-reach compared between observed data and the modeled outcomes are shown
-in Figure \ref{fig:temporal-harvest}. It seems that the patterns and
-variability in harvest timing were reasonably well-captured,
-particularly for downriver reaches. Reaches 14, 15, 16 and 22 seemed to
-have had the largest deviations between observed and modeled patterns,
-but given communities in these reaches harvest a negligible amount of
-Chinook salmon in comparison to the downriver villages (Figure
-\ref{fig:spatial-harvest}), I was not concerned by this finding.
-
-The final important characteristic was the spatial distribution of
-end-of-season harvest. Accurately representing this component of the
-system would further indicate model adequacy. Figure
-\ref{fig:spatial-harvest}) shows a comparison of the proportion of total
-drainage-wide Chinook salmon subsistence harvest attributable to
-communities in each reach between observed and modeled outcomes. While
-the overall pattern was fully captured, there were moderate deviations
-between the model and observations in reaches 2, 3, and 4.
-
-\clearpage
-
-\begin{figure}
-  \centering
-  \includegraphics{img/Ch3/FigureB1_noline.jpg}
-  \caption{Observed and modeled Chinook salmon subsistence harvest as a function of total Chinook salmon run size. Individual black dots are historical realizations in years with no harvest restrictions on the subsistence salmon fishery. Individual grey dots are modeled outcomes, each representing a hypothetical salmon run with different random subpopulation compositions, run timing, and species ratios.}
-  \label{fig:HvN}
-\end{figure}
-
-\clearpage
-
-\begin{figure}
-  \centering
-  \includegraphics{img/Ch3/FigureB2.jpg}
-  \caption{Comparison of the day of the year at which various percentiles of Chinook salmon harvest was attained by reach between observed and modeled outcomes. Variability in the observed boxplots is due to inter-annual variability in run size and timing and represents between-simulation variability for the modeled outcomes. Reach numbers are ordered from downriver to upriver. Note that not all reaches contain communities that harvest salmon.}
-  \label{fig:temporal-harvest}
-\end{figure}
-
-\clearpage
-
-\begin{figure}
-  \centering
-  \includegraphics{img/Ch3/FigureB3.jpg}
-  \caption{Comparison of the proportion of total drainage-wide Chinook salmon subsistence harvest attributable to communities in each reach between observed and modeled outcomes. Variability in the observed boxplots is due to inter-annual variability, and represents between-simulation variability for the modeled outcomes. Reach numbers are ordered from downriver to upriver. Note that not all reaches contain communities that harvest salmon.}
-  \label{fig:spatial-harvest}
-\end{figure}
 
 \bibliography{cites-without-doi.bib,cites-with-doi.bib}
 
