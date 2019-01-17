@@ -1,0 +1,259 @@
+# Parameterization of the Operating Model in Chapter \@ref(ch3) {#appendix-a}
+
+```{r, echo = F, warning = F, message = F}
+library(dplyr); library(knitr); library(kableExtra)
+```
+
+\noindent
+There were two main components of the operating model that needed to be parameterized based on observed information for it to adequately represent the dynamics of the real Kuskokwim River subsistence salmon fishery: 
+
+(1)	_Biological_: abundance, timing, spatial characteristics of the salmon populations (three Chinook salmon substocks and one aggregate stock of chum and sockeye salmon) and
+
+(2)	_Sociological_: spatial distribution of effort and desired/needed harvest and temporal aspects of  the effort dynamics.
+
+\noindent
+This appendix describes how empirical information collected in the Kuskokwim River drainage was used to parameterize the operating model used in the Chapter \@ref(ch3) analysis. 
+
+## Biological quantities
+
+### Chinook salmon total abundance {#mse-data-N}
+
+\noindent
+Drainage-wide total Chinook salmon run abundance was informed by @liller-etal-2018, which reported estimates in the years 1976 -- 2017 from a maximum likelihood run reconstruction model. The model was fitted to 20 escapement indices, commercial fishery catch-per-unit-effort, and nine years of drainage-wide estimates of total abundance obtained _via_ large-scale mark-recapture experiments. Based on @liller-etal-2018, drainage-wide Chinook salmon abundance has varied between 79,238 (in 2012) and 411,724 (in 1994), with a mean of 216,929 and standard deviation of 87,556. A kernel density estimator was fitted to this distribution, and the cumulative density function was obtained to allow sampling of continuous run sizes in accordance with the historical frequency of run sizes (Figure \@ref(fig:N-plot)). The distribution was truncated at the smallest and largest runs on record as of 2017 $\pm$ 30,000 fish.
+
+### Chinook salmon substock composition {#mse-data-pi}
+
+\noindent
+Substock composition, or the fraction of the aggregate Chinook salmon run that was made up of fish from each substock, was informed by the proportions of telemetry fish that spawned in each region in the years 2015 and 2016 [@smith-liller-2017a; @smith-liller-2017b]. Although telemetry data from 2003 -- 2007 were also available, only these years were used because:
+
+(1) they allowed the incorporation of information from lower river fish (as a result of the tagging location; see Section \@ref(mse-data-ss-timing)) and
+
+(2) the management of the fishery resulted in less selection of upper river substocks in the harvest because fishing was pushed later in the season than in the 2003 -- 2007 block of years.
+
+\noindent
+In each run of the operating model, a random Dirichlet vector was drawn with parameter vector equal to [lower = 19, middle = 61, upper = 20], which results in an expectation roughly equal to the average contribution in 2015 and 2016. The use of a Dirichlet distribution with these parameters generated a modest amount of variability around the expected substock composition.
+
+### Chinook salmon run timing
+#### Aggregate timing
+
+\noindent
+Run timing information for the aggregate Chinook salmon stock was available from the Bethel Test Fishery [@bue-lipka-2016], which has produced a daily value of catch-per-unit-effort for each day between June 1 and August 24 for the years 1984 -- 2018. The estimates of location ($D_{50}$) and inverse scale ($h$) of a logistic function shown in Table \@ref(tab:rt-ests-table) were used to quantify the timing with which the simulated aggregate Chinook salmon stock runs through the lower river. 
+
+#### Substock-specific timing {#mse-data-ss-timing}
+
+\noindent
+The timing of the specific Chinook salmon substocks (i.e., those spawning in lower, middle, and upper river tributaries) were informed by radio telemetry studies [@stuby-2007; @smith-liller-2017a; @smith-liller-2017b]. The tag date and final tributary of each fish was available for the years 2003 -- 2007 and 2015 -- 2016. In the first block of years, the tagging site was located near Kalskag, which excluded any fish spawning in lower river tributaries. In the second block of years, the tag site was moved near the Johnson River, which allowed the inclusion of fish spawning in the lower river tributaries. Logistic models \@ref(eq:logistic) were fitted to the data from each substock and year separately to obtain estimates of the $D_{50}$ for each substock in each year data were available, and differences in $D_{50}$ for the middle river substocks and each of the other substocks were calculated (Table \@ref(tab:d50-devs-table)). For parameterizing the run timing of middle river substocks, random values drawn from the aggregate population estimates were used, and random uniform deviations for the lower river and upper river $D_{50}$ were used in accordance with the deviations shown in Table \@ref(tab:d50-devs-table) (i.e., lower river substocks had a $D_{50}$ value that was anywhere between 0 and 3 days later than that of the middle river, and upper river substocks had a value that was between 5 and 10 days earlier than middle river substocks.
+
+### Spatial distribution of escapement {#calc-esc-p}
+
+\noindent
+Due to the spatial nature of the operating model, it was important to capture the behavior of fish becoming invulnerable to harvest by swimming up a spawning tributary. This aspect was informed using data from the telemetry studies: it was possible to quantify the fraction of all tagged fish that made it to a particular reach that ultimately spawned in a tributary with a confluence in that reach in each year. These fractions were averaged across years and the average was used to dictate how many fish from each substock $s$ in reach $r$ on day $d$ would "peel off" from the mainstem into a tributary in that reach on that day. For the aggregate chum/sockeye stock, which does not have this kind of information, the substock structure was removed. These estimates are shown in Table \@ref(tab:esc-p-table).  
+
+### Species ratios {#mse-data-ratios}
+
+\noindent
+Because chum and sockeye salmon lack the abundance data available for Chinook salmon, their daily entry dynamics were modeled using observed species ratios from the Bethel Test Fishery. These data were prepared by taking the catch-per-unit-effort of chum salmon plus sockeye salmon, and dividing it by the catch-per-unit-effort of Chinook salmon on each day of each year for which data were available (assuming the subsistence fishery uses the same gill net mesh sizes as the Bethel Test Fishery, which is a largely valid assumption in recent years). This represents how many vulnerable chum/sockeye salmon were available for harvest relative to Chinook salmon. Daily values that couldn’t be calculated (i.e., when zero Chinook salmon were caught) were populated with the average value for all years for which a species ratio could be calculated on that same day. These annual time series were highly variable from day to day, likely as a result of sampling variability, so a cubic spline smoother was fitted to remove this variability. The time series of smoothed ratios from all years is shown in Figure \@ref(fig:ratios-plot). 
+
+In each simulated year, one randomly sampled annual time series was selected to generate the daily species composition for that year. To avoid anomalous outcomes, i.e., unlikely combinations of Chinook run timing and abundance matched with very high or low species ratios in the simulation. I investigated two historical variables for covariance with the species ratio: $D_{50}$ and total Chinook salmon run size using a $\chi^2$ test for independence. I categorized run timing, run size, and the date at which a species ratio of 15:1 was observed into three bins, with endpoints delineated by the 33% and 66% percentiles. I was interested in whether Chinook salmon runs with different run timing or size tended to coincide with attaining high species ratios earlier or later in the season. If these sorts of patterns were present, they would need to be accounted for in the simulation. 
+
+I found that the first date of 15:1 ratios and Chinook salmon run timing had more non-independence ($\chi^2 = 11, df = 4, p = 0.027$) than Chinook salmon run size ($\chi^2 = 1.84, df = 4, p = 0.765$). This indicated that species ratios could be drawn independently with regards to the simulated run size, but not the simulated run timing. As shown in Table \@ref(tab:ratio-timing-cov-table), the probability of having early high ratios has been historically highest in early Chinook runs. Late Chinook salmon runs tended to occur in years that had later dates of 15:1. I incorporated these patterns in the simulation by first sampling the run timing for that simulated year, then assigning it to a category, then sampling a ratio category with probability equal to the appropriate column in Table \@ref(tab:ratio-timing-cov-table). Finally, a year was randomly selected from the approximately 10 years in that same category, and the daily species ratios that year were used to drive the species composition in that simulated year. 
+
+## Sociological quantities
+
+### Needed salmon harvest by river reach {#mse-data-needs}
+
+\noindent
+The term "minimally needed salmon harvest" salmon harvest refers to the amount of salmon that would satisfy the very basics of the subsistence needs of fishers in the drainage -- without meeting this level it is reasonable to assume the fishing population is experiencing hardship. "Maximally needed salmon harvest" represents the salmon harvest that would completely meet their needs (i.e., if they could harvest as many fish as they would like). The Alaska Board of Fisheries has produced ranges for each species, termed the "Amounts Reasonably Necessary for Subsistence" (ANS) and represents the drainage-wide range of harvest by species needed to sustain subsistence fishers each year. These ANS ranges are 67,200 -- 109,800 for Chinook salmon and 73,400 -- 175,100 for chum/sockeye salmon. In this analysis, the lower bound of the ANS range was used to specify minimally needed salmon harvest by species, and the upper bound of the range was used to specify maximally needed salmon harvests. Minimal harvest needs were used to measure the attainment of management objectives and maximally needed amounts were used to drive the dynamics of the effort model.
+
+However, these values are only available for the entire drainage -- they are not partitioned to individual villages. For this analysis, a minimal and maximal value was needed for the villages located within each reach. The drainage-wide totals were thus partitioned by calculating the average fraction that villages in each reach have harvested of the drainage-wide. @hamazaki-2011 present year-, species- and village-specific salmon harvests for the period (1990 -- 2009), and data through 2015 can be found in @carroll-hamazaki-2012, @shelden-etal-2014, @shelden-etal-2015, @shelden-etal-2016a, and @shelden-etal-2016b. Only years 1990 -- 2000 were included for the spatial distribution of salmon need because stakeholders indicated the restrictions in recent years make the harvest proportions non-representative and that the earlier years are more reflective of how harvest should be distributed. The partitioned values by species are shown in Table \@ref(tab:socio-spatial-table).
+
+### Maximum daily effort by river reach {#mse-data-effort}
+
+\noindent
+A key aspect of the sociological component to the operating model was the spatial distribution of maximum fishing effort, i.e., the greatest number of boat days that can be exerted by villages in each reach when the fishery is open. This maximum effort was altered as the simulated salmon season progressed based on the effort response submodel. The important characteristic to capture is the proportion of all effort that is attributable to each reach, i.e. the scale is not important as the efficiency of any one unit can be adjusted by altering the $q$ parameter. To determine how effort should be apportioned to each reach, I devised a simple index of effort for each village and year based on the number of reported fishing households. The Alaska Department of Fish and Game has collected this information since 1990, and it is presented in the same studies that quantified subsistence harvest patterns: @hamazaki-2011, @carroll-hamazaki-2012, @shelden-etal-2014, @shelden-etal-2015, @shelden-etal-2016a, and @shelden-etal-2016b. The data were reported as the number of households that "usually fish" and the number of households that "do not usually fish" as surveyed each year (as well as the number of "unknown" fishing status households). First, I apportioned any unknown households probabilistically to the other two categories by assuming the information was missing at random: if 60% of the fishing households belonged to the "usually fishes" category in a village in a year, I apportioned 60% of the unknown households to "usually fishes" and 40% to "does not usually fish". I then calculated the effort index for each village as 1 $\times$ # usually + 0.5 $\times$ # not usually, summed the values across villages within each reach and year, calculated the annual proportion belonging in each reach, and averaged these values across years. 
+
+\clearpage
+\singlespacing
+
+```{r d50-devs-table}
+tab = data.frame(
+  Year = c(2003:2007, 2015:2016),
+  Lower = c("", "", "", "", "", -0.7, 2),
+  Upper = c(-2, -9.5, -4.9, -7.8, -2.5, -10.7, -9.8)
+)
+
+colnames(tab) = c("\\textbf{Year}", "\\textbf{Lower}", "\\textbf{Upper}")
+
+kable(tab, "latex", booktabs = T, escape = F, align = "lcc", longtable = T,
+      caption = "Difference between $D_{50}$ for tagged fish destined for lower or upper river tributaries and those destined for middle river tributaries. These estimates were used to inform Chinook salmon substock-specific run timing.") %>%
+  column_spec(1, bold = T)
+  
+```
+
+\clearpage
+
+```{r esc-p-table}
+# clear the workspace
+rm(list = ls(all = T))
+
+# packages
+library(reshape2)   # data manipulation: turn to long form/wide form
+library(gtools)     # for rdirichlet() - for generating random stock compositions
+library(mgcv)       # for fitting gams to the ratios for smoothing
+library(truncnorm)  # for generating random variables from a truncated normal distribution
+library(mvtnorm)    # for generating random variables from a multivariate normal distribution
+library(dplyr)      # data manipulation
+
+##### DIRECTORIES, FUNCTIONS, AND DIMENSIONS #####
+# set working directory to THE LOCATION OF THIS FILE
+working_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Policy1"
+
+# data and function directory locations
+data_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/1_Data"
+func_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/2_Functions"
+
+# loop through functions in func_dir and read each in separately
+funcs = dir(func_dir)
+for (i in 1:length(funcs)) {source(paste(func_dir, funcs[i], sep = "/"))}
+
+# get the dimensions for this model into the workspace
+source("C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/Dimensions.R")
+
+rkms = read.csv(file.path(data_dir, "trib_rkm.csv"))
+
+rkms$reach = sapply(rkms$rkm, assign.reach)
+
+tribs = data.frame(tribs = tapply(rkms$trib, rkms$reach, function(x) paste(x, collapse = ", ")), 
+           reach = unique(rkms$reach))
+rownames(tribs) = NULL
+
+esc = cbind(
+  calculate.esc.props_multistock(),
+  chsk = calculate.esc.props()
+)
+
+esc = apply(round(esc, 3) * 100, 2, function(x) paste(x, "\\%", sep = ""))
+esc = cbind(reach = 1:26, esc = esc)
+tab = merge(tribs, esc, by = "reach")
+
+colnames(tab) = paste("\\textbf{", c("Reach \\#", "Tributaries in Reach",
+                  "Lower", "Middle", "Upper",
+                  "Chum/Sockeye"), "}", sep = "")
+
+# linebreak("\\textbf{Chum\nSockeye}")
+
+kable(tab, "latex", booktabs = T, longtable = T, escape = F,
+      caption = "Spatial distribution of escapement in the operating model. The number in each cell represents $\\psi_{r,s}$: the fraction of fish from a stock that make it to a reach and survive the fishery that ultimately escape and spawn in a tributary with a confluence with the main stem Kuskokwim located in that reach. These estimates were obtained from radio telemetry studies as described in Section \\ref{calc-esc-p}, and the chum/sockeye salmon estimates were obtained by removing the substock structure from the Chinook salmon data.", linesep = "", align = "clcccc") %>%
+  group_rows("Lower River", 1, 3, hline_after = T) %>%
+  group_rows("Middle River", 4, 11, hline_before = T, hline_after = T) %>%
+  group_rows("Upper River", 12, 15, hline_before = T, hline_after = T) %>%
+  add_header_above(c("", "", "Chinook Salmon" = 3, ""), bold = T) %>%
+  kable_styling("HOLD_position")
+
+```
+
+\clearpage
+
+```{r ratio-timing-cov-table}
+tab = rbind(c(66.7, 11.1, 20),
+c(33.3, 44.4, 20),
+c(0, 44.4, 60))
+
+tab = t(apply(tab, 1, function(x) paste(x, "\\%", sep = "")))
+
+tab = cbind(c("Earliest 33\\%", "Middle 33\\%", "Latest 33\\%"), tab)
+colnames(tab) = paste("\\textbf{", c("Ratio Category", "Earliest 33\\%", "Middle 33\\%", "Latest 33\\%"), "}", sep = "")
+
+kable(tab, "latex", booktabs = T, escape = F, align = "lccc",
+      caption = "Non-independence of historically-observed Chinook salmon run timing and the date at which the species ratio of 15:1 chum+sockeye:Chinook was obtained. Columns sum to one and represent the empirical probability of observing a ratio type in each of the three categories along the rows. Independence would have all cells equal to 33.3\\% -- note that early high ratios tend to occur in years with early Chinook salmon runs, and \\textit{vice versa}.") %>%
+  add_header_above(header = c("", "Chinook Salmon Run Timing" = 3), bold = T) %>%
+  column_spec(1, bold = T)
+```
+
+\clearpage
+
+
+```{r socio-spatial-table, message = F, warning = F, echo = F}
+library(reshape2)   # data manipulation: turn to long form/wide form
+library(gtools)     # for rdirichlet() - for generating random stock compositions
+library(mgcv)       # for fitting gams to the ratios for smoothing
+library(truncnorm)  # for generating random variables from a truncated normal distribution
+library(mvtnorm)    # for generating random variables from a multivariate normal distribution
+library(dplyr)      # data manipulation
+
+##### DIRECTORIES, FUNCTIONS, AND DIMENSIONS #####
+# set working directory to THE LOCATION OF THIS FILE
+working_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Policy1"
+# setwd(working_dir)
+
+# directories of other objects
+data_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/1_Data"
+func_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/2_Functions"
+func_dir2 = file.path(working_dir, "1_New_Functions")
+
+# loop through functions in func_dir and read each in separately
+funcs1 = dir(func_dir)
+funcs2 = dir(func_dir2)
+for (i in 1:length(funcs1)) {source(file.path(func_dir, funcs1[i]))}
+for (i in 1:length(funcs2)) {source(file.path(func_dir2, funcs2[i]))}
+
+# get the dimensions for this model into the workspace
+source("C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/Dimensions.R")
+
+need_chin = calculate.needed.harvest(yrs = 1990:2000, dw.need = 67200, spp = "chin")
+desr_chin = calculate.needed.harvest(yrs = 1990:2000, dw.need = 109800, spp = "chin")
+need_chsk = calculate.needed.harvest(yrs = 1990:2000, dw.need = 41200 + 32200, spp = "chsk")
+desr_chsk = calculate.needed.harvest(yrs = 1990:2000, dw.need = 116400 + 58700, spp = "chsk")
+p_chin = round(need_chin/sum(need_chin),3) * 100
+p_chsk = round(need_chsk/sum(need_chsk),3) * 100
+effort.list = calculate.effort(eff.per.usually = 1, eff.per.not.usually = 0.5, eff.yrs = 1990:2000, dw.eff = 800)
+villages = effort.list$reach.villages
+effort = effort.list$effort
+
+villages = unlist(lapply(villages, function(x) paste(x, collapse = ", ")))
+na = rep(NA, 26); names(na) = 1:26
+na[names(villages)] = villages
+villages = na
+
+tab = data.frame(reach = 1:26, villages, effort, 
+                 p_chin = paste(p_chin, "\\%", sep = ""), need_chin = StatonMisc::prettify(round(need_chin, -2)), desr_chin = StatonMisc::prettify(round(desr_chin, -2)),
+                 p_chsk = paste(p_chsk, "\\%", sep = ""), need_chsk = StatonMisc::prettify(round(need_chsk, -2)), desr_chsk = StatonMisc::prettify(round(desr_chsk, -2)), stringsAsFactors = F)
+
+total = data.frame("Total", "", 800, "100\\%", "67,200", "109,800", "100\\%", "73,400", "175,100")
+names(total) = names(tab)
+tab = rbind(tab[tab$effort != 0,], total)
+rownames(tab) = NULL
+
+colnames(tab) = c("\\textbf{Reach \\#}", "\\textbf{Villages in Reach}", "\\textbf{Effort}", "\\textbf{\\%}", "\\textbf{Min.}", "\\textbf{Max.}", "\\textbf{\\%}", "\\textbf{Min.}", "\\textbf{Max.}")
+kable(tab, "latex", booktabs = T, escape = F,
+      caption = "Key sociological quantities used in the operating model, broken down by spatial area (reach). Each reach is 35 km in main stem river length. Effort ($E_{\\text{MAX},r}$) is expressed as the maximum number of boats fishing per day in reach $r$. The \\% columns represent the average fraction of the total harvest by species that was harvested by villages within each reach over the period 1990 -- 2000. Harvest values have been rounded to the nearest 100 for ease of presentation, but the total column represents the sum of non-rounded quantities. Although these data were available through 2015, region stakeholders indicated that the recent years have been contaminated by harvest restrictions, and that these earlier years would be more representative.", align = "l") %>%
+  add_header_above(c("", "", "", "Chinook Salmon" = 3, "Chum/Sockeye Salmon" = 3), bold = T) %>%
+  group_rows("Lower River", 1, 6, bold = T, hline_after = T) %>%
+  group_rows("Middle River", 7, 13, bold = T, hline_after = T, hline_before = T) %>%
+  group_rows("Upper River", 14, 15, bold = T, hline_after = T, hline_before = T) %>%
+  row_spec(nrow(tab), bold = T) %>%
+  kable_styling("HOLD_position") %>% landscape()
+
+```
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/N-plot.jpg}
+  \caption{Distribution of total drainage-wide run size for Kuskokwim River Chinook salmon, as presented in \cite{liller-etal-2018}. This distribution was used to generate the run size of the aggregate Chinook salmon populations entering the fishery system in a simulated year. The secondary $y$-axis represents the probability of a run falling below a given run size according to the historical frequency of run sizes; where the solid line shows the empirical cumulative distribution function and the dashed line shows one obtained by fitting a kernel density smoother to the empirical data. The fitted distribution was used for simulation to prevent the same 42 run size values from being replicated in the analysis.}
+  \label{fig:N-plot}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/ratios-plot.jpg}
+  \caption{Smoothed species ratios of chum+sockeye:Chinook salmon as detected by the Bethel Test Fishery. Individual grey lines represent separate years from 1984 -- 2017, the grey region represents the central 50\% of all smoothed ratios on each day and the thick black line represents the daily median. Only this time period is shown because at ratios larger than 20, the differences in the influence of chum/sockeye salmon on Chinook salmon harvest by the subsistence fishery are negligable.}
+  \label{fig:ratios-plot}
+\end{figure}
+
+\clearpage
+
+\doublespacing

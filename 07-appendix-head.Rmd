@@ -1,0 +1,4 @@
+# (APPENDIX) Appendix {-}
+
+\captionsetup[figure]{list=yes}
+\captionsetup[table]{list=yes}
