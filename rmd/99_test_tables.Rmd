@@ -1,0 +1,21 @@
+
+```{r, include = F}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+
+# function to help split cells in tables
+add_break = function(x) {
+  
+  x = stringr::str_split(x, "\\(") %>% unlist
+  x = matrix(x, length(x)/2, 2, byrow = T)
+  x[,2] = paste("(", x[,2], sep = "")
+  x = apply(x, 1, function(z) paste(z, collapse = "\n"))
+  kableExtra::linebreak(x, align = "c")
+}
+```
+
+\singlespacing
+
