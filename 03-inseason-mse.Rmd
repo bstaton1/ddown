@@ -1,0 +1,732 @@
+# Evaluation of In-Season Harvest Management Strategies For Kuskokwim River Chinook Salmon using a Stochastic Simulation Model {#ch3}
+
+## Abstract {-}
+
+\noindent
+In-season management of Chinook salmon subsistence fisheries in large river basins is conducted in the presence of much uncertainty, primarily with respect to run size and timing. Managers must manipulate the amount of time in which fishing is allowed to ensure adequate escapement to sustain future harvests while simultaneously providing as much opportunity in the current year as possible. In doing so, they may use a set of decision rules to open or close the fishery based on either intuition or assessment information. Inferences about which strategies may perform better in certain circumstances can be informed using management strategy evaluation, an analytical method in which decision rules and information sources are tested against simulated conditions to measure likely management performance. I conducted a management strategy evaluation for in-season harvest management for the Kuskokwim River Chinook salmon subsistence fishery in western Alaska to test four primary management strategies that ranged in their complexity and information needs. Findings showed that all assessed strategies can perform well, but that the more complex strategies tended to perform better when the incoming run was small. Additionally, the optimal settings (i.e., aggressive or conservative with respect to fishing opportunity) of each strategy depended on run size, with conservative settings favored in smaller runs. The findings of this chapter extend the knowledge about in-season salmon harvest management strategies, which is mostly regarding commercial fisheries, to include subsistence fisheries as well and should be informative to fishery managers in the region.
+
+\newpage
+
+## Introduction
+
+\noindent
+In-season harvest management of Pacific salmon (_Oncorhynchus_ spp.) fisheries in large river systems is undertaken in the presence of a large amount of uncertainty about how to schedule fishing opportunities. In order to manage in a fully-informed way, a manager would require continuous and accurate information on arrival timing, run size, fleet dynamics, and harvest. With knowledge on these components, it would be theoretically possible to perfectly harvest the available surplus each year [@adkison-cunningham-2015]. In reality, these quantities (when available) are often highly uncertain [@adkison-peterman-2000; @flynn-hilborn-2004; @hyun-etal-2012] which results in difficulties in decision-making about how to best implement the fishery in order to meet a set of pre-defined objectives dealing with both conservation and exploitation.
+
+In addition to the substantial uncertainty in decision-making, there are often sharp trade-offs between competing objectives, such as the desire to provide adequate and equitable harvest opportunity _versus_ the desire to ensure adequate escapement [@catalano-jones-2014]. Oftentimes, managers are also concerned with spreading exploitation evenly among stock subcomponents [@schindler-etal-2010], but this may conflict with aspects dealing with the ideal time to harvest salmon as a result of weather or fish quality conditions [@carney-adkison-2014b; @adkison-cunningham-2015]. When given the task of balancing trade-offs such as these, the manager has the ability to manipulate the fishing gear used as well as the spatiotemporal distribution of fishing effort by opening or closing the fishery for various amounts of time, though it is rarely clear as to how to manipulate these management "levers" to achieve the desired outcomes. Presumably, different strategies to performing these manipulations (termed "management strategies") will exhibit differential performance at meeting the objectives and balancing trade-offs.
+
+Management strategy evaluation (MSE) has been proposed as a powerful tool for determining how to manage exploited natural resource systems with competing management objectives [@cooke-1999; @butterworth-2007]. MSE is a stochastic simulation-based analytical technique whereby management strategies are evaluated by comparing their relative performance at meeting pre-defined objectives under simulated (though realistic) conditions. A management strategy can be thought of as all of the steps that encompass the collection of data, subsequent analyses, and resulting decision-making surrounding the exploitation of a resource. The MSE approach tests a range of such strategies to find the one(s) that are likely to be most robust to uncertainty and balance trade-offs. This approach is powerful as it can provide general insights without having to test strategies on the real system, which would be incredibly time-intensive (each year is one sample) and costly given that some candidate strategies can be risky [@walters-martell-2004]. @punt-etal-2014 outlined a set of 7 steps to an MSE that must be conducted in order for the analysis to be meaningful:
+
+(1)	identification of management objectives and performance measures for each; preferably under the direction of stakeholders and managers,
+
+(2)	identification of the key uncertainties present in the system (biological, assessment, implementation, etc.),
+
+(3)	identification of candidate management strategies for evaluation,
+
+(4)	development of one or more models that serve as the representation of the real system including reasonably realistic representations of biological and fishery components (termed the "operating model"),
+
+(5)	selection of parameters to drive the operating model in accordance with the real system,
+
+(6)	simulation of executing each strategy using the operating model(s), and
+
+(7)	summary of performance measures, and presentation to managers and stakeholders.
+
+Two broad classes of strategies could be conceived for in-season salmon management: effort control using either (1) a fixed schedule set at the start of the season or (2) a feedback strategy where the fishery is opened or closed in response to in-season data [i.e., management by emergency order, @adkison-cunningham-2015]. There exist many substrategies that fall into these two broad categories based on (1) the level of risk aversion on the part of the manager (i.e., aggressive _versus_ conservative) and (2) the timeliness and reliability of information available to the manager. In general, more complex strategies will require more data to inform their implementation [@carney-adkison-2014b]. Given the wide range of strategy complexity, it is worthwhile investigating if more complex (and data-intensive) strategies provide better management performance than simpler strategies that use less information. @carney-adkison-2014a and @carney-adkison-2014b evaluated feedback _versus_ fixed schedule strategies for sockeye salmon (_O. nerka_) stocks in Bristol Bay, Alaska, and found trade-offs between maximizing harvest and reducing inter-annual variability in harvest magnitude as well as spreading harvest pressure among substock components. @su-adkison-2002 evaluated a set of schedule-based strategies that ranged in their aggressiveness and found differences in strategy performance based on which objective carried most weight in utility functions, which implies that trade-offs exist.
+
+An MSE analysis for subsistence salmon fisheries in large drainages (such as the Yukon and Kuskokwim systems in western Alaska) necessitates different considerations than these two examples which focused on commercial fisheries. While the types of strategies considered and conservation-based objectives (adequate escapement and temporally-distributed harvest) are broadly consistent, the fleet dynamics and harvest-based objectives may be different. Subsistence fishers are less concerned with maximizing harvest as they are with maintaining consistent harvests that meet their needs and that harvest opportunities allow exploitation consistent with cultural practices (e.g., time of season and frequency of opportunities). The fleet dynamics of subsistence fisheries are quite different than commercial fisheries in that they are limited by processing capacity and have a fixed targeted harvest for the season. Due to this processing capacity, harvest of targeted species (such as Chinook salmon _O. tshawytscha_) in subsistence fisheries is limited by the species composition, sometimes expressed as a ratio of chum (_O. keta_) + sockeye:Chinook salmon. Subsistence fishers must stop fishing when they reach their processing capacity, and when this ratio is high (e.g., > 20), the catch will be dominated by chum/sockeye salmon. In-season harvest management strategies have that acknowledge these characteristics have not been evaluated for subsistence salmon fisheries, highlighting a clear need for work that focuses on this topic.
+
+In this chapter, I investigate the performance of a variety of in-season harvest control rules for subsistence salmon fisheries in large drainage systems using a MSE approach. Though the analysis will be tailored to the Kuskokwim River Chinook salmon subsistence fishery, the framework developed will be general enough for application to other in-river salmon fisheries in large drainages in which the primary users are subsistence fishers. The objectives of the analysis will be to:
+
+(1) develop a stochastic simulation model of the Kuskokwim River fishery system that allows simulation of a wide range of biological conditions,
+
+(2) assess the performance of several realistic in-season harvest management strategies that capture a range of complexity in their management dexterity and need for information, and
+
+(3) highlight the strength of trade-offs between competing objectives, and find management strategies that might balance them better than others.
+
+## Methods
+
+\noindent
+The analysis was carried out by developing a stochastic simulation model of a subsistence salmon fishery system and imposing several management strategies separately. The operating model, which simulated the system dynamics, was tailored to the Kuskokwim River subsistence salmon fishery and had a spatiotemporal structure (see Section \@ref(om)). Four primary strategies were identified (see Section \@ref(strategies)) based on input from managers, biologists, and stakeholders from the Kuskokwim River drainage, as well as from academic experts in the field of Pacific salmon management. These strategies were explicitly selected to explore a range of complexity, with more complex strategies requiring more information for their implementation. Each primary strategy had several substrategies varied in the degree of aggressiveness in allowing fishing opportunities according to the rules of the primary strategy. Each management strategy was tested by simulating many hypothetical and independent salmon seasons in a Monte Carlo framework such that performance was tested at many different run scenarios including run size size, run timing, and species composition. Performance of each strategy and substrategy was assessed relative to the attainment of four objectives (Section \@ref(objectives)) using a set of utility functions (Section \@ref(utility-funcs)). 
+
+### Identification of management objectives {#objectives}
+
+\noindent
+As indicated by @punt-etal-2014, the objectives selected for evaluation in an MSE analysis should be informed by communications with stakeholders and managers to determine what outcomes are deemed desirable. As part of a complementary project intended to build capacity in the engaged representatives from the local stakeholder group, four multi-day workshops were held in Alaska over the period spanning autumn 2015 -- 2017. The workshops were led by by experts in meeting facilitation and salmon biology and management and were highly interactive. Presentations were given about the difficulties in salmon management, the basics of their biology, the ways information can be used in decision-making, and ways that simulation models can be used to evaluate management strategies. In the first of these workshops, stakeholders and managers were solicited for input regarding which outcomes are important to their view. Based on the themes that emerged, four main objectives for Chinook salmon management at the in-season level were identified. This is a critical component of this study, because the objectives define the necessary complexity of the operating model and they provide the context for measuring which strategies might perform better than others. They can be grouped as follows:
+
+\noindent
+\underline{Sustainability-based}
+
+(1) Ensure adequate drainage-wide Chinook salmon escapement to the spawning grounds to support sustained subsistence yields into the future,
+
+(2) Ensure that the Chinook salmon substocks have even exploitation rates within a given year,
+
+\noindent
+\underline{Exploitation-based}
+
+(3) Ensure that Chinook salmon subsistence harvest needs are met at the basin-scale,
+
+(4) Ensure that when Chinook salmon harvest restrictions are necessary, the burdens are spread evenly among the various villages.
+
+\noindent
+This list is provided here to set the context for the rest of the methods, see Section \@ref(utility-funcs) for a description of the utility functions used to measure the attainment of each objective. In this analysis, it was assumed that the abundance of chum/sockeye salmon was high enough to meet both harvest and escapement needs, so no objectives were developed regarding their management.
+
+### Assessed management strategies {#strategies}
+
+\noindent
+A set of four primary in-season harvest management strategies were evaluated for this analysis. Managers in large salmon-producing river basins have the tools of time, area, and gear restrictions at their disposal for managing harvest. Strategies assessed here focused primarily on the time (i.e., when in the season fishing is allowed) aspect of these tools. Each of the four strategies represented a different way of determining if the fishery should be open on a given day of the season. Given the historical season for Chinook salmon (the species of interest in this analysis) management in the Kuskokwim River, each strategy focused on a five week period between June 1 and early July. Based on Chinook salmon run timing through the lower Kuskokwim River (50% complete on June 22 in an average year, see Chapter \@ref(ch2), this dissertation) and the timing that chum and sockeye salmon become vastly dominant in the species composition of the run (Figure \@ref(fig:ratios-plot)), it is only during this time that management actions affecting subsistence harvest can have any meaningful impact on the attainment of Chinook salmon objectives (both those based in conservation and exploitation).
+
+#### Strategy #1: "Closed until open"
+
+\noindent
+Under this first and most naïve management strategy, the simulated manager selected a single day on which to open the entire fishery, before which it remained completely restricted (closed) and after which it remained unrestricted (open) for the rest of the season. The decision of which day to open was not explicitly informed by any "previous data" on the part of the manager, or changed based on in-season information. I evaluated three reasonable dates to start the fishery: June 1, June 12, and June 23. These dates represent the historical average 1%, 12%, and 55% percentage points of the Chinook salmon run as indexed by the Bethel Test Fishery [@bue-lipka-2016].
+
+#### Strategy #2: "Forecast-based fixed schedule"
+
+\noindent
+Under this strategy, the manager used a pre-season run size forecast (described in Section \@ref(fcst)) with which to inform the decision about how often fishing opportunities should be provided. This was conducted by developing categories (hereafter "bins") of run sizes that triggered a decision regarding how many days to allow fishing in each week: e.g., if the run was forecast to be less than 80,000 Chinook salmon, the number of days of fishing allowed per week would be less than if the the run was forecast to be between 130,000 and 180,000. Substrategies were represented by three different sets of schedules conditional on the pre-season forecast, ranging from conservative (fewer fishing days per week) to aggressive (more days per week). 
+
+In developing these schedules that dictated how many days ($D$) the fishery would be open during week $w$ conditional on a forecast falling in bin $b$, three main qualities were desired. First, for any week $w \ge 0$ and forecast bin $b \ge 0$, $D_{w,b}$ for conservative schedules should be less than the neutral and aggressive schedules, and aggressive schedules should have the highest $D_{w,b}$ in the same $w$ and $b$. Second, $D_{w,b}$ should generally increase as the forecast bin increases -- i.e., years with larger anticipated runs can allow fewer restrictions to the fisher. Finally, $D_{w,b}$ should generally increase as the season progresses (increasing $w$), because the species composition shifts towards chum/sockeye salmon later in the season lessening the concern for high catches of Chinook salmon that may endanger the ability to meet escapement needs.
+
+\noindent
+I developed a linear model that would return $D_{w,b}$ depending on the week $w$, forecast bin $b$, and schedule type (i.e., aggressive _versus_ conservative; Figure \@ref(fig:ms2-schedules)). The model took the form:
+
+\begin{equation}
+  D_{w,b} = \delta_0 + \delta_1C + \delta_2A + \delta_3 w + \delta_4 Cw + \delta_5 Aw + \delta_6 b^2 + \delta_7 bw,
+  (\#eq:gen-ms2-schedule)
+\end{equation}
+
+\noindent
+where $C$ and $A$ are dummy variables indicating either conservative or aggressive schedules, respectively, $w$ is the week index (five weeks: $0 \le w \le 4$), $b$ is the forecast bin index (five bins: $0 \le b \le 4$). $A$ and $C$ are mutually exclusive and $A$ = $C$ = 0 for the neutral schedule. The vector $\delta$ contains coefficients for how $D_{w,b}$ depends on the values of the covariates ($C$, $A$, $w$, and $b$):
+
+\[
+\delta=
+  \begin{bmatrix}
+    0.25&
+    -0.25&
+    0.25&
+    0.25&
+    -0.50&
+    0.50&
+    0.50&
+    0.50
+  \end{bmatrix}
+\]
+
+\noindent
+For example, in the first week ($w = 0$), first bin ($b = 0$), and the neutral schedule ($A$ = $C$ = 0), $D_{w,b}$ = $\delta_0$ = 0.25. For the same $b$ and $w$, $D_{w,b}$ = $\delta_0 + \delta_1$ = 0 for the conservative schedule ($C = 1$) and $D_{w,b}$ = $\delta_0 + \delta_2$ = 0.5 for the aggressive schedule. The slope of conservative and aggressive schedules differ from the neutral schedule by -0.5 and 0.5 days/week in all bins, respectively, and all slopes increase by 0.5 days/week for each increase in bin. The intercept of all schedules increases by $0.5b^2$ days for each increase in the bin. Cases in which $D_{w,b}$ would exceed 7 days were rescaled such that $D_{w,b} = 7$, the same was done to prevent $D_{w,b} < 0$.
+
+#### Strategy #3: "Forecast/ratio-based variable schedule"
+
+\noindent
+This strategy was similar to Strategy #2 in that it used a pre-season forecast to set a schedule for each week, though rather than treating the different possible schedules as conservative or aggressive substrategies, the manager treated them as tactics to be employed selectively based on additional information. The manager made this selection based on in-season species composition information collected at a simulated test fishery site (described in Section \@ref(tf)). The species composition (expressed as a ratio in terms of chum+sockeye:Chinook salmon) is an important aspect of the fishery, because subsistence fishers are self-limited in the number of fish they can successfully process per fishing trip, and Chinook salmon harvest can be limited during times when the species ratio is high. Based on the historical percentile of the ratios in the previous week ($\phi_{p,w-1}$), the manager selected either the conservative, neutral, or aggressive schedule for the appropriate forecast bin $b$ for use in week $w$ as indicated in Figure \@ref(fig:ms2-schedules). 
+
+Three substrategies were assessed, dealing with how the trigger percentiles were selected, as shown in Table \@ref(tab:ms3-ratio-table). The "neutral" set of ratio trigger points specified that the manager would employ conservative schedules in accordance with the forecast bin until $\phi_{p,w-1}$ exceeded the 33% percentile of all historical ratios, at which point they would use the appropriate neutral schedule (from Figure \@ref(fig:ms2-schedules)). If at any $w$, $\phi_{p,w-1}$ exceeded the 66% percentile, the manager would switch to the aggressive schedule. The rationale here is that the more chum and sockeye there are relative to each Chinook salmon, the fewer Chinook will be caught and the more opportunity can be allowed for species of non-conservation concern. The "conservative" substrategy used cut-offs of 66% and 85% to make these transitions, and the "aggressive" substrategy used cut-offs at 15% and 33% (Table \@ref(tab:ms3-ratio-table)). The resulting ratio trigger points are shown in Table \@ref(tab:ms3-ratio2-table).
+
+#### Strategy #4: "Explicit harvest target"
+
+\noindent
+Under this strategy, the manager took on a much more active decision-making process wherein they decided how many days to allow fishing in each week of the season based on an explicit harvest target ($H_T$) selected probabilistically to ensure some escapement threshold ($S_L$) would be exceeded that season. This was the most complex management strategy, as the manager needed to know how much harvest had been taken to date and how long they should allow fishing each week based on how many fish they wish to allow to be caught. $H_T$ was apportioned among weeks ($H_{T,w}$) according to historical Chinook salmon run timing and represented the number of Chinook salmon the manager wishes to see harvested in week $w$. $H_{T,w}$ could be updated in response to (1) whether in-season abundance index data suggest the Chinook salmon run is either smaller or larger than forecast or (2) whether harvest data suggest the fishery is either ahead of or behind schedule in meeting $H_T$. 
+
+This strategy had two main phases as shown in Figure \@ref(fig:ms4-flow-diag). In the pre-season phase, managers used a forecast, management target, and risk tolerance to set a value for $H_T$ and $H_{T,w}$ to start the season. Then, the in-season phase proceeded as a weekly cycle of Bayesian abundance estimation (described in Section \@ref(bayes-updates)), re-evaluation of $H_T$ in accordance with updated knowledge and $S_L$, determination of remaining harvest, a decision of the number of days to fish based on an updated $H_{T,w}$, and estimation of harvest outcomes. 
+
+Three substrategies were formulated by building three different "harvest tables" which dictated how many days the fishery should be open in week $w$ based on the value of $H_{T,w}$ and differed in how aggressive or conservative they were (Figure \@ref(fig:ms4-schedules)). The neutral table started with 0.5 days for the case of $0 < H_{T,w} \le 5,000$ and increased by 1 day for each additional 5,000 Chinook salmon in $H_{T,w}$. The aggressive harvest table resulted in fishing 1.5 times as many day as the neutral table for all $H_{T,w} > 0$. If this rule would result in greater than 7 days it was capped at 7 days. The conservative table was constructed the same way except with 0.5 times as many days as the neutral table.
+
+The probabilistic approach to selecting and updating the season-wide harvest target ($H_T$) in this fourth and most complex assessed management strategy is a relatively novel approach to the management of Pacific salmon fisheries [but see @catalano-jones-2014 for another application using simulation techniques]. The problem is to select some value for $H_T$ that will ensure the drainage-wide total escapement ($S$) will exceed some critical escapement limit threshold ($S_L$) with probability equal to $1 - P^*$. The quantity $P^*$ represents a manager's tolerance for risk of seeing the undesirable outcome of $S < S_L$ occur. $\Pr(S<S_L|H_T)$ can be calculated from a cumulative probability density function expressing beliefs about total run size. If $F_N$ is this expression of beliefs, then $F_N(S_L + H_T)$ = $\Pr(N < S_L + H_T)$ = $\Pr(S<S_L|H_T)$. The value $H_T$ can be manipulated to ensure the condition $\Pr(S<S_L) < P^*$ is satisfied. When new information accumulates in $F_N$ (through Bayesian updating; Section \@ref(bayes-updates)), $H_T$ can be updated as well to ensure the condition is still satisfied. For this analysis, $S_L = 65,000$ [the lower bound of the current drainage-wide escapement goal for Chinook salmon; @hamazaki-etal-2012] and $P^* = 0.1$. This probabilistic harvest control rule is similar to those used in marine fisheries when setting sustainable fishing mortality targets, and explicitly accounts for uncertainty and risk when determining allowable fishing activity based on limit management reference points [@prager-etal-2003; @shertzer-etal-2010].
+
+### Description of the operating model {#om}
+
+\noindent
+The role of the operating model was to simulate the true dynamics of the fishery system, which included the important dynamics of the biological (i.e., the salmon) and social (i.e., the fishers) components of the fishery. The operating model was structured such that important spatial and temporal dynamics of fish and fishers in the Kuskokwim River subsistence salmon fishery could be captured. The biological and fishery components of the operating model were informed using as much empirical information as possible (see Appendix \@ref(appendix-a) for a description of data sources and preparation for use in these contexts). Furthermore, simulated outcomes of the fishery components (i.e., magnitude and spatiotemporal distributions of Chinook salmon harvests) under a "no management" scenario were compared to those observed in historical data in years the subsistence fishery was unrestricted (Appendix \@ref(appendix-b)). This was an important validation of the behavior of the operating model to ensure it adequately reproduced the patterns and variability of inter-annual observations from the real system according to the best available scientific information.
+
+The operating model tracked in-river salmon abundance, fishing effort, harvest, and escapement in each of in each of 26 discrete river reaches (hereafter indexed by $r$) along the main stem Kuskokwim River over the span of approximately 130 days (late-May to the start of October; hereafter indexed by $d$). Although the month of June and early July are the primary salmon harvest periods in the Kuskokwim River subsistence fishery, this long temporal scale was needed to allow all simulated fish to migrate completely through the entire Kuskokwim River model. The operating model was written in Program R [@r-cite]. 
+
+#### Biological components {#om-biology}
+
+\noindent
+The biological submodel was made up of two aggregate salmon populations: one Chinook salmon population and one of chum and sockeye salmon together. Chinook salmon are the species of primary management interest in this analysis; the other species were included because harvest dynamics for Chinook salmon are influenced by the relative abundance of all three species in the harvesting gear. The Chinook salmon population was subdivided into three spatially-explicit substocks representing spawning aggregations in the lower, middle, and upper reaches of the drainage, which was necessary to assess the equal exploitation rate objective and enforce the realities of in-river sequential (i.e., "gauntlet") fisheries. River entry timing and relative abundance of each Chinook substock was informed by Kuskokwim River telemetry studies [@stuby-2007; @smith-liller-2017a; @smith-liller-2017b]. These studies indicate that the middle river substock is the largest (~60% of the total abundance) and enters the river mixed with the tail-end of the upper river substock (~20% of the total abundance). The lower river substock enters mixed with the middle river substock and is approximately the same size as the upper river substock. 
+
+To initialize the model, the size of the total abundance of Chinook salmon ($N_{tot}$) that would return to the system in the simulated year was obtained as a random sample from a distribution with density equal to that fitted to the historical distribution of run sizes over the period [1976 -- 2017; as presented in @liller-etal-2018 and further described in Appendix \@ref(mse-data-N)]. The total annual abundance of each Chinook salmon substock ($N_s$) was then obtained:
+
+\begin{equation}
+  N_s=N_{tot} \pi_s,
+  (\#eq:get-ns)
+\end{equation}
+
+\noindent
+where $\pi_s$ is a Dirichlet random vector representing the proportion of the total run made up of fish returning to each of the three Chinook salmon substocks with hyperparameters informed by the distribution of radio telemetry tagged fish (see Appendix \@ref(mse-data-pi) for details). The number of fish from each Chinook salmon substock that entered the first reach each day of the season was then populated:
+
+\begin{equation}
+A_{d,1,s}=N_s p_{d,s},
+  (\#eq:get-chin-entry)
+\end{equation}
+
+\noindent
+where $A_{d,1,s}$ is in-river abundance on day $d$ in reach $r = 1$ for substock $s$ and $p_{d,s}$ is a run timing variable representing the fraction of the run from that substock entering on that day of the season. $p_{d,s}$ was modeled using a logistic density function, standardized to sum to one within each substock over the season:
+
+\begin{equation}
+  p^{\prime}_{d,s} = \frac{e^{\frac{d-D_{50,s}}{h_s}}}{h_s \left(1 + e^{\frac{d-D_{50,s}}{h_s}} \right)^2},
+  (\#eq:get-p-prime)
+\end{equation}
+
+\begin{equation}
+  p_{d,s}=\frac{p^{\prime}_{d,s}}{\sum_d p^{\prime}_{d,s}},
+  (\#eq:get-p)
+\end{equation}
+
+\noindent
+where $p^{\prime}_{d,s}$ are elements of the unstandardized timing curve as given by the substock-specific location ($D_{50,s}$) and scale ($h_s$) parameters, also informed using the telemetry data (Appendix \@ref(mse-data-ss-timing)). Detailed information regarding total abundance or spatial differences in run timing of various substocks of Kuskokwim River chum and sockeye salmon is not available. Accordingly, the aggregate population representing these species was modeled using historical estimates of daily relative abundance from a long time series of a standardized catch-per-effort (CPE) index [the Bethel Test Fishery -- BTF; @bue-lipka-2016]. Daily relative abundance was represented by $\phi_d$, calculated as the observed ratio of the CPE of chum + sockeye salmon to Chinook salmon (Appendix \@ref(mse-data-ratios)). Simulated entry timing and abundance of the chum/sockeye aggregate stock was obtained from the total daily entering abundance of Chinook salmon and a randomly drawn annual vector of $\phi$ from the historical data set:
+
+\begin{equation}
+  A_{d,1,4}=\phi_d \sum_{s=1}^3 A_{d,1,s}
+  (\#eq:get-chsk-entry)
+\end{equation}
+
+The movement of fish through the main stem of the river was modeled using a "boxcar" approach [@walters-martell-2004], in which each reach had associated rates of in-river "mortality" (i.e., the removal of fish from the main stem due to fishery harvest and escapement). The main stem mortality rate resulting from fish escaping to spawning tributaries for reach $r$ for substock $s$ ($\psi_{r,s}$) was obtained using the historical telemetry studies (Appendix \@ref(calc-esc-p)) and represented the fraction of all fish from substock $s$ that survived all harvesters prior to and including reach $r$ that would spawn in a tributary with a main stem confluence in reach $r$. As telemetry information was only available for Chinook salmon ($s$ = 1, 2, or 3), $\psi_{r,s}$ for the chum/sockeye stock ($s$ = 4) was assumed to be the same as for Chinook salmon, though with the removal of the spatial substock structure (Table \@ref(tab:esc-p-table)). Many factors contributed to the simulated fishing mortality rate in reach $r$ on day $d$, as described in Section \@ref(om-fishery), though it was assumed that fishing mortality occurred before escapement mortality:
+
+\begin{equation}
+  S_{d,r,s}=\psi_{r,s} \left(A_{d,r,s} - H_{d,r,s} \right),
+  (\#eq:get-esc)
+\end{equation}
+
+\noindent
+where $S_{d,r,s}$ is escapement and $H_{d,r,s}$ is harvest. Any fish that survived these sources of main stem mortality remained in the main stem, but would transition to the next reach on the next day with probability equal to one:
+
+\begin{equation}
+  A_{d+1,r+1,s}=A_{d,r,s}-H_{d,r,s}-S_{d,r,s}
+  (\#eq:move-fish)
+\end{equation}
+
+\noindent
+All reaches were assigned a length of 35 km, which is the approximate mean estimated travel distance per day for Chinook salmon in the main stem Kuskokwim River [@smith-liller-2017a; @smith-liller-2017b]. 
+
+#### Fishery components {#om-fishery}
+
+\noindent
+There were five primary factors used to model the subsistence fishery dynamics in each reach: (1) maximum daily effort ($E_{\text{MAX},r}$; effort expressed in boat trips per day), total maximal salmon need by species,  maximum daily salmon catch per boat per day (abbreviated by $CPB$; maximum is denoted $CPB_{\text{MAX}}$), (4) effort responses to fishery conditions, and (5) a measure of fishery selection for different species. Since 1990, the Alaska Department of Fish and Game (ADF&G) has conducted rigorous post-season sampling from the 26 villages in the Kuskokwim River documenting the number of fishing households and salmon harvest by species [these estimates are presented in @hamazaki-2011; @carroll-hamazaki-2012; @shelden-etal-2014; @shelden-etal-2015; @shelden-etal-2016a; and @shelden-etal-2016b]. This wealth of information was used to inform maximal salmon need and effort (described in Appendices \@ref(mse-data-needs) and \@ref(mse-data-effort), respectively) for villages in each reach _r_. $CPB_{\text{MAX}}$ and effort responses were informed by recent studies of the in-season subsistence fishery dynamics in the lower Kuskokwim River [@staton-coggins-2016; @staton-coggins-2017; @staton-2018] and fishery selection was obtained by comparing these data with the catches at the BTF on the same day in the same years.
+
+An effort response model was needed to replicate observed patterns in effort dynamics in recent years, namely that effort declines as the season progresses [@staton-coggins-2016; @staton-coggins-2017; @staton-2018]. This decline is thought to be a result of two primary factors: attainment of harvest needs and in-river species composition, but finer-scale factors are certainly at play as well. A logit-linear model was constructed to specify the fraction of maximum fishing effort that would fish in each reach each day if the fishery were open ($p_{E,d,r}$):
+
+\begin{equation}
+  \text{logit}(p_{E,d,r})=\beta_0 + \beta_1 full_{d,r} + \beta_2 stop_{d,r} + \beta_3 \delta_{d-1,r,CH} + \beta_4 \delta_{d-1,r,CS} + \beta_5 \phi_{d,r}
+  (\#eq:effort-response)
+\end{equation}
+
+\noindent
+The effort response model operated on a reach-specific basis, and had five terms in addition to the intercept ($\beta_0$):
+
+\noindent
+\underline{Time of season effects: $\beta_1$ and $\beta_2$}
+
+\noindent
+$\beta_1$ was an effect used to increase effort to near-full capacity after a critical date. The indicator $full_{d,r}$ took on a 0 value prior to this date and a 1 after it; the critical date was in early June for the first reach and increased by one-quarter day for each upstream reach. This effect was intended to capture the behavior that few fishers will participate early in the season before many fish have arrived in their area. Additionally, it is reasonable to expect that essentially all lower-river fishers will be done fishing for Chinook, chum, and sockeye salmon by mid-July [@hamazaki-2008], so the $B_2$ coefficient was included to force effort to drop to near 0 around this time for lower-river villages, where $stop_{d,r}$ had the same one-quarter day lag for upstream villages as done for $full_{d,r}$.
+
+\noindent
+\underline{Attainment of subsistence needs effects: $\beta_3$ and $\beta_4$}
+
+\noindent
+The covariates $\delta_{d-1,r,CH}$ and $\delta_{d-1,r,CS}$ represented the cumulative fraction of met needs by villages in reach $r$ as of the previous day for Chinook and chum/sockeye salmon, respectively. $\beta_3$ and $\beta_4$ had negative values, which reflected the nature of a subsistence fishery that more fishers will exit the fishery as the season progresses and more harvest needs are met.
+
+\noindent
+\underline{Species composition effect: $\beta_3$ and $\beta_4$}
+
+\noindent
+$\beta_5$ was a response to the local in-river species ratio of chum+sockeye:Chinook salmon. It has been observed in recent years that effort declines as the season progresses (and chum/sockeye become more abundant in-river) even when Chinook, chum, and sockeye salmon needs are far from being met (as defined by the Amounts Reasonably Necessary for Subsistence Needs as determined by the Alaska Board of Fisheries; ANS; Table \@ref(tab:socio-spatial-table)). The important mechanism captured here is that the species composition and abundance of chum and sockeye salmon becomes so high in late June (Figure \@ref(fig:ratios-plot)) that it is not uncommon to catch several dozen fish of these species in a single gill net drift, which may be undesirable to some fishers given limited processing and storage capacity.
+
+The general pattern that arises from this model is low effort early in the season due to low in-river abundance and catch rates, a peak when most harvesting activity occurs due to favorable catch rates, and a rapid decline as salmon needs are met. The coefficients were selected to generally reproduce recent observations of effort dynamics [@staton-coggins-2016; @staton-coggins-2017; @staton-2018] and historical harvest timing data [@hamazaki-2008; @hamazaki-2011 and see Appendix \@ref(appendix-b) for a validation]. Coefficient values were $\beta_0 = 0$; $\beta_1 = 3$; $\beta_2 = -100$; $\beta_3 = -4$; $\beta_4 = -5.5$, and $\beta_5 = -0.05$ -- note that the effect for attainment of Chinook salmon needs was weaker than that of chum/sockeye. This indicates that effort should decline more quickly with the attainment of chum/sockeye needs rather than for Chinook salmon, which was intended to reflect the desirability of the latter species to subsistence fishers in the Kuskokwim drainage.
+
+Subsistence fishers are limited by processing time and space, and thus have a self-imposed catch limit. $CPB_{\text{MAX}}$ was needed to prevent $CPB$ from being proportional to in-river abundance at high salmon densities. A value of 60 total salmon per day was used, and came from a mixture of recent observations [@staton-coggins-2016; @staton-coggins-2017; @staton-2018] and from speaking with stakeholders about their harvest and processing behavior.
+
+It has been observed that fishers in the Kuskokwim River do not target all salmon species in proportion to their relative abundance as indexed by the BTF [@staton-coggins-2016; @staton-coggins-2017; @staton-2018]. Whether due to a size-selective bias of the gear or due to fisher preference, the observed species ratio in the fishery is typically skewed more towards Chinook salmon than is the BTF on the same days, by a factor of approximately 0.6. That is, if the BTF (which is assumed to sample the vulnerable relative abundance representatively) exhibits a species ratio of 15:1 (chum+sockeye:Chinook), the fishery would be expected to exhibit a species ratio of 9:1. This selectivity correction was included into the fishery model when apportioning harvest to species.
+
+Realized effort on day $d$ in reach $r$ ($E_{d,r}$) was calculated by combining $E_{\text{MAX},r}$, $p_{E,d,r}$, and the fraction of a 24-hour day the fishery was open ($F_{d,r}$):
+
+\begin{equation}
+  E_{d,r} = p_{E,d,r} E_{\text{MAX},d,r} F_{d,r}
+  (\#eq:get-E)
+\end{equation}
+
+\noindent
+$F_{d,r}$ was manipulated by the management strategies presented in Section \@ref(strategies). Total salmon harvest ($H_{d,r,tot}$) was obtained as:
+
+\begin{equation}
+  H_{d,r,tot}=\text{min} \left(1 - e^{-E_{d,r} q} \sum_{s=1}^4 A_{d,r,s}, \space E_{d,r} CPB_{\text{MAX}} \right)
+  (\#eq:get-H)
+\end{equation}
+
+\noindent
+The term $1 - e^{-E_{d,r} q}$ is equivalent to a daily exploitation rate in the absence of processing capacity, and includes effort and catch efficiency (i.e., catchability; $q$). The minimum statement in \@ref(eq:get-H) enforces the maximum daily harvest per boat trip. This total salmon harvest was apportioned to each Chinook salmon substock based on (1) the known level of selectivity towards Chinook salmon and (2) the relative abundance of each substock $s$. That is, the species ratio of $H_{d,r,tot}$ was reduced from the true species ratio $\phi_{d,r}$ by a factor of 0.6 to obtain Chinook and chum/sockeye salmon harvest, then the Chinook salmon harvest was apportioned by the substock relative abundance. The maximum daily exploitation rate of any $A_{d,r,s}$ was capped at 0.9.
+
+### Simulated assessment data collection
+
+\noindent
+The simulated assessment structure differed based on the management strategy used based on the richness of information required for each management strategy: e.g., Strategy #1 (closed until open) required no information whatsoever whereas Strategy #4 (explicit harvest target) required a pre-season forecast, in-season abundance data, a method to update abundance perceptions, and weekly in-season harvest estimates. Only data sources that could be useful for in-season management were simulated, e.g., because weir projects that assess escapement to specific tributaries are located so far from the bulk of the fishery they are not useful to determining in-season harvest opportunities.
+
+#### Pre-season run size forecast {#fcst}
+
+\noindent
+Pre-season forecasts of Chinook salmon total abundance were obtained as a bias-corrected lognormal random deviate from the true run:
+
+\begin{equation}
+  \log\left(N_{tot,fcst}\right) \sim \text{N}(-\frac{\sigma_F^2}{2}, \sigma_F)
+  (\#eq:get-fcst)
+\end{equation}
+
+\noindent
+where $\sigma_F = 0.27$ which is the estimated standard deviation of historical forecast errors using the current forecast method (presented in Staton and Catalano _In Press_^[DOI: \url{https://doi.org/10.1139/cjfas-2018-0176}]). When used in Strategies #2 and #3, only the point estimate of $N_{tot,fcst}$ was used to categorize the run as being a member of one of five discrete run size "bins", as displayed in Figure \@ref(fig:ms2-schedules). When used in Strategy #4, the uncertainty in the forecast method was incorporated by treating the forecast as a bias-corrected lognormal probability density function (PDF), with standard deviation equal to $\sigma_F$.
+
+#### Test fishery index {#tf}
+
+\noindent
+A test fishery that produced daily catch-per-effort ($CPE_{TF,d,j}$) for each salmon stock $j$ ($n_j$ = 2; one aggregate Chinook salmon stock and one aggregate chum/sockeye stock) was simulated in the first river reach and was assumed to index the run prior to any fishery harvest. The test fishery had an expected daily catchability ($q_{TF}$) and two sources of sampling variability: a catchability deviation representing annual fluctuations in river conditions and age/size composition of the incoming run [@flynn-hilborn-2004] and daily fluctuations in fish vulnerability:
+
+\begin{equation}
+  CPE_{TF,d,j} = A_{d,1,j} \space \frac{e^{q_{TF} + \varepsilon_{TF,y} + \gamma_{TF,d}}}{1+e^{q_{TF} + \varepsilon_{TF,y} + \gamma_{TF,d}}}
+  (\#eq:get-tf-cpe)
+\end{equation}
+
+\noindent
+where $A_{d,1,j}$ is the total abundance of fish from species $j$ each day in the first reach, and $\varepsilon_{TF,y}$ and $\gamma_{TF,d}$ are logit-scale sampling errors operating on the annual and daily time scales, respectively. These sampling errors were normally-distributed with standard deviations equal to $\sigma_{\varepsilon} = 0.15$ and $\sigma_{\gamma} = 0.2$ and $q_{TF}$ was set to 0.004 -- these settings resulted in simulated test fishery with similar properties as the Bethel Test Fishery. Daily species compositions were expressed as the ratio of chum+sockeye:Chinook salmon:
+
+\begin{equation}
+  \phi_{TF,d} = \frac{CPE_{TF,d,CS}}{CPE_{TF,d,CH}}
+  (\#eq:get-tf-ratio)
+\end{equation}
+
+\noindent
+where $j = CH$ for Chinook salmon and $j = CS$ for chum/sockeye salmon.
+
+#### Bayesian updates of perceived run abundance {#bayes-updates}
+
+\noindent
+In assessed Strategy #4, the manager used in-season information regarding run abundance contained in the sampled values of $CPE_{TF,d,CH}$ to update the PDF provided by the pre-season forecast in a Bayesian framework. The analytical methods to perform this Bayesian update were identical to those presented in Staton and Catalano (\textit{In Press}), however, a brief description will be provided here. Based on a regression relationship fitted to historical data of the form:
+
+\begin{equation}
+  \log(N_{tot,y}) = \hat{\beta}_{0,d} + \hat{\beta}_{1,d}\sum_{k=1}^d{CPE_{TF,k,CH,y}} + \hat{\varepsilon}_{N,y,d},
+  (\#eq:tf-reg)
+\end{equation}
+
+\noindent
+it is possible to predict total annual abundance on any day $d$ of the season from the sum of all observed $CPE_{TF,CH}$ data through day $d$. Thirty historical years were simulated for fitting this historical relationship, which is highly variable for low values of $d$ as a result of run timing and sampling variability, though becomes more informative as $d$ increases and the run approaches completion. Uncertainty was propagated to predictions of abundance _via_ Monte Carlo simulation of the regression parameters and residuals from their respective estimated sampling distributions as described in Staton and Catalano (\textit{In Press}). This process yields a daily distribution of likely run size outcomes according to the in-season data alone, and can be viewed as new evidence with which to update prior information. The prior distribution each day was the PDF of the pre-season run forecast, and the PDF of abundance predictions from \@ref(eq:tf-reg) was used as the likelihood to obtain the posterior PDF, denoted by $\text{Pr}(N_{tot}|CPE_{TF,d})$.
+
+#### Weekly harvest estimates {#harv}
+
+\noindent
+In assessed Strategy #4, the manager had the ability to track in-season Chinook salmon harvest, such that progress toward attainment of the season-wide harvest target ($H_T$) could be monitored. Weekly harvest estimates were produced as random deviates from a symmetric truncated normal distribution with mean equal to the true weekly harvest, coefficient of variation (CV) equal to 15%, and lower and upper boundaries at 0 and 2 $\times$ true weekly harvest, respectively -- these boundaries ensured unbiased and all positive harvest estimates. A CV of 15% was used because this is the approximate CV obtained using the in-season harvest estimation method developed and employed by @staton-coggins-2016, @staton-coggins-2017, and @staton-2018. Cumulative estimated harvest was obtained by summing weekly estimates; uncertainty in harvest estimation was not considered. Estimates were created only for the villages within the Yukon Delta National Wildlife Refuge (YDNWR; reaches 1 -- 9; Table \@ref(tab:socio-spatial-table)); this is a small enough area to be surveyed feasibly and it accounts for approximately 95% of all historical subsistence Chinook salmon harvest in the Kuskokwim River drainage [@hamazaki-2011].
+
+### Utility functions {#utility-funcs}
+
+\noindent
+Due to the lack of a common scale to the various objectives (Section \@ref(objectives)), it was important to devise metrics than can be compared between objectives. These metrics are termed "utility functions", and here they are on the scale of [0,1], where 0 indicates complete failure to meet an objective and 1 indicates complete success. Objectives can then be weighted based on their importance to different managers and an aggregate score can be obtained as a weighted sum across the different utilities. Each objective received a unique utility function, as described below. 
+
+#### Attainment of aggregate escapement needs {#S-metric}
+
+\noindent
+Adequate escapement is the primary conservation objective, and is necessary to ensure the Chinook salmon stock can continue to produce adequate subsistence yields in the future. Thus, a rational metric to use is one based on the ability of the escaping spawning abundance to produce enough adult recruits to allow for attainment of subsistence harvest needs. The best scientific understanding of this ability is based in population dynamics of the stock, specifically the spawner-recruit dynamics. If the @ricker-1954 spawner-recruit model is to believed [as is often done in salmon population analyses, @fleischman-etal-2013, see Chapter \ref{ch4}, this dissertation as well], then there is a theoretical spawner abundance, termed $S_{\text{MAX}}$, that is most likely to produce maximum recruitment, termed $R_{\text{MAX}}$. $R_{\text{MAX}}$ may be a more important metric for subsistence salmon fisheries than maximum sustained yield, given subsistence fishers tend to value consistently high abundance and catch rates over simply maximizing their long-term catch [@hamazaki-etal-2012]. I generated the utility function using a curve that represented the probability that a given escapement will produce 90% of $R_{\text{MAX}}$ under equilibrium conditions, which would ensure high future catch rates and enough surplus of Chinook salmon to meet subsistence needs in the long-term. 
+
+To obtain this curve, termed a probability profile [@fleischman-etal-2013], I fitted the Bayesian state-space model presented in @hamazaki-etal-2012 to the Kuskokwim River aggregate population data over the period 1976 -- 2017 using JAGS [@plummer-2017]. This utility function assigned high utility (> 0.9) to escapements between approximately 70,000 -- 125,000, with lower utility on either end outside of this range (Figure \@ref(fig:R-max-profile)). One important consideration, however, is that if the Chinook salmon run is larger than approximately 230,000 fish, the subsistence fishery alone, which has historically harvested a maximum of approximately 110,000 fish [@hamazaki-2011], cannot harvest enough fish to place escapement within that range. This fact is important when considering the value of this metric in very large runs.
+
+#### Even substock exploitation rates {#U-metric}
+
+\noindent
+In the absence of any information regarding the productivity of the different Chinook salmon substocks within the Kuskokwim River drainage, the default preference would be that all substocks should receive the same exploitation rate ($U_s = \frac{H_s}{N_s}$; but see Chapter \@ref(ch4) for a study regarding methods used to obtain such estimates). Thus, I attempted to find a metric that would have a high value (near 1) if all Chinook salmon substocks had relatively equal $U_s$ and that would provide a low value (near 0) if the $U_s$ were vastly uneven. One such metric is the Schutz coefficient [@schutz-1951; @habib-2012], which is often used in econometrics to measure income inequality [e.g., @kennedy-etal-1996]. The Schutz coefficient takes the form:
+
+\begin{equation}
+  z = \frac{\sum_i^n|x_i-\bar{x}|}{2\sum_i^nx_i},
+  (\#eq:schutz)
+\end{equation}
+
+\noindent
+where $x_i$ is the income of earner $i$, $\bar{x}$ is the average income among all $n$ earners, and $z$ is the Schutz coefficient. Technically speaking, this index represents the fraction of the total income that would need to be redistributed reach perfect equity ($z = 0$), which has earned it an alternate name: the "Robin Hood Index." Here it is viewed simply as an index of evenness among substock-specific exploitation rates within a given year.
+
+Several modifications were made to the Schutz coefficient in \@ref(eq:schutz) for use in this utility metric. First, $U_s$ was substituted for $x_i$ and $n=3$ to represent the three simulated Chinook salmon substocks. Second, given perfect equity (or evenness) of exploitation rates would be deemed a success, the complement of the Schutz coefficient was obtained for the utility function: $z^\prime = 1 - z$. Third, the smallest value attainable for $z^\prime$ is $n^{-1}$ but a complete failure needed to be represented by 0 to be consistent with the other utility functions. Thus, $z^\prime$ was normalized to be on the [0,1] scale:
+
+\begin{equation}
+  z^{\prime\prime} = \frac{z^\prime-n^{-1}}{1 - n^{-1}}
+  (\#eq:mod-schutz)
+\end{equation}
+
+\noindent
+Finally, if all $x_i$ elements are 0, $z^{\prime\prime}$ is undefined. In these cases, $z^{\prime\prime}$ was assigned the utility of 1, given the $U_s$ are even. Several examples of this utility function are presented in Table \@ref(tab:schutz-table). 
+
+#### Attainment of aggregate subsistence needs
+
+\noindent
+The Alaska Board of Fisheries has produced ANS ranges, which represent the range of salmon harvests by species that would reasonably be expected to meet subsistence salmon needs of fishers in the Kuskokwim River drainage (Appendix \@ref(mse-data-needs)). This range is 67,200 -- 109,800, with a midpoint of 88,500. A "hockey-stick" utility function for drainage-wide Chinook salmon harvest was used that reached its maximum at 1 if harvest was above the midpoint of the ANS range, and a fraction of it ($H_{CH}$/88,500) otherwise.
+
+#### Evenness of subsistence harvests
+
+\noindent
+In addition to meeting the needs of the aggregate population of subsistence fishers, it is also generally desirable that Chinook salmon harvest be distributed evenly among the villages in each region (relative to their salmon needs). Thus, I used the same modified Schutz coefficient ($z^{\prime\prime}$) shown in Section \@ref(U-metric) to quantify evenness of need-adjusted harvests (harvest/need) for villages located in the lower, middle, and upper regions of the Kuskokwim Drainage (Table \@ref(tab:socio-spatial-table)). In this case, high utility would be placed on outcomes in which a relatively equal fraction of Chinook salmon needs were harvested by villages in these regions. 
+
+#### Total Utility
+
+\noindent
+The four objectives and utility metrics described above were collapsed into one measure that allowed quantification of overall performance and simple comparisons between strategies. This metric, termed total utility ($V_T$) was calculated as the weighted sum across each of the four objective-specific metrics:
+
+\begin{equation}
+  V_T = V_S \omega_S + V_U \omega_U + V_H \omega_H + V_E \omega_E
+  (\#eq:get-vt)
+\end{equation}
+
+\noindent
+where $V_x$ and $\omega_x$ represent the utility measure and weighting factor for objective $x$, respectively ($S$ = aggregate escapement, $U$ = even $U_s$, $H$ = aggregate harvest, $E$ = equitable harvest). The default case assigned equal weight to each objective, but three alternate weighting schemes were assessed as well to determine the sensitivity of conclusions to this choice (Section \@ref(alt-weights)).
+
+### Monte Carlo simulation
+
+\noindent
+For each assessed strategy, _M_ = 5,000 hypothetical runs were simulated with different total Chinook salmon run size, aggregate and substock-specific entry timings, substock compositions, and species compositions. Assessment errors were introduced randomly as well and each substrategy was tested on the Monte Carlo sample. The utility for each objective was calculated for each simulated year and strategy and was saved for summarization.
+
+### Summarization of management performance
+
+\noindent
+Two levels of post-stratification of run types was conducted to facilitate inference. First, runs were stratified into 5 categories based on total Chinook salmon abundance ($N_{tot}$): [50K,80K], (80K,130K], (130K,180K], (180K,230K], and (230K,450K], and were the same as the bins used to categorize pre-season run size forecasts for Strategies #2 and #3. These were selected roughly based on the level of needed management restrictions to ensure the subsistence fishery would not harvest too many fish to damage escapement utility. Runs in the first two strata may require substantial restrictions, those in the third and fourth may require light or no restrictions, and the majority of runs in the fifth strata should require no management whatsoever to ensure near full attainment of the escapement and harvest objectives. Second, run timing was stratified into 3 categories: >3 days early, >3 days late, and all runs. The average utility value across Monte Carlo samples for each strategy/substrategy was calculated for each objective in each run size/timing stratum. 
+
+#### Within-strategy comparisons
+
+\noindent
+Substrategies within each of the four primary strategies were compared at each run size stratum for each utility metric. The effect of run timing variability was assessed by qualitatively assessing which strategies had largely different outcomes for either the "early" or "late" strata than the "all" stratum.
+
+#### Between-strategy comparisons
+
+\noindent
+The best-performing substrategy in each run size stratum across all run timing strata according to the total utility measure was extracted and its performance was compared to that of other strategies. In selecting the best substrategy, it often occurred that negligible differences were found between substrategies according to the total utility metric ($V_T$): in these cases of a "tie" (defined as a case where the second best substrategy was within 5% of the best) the substrategy that performed best with respect to escapement utility was selected for comparison, if that was again a tie, then utility measures from all substrategies included in the tie were averaged and noted as a "hybrid" substrategy. 
+
+#### Evaluation of sensitivity to weighting schemes {#alt-weights}
+
+\noindent
+The default case was to weight all four metrics equally when obtaining total value ($\omega_S$ = $\omega_H$ = $\omega_E$ = $\omega_U$ = 1), but three other weighting schemes were used for sensitivity analyses:
+
+*  _Simple-view_: $\omega_S$ = 1; $\omega_H$ = 1; $\omega_E$ = 0; $\omega_U$ = 0
+
+*  _Escapement-oriented_: $\omega_S$ = 1$; \omega_H$ = 0.5; $\omega_E$ = 0.25; $\omega_U$ = 0.75
+
+*  _Harvest-oriented_: $\omega_S$ = 0.5$; \omega_H$ = 1; $\omega_E$ = 0.75; $\omega_U$ = 0.25
+
+\noindent
+The "simple-view" is intended to focus only on the two primary objectives of salmon management, and the escapement- _versus_ harvest-oriented scenarios are opposites of one another, with the aggregate objective ($V_S$ or $V_H$) in each case carrying the most weight followed by the spatial distribution objectives ($V_U$ or $V_E$).
+
+In calculating the total utility ($V_T$; the only basis for comparison here), it was important to restandardize it for comparisons between weighting schemes ($\omega_x$). This is because these different combinations have differing maximally-attainable $V_T$. For example, the maximum attainable $V_T$ for the "simple-view" case is 2, but it is 4 for the default case. For this comparison, the different $V_T$ values for each weighting scheme were rescaled to be a fraction of the maximally-attainable $V_T$ for that weighting scheme ($\sum_x \omega_x$).
+
+## Results
+
+### Operating model realism
+
+\noindent
+The operating model was found to adequately capture the important dynamics of the fishery when left unrestricted with respect to total harvest magnitude as well as spatiotemporal patterns in the distribution of Chinook salmon harvest at a range of all simulated run sizes, timings, and species/stock compositions (Appendix \@ref(appendix-b)). Some amount of fine-tuning was required of the catchability parameter ($q$) and the effort response model coefficients ($\beta_n$) to reproduce these patterns, however no behaviors arose that seemed highly questionable. In general, the level of simulated inter-annual variability was similar to that observed in the historical data (Appendix \@ref(appendix-b)). Based on these findings, inference regarding policy performance proceeded under the assumption that the operating model reasonably captured the system dynamics. 
+
+### Within-strategy comparisons
+
+#### Strategy #1: "Closed until open"
+
+\noindent
+Strong patterns were found in the relative performance of the different substrategies of assessed Strategy #1 (Figure \@ref(fig:ms1-utilities)), particularly with regards to the expected utility for the aggregate harvest ($V_H$) and escapement ($V_S$) objectives. In the "smallest" simulated runs (< 80,000), only the June 23 substrategy resulted in any measurable amount of escapement utility ($V_S \approx 0.2$), the other two assessed earlier dates resulted in $V_S$ near 0. This finding in the smallest runs was not at all sensitive to the timing with which simulated Chinook salmon entered the river (as indicated by the overlap in the three lines, Figure \@ref(fig:ms1-utilities)). In "small" simulated runs (80,000 -- 130,000), more escapement utility was attained for each substrategy, but the declining pattern remained. In these runs, however, run timing variability did greatly impact the ability to meet escapement needs: late runs had the tendency to result in higher $V_S$ even when the river was opened completely beginning on June 1. Escapement utility was generally highest in the "medium-sized" runs (130,000 -- 180,000), with all three substrategies resulting in $V_S \geq 0.8$ and little sensitivity to run timing. The June 23 substrategy resulted in the lowest $V_S$ in "large" runs between 180,000 -- 230,000, as a result of allowing many Chinook salmon to escape; the case was the same for all substrategies of the "largest" runs (> 230,000), but in these runs there is no management action that could allow the subsistence fishery to harvest enough fish to obtain high escapement utility according to the function used (Figure \@ref(fig:R-max-profile)). Greater harvest utility was obtained with earlier opening dates, as would be expected given Chinook salmon abundance becomes overwhelmed by chum and sockeye salmon in the later part of June. These results highlight a trade-off between harvest and escapement in runs smaller than 130,000: earlier fishing resulted in more harvest, but less escapement utility.
+
+Harvest equity ($V_E$) was maximized at the intermediate substrategy (June 12) for small runs, but reached its maximum with the earliest date with larger runs. The utility resulting from equal exploitation rates ($V_U$) was flat over the continuum of assessed start dates, however there was a slight trend for later fishing dates to have higher values of $V_U$. Run timing influenced the value of $V_U$ as well, with earlier runs generally having greater utility. The default total utility metric ($V_T$; obtained with all weights $\omega_x = 1$) was roughly equal between substrategies in small runs (indicating that each balanced the trade-offs differently), whereas $V_T$ was greatest for the intermediate and earliest start dates in larger runs (i.e., more aggressive start dates).
+
+Given the relatively small changes in the $V_E$ and $V_U$ metrics between substrategies, I thought it important to look more closely at patterns with the raw output of exploitation rate by substock ($U_s$; Figure \@ref(fig:U-v-N)) and the fraction of salmon needs that were met (Figure \@ref(fig:pNeed-v-N)). With respect to $U_s$, the most noticeable difference between substrategies was that the exploitation rate for all substocks was lower for the late opening dates than for early opening dates (Figure \@ref(fig:U-v-N)). Due to the limiting nature of the subsistence fishery, the exploitation rates declined with increasing run sizes. In all substrategies, the exploitation rate of the upper river substock was greater than for the lower and middle river substocks, however this difference declined as the opening date was delayed. Regarding the evenness of attainment of harvest needs between villages in different regions of the drainage, the greatest unevenness was found for large runs combined with the June 23 substrategy, in which upper river fishers often exceeded their minimal needs but lower river fishers obtained less than half of theirs. Overall, the changes in these raw output values seemed more substantial than what was indicated by the use of the modified Schutz coefficient, as shown in Figure \@ref(fig:ms1-utilities).
+
+#### Strategy #2: "Forecast-based fixed schedule"
+
+\noindent
+Just as in assessed Strategy #1, the expected utilities for the aggregate harvest ($V_H$) and escapement ($V_S$) objectives were those most influenced by the choice of substrategy of assessed Strategy #2. The conservative substrategy resulted in higher $V_S$ in small runs, but at the cost of lower $V_H$ (Figure \@ref(fig:ms2-utilities)). In large runs, however, there was much less contrast in substrategy performance. Run timing variability again played a key role in determining management success: small runs tended to have higher $V_S$ when the run was late (but lower $V_H$), whereas late runs were a detriment to the success of both objectives in larger runs. It was only in small runs that harvest equity ($V_E$) or harvest rate evenness ($V_U$) were sensitive to the selection of substrategy -- in medium and the large run scenarios these metrics were essentially equal along the continuum of conservative to aggressive fishing schedules. In general, Strategy #2 was also influenced by run timing variability (though less so than Strategy #1), and particularly in larger run sizes. $V_T$ was largely the same between substrategies, with a slight tendency to favor more aggressive schedules in nearly all run size categories.
+
+#### Strategy #3: "Forecast/ratio-based variable schedule"
+
+\noindent
+Substrategies of assessed Strategy #3 (Figure \@ref(fig:ms3-utilities)) showed high similarity to the patterns in Strategy #2. The only difference of note between these two strategies was the difference in utility between substrategies was smaller for Strategy #3 than for Strategy #2 (i.e., overall shallower slopes in Figure \@ref(fig:ms3-utilities)) than in Figure \@ref(fig:ms2-utilities). 
+
+#### Strategy #4: "Explicit harvest target"
+
+\noindent
+The choice of the particular substrategy used for Strategy #4 had less of an impact on escapement or harvest utility than substrategies of Strategies #1-3 (Figure \@ref(fig:ms4-utilities)) in small runs. This indicates that the performance of this strategy in small runs was insensitive to the particular harvest table used (i.e., the linkage between the weekly harvest target and number of fishing days, Figure \@ref(fig:ms4-schedules)). This is likely a result of the probabilistic choice of a harvest target -- because this method accounted for uncertainty in run abundance and risk in failing to meet the escapement limit, the harvest target was probably low enough in these small runs to where it did not matter which substrategy was used, they would all suggest very few fishing days per week. In larger runs, where the harvest target was larger, more contrast was found between substrategy performance with respect to harvest and escapement. Run timing variability affected the performance of this strategy, and as in other strategies the effect was strongest at large run sizes. $V_E$ and $V_U$ were generally unaffected by the choice of substrategy, but there was a slight tendency for the aggressive harvest table to exhibit lower values than the conservative one.
+
+### Between-strategy comparisons
+
+\noindent
+After extracting the best substrategy from each of the four primary strategies at each run size (across all run timing scenarios), it was clear that conservative/neutral substrategies were favored in small runs and aggressive substrategies in large runs (Figure \@ref(fig:btwn-ms-utilities); note the predominance of light grey in left panels and darker grey in the right panels). Ties between substrategies were more common in larger runs, indicating the details of strategy implementation had less influence in larger runs.  The largest differences in management performance between strategies were with respect to aggregate escapement and harvest in small and intermediate sized runs -- the harvest equity and evenness of exploitation rate metrics were largely insensitive to the selection of strategy at all run sizes. In the smallest runs, Strategy #4 was strongly favored over other strategies with respect to escapement, likely as a result of its inherent risk aversion built into the probabilistic selection of the harvest target. However, Strategy #4 tended to result in less harvest utility in nearly all run sizes than the other strategies, indicating that more complexity in the decision rules still leaves room for management mistakes, but that they err on the side caution. Within a run size category, there was a high degree of similarity in total utility among strategies at all run sizes, though a weak pattern emerged that favored more complex strategies (#4) in small runs and simpler strategies (#1-3) in larger run scenarios.
+
+### Sensitivity to weighting schemes
+
+\noindent
+It is important to consider how these findings regarding total utility might depend on how the various utility functions were weighted. The major pattern that arose was that when the weights were adjusted to the simple-view or escapement-oriented scenarios, the tendency to favor conservative substrategies in small runs was more apparent -- the "harvest-oriented" weighting scenario favored either neutral or aggressive substrategies in even the smallest run sizes (Figure \@ref(fig:btwn-ms-weights)). The pattern of high similarity in overall performance between strategies remained, but there was a tendency to favor Strategy #4 (the most complex) more in the escapement-oriented weighting scenario than in the harvest-oriented weighting scenario (Figure \@ref(fig:btwn-ms-weights)). According to the "simple-view" weighting scenario, relative performance in the smallest runs was much lower in comparison to other run sizes than using other weighting schemes (Figure \@ref(fig:btwn-ms-weights)). This is because only the aggregate harvest and escapement objectives were considered in the simple view case (and both objectives score low in these smallest runs), whereas other weighting scenarios included the spatial distribution of these quantities in measuring management performance. 
+
+## Discussion
+
+\noindent
+The dominant trade-off I found, not surprisingly, was between harvest and escapement in small runs (< 130,000). These runs do not have enough fish to allow for both high escapement and harvest utility, and given every fish that is harvested cannot also escape, it is clear as to why this is the case. The trade-off was identified because for most strategies, the more conservative substrategies tended to have higher escapement utility and lower harvest utility, and _vice versa_. In larger runs, this trade-off was not present, given enough fish were available for both objectives.
+
+One of the more surprising findings in my view was the high degree of similarity in total utility ($V_T$) between management strategies (after filtering the best-performing substrategy). As an example, I expected that the explicit harvest target approach in Strategy #4 would strongly outperform the fixed schedule strategy (Strategy #2) because of its timely response to information. I see two plausible explanations for why the more complex strategies did not perform overwhelmingly-better in most cases. First, it is possible that the harvest table approach was too simple in Strategy #4. It is likely that managers may adapt the table based on run abundance or species composition. A more involved approach still would be to select fishing duration each week ($D_w$) based on an explicit prediction of how many fish would be captured conditional on each value of $D_w$ under consideration. The candidate that results in predicted weekly harvest nearest to the desired weekly harvest ($H_{T,w}$) would then be selected. Understanding of the fishery dynamics at various run sizes would be required to trust these predictions strongly, but recent studies [@staton-coggins-2016; @staton-coggins-2017; @staton-2018] have gone a long way towards providing this understanding for runs in the small category. These predictions can be made very simply as the product of three anticipated quantities and one policy variable: total boats/day $\times$ salmon catch/boat/day $\times$ % Chinook in catch $\times$ $D_w$. A second explanation is that the additional dexterity gained by a more complex strategy is only as good as the information informing it, and it is possible that it was too weak to implement Strategy #4 well. I attempted to mimic the properties of the data sources collected for in-season management in the Kuskokwim River; it is possible that more precise run assessment methods (e.g., sonar) would provide better information to implement this policy.
+
+There are relatively few studies in the literature similar to the one presented here to allow comparison. @carney-adkison-2014a and @carney-adkison-2014b conducted analyses comparing fixed schedules and feedback strategies (referred to as "daily management" or "management by emergency order" therein). In both cases, they found the more complex feedback strategy did increase average annual catch without putting escapement at risk, but also resulted in more inter-annual variability in catch than the fixed schedule strategy. Inter-annual variability was not investigated in my analysis, but I found that the feedback strategies (those that used information collected in-season; Strategies #3-4) tended to result in the same or less harvest in most run sizes compared to the simpler fixed-schedule strategies (those that used no or only pre-season information; Strategies #1-2; Figure \@ref(fig:btwn-ms-utilities)). Additionally, @carney-adkison-2014a state that a fixed schedule should perform better at spreading exploitation among stock components, but my analysis did not support this claim: I found that all strategies had highly similar performance with respect to evenness of exploitation rates. This was probably a result of the complexity of the operating model I constructed, which captured the behavior that fishers fish most intensively early in the season if allowed and incorporated a limiting effect of chum/sockeye salmon on Chinook salmon harvest through the processing capacity of subsistence fishers. 
+
+Examination of substrategy performance revealed that often the choice regarding the best depended on run size: more neutral or conservative substrategies were selected in small runs (< 130,000) and more aggressive substrategies in larger runs (> 180,000). This finding simply suggests that, regardless of the particular strategy being employed, it should not be implemented the exact same each year. Fishing schedules must be updated to adequately target which outcomes are likely to influence success that year. For example, in the smallest runs, it is possible to obtain moderate escapement utility ($V_S$ = 0.7 with Strategy #4) with very little fishing activity. However, the most harvest utility possible in these runs is low ($V_H$ = 0.4 with Strategy #1, June 1) and if this were enacted $V_S$ would be 0. Clearly the more important objective in small runs such as these is escapement, so managers should adapt the strategy to behave in a more conservative way. The situation reverses in intermediate and large sized runs, where it is possible that both $V_H$ and $V_S$ benefit from more aggressive fishing (within reason). This finding makes intuitive sense, and to most salmon managers it was almost certainly known _a priori_ to this analysis. However, this analysis (and ones like it) are useful in helping define these transition points and defining what a set of conservative _versus_ aggressive schedules might look like.
+
+In terms of robustness to variability in run timing, I found that all strategies were sensitive in large runs, but that only Strategy #1 was sensitive in small runs. This makes intuitive sense given Strategy #1 used only one "decision", and that was the day to open the fishery completely. As a result, an early opening date coupled with an early run is likely to produce more Chinook salmon harvest than the same opening and a late run because of the timing with which chum and sockeye salmon begin to dominate the species composition. If the Chinook salmon run shows up early, then a larger fraction of their run is vulnerable to lower river fishers before chum and sockeye salmon enter in large numbers and trigger the processing capacity limit, coupled with an early opening would result in high harvest. Conversely, if the Chinook run is early but coupled with a late opening, then Chinook harvest is likely to be low because much of the run has passed the lower river fishery. These dynamics can be easily understood because of the simple nature of Strategy #1. In the more complex strategies, more factors influenced the number of fishing days per week than simply the time of the season. For example, schedules for Strategies #2-3 were explicitly chosen to have fewer days early in the season than later in the season to prevent catching too many Chinook salmon when the abundance is high relative to other species. Furthermore, sampling variability was introduced into the decision-making process that could also serve to swamp the influence of run timing variability. Increased sensitivity at large run sizes was likely a result of the fact that more is at stake in large runs from a harvest perspective: there is more surplus in these years, and a proportional reduction in a large harvest affects the $V_H$ utility function more than the same proportional reduction in a small harvest.
+
+The final primary finding was that the weighting of objectives in the total utility function did influence the inference, but only regarding which substrategies (not strategies) were best and only in small runs. The escapement-oriented weighting scheme suggested that conservative substrategies performed better in these small runs. Weighting did not, however, change the inference that the different strategies performed similarly within a run size category. This indicates that perhaps managers with different inherent weights on their objectives should not necessarily change their decision rules entirely from other managers, but instead that they may just fine-tune the details of their implementation (e.g., specific trigger points).
+
+The approach I used did have some weaknesses. First, inference regarding strategy performance conditioned on the particular objectives selected for this purpose, and more specifically, on the utility functions used to measure the degree of their attainment for each hypothetical salmon run. Each manager/stakeholder may have different objectives (or different ways to weight them), but the performance metrics were built around the four dominant themes discussed in management and stakeholder meetings regarding management objectives and the sensitivity to different weighting schemes (which might represent different managers or stakeholders) was assessed. Second, this simulation analysis required that the management strategy be expressed as a rigorous control rule, where the decision would be made the same way each time the same information was available. In reality, managers do not operate this way -- one control rule cannot simultaneously consider all sources of information in such a programmatic way. This fact limits the realism of the analysis, but is not unique to these kinds of MSE analyses. 
+
+A population dynamics submodel was not incorporated into the operating model primarily because I deemed it unnecessary to evaluate performance of in-season management strategies. Incorporation of a population dynamics submodel would move the analysis away from its focus on in-season strategies to long-term harvest control rules and the optimal level and spatial distribution of escapement. While these issues are important to address, I wanted this analysis to focus on the different ways a manager could behave in-season to meet a set of objectives they care about meeting in any given year (irrespective of population dynamics). This focus assumes that attainment of objectives specified here is indicative of good long-term performance. In contrast, if the focus of the analysis was on the long term performance of the objectives themselves (e.g., finding the best escapement goal), then a multi-year simulation approach with embedded population dynamics would be necessary. This type of approach would allow for management mistakes or successes in any given year to propagate to future years which, while potentially interesting, was beyond the scope of my study.
+
+The primary characteristic that sets my analysis apart from other salmon MSE analyses is that it focused on in-season decision rules for subsistence fisheries, which behave quite differently than commercial fisheries such as the ones modeled by @carney-adkison-2014a and @carney-adkison-2014b. As a result, I was able to assess strategies that exploit the characteristics of subsistence fisheries: namely declining effort with attainment of harvest needs and the self-limiting nature resulting from processing capacity. To my knowledge, strategies that acknowledge these characteristics have not been assessed using stochastic methods such as the one I used, making this work a novel contribution to the body of knowledge regarding in-season salmon management. Managers and stakeholders in the region may find the results informative as an objective evaluation of management strategy performance -- a key point of interest here will be that there are several suitable strategies that could be implemented. At the very least it should serve to illustrate the concepts of how the in-season component could be modeled should a more-engaged participatory strategy evaluation process aimed at long-term performance is desired in the future. 
+
+\clearpage
+
+\begin{singlespace}
+
+```{r ms3-ratio-table}
+
+Conservative = c("$\\phi_{p, w-1} \\le 66\\%$",
+         "$66 \\% < \\phi_{p, w-1} \\le 85\\%$",
+         "$\\phi_{p, w-1} > 85\\%$"
+         )
+
+Neutral = c("$\\phi_{p, w-1} \\le 33\\%$",
+         "$33 \\% < \\phi_{p, w-1} \\le 66\\%$",
+         "$\\phi_{p, w-1} > 66\\%$"
+         )
+
+Aggressive = c("$\\phi_{p, w-1} \\le 15\\%$",
+         "$15 \\% < \\phi_{p, w-1} \\le 33\\%$",
+         "$\\phi_{p, w-1} > 33\\%$"
+         )
+
+
+Schedule = c("Conservative", "Neutral", "Aggressive")
+
+tab = cbind(Schedule, Conservative, Neutral, Aggressive)
+colnames(tab) = paste("\\textbf{", colnames(tab), "}", sep = "")
+
+kable(tab, "latex", booktabs = T, escape = F, align = "lccc",
+      caption = "Species ratio trigger point cut-offs used in Strategy \\#3. $\\phi_{p, w-1}$ is the percentile of the average daily species ratio detected in the previous week at the simulated test fishery site when taken in context of all historical species ratios for week $w-1$. Different substrategies are shown in the three columns: different thresholds that indicate when the manager should switch from using different schedules (as shown in Figure \\ref{fig:ms2-schedules}). For example, the neutral version of Strategy \\#3 would employ the conservative schedules following the pre-season forecast as shown in Figure \\ref{fig:ms2-schedules} until the species ratio exceeds the 33\\% percentile of all historically observed ratios.") %>%
+  add_header_above(header = c("", "Species Ratio Thresholds for Substrategies of #3" = 3), bold = T)
+```
+
+\clearpage
+
+```{r ms3-ratio2-table}
+###################################################################################################
+######################### MASTER FILE FOR IN-SEASON CLOSED-LOOP VOI ANALYSIS ######################
+###################################################################################################
+
+# :::::::::::::::::::::::: #
+# AUTHOR: BEN STATON       #
+# :::::::::::::::::::::::: #
+# LAST UPDATED: 1/5/2019   #
+# :::::::::::::::::::::::: #
+
+# clear the workspace
+rm(list = ls(all = T))
+
+# packages
+library(reshape2)   # data manipulation: turn to long form/wide form
+library(gtools)     # for rdirichlet() - for generating random stock compositions
+library(mgcv)       # for fitting gams to the ratios for smoothing
+library(truncnorm)  # for generating random variables from a truncated normal distribution
+library(mvtnorm)    # for generating random variables from a multivariate normal distribution
+library(dplyr)      # data manipulation
+
+##### DIRECTORIES, FUNCTIONS, AND DIMENSIONS #####
+# set working directory to THE LOCATION OF THIS FILE
+main_dir = "C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse"
+
+# data and function directory locations
+data_dir = file.path(main_dir, "Common", "1_Data")
+func_dir = file.path(main_dir, "Common", "2_Functions")
+func_dir2 = file.path(main_dir, "Policy3", "1_New_Functions")
+
+# loop through functions in func_dir and read each in separately
+funcs1 = dir(func_dir)
+funcs2 = dir(func_dir2)
+for (i in 1:length(funcs1)) {source(file.path(func_dir, funcs1[i]))}
+for (i in 1:length(funcs2)) {source(file.path(func_dir2, funcs2[i]))}
+
+# get the dimensions for this model into the workspace
+source(file.path(main_dir, "Common", "Dimensions.R"))
+
+# get the schedule rules
+schedules = read.csv(file.path(main_dir, "Policy3", "MS2_Schedules.csv"))
+
+# prepare all historical ratios
+ratio.pool = 1984:2016; ratio.pool = ratio.pool[!(ratio.pool %in% c(1985, 1986, 1996, 2000, 2001))]
+all.ratios = sapply(ratio.pool, ratio.prep)
+rownames(all.ratios) = days
+colnames(all.ratios) = ratio.pool
+
+# set up decision days: the first day of weeks 1 - 5
+f_day_week = weeks[!duplicated(weeks)]
+decision_days = as.numeric(names(f_day_week[f_day_week %in% 1:5]))
+f_day_week = as.numeric(names(f_day_week))
+
+# set ratio percentiles for when to be conservative, neutral, or aggressive
+# rows are substrategies, first column is when you switch to neutral, second is when you switch to aggressive
+cuts = rbind(
+  c(0.66, 0.85),
+  c(0.33, 0.66),
+  c(0.15, 0.33)
+)
+
+ratio_thresholds = array(NA, dim = c(5, 2, 3))
+
+for (w in 1:5) {
+  lw = w-1
+  lw.hist.ratio = colMeans(all.ratios[weeks == lw,])
+  for (p in 1:3) {
+    ratio_thresholds[w,,p] = round(quantile(lw.hist.ratio, c(cuts[p,1], cuts[p,2])), 1)
+  }
+}
+
+t1 = t(ratio_thresholds[,1,])
+t2 = t(ratio_thresholds[,2,])
+
+tab = cbind(
+  rep(c("Conservative", "Neutral", "Aggressive"), 2),
+  rbind(t1, t2)
+)
+
+colnames(tab) = paste("\\textbf{", c("Ratio Trigger Substrategy", 1:5), "}", sep = "")
+
+kable(tab, "latex", booktabs = T, align = "lccccc", escape = F,
+      caption = "Specific species ratio trigger points used in assessed Strategy \\#3 when selecting which schedule type (Figure \\ref{fig:ms2-schedules}) to employ. For example, a manager in week 3 using the conservative substrategy would use the conservative schedule unless the average species ratio last week was above 1.4, at which point they would switch to the neutral schedule. Date ranges belonging to each week are shown in Figure \\ref{fig:ms2-schedules}. These trigger points were obtained from the cut-off rules shown in Table \\ref{tab:ms3-ratio-table}.") %>%
+  group_rows("Trigger Switch from Conservative to Neutral Schedules", 1, 3,
+             hline_after = T, escape = F) %>%
+  group_rows("Trigger Switch from Neutral to Aggressive Schedules", 4, 6, 
+             hline_after = T, hline_before = T, escape = F) %>%
+  add_header_above(c("", "Week" = 5), bold = T)
+
+```
+
+\clearpage
+
+```{r schutz-table}
+
+source("C:/Users/bas0041/Dropbox/Dissertation/Analysis/2_inseason-mse/Common/2_Functions/utility_funcs.R")
+
+x1 = c(1,1,1)
+x2 = c(0.1,0.1,0.1)
+x3 = c(0.4,0.4,0.5)
+x4 = c(0.4,0.4,0.7)
+x5 = c(0.3,0.3,0.9)
+x6 = c(0.15,0.3,0.9)
+x7 = c(0,0.1,0.9)
+x8 = c(0,0,0.1)
+
+x = rbind(x1, x2, x3, x4, x5, x6, x7, x8)
+
+zprime = apply(x, 1, function(z) round(U_metric(z), 2))
+
+x = apply(x, 2, function(z) paste(z * 100, "\\%", sep = ""))
+tab = cbind(x,zprime)
+
+colnames(tab) = c("$x_{\\text{Lower}}$", 
+                  "$x_{\\text{Middle}}$",
+                  "$x_{\\text{Upper}}$",
+                  "$z^{\\prime\\prime}$")
+rownames(tab) = NULL
+
+kable(tab, "latex", booktabs = T, align = "cccc", escape = F, linesep = "",
+      caption = "Example values of the modified Schutz coefficient ($z^{\\prime\\prime}$; Section \\ref{U-metric}) used as the utility function for the objectives dealing with evenness of exploitation rates and harvest equity. Examples are in decreasing order of equity, with the top rows representing more equitable/even cases than those at the bottom of the table. When used for evenness of exploitation rates, the $x_{\\text{Region}}$ represent substock-specific exploitation rates ($U_s$). When used to measure equity, the  $x_{\\text{Region}}$ represent the fraction of needed Chinook salmon harvested by villages within reaches located in each region.") %>%
+  column_spec(4, bold = T)
+  
+```
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/Schedules.png}
+  \caption{Representation of the harvest control rule in assessed Strategies \#2 and \#3. The number of days the fishery is to be opened per week is a function of the pre-season forecast, as shown by each of the five panels. The three lines in each panel represent the different substrategies of Strategy \#2 or schedule types for Strategy \#3. In Strategy \#3, the manager would select to be conservative, neutral, or aggressive based on the percentile of recently-observed species ratios, as indicated in Table \ref{tab:ms3-ratio-table}. In other words, the manager using Strategy \#3 could adapt fishing schedules to in-season conditions, where as the \#2 manager could not.}
+  \label{fig:ms2-schedules}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/ms4-flow-diag.jpg}
+  \caption{Depiction of the use of information to guide decision-making in assessed Strategy \#4, partitioned into pre-season and in-season phases. All actions are taken with regards to Chinook salmon. \textbf{Pre-season actions} occur only once per season, and involve producing a pre-season forecast (with error) and using it to set a season-wide harvest target ($H_T$) based on (a) the probability distribution representing uncertainty in the pre-season forecast, (b) a limit point that escapement cannot fall below ($S_L$), and (c) the maximal acceptable probability for seeing the outcome $S < S_L$ ($P^*$). Targeted harvest by week ($H_{T,w}$) is initially set by apportioning the total among weeks according to a fixed schedule based on historical run timing data. \textbf{In-season actions} are represented by a weekly cycle that involves updating perceptions of abundance and adapting the season-wide harvest target $H_T$ as appropriate to ensure the current posterior probability of attaining at least $S_L$ given $H_T$ still conforms with $P^*$, and the remaining allowable harvest for the season is obtained \textit{via} subtracting cumulative estimated harvest already taken. Remaining harvest is then apportioned to the remaining weeks, and based on the value of $H_{T,w}$, the fishery will be opened for between 0 and 7 days for the week according to the harvest tables displayed in Figure \ref{fig:ms4-schedules}. Harvest outcomes are monitored such that a weekly harvest estimate is available for use in the next week, which begins with obtaining a new posterior understanding of total run abundance.}
+  \label{fig:ms4-flow-diag}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/MS4_Schedules.jpg}
+  \caption{Representation of the ``harvest tables'' used in assessed Strategy \#4. Based on how many fish are targeted each particular week ($H_{T,w}$), the manager would select the number of days to open the fishery. The process to obtain $H_{T,w}$ was rather involved, requiring pre-season forecasts, in-season abundance index data, and in-season harvest data to inform its value, as shown in Figure \ref{fig:ms4-flow-diag}.}
+  \label{fig:ms4-schedules}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/R-max-profile.jpg}
+  \caption{Estimated probability profile for Kuskokwim River Chinook salmon used as the utility function for drainage-wide escapement in this analysis. The height of the curve represents the currently understood probability that expected recruitment produced by a given escapement level will exceed 90\% of $R_{\text{MAX}}$, and was obtained for the aggregate Chinook salmon stock using the Bayesian state-space estimation model presented in \cite{hamazaki-etal-2012} updated with abundance, harvest, and age composition data through 2017. The vertical dashed lines are the endpoints of the current escapement goal range: 65,000 -- 120,000.}
+  \label{fig:R-max-profile}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/Values_1.jpg}
+  \caption{Detailed performance of assessed Strategy \#1. Values of the utility functions (rows) separated by run size category (horizontal panels), run timing category (line type), and substrategy ($x$-axis, ordered from most conservative to aggressive). Substrategies of this policy differ in the date at which the fishery is opened completely. The form of each utility function is described in Section \ref{utility-funcs}, and the total metric shown uses the default weighting scheme (all objective weights equal to 1).}
+  \label{fig:ms1-utilities}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/U-v-N.jpg}
+  \caption{Chinook salmon substock-specific exploitation rates as a function of run size from 500 Monte Carlo trials, separated by different substrategies (i.e., opening dates) of assessed Strategy \#1. Lines are fitted generalized additive models. The line denoted by $V_U$ represents the model fitted to the utility metric as defined by the modified Schutz coefficient used (points not shown).}
+  \label{fig:U-v-N}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/pNeed-v-N.jpg}
+  \caption{The fraction of minimal Chinook salmon harvest attained by villages in the lower, middle, and upper regions of the simulated Kuskokwim River as a function of run size from 500 Monte Carlo trials, separated by different substrategies (i.e., opening dates) of assessed Strategy \#1. Lines are fitted generalized additive models. The line denoted by $V_E$ represents the model fitted to the utility metric as defined by the modified Schutz coefficient used (points not shown).}
+  \label{fig:pNeed-v-N}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/Values_2.jpg}
+  \caption{Detailed performance of assessed Strategy \#2. The layout of panels in this figure is the same as in Figure \ref{fig:ms1-utilities}, only substrategies represent different schedules conditional on a pre-season run size forecast (schedules shown in Figure \ref{fig:ms2-schedules}).}
+  \label{fig:ms2-utilities}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/Values_3.jpg}
+  \caption{Detailed performance of assessed Strategy \#3. The layout of panels in this figure is the same as in Figure \ref{fig:ms1-utilities}, only substrategies represent different species ratios cut-offs used to pick fishing schedules conditional on a pre-season run size forecast (schedules shown in Figure \ref{fig:ms2-schedules}, ratio thresholds shown in Table \ref{tab:ms3-ratio2-table}).}
+  \label{fig:ms3-utilities}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/Values_4.jpg}
+  \caption{Detailed performance of assessed Strategy \#4. The layout of panels in this figure is the same as in Figure \ref{fig:ms1-utilities}, only substrategies represent different harvest tables used to set the number of days of open fishing per week based on how many fish are targeted to be harvested that week (harvest tables shown in Figure \ref{fig:ms4-schedules}).}
+  \label{fig:ms4-utilities}
+\end{figure}
+
+\clearpage
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/btwn-ms-utilities.jpg}
+  \caption{Comparison of utility according to the different metrics between strategies (with the best substrategy selected for comparison) and run sizes. Numbers represent the strategy, letters and colors indicate the selected substrategy (darker colors represent more aggressive substrategies; C = conservative, N = neutral, A = aggressive; multiple letters indicate a tie). Total utility was calculated according to the default weighting scheme, where all objectives received equal weight.}
+  \label{fig:btwn-ms-utilities}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch3/btwn-ms-weights.jpg}
+  \caption{The total utility metric of the best-performing substrategy (letters/colors) for each strategy (numbers), when considering different weighting schemes (schemes described in Section \ref{alt-weights}). Bars are shaded based on the best substrategy, with darker greys representing more aggressive substrategies (C = conservative, N = neutral, A = aggressive; multiple letters indicate a tie). Total utility was scaled to the maximum attainable total utility for each weighting scheme, which is equal to the sum of the weights.}
+  \label{fig:btwn-ms-weights}
+\end{figure}
+
+\end{singlespace}

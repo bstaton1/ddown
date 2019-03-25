@@ -20,11 +20,11 @@ Any of these data sources could have missing years.
 ## Substock escapement {#air-expansion}
 
 \noindent
-Escapement count data for this analysis were informed predominately by the ADF&G Kuskokwim River salmon escapement monitoring program, the details of which have been most-recently documented in @head-liller-2017. The data set available spans 20 different escapement monitoring projects (6 weirs and 14 aerial surveys) and 42 calendar years from 1976 -- 2017. For substocks monitored _via_ weir, observed substock $j$ escapement in year $t$ ($S_{obs,t,j}$) was taken to be the total estimated weir passage each year. Substocks monitored _via_ aerial survey needed special care, however. Surveys have been flown only once per year on a relatively small fraction of each tributary system [@head-liller-2017], resulting in these data being indices of escapement rather than estimates of total escapement. This analysis required estimates of total escapement to each substock however, because this would allow calculation of biological reference points that are expressed in terms of the scale of the population (e.g., the spawner abundance that is expected to produce maximum recruitment;  $S_{\text{MAX},j}$), rather than as a rate (i.e., $U_{\text{MSY},j}$). Note that if only estimates of $U_{\text{MSY},j}$ were desired, no accounting for the partial counts would be necessary.
+Escapement count data for this analysis were informed predominately by the ADF&G Kuskokwim River salmon escapement monitoring program, the details of which have been most-recently documented in @head-smith-2018. The data set available spanned 20 different escapement monitoring projects (six weirs and 14 aerial surveys) and 42 calendar years from 1976 -- 2017, though monitoring projects differed in the date they were initialized (Figure \@ref(fig:obs-freq)). For substocks monitored _via_ weir, observed escapement for substock $j$ in year $t$ ($S_{obs,t,j}$) was taken to be the total estimated weir passage each year. Substocks monitored _via_ aerial survey needed special care, however. Surveys have been flown only once per year on a relatively small fraction of each tributary system (Figure \@ref(fig:ch4-map)), resulting in these data being indices of escapement rather than estimates of total escapement to the subdrainage. This analysis required estimates of total escapement to each substock however, because this would allow calculation of biological reference points that are expressed in terms of the scale of the population (e.g., the spawner abundance that is expected to produce maximum recruitment;  $S_{\text{MAX},j}$), rather than as a rate (i.e., $U_{\text{MSY},j}$). Note that if only estimates of $U_{\text{MSY},j}$ were desired, no accounting for the partial counts would be necessary.
 
 The approach I developed to estimate total escapement from single-pass aerial surveys involved two main steps:
 
-(1) Mapping the distribution of detected telemetry-tagged Chinook salmon against distribution of the aerial survey counts. This comparison allowed for a spatial expansion to estimate how many salmon would have been counted had the entire tributary been flown.
+(1) Mapping the distribution of detected telemetry-tagged Chinook salmon against distribution of the aerial survey counts. This comparison allowed for a spatial expansion to estimate how many salmon would have been counted had the entire tributary been flown. Radio telemetry studies targeting Chinook salmon in the Kuskokwim River have been conducted intermittently since the early 2000s, and data were used from the years 2003 -- 2007 and 2015 -- 2016. These studies tagged fish migrating through the middle or lower river and (among other things) located them at the end of the season using aerial telemetry [@stuby-2007; @smith-liller-2017a; @smith-liller-2017b].  
 
 (2) Obtaining and applying a temporal correction factor for the problem of counting a dynamic pool at one point in its trajectory. This correction factor was based on the relationship between paired weir and aerial counts on $n=3$ of the systems in the analysis.
 
@@ -39,7 +39,7 @@ The core of the the spatial expansion estimator was the assumption:
 \end{equation}
 
 \noindent
-where the quantities $A$ and $T$ represent fish and tags, respectively in flown ($A_f$ and $T_f$) and unflown ($A_u$ and $T_u$) reaches in year $t$ and for aerial survey monitoring project $i$. This assumption states that the ratio of spawners per one tagged spawner is the same between flown and unflown river sections at the time of the aerial index count and the aerial telemetry flights. Equation \@ref(eq:air-expand1) and can be rearranged as:
+where the quantities $A$ and $T$ represent fish and tags, respectively, in flown ($A_f$ and $T_f$) and unflown ($A_u$ and $T_u$) reaches in year $t$ and for aerial survey monitoring project $i$. This assumption states that the ratio of actual spawners per one tagged spawner is the same between flown and unflown river sections at the time of the aerial index count and the aerial telemetry flights. Equation \@ref(eq:air-expand1) and can be rearranged as:
 
 \begin{equation}
   A_{u,t,i} = A_{f,t,i} \frac{T_{u,t,j}}{T_{f,t,i}}.
@@ -63,7 +63,7 @@ Here, $p_i$ represents the probability that a tagged fish in the spawning tribut
 \end{equation}
 
 \noindent
-Estimated expansion factors $\psi_i$ and $p_i$ are shown in Table \@ref(tab:spat-expand-table). The odds value $\psi_i$ can be substitiuted for the division term in \@ref(eq:air-expand2) which gives:
+The odds value $\psi_i$ can be substituted for the division term in \@ref(eq:air-expand2) which gives:
 
 \begin{equation}
   A_{u,t,i} = A_{f,t,i} \psi_i.
@@ -79,7 +79,7 @@ To obtain the total number of fish that would have been counted had the entire s
 \end{equation}
 
 \noindent
-Substistituion of \@ref(eq:air-expand3) into \@ref(eq:air-expand4) and factoring gives the estimator:
+Substitution of \@ref(eq:air-expand3) into \@ref(eq:air-expand4) and factoring gives the estimator:
 
 \begin{equation}
   \hat{A}_{t,i}=A_{f,t,i}(1 + \psi_i).
@@ -87,12 +87,12 @@ Substistituion of \@ref(eq:air-expand3) into \@ref(eq:air-expand4) and factoring
 \end{equation}
 
 \noindent
-The spatial expansion model was integrated with the temporal expansion model described below into a single model fitted in the Bayesian framework fitted using JAGS [@plummer-2017]. This allowed for seamless propogation of uncertainty (in $\psi_i$) from the expansion above to the next step.
+The spatial expansion model was integrated with the temporal expansion model described below into a single model fitted in the Bayesian framework fitted using JAGS [@plummer-2017]. This allowed for seamless propagation of uncertainty (in $\psi_i$) from the expansion above to the next step.
 
 ### Temporal Expansion {#temp-expansion}
 
 \noindent
-The temporal expansion model was necessary to convert from the one-pass index scale to the substock total annual escapement scale: it was a temporal correction. The temporal expansion I developed operated by first regressing $n = 16$ observations of paired weir count ($W_i$) and spatially-expanded aerial counts ($\hat{A}_{i}$; given by \@ref(eq:air-expand-final)) on the same tributary systems ($n = 3$) in the same years:
+A temporal expansion model was necessary to convert from the one-pass index scale to the substock total annual escapement scale. The temporal expansion I developed operated by first regressing $n = 16$ observations of paired weir count ($W_i$) and spatially-expanded aerial counts ($\hat{A}_{i}$; given by \@ref(eq:air-expand-final)) on the same tributary systems ($n = 3$) in the same years:
 
 \begin{equation}
   \begin{split}
@@ -110,12 +110,12 @@ The estimated coefficients $\hat{\beta}_0$ and $\hat{\beta}_1$ (Table \@ref(tab:
 \end{equation}
 
 \noindent
-The fitted relationship is shown in Figure \@ref(fig:obs-correct). For substocks that had both weirs and aerial surveys, the weir count was used as $S_{obs,t,j}$ as opposed to using the expansion in \@ref(eq:temp-expand2) and the coefficient of variation (CV) representing observation uncertainty for the state-space models (Section \@ref(ssm-obs-model)) was set at 5%, which assumed annual escapement counts made at weirs are precise. For substocks monitored solely _via_ aerial survey, the posterior mean value of $S_{obs,t,j}$ was used as the escapement count that year, and the posterior CV was calculated for use as the observation uncertainty passed to the state-space models.
+The fitted relationship is shown in Figure \@ref(fig:obs-correct). For substocks that had both weirs and aerial surveys, the weir count was used as $S_{obs,t,j}$ as opposed to using the expansion in \@ref(eq:temp-expand2) and the coefficient of variation (CV) representing observation uncertainty for the state-space models was set at 5%, which assumed annual escapement counts made at weirs are made with little measurement error. For substocks monitored solely _via_ aerial survey, the posterior mean value of $S_{obs,t,j}$ was used as the escapement count that year, and the posterior CV was calculated for use as the observation uncertainty passed to the state-space models.
 
 ## Aggregate harvest {#harv-expansion}
 
 \noindent
-Harvest estimates for the Kuskokwim River are available at the drainage-wide scale only, and were obtained each year by subtracting the drainage-wide estimates of total run and escapement [@liller-etal-2018]. Because the escapement data used here do not encompass all the substocks within the Kuskokwim River system, it was necessary to remove some portion of the total harvest that was produced by stocks not included in this analysis. First, I calculated the observed exploitation rate of the drainage-wide Kuskokwim River Chinook salmon stock ($U_{obs,t}$) by dividing the total harvest by the total run each year. I then made the assumption that monitored and unmonitored substocks have received the same exploitation rates, in which case total harvest accounted for in this analysis harvest was be obtained as:
+Harvest estimates for the Kuskokwim River were available at the drainage-wide scale only, and were obtained each year by subtracting the drainage-wide estimates of total run and escapement [@liller-etal-2018]. Because the escapement data used here did not encompass all the substocks within the Kuskokwim River system, it was necessary to remove some portion of the total harvest that was produced by stocks not included in this analysis. First, I calculated the observed exploitation rate of the drainage-wide Kuskokwim River Chinook salmon stock ($U_{obs,t}$) by dividing the total harvest by the total run each year. I then made the assumption that monitored and unmonitored substocks have received the same exploitation rates, in which case total harvest accounted for in this analysis harvest could be obtained as:
 
 \begin{equation}
   H_{obs,t} = \frac{S_{obs,t} U_{obs,t}}{1-U_{obs,t}},
@@ -125,12 +125,38 @@ Harvest estimates for the Kuskokwim River are available at the drainage-wide sca
 \noindent
 which can be derived from the definition of the exploitation rate $\left(U = \frac{H}{S+H}\right)$. This step was embedded within the same Bayesian model that encompassed the spatial and temporal aerial survey expansions such that uncertainty in these steps could be propagated through the entire analysis. The posterior mean value of $H_{obs,t}$ was used as the observed total harvest data, and the posterior CV was retained for use as the observation error attributed to this data source.
 
-Note that $S_{obs,t}$ and $H_{obs,t}$ do not have $j$ subscripts denoting particular substocks: this indicates that they are aggregate quantities summed across all substock components. In cases where substock-specific harvest was desired (i.e., in reconstructing the substock-specific brood tables for fitting individual regression relationships; Section \@ref(lm-btable)), $H_{obs,t,j}$ was obtained using \@ref(eq:H-obs) by substituting $S_{obs,t,j}$ in for $S_{obs,t}$.
+Note that $S_{obs,t}$ and $H_{obs,t}$ do not have $j$ subscripts denoting particular substocks: this indicates that they are aggregate quantities summed across all substock components. In cases where substock-specific harvest was required (i.e., in reconstructing the substock-specific brood tables for fitting regression relationships; Section \@ref(lm-btable)), $H_{obs,t,j}$ was obtained using \@ref(eq:H-obs) by substituting $S_{obs,t,j}$ in for $S_{obs,t}$.
 
 ## Age composition {#age-comp}
 
 \noindent
-Age composition data were necessary to reconstruct brood tables for age-structured salmon populations (see Section \@ref(lm-btable)). Age data used in this analysis came from the ADF&G standardized age, sex, and length sampling program operated at the weir projects. All sampled fish that were not aged successfully were discarded as were samples corresponding to the rare ages of 3 and 8 such that only fish successfully aged as between 4 and 7 were included. It is possible that older or younger fish may have the systematic tendency to return early or late in the run, and this could introduce biases if age sampling was not conducted proportionally to fish passage throughout the season. To adjust for this possibility, a weighted-average scheme was applied to obtain the age composition estimates for each substock and year with data.  Daily age samples were stratified into two-week strata and strata-specific proportions-at-age were calculated. These strata-specific age compositions were then averaged across strata within a year and stock weighted by the number of Chinook salmon estimated to have passed the weir in each stratum. The total number of fish successfully aged for each year and substock was retained for data-weighting purposes for the state-space models (see Section \@ref(ssm-obs-model)). 
+Age composition data were necessary to reconstruct brood tables for age-structured salmon populations (see Section \@ref(lm-btable)). Age data used in this analysis came from the ADF&G standardized age, sex, and length sampling program operated at the weir projects. All sampled fish that were not aged successfully were discarded as were samples corresponding to the rare ages of 3 and 8 such that only fish successfully aged as between 4 and 7 were included. It is possible that older or younger fish may have the systematic tendency to return early or late in the run, and this could introduce biases if age sampling was not conducted proportionally to fish passage throughout the season. To adjust for this possibility, a weighted-average scheme was applied to obtain the age composition estimates for each substock and year with data.  Daily age samples were stratified into two-week strata and strata-specific proportions-at-age were calculated. These strata-specific age compositions were then averaged across strata within a year and stock weighted by the number of Chinook salmon estimated to have passed the weir in each stratum. The total number of fish successfully aged for each year and substock was retained for data-weighting purposes for the state-space models, which (unlike the regression-based approaches) internally reconstructed the brood tables.
+
+## Brood table reconstruction {#lm-btable}
+
+\noindent
+An important consideration in the use of the regression-based method (Section \@ref(reg-methods)) is in how the  $\text{RPS}_{y,j}$ data are obtained for salmon stocks that return at more than one age (like Chinook salmon). Only the states $S_{y,j}$ are ever directly observed; $R_{y,j}$ is observed (for Chinook salmon) over four calendar years as not all fish mature and make the spawning migration at the same age. Thus, in order to completely observe one $\text{RPS}_{y,j}$ outcome, escapement must be monitored in year $y$ and escapement, harvest, and age composition must be monitored in the subsequent years $y+4$, $y+5$, $y+6$, and $y+7$. It is evident that missing one year of sampling (which is common; Figure \@ref(fig:obs-freq)) can lead to issues with this approach. Only completely observed $\text{RPS}_{y,j}$ data were used for this analysis, with the exception of missing age composition data. For substocks with no age composition data (i.e., those monitored _via_ aerial survey), the average age composition each year across substocks that have data was used to reconstruct $\text{RPS}_{y,j}$, but was provided only for years with escapement sampling for substock $j$. Only substocks with $\ge3$ completely-observed pairs of $\text{RPS}_{y,j}$ and $S_{y,j}$ were included for model fitting, given each fitted line was dictated by two parameters.
+
+## Results
+
+### Escapement {#esc-data-results}
+
+\noindent
+The escapement project that received the largest spatial expansion factor ($1 + \hat{\psi}_j$) was the Holitna River, with an expansion factor of 4.78 (4.04 -- 5.73; 95% equal-tailed credible limits) as shown in Table \@ref(tab:spat-expand-table). Given the small length of surveyed stream relative to the size of the Holitna subdrainage (Figure \@ref(fig:ch4-map); substock #7), this large estimate makes intuitive sense. The aerial survey project that required the smallest spatial expansion was the Salmon fork of the Aniak River (1.04; 1.01 -- 1.14; Table \@ref(tab:spat-expand-table)); note that this project captures nearly all of this tributary of the Aniak sytem (western-most fork of drainage #4; Figure \@ref(fig:ch4-map)). The average spatial expansion factor across all aerial survey projects was 1.78 (1.67 -- 1.93). 
+
+In terms of the temporal expansion, the estimate for the primary expansion coefficient ($\hat{\beta}_1$) was 2.3 (1.76 -- 2.85; Table \@ref(tab:temp-expand-table)). This estimate indicates that spatially-corrected aerial survey counts needed to be scaled up by a factor of 2.3 in order to be consistent with the total annual escapement counts made at weirs in years and subdrainages that had paired counts. This estimate makes intuitive sense given ADF&G has structured the timing of aerial survey flights to coincide with the peak of the escapement timing arrival curve [@head-smith-2018], which should occur approximately halfway through the run, indicating the aerial counts would need to be doubled to account for the second half of the run. The freely-estimated intercept of the temporal expansion ($\hat{\beta}_0$) had a value of 1.9 (-60.71 -- 62.4), indicating that if no fish are counted by an aerial survey, very little escapement actually occurred (Table \@ref(tab:temp-expand-table)). For the substocks monitored _via_ aerial survey that required these expansions, the average annual observation CV was estimated to be 18% (it was set at 5% for weir-monitored substock escapement).
+
+Based on the scale of the summed escapement estimates from this analysis relative to the drainage-wide scale [which includes monitored and unmonitored substocks; @liller-etal-2018], approximately half (57%; 47% -- 66%) of the Chinook salmon aggregate population is accounted for by the $n_j$ = 13 substocks included here (Figure \@ref(fig:obs-fraction)).
+
+### Harvest {#harv-data-results}
+
+\noindent
+The average annual exploitation rate used in this analysis was the same as for the aggregate Chinook salmon population: 0.42 with a minimum and maximum value of 0.13 and 0.62 in 2017 and 1988, respectively. The average annual harvest attributable to substocks included in this analysis was nearly 50,000, which is approximately 57% of the historical average harvest from all substocks in the Kuskokwim River. The average annual observation CV was estimated to be 8%. 
+
+### Age composition {#age-data-results}
+
+\noindent
+Age composition data were available for six substocks included in this analysis (i.e., those monitored _via_ weir: George, Kogrukluk, Kwethluk, Takotna, Tatlawiksuk, and Tuluksak; Appendix \@ref(age-comp)). The number of years observed per substock depended on the starting year of the project: each year with an escapement count from a weir had associated age data but not all projects have been operating since 1976. The average annual multinomial sample size ($ESS_{t,j}$) varied between substocks (range 117 -- 553) and was generally related to the average escapement counted at each project. Across all substocks, the average annual age composition was 27%, 38%, 33%, and 2% for ages 4, 5, 6, and 7, respectively, though there was a high degree of inter-annual variability.
 
 \clearpage
 
@@ -150,10 +176,10 @@ stks = c(
 
 ests = cbind(stks, ests)
 
-colnames(ests) = c("\\textbf{Aerial Survey}", "$\\boldsymbol{p_i}$", "$\\boldsymbol{1 + \\psi_i}$")
+colnames(ests) = c("\\textbf{Aerial Survey}", "$\\boldsymbol{\\hat{p}_i}$", "$\\boldsymbol{1 + \\hat{\\psi}_i}$")
 
 kable(ests, "latex", booktabs = T, align = "lcc", 
-      caption = "The estimated spatial expansion factors for the various aerial survey projects described in Section \\ref{spat-expansion}. $p_i$ represents the average fraction of telemetry tags that were detected outside of index flight reaches, which was used as the basis for determining the multiplier ($1 + \\psi_i$) needed to correct the aerial count for not flying the entire subdrainage. In cases where multiple projects were flown to count fish within one substock (e.g., the Aniak, see Figure \\ref{fig:ch4-map} substock 4), the expanded project counts were summed to obtain an estimate for the total substock, as indicated by the footnotes.",
+      caption = "The estimated spatial expansion factors for the various aerial survey projects described in Section \\ref{spat-expansion}. $\\hat{p}_i$ represents the average fraction of telemetry tags that were detected outside of index flight reaches, which was used as the basis for determining the multiplier ($1 + \\hat{\\psi}_i$) needed to correct the aerial count for not flying the entire subdrainage. In cases where multiple projects were flown to count fish within one substock (e.g., the Aniak, see Figure \\ref{fig:ch4-map} substock 4), the expanded project counts were summed to obtain an estimate for the total substock, as indicated by the footnotes.",
       escape = F, linesep = "") %>%
   # column_spec(1, bold = T) %>%
   footnote(
@@ -205,6 +231,6 @@ kable(ests, "latex", booktabs = T, align = "lcc",
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/obs-fraction.png}
-  \caption{Estimated Chinook salmon escapement for substocks within the Kuskokwim River drainage. `Drainage-wide' refers to the aggregate population estimates provided by a maximum likelihood run reconstruction model. `This analysis' refers to the estimated portion of the aggregate run included in this analysis (not all tributaries have been monitored).}
+  \caption{Estimated Chinook salmon escapement for substocks within the Kuskokwim River drainage. ``Drainage-wide'' refers to the aggregate population estimates provided by a maximum likelihood run reconstruction model. ``This analysis'' refers to the estimated portion of the aggregate run included in this analysis (not all tributaries have been monitored).}
   \label{fig:obs-fraction}
 \end{figure}

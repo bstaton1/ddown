@@ -9,6 +9,8 @@
 % \documentclass[12pt]{report}
 \usepackage{setspace}
 % \usepackage{titlesec}
+% \usepackage{titling}
+% \usepackage{fontspec}
 %\setcounter{secnumdepth}{3}
 % \usepackage{aums}       % For Master's papers
 \usepackage{auphd}     % For Ph.D.
@@ -53,8 +55,12 @@
 \captionsetup[figure]{labelfont=bf}
 \captionsetup[table]{labelfont=bf}
 
+% \let\chapterfont\relax
+% \usepackage{sectsty}
+% \allsectionsfont{\textsc}
+
 %%%%%Format rules: Normal margins are 1 in. If you need to print with 1.5in margins, uncomment the line below
-%\oddsidemargin0.5in \textwidth6in
+% \oddsidemargin0.5in \textwidth6in
 
 %% If you do not need a List of Abbreviations, then comment out the lines below and the \printnomenclature line.
 %%for List of Abbreviations information:  (see http://www.mackichan.com/TECHTALK/509.htm  )
@@ -69,22 +75,24 @@
 \AtBeginDocument{\let\maketitle\relax}
 
 % Put the title, author, and date in. 
-\title{Challenges and Tools in the Assessment and Management of Pacific Salmon Fisheries}
+\title{\textsc{Development and Evaluation of Assessment Tools and Management Strategies for Salmon Fisheries in Western Alaska}}
 \author{Benjamin A. Staton} 
-\date{May 5, 2019} %date of graduation
+\date{May 4, 2019} %date of graduation
 \copyrightyear{2019} %copyright year
 
-\keywords{Fisheries management, Bayesian inference, decision analysis}
+\keywords{Pacific salmon, phenological forecasts, management strategy evaluation, mixed-stock fisheries, Bayesian inference}
 
 % Put the Thesis Adviser here. 
 \adviser{Matthew J. Catalano}
 
 % Put the committee here (including the adviser), one \professor for each. 
 % The advisor must be first, and the dean of the graduate school must be last.
-\professor{Matthew J. Catalano, \hl{\textit{PLEASE INDICATE YOUR AFFILIATION}}}
+\professor{Matthew J. Catalano, Chair, Associate Professor of Fisheries Science}
 
-\professor{Asheber Abebe, \hl{\textit{PLEASE INDICATE YOUR AFFILIATION}}}
+\professor{Asheber Abebe, Professor of Mathematics and Statistics}
 
-\professor{Lewis G. Coggins, Jr., \hl{\textit{PLEASE INDICATE YOUR AFFILIATION}}}
+\professor{Lewis G. Coggins, Jr., Affiliate Professor of Fisheries Science}
 
-\professor{Conor P. McGowan, \hl{\textit{PLEASE INDICATE YOUR AFFILIATION}}}
+\professor{Conor P. McGowan, Professor of Wildlife Sciences}
+
+\professor{George T. Flowers, Graduate School Dean}

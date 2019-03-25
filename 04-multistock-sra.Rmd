@@ -1,84 +1,47 @@
-# Assessment Approaches for Single-Species, Mixed-stock Pacific Salmon Fisheries: Empirical and Simulation-Evaluation Applications {#ch4}
-
-```{r, include = F}
-library(dplyr)
-library(knitr)
-library(kableExtra)
-
-knitr::opts_chunk$set(echo = F, message = F, warning = F)
-
-# function to help split cells in tables
-add_break = function(x) {
-  
-  x = stringr::str_split(x, "\\(") %>% unlist
-  x = matrix(x, length(x)/2, 2, byrow = T)
-  x[,2] = paste("(", x[,2], sep = "")
-  x = apply(x, 1, function(z) paste(z, collapse = "\n"))
-  kableExtra::linebreak(x, align = "c")
-}
-```
+# Assessment Approaches for Mixed-stock Pacific Salmon Fisheries: Empirical and Simulation-Estimation Applications {#ch4}
 
 ## Abstract {-}
 
-\newpage
+\noindent
+Although many salmon populations in large drainages are composed of many smaller substocks, they are often managed and harvested as a mixed-stock. There is likely to be heterogeneity in productivity among the substocks, implying that some portion may need to be overfished if the mixed-stock harvest is to be maximized, which constitutes a trade-off. Methods to quantify substock productivity in the context mixed-stock salmon fisheries are not well established, and fitting substock-specific models independently may result in a loss of valuable information. In this chapter, I develop an age-structured state-space framework for simulateously fitting multiple spawner-recruit relationships that allows for more complete use of available data and sharing of information regarding recruitment anomalies experienced by individual substocks. Four alternative state-space models were developed and differed in their complexity in the treatment of recruitment and maturity process error, and were compared to simpler regression-based approaches. The models were fitted to reconstructed data from 13 Chinook salmon substocks in the Kuskokwim River and estimation performance was assessed using simulation-estimation trials. Biological and policy conclusions were found to be largely consistent between different state-space model structures, but differed strongly from the regression-based approaches which suggested substantially more aggressive harvest policies. The state-space framework was shown to be largely unbiased when integrated across a range of true population parameters, though strong biases were found for regression approaches. The reliability and richness of biological inferences from the state-space model suggest it shows promise for populating policy evaluations directed at investingating the strength of harvest-biodiversity trade-offs in mixed-stock salmon fisheries. 
 
 ## Introduction
 
 \noindent
-Many salmon populations in large drainage systems are harvested primarily in a relatively small spatial area and are managed as a single stock (i.e., the concept of a "mixed-stock fishery"). However, these "stocks" are instead stock-complexes, in which the aggregate stock is comprised of several (and sometimes, many) substocks. These substocks are known to show differences in genotypic [@templin-etal-2004], phenotypic [_e.g._, morphology; @hendry-quinn-1997], behavioral [e.g., run timing; @clark-etal-2015; @smith-liller-2017a; @smith-liller-2017b], and life history [i.e., age-at-maturation, @blair-etal-1993] characteristics that are the result of adaptations to local environments after many generations of high spawning-site fidelity and reproductive isolation from conspecifics in other tribtaries. It has been widely proposed that maintaining this diversity of local adaptation (hereafter, "biodiversity") is favorable both from ecosystem and exploitation perspectives [_i.e._, the statistical dampening of random variability in a system made up of many additive random processes, otherwise known as the "portfolio effect"; @schindler-etal-2010; @schindler-etal-2015]. 
+Many salmon populations in large drainage systems are commonly harvested in a relatively small spatial area and are managed as a single stock. However, these "stocks" are instead stock-complexes, in which the aggregate stock is comprised of several (and sometimes, many) substocks. These substocks are known to show differences in genotypic [@templin-etal-2004], phenotypic [e.g., morphology; @hendry-quinn-1997], behavioral [e.g., run timing; @clark-etal-2015; @smith-liller-2017a; @smith-liller-2017b], and life history [e.g., age-at-maturation, @blair-etal-1993] characteristics that are the result of adaptations to local environments after many generations of high spawning-site fidelity and reproductive isolation from conspecifics in other tributaries located within the same basin. It has been widely proposed that maintaining this diversity of local adaptation (hereafter, "biodiversity") is favorable both from ecosystem and exploitation perspectives. One argument is that in a system where many parts contribute to the whole, the variability in the aggregate characteristics can be dampened because of a lack of cohesion in the subcomponent dynamics, a phenomenon known as the "portfolio effect" [@schindler-etal-2010; @schindler-etal-2015]. 
 
-This level of variability in substock-specific characteristics can ultimately lead to heterogeneity in productivity among the substock components [@walters-martell-2004]. Productivity in this context is the ability of a population to replace itself after harvesting, often represented for salmon populations as the maximum number of recruits (future migrating adults before harvest) per one spawner, which (due to density-dependent survival) is attained at very low numbers of spawners (hereafter, $\alpha$). Substocks $j$ with higher $\alpha_j$ values can sustain greater exploitation rates ($U$) than those with smaller $\alpha_j$ values, in fact, $\alpha_j$ can be expressed in terms of the exploitation rate that maximizes sustained yield from substock $j$ [$U_{\text{MSY},j}$; @schnute-kronlund-2002]:
+Variability in substock-specific characteristics can ultimately lead to heterogeneity in productivity among the substock components [@walters-martell-2004]. Productivity in this context is the ability of a population to replace itself after harvesting, often represented for salmon populations as the maximum number of future migrating adults (recruits) produced by one spawner (hereafter, $\alpha$), which is attained at low spawner abundances due to density-dependent survival. Substocks $j$ with higher $\alpha_j$ values can sustain greater exploitation rates ($U$) than those with smaller $\alpha_j$ values, in fact, $\alpha_j$ can be expressed in terms of the exploitation rate that maximizes sustained yield from substock $j$ [$U_{\text{MSY},j}$; @schnute-kronlund-2002]:
 
 \begin{equation}
   \alpha_j=\frac{e^{U_{\text{MSY},j}}}{1 - U_{\text{MSY},j}}.
   (\#eq:umsy-to-alpha)
 \end{equation}
 
-Given that there is likely some level of heterogeneity in $\alpha_j$ and $U_{\text{MSY},j}$ among individual substocks, the logical conclusion is that in a mixed-stock fishery where the exploitation rate in year $t$ ($U_t$) is common among all substocks, some weaker substocks must be exploited  at $U_t > U_{\text{MSY},j}$ in order to fish the more productive substocks at $U_{\text{MSY},j}$. This of course implies a trade-off, and in some cases it might be necessary to over-exploit some substocks in order to maximize harvest (Figure \@ref(fig:trade-off-plot), Walters and Martell 2004).
+Given that there is likely some level of heterogeneity in $\alpha_j$ and $U_{\text{MSY},j}$ among individual substocks, the logical conclusion is that in a mixed-stock fishery where the exploitation rate in year $t$ ($U_t$) is common among all substocks, some weaker substocks must be exploited  at $U_t > U_{\text{MSY},j}$ in order to fish the more productive substocks at $U_{\text{MSY},j}$. This of course implies a trade-off, such that it may be necessary to over-exploit some substocks in order to maximize harvest [Figure \@ref(fig:trade-off-plot), @walters-martell-2004].
 
-Before these trade-offs are considered by managers in a well-informed way, the shape and magnitude of the trade-off must first be quantified as shown in Figure \@ref(fig:trade-off-plot). Figures like this are generated using the estimated productivity and carrying capacity of all (or a representative sample) of the substocks within a mixed-stock fishery. These quantities are obtained using a spawner-recruit analysis, which involves tracking the number of recruits that were produced in each brood year (i.e., parent year) by the number of fish that spawned in the same calendar year and fitting a curve to the resulting pattern. The spawner-recruit literature is extensive, but primarily focuses primarily on assessing single populations as opposed to substock components [but see the work on Skeena River, British Columbia sockeye salmon _O. nerka_ substocks; @walters-etal-2008; @korman-english-2013]. In my mind, substock-specific analyses are not conducted because of two factors: 
+Before these trade-offs can be considered by managers in a well-informed way, the shape and magnitude of the trade-off must first be quantified as shown in Figure \@ref(fig:trade-off-plot). Figures like this are generated using the estimated productivity and carrying capacity of all (or a representative sample) of the substocks within a mixed-stock fishery. These quantities are obtained using a spawner-recruit analysis, which involves tracking the number of recruits produced in each brood year (i.e., parent year) by the number of fish that spawned in that same year and fitting a curve to the resulting pattern. The spawner-recruit literature is extensive, but focuses primarily on assessing single populations as opposed to substock components [but see the work on Skeena River, British Columbia sockeye salmon _O. nerka_ substocks; @walters-etal-2008; @korman-english-2013]. Substock-specific analyses are uncommon because of two factors: (1) the data to conduct well-informed substock-specific spawner-recruit analyses are often unavailable (20 -- 30 years of continuous spawner and harvest counts/estimates and age composition for each substock) and (2) management actions in large mixed-stock fisheries may not be dexterous enough to deliberately exert higher exploitation rates on more productive substocks, so deriving substock-specific estimates could be of little utility. Regarding the former reason, there are some cases where the data do exist to perform these kinds of analyses, however methods to conduct multi-stock spawner-recruit analyses are not well-developed. Regarding the latter, even in cases where management cannot target particular substocks over others, understanding the nature of the trade-offs can be informative for evaluating candidate harvest policies for the mixed-stock in the context of substock biodiversity [@walters-etal-2018]. 
 
-(1)  the data to conduct well-informed substock-specific spawner-recruit analyses are often unavailable (20 -- 30 years of continuous spawner and harvest counts/estimates and age composition for each substock) and 
+The methods to fit spawner-recruit models can be grouped into two broad categories: regression-based approaches [e.g., @clark-etal-2009] and state-space (i.e., time series) models [e.g., @su-peterman-2012; @fleischman-etal-2013]. The regression-based approaches treat spawner-recruit pairs as independent observations, and are thus subject to substantial pitfalls when dealing with the inherent time-dependent properties and oftentimes large amounts of observation error found in spawner-recruit data sets [@walters-martell-2004, Ch. 7]. The consequence of ignoring the first issue is the "time-series bias", which chronically causes positive biases in $\alpha$ and negative biases in $\beta$, resulting in the same directional biases in $U_{\text{MSY}}$ and $S_{\text{MSY}}$, respectively [i.e., spuriously providing too aggressive harvest policy recommendations; @walters-1985]. The second is known as the "errors-in-variables bias" and is known to cause an apparent scatter which inserts additional variability that commonly-used regression estimators do not account for [@ludwig-walters-1981]. Though these methods have been known for their problems for over 30 years, they are still somewhat widely used [e.g., @korman-english-2013]. Unlike the regression-based approaches, the state-space class of models captures the process of recruitment events leading to future spawners while simultaneously accounting for variability in the biological and measurement processes that gave rise to the observed data [@devalpine-hastings-2002; @fleischman-etal-2013]. For these reasons, state-space spawner-recruit analyses have been rapidly gaining popularity, particularly in Alaska [@su-peterman-2012; @fleischman-etal-2013; @staton-etal-2017-intseq]. Including this level of additional model complexity comes at computational costs, as these models are well-suited for Bayesian inference with Markov Chain Monte Carlo (MCMC) methods [@newman-etal-2014, Ch. 4], but has been shown to reduce bias in estimates in some circumstances [@su-peterman-2012; @walters-martell-2004]. 
 
-(2)  management actions in large mixed-stock fisheries may not be precise enough to deliberately direct more harvest activity towards particular substocks, so deriving substock-specific estimates could be of little utility. 
+In the Kuskokwim River Chinook salmon fishery, there has been recent interest in considering biodiversity to explicitly inform the drainage-wide escapement goal. In conducting the spawner-recruit analysis to inform such policy analyses, it will be difficult to determine which method is appropriate, given many possible model structures, sparse data, and unknown sampling biases. Before strong inferences can be made from the ultimate trade-off analyses of interest, the performance of the estimation models used to parameterize them needs to be evaluated, as well as the appropriate level of model complexity needed to address the problem with sufficient accuracy. In this chapter, I evaluate the performance of a range of assessment models for mixed-stock salmon fisheries _via_ simulation-estimation and apply them to Chinook salmon substocks in the Kuskokwim River as a case study. The objectives were to:
 
-\noindent
-This proposed chapter will pertain to salmon systems for which there is a reasonable amount of data available for a significant portion of the substocks and in situations where spawner-recruitment analysis estimates are desired for each such that notions of stock biodiversity can be incorporated into policy (_e.g._, aggregate population escapement goal) considerations. 
+(1)  develop a set of varyingly complex multi-stock versions of state-space spawner-recruit models,
 
-The methods to fit spawner-recruit models can be grouped into two broad categories: time-independent error models [_e.g._, @clark-etal-2009] and state-space (i.e., time series) models [_e.g._,@fleischman-etal-2013; @su-peterman-2012]. The independent error models typically take on a regression analytical method, and is thus subject to substantial pitfalls when dealing with the inherent time-dependent properties and oftentimes large amounts of observation error found in spawner-recruit data sets [@walters-martell-2004]. The state-space class of models captures the process of recruitment events leading to future spawners while simultaneously accounting for variability in the biological and measurement processes that gave rise to the observed data [@devalpine-hastings-2002; @fleischman-etal-2013]. Including this level of additional model complexity comes at computational costs, as these models are well-suited for Bayesian inference with Markov Chain Monte Carlo (MCMC) methods [@newman-etal-2014, Ch. 4], but has been shown to reduce bias in estimates in some circumstances [@su-peterman-2012; @walters-martell-2004]. 
+(2)  determine the sensitivity of biological and trade-off conclusions to assessment model complexity (including those obtained using regression-based approaches) using empirical data from Kuskokwim River Chinook salmon substocks, and 
 
-In the Kuskokwim River Chinook salmon fishery, there has been recent interest in considering biodiversity to explicitly inform the drainage-wide escapement goal. In conducting the spawner-recruit analysis to inform such policy analyses, it will be difficult to determine which method is appropriate, given many possible model structures, sparse data, and unknown sampling biases. Before strong inferences can be made from the ultimate trade-off analyses of interest, the performance of the estimation models used to parameterize them needs to be evaluated, as well as the appropriate level of model complexity needed to address the problem with sufficient accuracy. In this chapter, I evaluate the performance of a range of assessment models for mixed-stock salmon fisheries _via_ simulation-estimation. The objectives were to:
-
-(1)  develop a set of varyingly-complex multi-stock versions of the state-space spawner-recruit models that have been rapidly gaining popularity, particularly in Alaska [@walters-martell-2004; @su-peterman-2012; @fleischman-etal-2013; @staton-etal-2017-intseq],
-
-(2)  determine the sensitivity of trade-off conclusions to assessment model complexity (including those obtained using linear regression approaches) using empirical data from Kuskokwim River Chinook salmon substocks, and 
-
-(3)  test the performance of the assessment models _via_ simulation-estimation. 
+(3)  test the performance of the assessment models _via_ simulation-estimation trials. 
 
 ## Methods
 
-### Analytical approach
+\noindent
+This analysis was conducted in both an empirical and a simulation-estimation framework to evaluate the sensitivity and performance of assessment strategies for the mixed-stock assessment problem in Pacific salmon fisheries. First, all assessment methods (two regression-based and four state-space models) were fitted to observed data from the Kuskokwim River substocks ($n_j$ = 13) to determine the extent to which the choice of assessment model structure might influence biological and management conclusions. Then, a hypothetical exploited system with known properties was simulated and was composed of several age-structured substocks. Then, these hypothetical populations were sampled per a realistic sampling scheme and each of the assessment models were fitted to the resulting data sets. Estimation performance regarding quantities used in management (e.g., $U_{\text{MSY}}$ and $S_{\text{MSY}}$) was calculated from the resulting estimates. Inference from the simulation can then be used to justify an appropriate level of model complexity. 
+
+### Multi-stock spawner-recruit models {#model-methods}
+
+#### Regression-based models {#reg-methods}
 
 \noindent
-This analysis will be conducted in both an empirical and a simulation-estimation framework to evaluate the sensitivity and performance of assessment strategies for the mixed-stock assessment problem in Pacific salmon fisheries. First, all assessment methods will be fitted to observed data from the Kuskokwim River substocks ($n_j$ = 13) for the empirical objective. Then, a hypothetical system will be generated with known dynamics and will be comprised of several age-structured substocks. Then, these hypothetical populations will be sampled per a realistic sampling scheme (i.e., frequency of sampling, appropriate levels of observation variance, etc.). Each of the assessment models will be fitted to the resulting data sets, and the management quantities $U_{\text{MSY}}$ and $S_{\text{MSY}}$ (both on an aggregate and substock basis) will be calculated from the resulting estimates. The estimated quantities will then be compared to the true driving parameters and will be summarized and model performance will be compared among a set of competing estimation models. Inference from the simulation regarding which assessment models perform the best can then be used to justify an appropriate level of model complexity for this problem when applied to the Kuskokwim and systems like it. I will begin by describing the data sources, followed by the estimation models assessed in this study, and then provide other necessary details regarding the simulation-estimation analyses. 
-
-### Study system
-
-The models developed in this chapter will be fitted to empirical data from Chinook salmon substocks of the Kuskokwim River located in western Alaska. Figure \@ref(fig:ch4-map) shows the Kuskokwim River drainage, as well as the many assessment projects used to inform the 13 substocks used in this analysis. The fishery characteristics are discussed in Sections \hl{xxx, xxx, xxx}, but it can very well be described as a mixed-stock fishery, both for multiple salmon species (Chinook, chum _O. keta_, and sockeye salmon) and for multiple substocks of the same species. Fish originating and returning to the various tributaries enter through the bulk of the fishery as a mixed-stock, though Chinook salmon stocks traveling to the headwaters have been illustrated to enter the main stem earliest in the summer migration [@smith-liller-2017a; @smith-liller-2017b] so a limited ability to direct harvest toward or away from these substocks is possible by manipulating the front portion of the fishery (Chapter \@ref(ch3)). It is acknowledged that the assessment program does not sample all tributaries within the Kuskokwim River where Chinook salmon spawn, but total run size between 1976 -- 2017 has been estimated _via_ run reconstruction [@liller-etal-2018].
-
-### Data sources
-
-A rich data set was used that includes counts of Chinook salmon at many locations throughout the Kuskokwim River system. Nearly all data were collected by projects managed by the Alaska Department of Fish and Game (ADF&G) and a complete description of data needs and preparation procedures is provided in Appendix \@ref(appendix-c). The raw escapement data set available spanned 20 different escapement monitoring projects (6 weirs and 14 aerial surveys) and 42 calendar (i.e., observation) years from 1976 -- 2017; much pre-processing was required to convert the aerial survey index counts to estimates of total spawners (Appendix \@ref(air-expansion)). Annual estimates of Chinook salmon harvest originiating from both subsistence and commercial fisheries in each year was also available, as was the estimated exploitation rate of the aggregate stock (details in Appendix \@ref(harv-expansion)). Finally, age composisition data were available for the 6 substocks monitoried _via_ weir programs (details in Appendix \@ref(age-comp)). 
-
-### Regression-based models {#reg-methods}
-
-\noindent
-Two regression-based approaches to estimating @ricker-1954 spawner-recruit parameters in the multi-stock case were assessed: (_a_) a single mixed-effect regression model with random intercepts and (_b_) independent regression models. A description of each method is provided in the sections that follow.
-
-#### Mixed-effect linear regression {#lme-methods}
-
-\noindent
-The @ricker-1954 spawner-recruit model can be written as:
+Two regression-based approaches to estimating @ricker-1954 spawner-recruit parameters in the multi-stock case were assessed: (1) a single mixed-effect regression model with random intercepts and (2) independent regression models. The @ricker-1954 spawner-recruit model can be written as:
 
 \begin{equation}
   R_y=\alpha S_y e^{-\beta S_y + \varepsilon_y}
@@ -86,7 +49,7 @@ The @ricker-1954 spawner-recruit model can be written as:
 \end{equation}
 
 \noindent
-where $R_y$ is the total recruitment expected to be produced by the escapement $S_y$ in brood year $y$, $\alpha$ is the maximum expected recruits-per-spawner (RPS), $\beta$ is the inverse of the escapement that is expected to produce maximum recruitment ($S_{\text{MAX}}$), and $\varepsilon_y$ are independent mean zero normal random variables attributed solely to environmental fluctuations. Primary interest lies in estimating the population dynamics parameters $\alpha$ and $\beta$ as they can be used to obtain biological reference points off of which sustainable harvest policies can be developed. This function is increasing at small escapements and declining at large ones, though can be linearized:
+where $R_y$ is the total recruitment produced by the escapement $S_y$ in brood year $y$, $\alpha$ is the maximum expected recruits-per-spawner (RPS), $\beta$ is the inverse of the escapement that is expected to produce maximum recruitment ($S_{\text{MAX}}$), and $\varepsilon_y$ are independent mean zero random variables attributed solely to environmental fluctuations. Primary interest lies in estimating the population dynamics parameters $\alpha$ and $\beta$ as they can be used to obtain biological reference points off of which sustainable harvest policies can be developed. This function is increasing at small escapements and declining at large ones, though can be linearized:
 
 \begin{equation}
   \log(\text{RPS}_y)=\log(\alpha)-\beta S_y + \varepsilon_y,
@@ -94,16 +57,9 @@ where $R_y$ is the total recruitment expected to be produced by the escapement $
 \end{equation}
 
 \noindent
-allowing for estimation of the parameters log($\alpha$) and $\beta$ in a linear regression framework using the least squares method [@clark-etal-2009]. This relationship is nearly always declining, implying a compensatory effect on survival (i.e., RPS) with reductions in spawner abundance [@rose-etal-2001]. Regression-based methods for estimating spawner-recruit parameters are well known to be fraught with two primary issues: 
+allowing for estimation of the parameters log($\alpha$) and $\beta$ in a linear regression framework using the least squares method [@hilborn-walters-1992; @clark-etal-2009]. This relationship is nearly always declining, implying a compensatory effect on survival (i.e., RPS) with reductions in spawner abundance [@rose-etal-2001].
 
-(1) ignoring the intrinsic time linkage whereby brood year recruits (part of the response variable) make up the escapement for one or more future brood years (the predictor variable), which then produce the future recruits (response variables) and 
-
-(2) ignoring the fact that escapement and harvest are often measured with substantial error. 
-
-\noindent
-The first issue is known as the "time-series bias", and is known to chronically cause positive biases in $\alpha$ and negative biases in $\beta$, causing the same directional biases in $U_{\text{MSY}}$ and $S_{\text{MSY}}$, respectively [i.e., spuriously providing too aggressive harvest policy recommendations; @walters-1985]. The second is known as the "errors-in-variables bias" and is known to cause an apparent scatter which inserts additional variability that commonly-used regression estimators do not account for [@ludwig-walters-1981]. Though these methods have been known for their problems for over 30 years, they are still somewhat widely used [@korman-english-2013].
-
-It is not difficult to conceive a multi-stock formulation of this model by including substock-specific random effects on the intercept [log($\alpha$)]:
+A multi-stock formulation of this model can be formulated by including substock-specific random effects on the intercept [log($\alpha$)]:
 
 \begin{equation}
   \begin{split}
@@ -117,38 +73,18 @@ It is not difficult to conceive a multi-stock formulation of this model by inclu
 \noindent
 It does not make sense to include substock-level random effects on the slope, given that $\beta$ is a capacity parameter related to the compensatory effect of resource limitation experienced by juveniles, likely in the freshwater environment (i.e., amount of habitat as opposed to quality of habitat). Fitting the individual substock models in this hierarchical fashion allows for the sharing of information such that the more intensively-assessed substocks can help inform those that are more data-poor. 
 
-#### Independent regression models {#lm-methods}
+The mixed-effect model may have the benefit of sharing information to make some substocks more estimable, but it should also have the tendency to pull the extreme $\alpha_j$ (those in the tails of the hyperdistribution) toward $\alpha$. This behavior may not be preferable for policy recommendations, as it should tend to dampen the extent of heterogeneity estimated in $\alpha_j$. For this reason, independent regression estimates for each substock were also obtained for evaluation. In estimating the parameter $\log(\alpha)$, a lower bound constraint of 0 was used in all regression models. This was necessary to prevent the models from estimating biologically-implausible parameters: if $\log(\alpha)$ < 0, then the stock would produce < 1 RPS at its most productive state, in which case it would likely not currently be in existence.
+
+#### State-space models {#ssm-model}
 
 \noindent
-The mixed-effect model may have the benefit of sharing information to make some substocks more estimable, but it should also have the tendency to pull the extreme $\alpha_j$ (those in the tails of the hyperdistribution) toward $\alpha$. This behavior may not be preferable for policy recommendations, as it should tend to dampen the extent of heterogeneity estimated in $\alpha_j$. For this reason, independent regression estimates for each substock will also be obtained (i.e., the full fixed effects model) for evaluation. In estimating the parameter $\log(\alpha)$, a lower bound constraint of 0 was used in all cases (independent and mixed-effect regression models). This was necessary to prevent the models from estimating biologically impossible parameters: if $\log(\alpha)$ < 0, then the stock would produce < 1 recruit per spawner at its most productive, in which case it would likely have gone extinct by now.
+Four versions of the state-space formulation were developed. As three versions were simplifications of the full model, the full model is presented completely here and the changes resulting in the other three model structures are described following the description of the full model. 
 
-#### Brood table reconstruction {#lm-btable}
+The state-space formulation of a multi-stock spawner-recruit analysis developed and evaluated here is an extension of various single-stock versions [e.g., @fleischman-etal-2013]. @walters-etal-2008 used a similar model using maximum likelihood methods to provide estimates of >50 substocks in the Skeena River drainage, British Columbia. The model presented here was fitted in the Bayesian mode of inference using program JAGS [@plummer-2017], and allows for relaxation of certain assumptions made by @walters-etal-2008 such as the important notion of perfectly-shared recruitment residuals (i.e., anomalies -- deviations from the expected population response). It also has the ability to relax the assumption of constant maturity schedules across brood years.
 
-\noindent
-An important consideration in the use of the regression-based method is in how $\text{RPS}_{y,j}$ is obtained for salmon stocks that return at more than one age (like Chinook salmon). Only the states $S_{y,j}$ are ever directly observed; $R_{y,j}$ is observed (for Chinook salmon) over four calendar years as not all fish mature and make the spawning migration at the same age. Thus, in order to completely observe one $\text{RPS}_{y,j}$ outcome, escapement must be monitored in year $y$ and escapement, harvest, and age composition must be monitored in the subsequent years $y+4$, $y+5$, $y+6$, and $y+7$. It is evident that missing one year of sampling (which is a common occurrence; Figure \@ref(fig:obs-freq)) can lead to issues with this approach. Only completely observed $\text{RPS}_{y,j}$ data were used for this analysis, with the exception of missing count data. For substocks with no age composition data (i.e., those monitored _via_ aerial survey), the average age composition each year across substocks that have data was used to reconstruct $\text{RPS}_{y,j}$, but was provided only for years with escapement sampling for substock $j$. Only substocks with $\ge3$ completely-observed pairs of $\text{RPS}_{y,j}$ and $S_{y,j}$ were included for model fitting, given each fitted line was dictated by 2 parameters.
+The state-space model is partitioned into two submodels: (1) the process submodel which generates the true states of $R_{y,j}$ and the resulting calendar year states (e.g., $S_{t,j}$) and (2) the observation submodel which fits the true states to the observed data (Table \@ref(tab:ch4-notation-table)). Note that this method allows for missing calendar year observations and does not require excluding brood year recruitment events that were not fully-observed as was necessary for the regression-based models (see Appendix \@ref(lm-btable)).
 
-### The full state-space model {#ssm-model}
-
-\noindent
-Four versions of the state-space formulation were assessed. As 3 versions were simplifications of the full model, the full model is presented completely here and the changes resulting in the other three model structures are described in the subsequent section. 
-
-The state-space formulation of a multi-stock spawner-recruit analysis developed and evaluated here is an extension of various single-stock versions [_e.g._, @fleischman-etal-2013]. @walters-etal-2008 used a similar model using maximum likelihood methods to provide estimates of >50 substocks in the Skeena River drainage, British Columbia. The model presented here was fitted in the Bayesian mode of inference using the program JAGS [@plummer-2017], and allows for relaxation of certain assumptions made by @walters-etal-2008 such as the important notion of perfectly-shared recruitment residuals (i.e., anomalies -- deviations from the expected population response). It also has the ability to relax the assumption of constant maturity schedules across brood years. See Table \@ref(tab:ch4-notation-table) for a description of the index notation, in particular note the difference between the brood year index $y$ and the calendar year index $t$.
-
-The state-space model can be partitioned into two submodels: (_a_) the process submodel which generates the true states of $R_{y,j}$ and the resulting calendar year states (_e.g._, $S_{t,j}$) and (_b_) the observation submodel which fits the observed data to the true states. The model is fitted to three primary data sources: 
-
-(1)  $S_{obs,t,s}$ -- escapement estimates from the $n_j$ substocks with data observed over $n_t$ calendar years with associated observation variances (some of which may be missing observations; see Appendix \@ref(air-expansion)),
-
-(2)  $H_{obs,t}$ -- calendar year estimates of aggregate harvest summed across all substocks included in the analysis with associated observation variances (see Appendix \@ref(harv-expansion)), and
-
-(3)  $q_{obs,t,a,j} ESS_t$ -- the calendar year age composition (relative contribution of each age class to the total run) for  all substocks that have this information (see Appendix \@ref(age-comp)). The proportion at age is contained in the $q$ variable, and the weighting factor (number of fish sampled for age data in year $t$) is contained in the $ESS_t$.
-
-\noindent
-Note that this method allows for missing calendar year observations and does not require excluding brood year recruitment events that are not fully observed as was done for the regression-based models (see Section \@ref(lm-btable)).
-
-#### Process submodel: Brood year processes {#ssm-bproc-model}
-
-\noindent
-The recruitment process operated by producing a mean prediction from the deterministic @ricker-1954 relationship \@ref(eq:basic-ricker) for $n_y$ brood years for each of the $n_j$ substocks. From these deterministic predictions, autocorrelated process variability was added to generate the true realized state. To populate the first $n_a$ calendar year true states with recruits of each age $a$, the first $a_{max}$ brood year expected recruitment states were not linked to a spawner abundance through \@ref(eq:basic-ricker) (because the $S_y$ component was not observed), but instead were be assumed to have a constant mean equal to the unfished equilibrium recruitment (where non-zero $S_j$ produces $R_j = S_j$ when unexploited and in the absence of process variability):
+The recruitment process operated by producing a mean prediction from the deterministic @ricker-1954 relationship \@ref(eq:basic-ricker) for $n_y$ brood years for each of the $n_j$ substocks. From these deterministic predictions, auto-correlated process variability was added to generate the true realized state. To populate the first $n_a$ calendar year true states with recruits of each age $a$, the first $a_{max}$ brood year expected recruitment states were not linked to a spawner abundance through \@ref(eq:basic-ricker) (because the $S_y$ component was not observed), but instead were assumed to have a constant mean equal to the unfished equilibrium recruitment (where non-zero $S_j$ produces $R_j = S_j$ when unexploited and in the absence of process variability):
 
 \begin{equation}
   \bar{R}_{y,j}=\frac{\log(\alpha_j)}{\beta_j},
@@ -166,7 +102,7 @@ where $\bar{R}_{y,j}$ is the expected (i.e., deterministic) recruitment in brood
 \noindent
 where $t = y-a_{max}$ is the $t^{\text{th}}$ calendar year index in which the escapement produced the recruits in the $y^{\text{th}}$ brood year index.
 
-From these deterministic predictions of the biological recruitment process, autocorrelated lag-1 process errors were added to produce the true realized states:
+From these deterministic predictions of the biological recruitment process, lag-1 auto-correlated process errors were added to produce the true realized states:
 
 \begin{equation}
   \log(R_{y,1:n_j}) \sim \text{MVN}\left(\log(\bar{R}_{y,1:n_j}) + \omega_{y,1:n_j}, \Sigma_R\right),
@@ -177,26 +113,23 @@ From these deterministic predictions of the biological recruitment process, auto
 where
 
 \begin{equation}
-  \omega_{y,1:n_j} = \phi \left(\log(R_{y-1,j}) - \log(\bar{R}_{y-1,j}) \right),
+  \omega_{y,1:n_j} = \phi \left(\log(R_{y-1,1:n_j}) - \log(\bar{R}_{y-1,1:n_j}) \right),
   (\#eq:tsm-omega)
 \end{equation}
 
 \noindent
-and $R_{y,1:n_j}$ is a vector of true recruitment states across the $n_j$ stocks in brood year $y$, $\omega_{y,1:n_j}$ is the portion of the total process error attributable to serial autocorrelation, $\phi$ is the lag-1 auto-correlation coefficient (constant across substocks), and $\Sigma_R$ is a covariance matrix representing the white noise portion of the total recruitment process variance. $\Sigma_R$ was estimated such that each substock was assigned a unique variance and covariance with each other substock. This was achieved using an inverse Wishart prior distribution, with degrees of freedom equal to $n_j + 1$ and the scale matrix populated with zero-value elements along the off-diagonals and 1 along the diagonal elements, which inserts little information about the covariance matrix $\Sigma_R$ [@plummer-2017]. The multivariate normal errors were on the logarithmic scale so that the variability on $R_{y,j}$ was lognormal, which is the most commonly used error distribution for describing spawner-recruit data sets [@walters-martell-2004]. Further, the multivariate normal was used as opposed to $n_j$ separate normal distributions so that the degree of synchrony in brood-year recruitment deviations (i.e., process errors) among substocks could be captured and freely estimated.
+and $R_{y,1:n_j}$ is a vector of true recruitment states across the $n_j$ stocks in brood year $y$, $\omega_{y,1:n_j}$ is the portion of the total process error attributable to serial auto-correlation, $\phi$ is the lag-1 auto-correlation coefficient (constant across substocks), and $\Sigma_R$ is a covariance matrix representing the white noise portion of the total recruitment process variance. $\Sigma_R$ was estimated such that each substock was assigned a unique variance and covariance with each other substock. This was achieved by using an inverse Wishart prior distribution, with degrees of freedom equal to $n_j + 1$ and the scale matrix populated with zero-value elements along the off-diagonals and 1 along the diagonal elements, which inserts little information about the covariance matrix $\Sigma_R$ [@plummer-2017]. The multivariate normal errors were on the logarithmic scale so the variability on $R_{y,j}$ was lognormal, which is the most commonly used error distribution for describing spawner-recruit data sets [@walters-martell-2004]. Further, the multivariate normal was used as opposed to $n_j$ separate normal distributions so the degree of synchrony in brood year recruitment deviations (i.e., recruitment process errors) among substocks could be captured and freely estimated.
 
-The maturity schedule is an important component of age-structured spawner-recruit models, as it determines which calendar years the brood year recruits $R_{y,j}$ return to spawn (and be observed). Recent state-space spawner-recruit analyses have accounted for brood year variability in maturity schedules as Dirichlet random vectors drawn from a common hyperdistribution characterized by a mean maturation-at-age probability vector ($\pi_{1:n_a}$) and an inverse dispersion parameter ($D$) [see @fleischman-etal-2013; @staton-etal-2017-intseq] for implementation in JAGS), and the same approach was used here with maturity schedules shared perfectly among substocks within a brood year. Brood year-specific maturity schedules were treated as random variables such that:
+The maturity schedule is an important component of age-structured spawner-recruit models, as it determines which calendar years the brood year recruits $R_{y,j}$ return to spawn (and be observed). Recent state-space spawner-recruit analyses have accounted for brood year variability in maturity schedules as Dirichlet random vectors drawn from a common hyperdistribution characterized by a mean maturation-at-age probability vector ($\pi_{1:n_a}$) and an inverse dispersion parameter ($D$) [see @fleischman-etal-2013; @staton-etal-2017-intseq for implementation in JAGS], and the same approach was used here with maturity schedules shared perfectly among substocks within a brood year. Brood year-specific maturity schedules were treated as random variables such that:
 
 \begin{equation}
-  p_{y,a} \stackrel{\text{iid}}{\sim} \text{Dir}(\pi_{1:n_a} D). 
+  p_{y,a} \stackrel{\text{iid}}{\sim} \text{Dirichlet}(\pi_{1:n_a} D). 
   (\#eq:dirichlet)
 \end{equation}
 
 \noindent
-where $p_{y,a}$ is the probability a fish spawned in brood year $y$ matures at age $a$. While there is almost certainly some level of between-substock variability in average maturity schedules, I made many attempts to estimate it and include it in these models, but all efforts resulted in either (1) nonsensical maturity estimates, (2) systematic residual patterns among substocks with and without age composition data, or (3) required auxiliary (i.e., never observed) information for substocks that do not have age composition information in order to fit. This result indicates to me that the variability is not estimable from the available data when embedded into this model. I think it is reasonable to expect that brood year deviations should be similar between substocks given that the factors that set the probability of maturing at age are likely linked to growth and mortality conditions in the ocean part of the life-cycle, in which case all substocks would experience similar conditions.
+where $p_{y,a}$ is the probability a fish spawned in brood year $y$ will mature at age $a$.
 
-#### Process submodel: Calendar-year processes {#ssm-cproc-model}
-
-\noindent
 In order to link $R_{y,j}$ with calendar year observations of escapement from each substock, $R_{y,j}$ was allocated to calendar year runs-at-age ($N_{t,a,j}$) based on the maturity schedule:
 
 \begin{equation}
@@ -228,20 +161,14 @@ and escapement was obtained as:
   (\#eq:tsm-get-S)
 \end{equation}
 
-\noindent
-For both simulation and empirical analyses, all substocks were assumed to have been fished at the same rate (i.e., all stocks have been equally vulnerable to harvest). Though this may not be a terribly realistic assumption, I have made attempts at reconstructing vulnerability based on what is known about substock specific run timing and the harvest timing of the lower river fishery and found that on average differences in vulnerability were negligable. 
-
-The quantities $N_t$ and $S_t$ aggregated among all substocks were obtained by summing within a $t$ index across the $j$ indices. The true age composition returning in year $t$ to substock $j$ ($q_{t,a,j}$) was obtained as:
+The quantity $H_t$ aggregated among all substocks was obtained by summing $H_{t,j}$ within a $t$ index across the $j$ indices. The true age composition returning in year $t$ to substock $j$ ($q_{t,a,j}$) was obtained as:
 
 \begin{equation}
   q_{t,a,j} = \frac{N_{t,a,j}}{N_{t,j}}.
   (\#eq:get-q)
 \end{equation}
 
-#### Observation submodel {#ssm-obs-model}
-
-\noindent
-Three data sources were used to fit the model: observed (or estimated; Appendix \@ref(air-expansion)) escapement from each substock ($S_{obs,t,j}$) with assumed known coefficients of variation (CV), total harvest arising from the aggregate stock ($H_{obs,t}$) with assumed known CV, and the age composition of substocks with age composition (the substocks monitored using weirs; $n = 6$ for the Kuskokwim River) each calendar year ($q_{obs,t,a,j}$) (which has associated effective sample size $ESS_{t,j}$ equal to the number of fish successfully aged for substock $j$  in year $t$). The CVs were converted to lognormal standard deviations:
+Three data sources were used to fit the model: (1) observed escapement from each substock ($S_{obs,t,j}$) with assumed known coefficients of variation (CV), (2) total harvest arising from the aggregate stock ($H_{obs,t}$) with assumed known CV, and (3) the age composition of substocks with these data each calendar year ($q_{obs,t,a,j}$; which had associated effective sample size $ESS_{t,j}$ equal to the number of fish successfully aged for substock $j$ in year $t$). The CVs were converted to lognormal standard deviations:
 
 \begin{equation}
   \sigma_{\text{log}}=\sqrt{\log(\text{CV}^2+1)},
@@ -249,178 +176,154 @@ Three data sources were used to fit the model: observed (or estimated; Appendix 
 \end{equation}
 
 \noindent
-and used in lognormal likelihoods to fit the time series $S_{t,j}$ to $S_{obs,t,j}$ and $H_t$ to $H_{obs,t}$. Calendar year age composition was fitted using parameter vectors $q_{t,1:n_a,j}$ and observed vectors of ($q_{obs,t,1:n_a,j} ESS_{t,j}$).
+and used in lognormal likelihoods to fit the time series $S_{t,j}$ to $S_{obs,t,j}$ and $H_t$ to $H_{obs,t}$. Calendar year age composition was fitted using multinomial likelihoods with parameter vectors $q_{t,1:n_a,j}$ and observed vectors of ($q_{obs,t,1:n_a,j} ESS_{t,j}$).
 
-### Alternate state-space models {#alt-ssm-models}
+Three alternative formulations of the state-space model were evaluated, and all were simplifications of the full model described above regarding the structure of (1) the covariance matrix on recruitment residuals and (2) the maturity process (see Table \@ref(tab:models-table) for a summary). The simplest model did not include brood year variability in maturity schedules and $\Sigma_R$ was constructed by estimating a single $\sigma_R^2$ and $\rho$, and populating the diagonal elements with $\sigma_R^2$ and off-diagonal elements with $\rho \sigma_R^2$. This simplest model is denoted as SSM-vm throughout the rest of this chapter. One drawback of constructing $\Sigma_R$ this way is that $\rho < -0.05$ for a $13 \times 13$ covariance matrix results in positive-indefiniteness, which is prohibited by JAGS [@plummer-2017]. Thus, a constraint was required to maintain $-0.05 \le \rho < 1$ to prevent the sampler from crashing. In one intermediate model (SSM-vM), brood year maturation variability was included but the covariance matrix was constructed as in the simplest model. In the other intermediate model (SSM-Vm), brood year variability in maturation was not included but the covariance matrix was fully estimated as in the full model (SSM-VM). As for the choice of notation, lowercase letters indicate the simple version of a structure and uppercase letters indicate the complex structure; "v" refers to recruitment covariance structure and "m" refers to maturity. I chose these two structural uncertainties (complexity in recruitment covariance and maturity variability) for evaluation here because I thought them to be two key areas where an analyst might question if the available data are adequate for model fitting and inference. In other words, these are two key structural uncertainties where it is important to know if the complex versions are reliably estimable with a reasonable amount of data.
 
-\noindent
-Three alternate formulations of the state-space model were evaluated, and all were simplifications of the full model described above regarding the structure of (1) the covariance matrix on recruitment residuals and (2) the maturity process (see Table \@ref(tab:models-table) for a summary). The simplest model did not include brood year variability in maturity schedules and $\Sigma_R$ was constructed by estimating a single $\sigma_R^2$ and $\rho$, and populating the diagonal elements with $\sigma_R^2$ and off-diagonal elements with $\rho \sigma_R^2$. This simplest model is denoted as SSM-vm throughout the rest of this chapter. One drawback of constructing $\Sigma_R$ this way is that $\rho < -0.05$ for a $13 \times 13$ covariance matrix results in positive-indefiniteness, which is prohibited by JAGS [@plummer-2017]. Thus, a constraint was required to maintain $-0.05 \le \rho < 1$ to prevent the sampler from crashing. In one intermediate model (SSM-vM), brood year maturation variability will be included but the covariance matrix will be constructed as in the simplest model. In the other intermediate model (SSM-Vm), brood year variability in maturation will not be included but the covariance matrix will be fully estimated as in the full model (SSM-VM). As for the choice of notation, lowercase letters indicate the simple version of a structure and uppercase letters indicate the complex structure.
+### Kuskokwim empirical analysis
 
-Certainly there are other model structures that could have been evaluated. For example, additional of complexity to the AR(1) time series model on recruitment anomalies could have been added (or, conversely, it could have been removed entirely), other methods could be devised for obtaining the expected recruitment in the first $a_{max}$ brood years (though I tried many), or different variance structures for white noise recruitment anomolies. These are all examples of different model structures that an analyst may choose, but I needed to limit the boundaries of the model evaluation for computational and inferential reasons. I chose the simple _versus_ complex comparisons for recruitment and maturity variability because I think these are the two key areas where an analyst will question if they have enough data to fit the model. In other words, these are two key structural uncertainties where it is important to know if the complex versions are reliably estimable with a reasonable amount of data. 
-
-### Simulation-estimation analysis
+#### Study system
 
 \noindent
-To test the performance of these models, I created 160 hypothetical salmon data sets designed to mimic the Kuskokwim River empirical data set. I attempted to fit each of the six estimation models described above to each data set. The rest of this section is a summary of how the data sets were generated.
+All six assessment models (two regression-based and four state-space models) developed in this chapter were fitted to empirical data from Chinook salmon substocks of the Kuskokwim River located in western Alaska (Figure \@ref(fig:ch4-map)). The Kuskokwim River salmon fishery can very well be described as a mixed-stock fishery, both for multiple salmon species (predominately Chinook, chum _O. keta_, and sockeye salmon) and for multiple substocks of the same species. Fish originating from and returning to the various tributaries enter through the bulk of the fishery as a mixed-stock, though Chinook salmon stocks traveling to the headwaters have been illustrated to enter the main stem earliest in the summer migration [@smith-liller-2017a; @smith-liller-2017b] so a limited ability to direct harvest toward or away from these substocks is possible by manipulating the front portion of the fishery (Chapter \@ref(ch3), this dissertation). It is acknowledged that the assessment program does not sample all tributaries within the Kuskokwim River where Chinook salmon spawn, but total run size between 1976 -- 2017 has been estimated _via_ run reconstruction [@liller-etal-2018].
 
-#### Operating model: Biological submodel
+#### Data sources
 
 \noindent
-Given that the state-space model is a much more natural model of this system (which has intrinsic time series properties) than the regression-based versions, it was used as the foundation of the operating model (i.e., state-generating model). The biological submodel was more complex than the most complex estimation model -- namely in regards to the maturity schedule, which had a modest level of substock variability but with highly correlated brood year variability. In order to serve as the state-generating model for the simulation, the state-space model needed only to be populated with true parameters, initial states, and a harvest control rule. I used an exploitation rate policy (chosen to maximize yield without overfishing more than 30% of the substocks) with a modest amount of implementation error to ensure the data time series were generated with enough contrast in spawner abundance. I generated $n_j$ = 13 substocks with different parameters $U_{\text{MSY},j}$ and $S_{\text{MSY},j}$ which took on the values of random posterior draws from the most complex state-space model. All other parameters were chosen to mimic the estimated values from the Kuskokwim analysis, with the exception of $\Sigma_R$, which was set to have a modest amount of substock recruitment variance ($\sigma_{j,j} \approx 0.4$) and covariance ($\rho_{i,j} \approx 0.3$).
+The data set used included counts of Chinook salmon at many locations throughout the Kuskokwim River system (Figure \@ref(fig:ch4-map)). Nearly all data were collected by projects managed by the Alaska Department of Fish and Game (ADF&G) and a complete description of data needs and preparation procedures is provided in Appendix \@ref(appendix-c). The raw escapement data set available spanned 20 different escapement monitoring projects (six weirs and 14 aerial surveys) and 42 calendar years from 1976 -- 2017; see @head-smith-2018 for details on tributary escapement monitoring. Some pre-processing was required to convert the aerial survey index counts to estimates of total spawners (Appendix \@ref(air-expansion)). Annual estimates of Chinook salmon harvest originating from both subsistence and commercial fisheries in each year was also available, as was the estimated exploitation rate of the aggregate stock (details in Appendix \@ref(harv-expansion)). Finally, age composition data were available for the six substocks monitored _via_ weir programs (details in Appendix \@ref(age-comp)).
 
-#### Operating model: Observation submodel
+#### Sensitivity Analyses
 
-For a given set of simulated true states, a set of observed states ($S_{obs,t,j}$, $H_{obs,t}$, $q_{obs,t,a,j}$) will be generated by adding sampling error to each year, which will represent the value that would be observed if the sampling project operated that year. Observation errors in escapement and harvest estimates will be lognormal and multinomial for the age composition, as assumed in the state-space estimation model. Frequency of sampling on each substock (i.e., simulated data collection) will be set to approximately mimic the Kuskokwim River historical monitoring program. The sampling frequency was designed to continue to generate sampling schedules until one was found that ensured no substocks had fewer than 3 observations of $\text{RPS}_{obs,y,s}$ which allowed the linear regression models to include all substocks. Aggregate harvest ($H_{obs,t}$) was assumed to be available every year in each simulation and it was assumed that the exploitation rate could be estimated in an unbiased fashion.
+\noindent
+Two sensitivity analyses were conducted to test the robustness of inference from the state-space models with the Kuskokwim data. First, the default assumption that all substocks have been fished at the same rate each year is tenuous. I included a term in the model that allowed for substocks to have differential vulnerability ($v_j$) by replacing $U_t$ with $U_tv_j$ in \@ref(eq:tsm-get-H) and \@ref(eq:tsm-get-S) which makes an adjustment that acknowledges some substocks experienced higher exploitation rates than others. This alteration changes the interpretation of the  parameter vector $U_t$ to be the exploitation rate of fully-vulnerable substocks. Without additional information on what portion of $H_{obs,t}$ was attributable to each substock going back in time, the $v_j$ elements are not estimable. In the absence of this information for Kuskokwim River Chinook salmon, the value of the vulnerability parameters was set by calculating the fraction of the fishing households along the main-stem of the river that each substock must travel past in order to reach their natal spawning grounds. Fishing household data were available from post-season interviews conducted by ADF&G [e.g., @hamazaki-2011; @shelden-etal-2016b]^[These data were the same as those used in Chapter \@ref(ch3) of this dissertation when determining the spatial distribution of fishing effort and salmon needs in the management strategy evaluation operating model.]. Although this method ignores the temporal overlap of the fishery [@hamazaki-2008] with the arrival timing of particular substock groups [@smith-liller-2017a; @smith-liller-2017b], it was intended as a first step at determining how much the conclusions might depend on how the internal harvest accounting was specified. No attempt was made to alter how harvest was apportioned for use in the regression-based models.
+
+As a secondary sensitivity analysis, the information content of the age composition data was reduced. In the default case, each annual multinomial age composition vector was weighted by the number of fish successfully aged for that substock/year combination. For some substocks/years, this number was quite high from a multinomial sampling perspective when the number of categories is small (e.g., $\approx$ 1,200 samples across four age categories). To assess whether this strength of information had an impact on the inference, I manipulated the effective sample size such that the maximum number of fish sampled for a substock was assigned $ESS_{t,j}$ = 100, and the other years with data were scaled proportionately.
+
+#### Comparisons of model output
+
+\noindent
+Key population dynamics parameters and biological reference points were compared between six assessment models wherever possible to determine the extent to which the management conclusions might change based on the model structure used. Where appropriate, quantities were averaged across substocks to facilitate comparisons and included indicators of the average substock's productivity ($\bar{\alpha}_j$ and $\bar{U}_{\text{MSY},j}$) and size ($\bar{S}_{\text{eq},j}$, $\bar{S}_{\text{MSY},j}$, and $\bar{S}_{\text{MAX},j}$). Reference points for the aggregate mixed-stock included $U_{\text{MSY}}$ and $S_{\text{MSY}}$ and a set of metrics that incorporate biodiversity aspects as well: $S^*_p$ $H^*_p$, and $U^*_p$, which represent the mixed-stock escapement, harvest, or exploitation rate, respectively, that would ensure no more than $p \cdot 100\%$ of substocks would be overfished, defined here as the case where a substock would be fished at $U > U_{\text{MSY},j}$. Three levels of $p$ were extracted: 0.1, 0.3, and 0.5.
+
+Model fits to the data ($S_{obs,t,s}$, $H_{obs,t}$, and $q_{obs,t,a,j}$) were examined for all state-space models and noteworthy differences between model structures were identified. Estimates of synchrony in recruitment anomalies were examined, both between two average substocks ($\bar{\rho}_{i,j}$), and between all substock pairs. For the simple recruitment variance models (SSM-vm and SSM-vM), correlations between each substock pair were conducted by applying Pearson's $r$ coefficient to two substocks' estimated recruitment anomaly time series; in the complex variance models these correlations were captured in the freely-estimated covariance matrix, and they were extracted and summarized. Although the state-space models were ignorant of the spatial relationships between the substocks, comparisons were made to determine if substocks closer in proximity showed higher synchrony than those spaced more distantly, as might be expected. The auto-correlation parameter ($\phi$) and characteristics of the maturity schedules ($\pi_a$ and $D$) were also compared between state-space models.
+
+Harvest-biodiversity trade-offs were visualized in two ways. First, the equilibrium aggregate mixed-stock escapement and harvest were calculated^[Equilibrium equations for the @ricker-1954 model can be found in Table 2 of @schnute-kronlund-2002 for the case where $\gamma = 0$.] at each level of a mixed-stock exploitation rate that affected all substocks equally. The fraction of substocks overfished and trending towards extirpation (defined as the case where equilibrium $S_{j} \leq 0$) were also calculated. As a secondary, possibly more direct trade-off visualization, the fraction of substocks overfished and trending towards extirpation was plotted against the fraction of the mixed-stock MSY obtained at each exploitation rate.
+
+Some substocks could not be fitted using the regression approach because they had fewer than three observed pairs of $\text{RPS}_{y,j}$ (see Appendix \@ref(lm-btable) for details). When comparing quantities to the estimates from the state-space models, the substocks that could not be fitted with the regression approaches were removed from the state-space model outputs. When comparisons were made between state-space models only, these substocks were retained. 
+
+### Simulation-estimation trials
+
+\noindent
+To test the performance of these models, I created 160 hypothetical salmon data sets designed to mimic the Kuskokwim River empirical data set. I attempted to fit each of the six assessment models described in Section \@ref(model-methods) to each data set.
+
+Given that the state-space model is a much more natural model of this system (which has intrinsic time series properties) than the regression-based versions, it was used as the foundation of the operating model (i.e., state-generating model). The biological submodel was more complex than the most complex estimation model -- namely with regards to the maturity schedule, which had a modest level of substock variability in mean maturity but with highly correlated brood year variability; see Appendix \@ref(appendix-d) for details. In order to serve as the state-generating model for the simulation, the state-space model needed only to be populated with true parameters, initial states, and a harvest control rule. A fixed exploitation rate policy was used (chosen to maximize yield without overfishing more than 30% of the substocks) with a modest amount of implementation error to ensure the data time series were generated with enough contrast in spawner abundance. $n_j$ = 13 substocks were simulated with different parameters $U_{\text{MSY},j}$ and $S_{\text{MSY},j}$ which took on the values of random posterior draws from the most complex state-space model fitted to the Kuskokwim River Chinook salmon substock data. All other parameters were chosen to mimic the estimated values from the Kuskokwim analysis, with the exception of $\Sigma_R$, which was set to have a modest amount of substock recruitment variability ($\bar{\sigma}_{j,j} \approx 0.4$); $\rho_{i,j}$ for each pair of substocks was simulated randomly between -1 and 1, but approximately 0 when averaged across all substocks.
+
+For a given set of simulated true states, a set of observed states ($S_{obs,t,j}$, $H_{obs,t}$, $q_{obs,t,a,j}$) was generated by adding sampling error to each year, which represented the value that would have been observed if the sampling project operated that year. Observation errors in escapement and harvest estimates were lognormal and multinomial for the age composition, as assumed in the state-space estimation model. Frequency of sampling on each substock (i.e., simulated data collection) was set to approximately mimic the Kuskokwim River historical monitoring program (Figure \@ref(fig:obs-freq)). The sampling frequency was designed to continue to generate sampling schedules until one was found that ensured no substock had fewer than three observations of $\text{RPS}_{y,j}$ which allowed the regression-based models to include all substocks. Aggregate harvest ($H_{obs,t}$) was assumed to be available every year in each simulation and it was assumed that the exploitation rate could be estimated in an unbiased fashion.
+
+Estimation performance in terms of accuracy between assessment models was calculated using the proportional error ($\frac{x_{\text{est}} - x_{\text{true}}}{x_{\text{true}}}$), and the central tendency and variability between random data sets were visualized using boxplots. Key quantities of interest for comparison between the regression approaches and the state-space models included: $S_{\text{MSY}}$, $U_{\text{MSY}}$, $S^*_p$, $U^*_p$, $\alpha_j$, $U_{\text{MSY},j}$, and $S_{\text{MSY},j}$. For the state-space models, the ability to accurately estimate the abundance states of $R_{y,j}$, $S_{t,j}$, and $H_{t}$ was also assessed, summarized for early years and all years separately to investigate the influence of the assumption that the observation time series began at unfished equilibrium, as described by \@ref(eq:unfished-R0). Credible interval coverage at the 95% level was assessed by determining the fraction of obtained credible intervals included the true value. Additionally, model run times and convergence diagnostics were summarized for all models that successfully fitted the simulated data sets. 
 
 ### Computation
 
 \noindent
-All parameter estimation was conducted in the Bayesian framework using JAGS [@plummer-2017] implemented using R [@r-cite] and the R package `{jagsUI}` [@r-jagsUI] for interfacing with JAGS from R, as well as the `{coda}` [@r-coda] package. I wrote two packages to simplify the workflow of this analysis^[For reference, any of the packages I wrote for this analysis can be installed on any R user's computer by executing: `devtools::install_github("bstaton1/pkgname")`.]: one to handle the generation of simulated age-structured salmon populations from a mixed-stock fishery [`{SimSR}`; @r-SimSR] and one to handle the fitting and summarization of model output [`{FitSR}`; @r-FitSR] The former is one that other researchers may find useful for streamlining salmon population dynamics studies, whereas the later is highly specific to this particular analysis (in terms of the models included). Additionally, I made extensive use of another package I wrote for summarizing the output of JAGS models, which other researchers using JAGS may find useful [`{codaTools}`; @r-codaTools].
+All parameter estimation was conducted in the Bayesian framework using the MCMC engine JAGS [@plummer-2017] invoked through R [@r-cite] using the package `{jagsUI}` [@r-jagsUI]. All priors for the regression-based methods (Table \@ref(tab:lm-prior-table)) and state-space models (Table \@ref(tab:ssm-prior-table)) were selected to be as minimally-informative as possible, while still preventing the MCMC sampler from exploring highly unlikely areas of the parameter space. I wrote two packages to simplify the workflow of this analysis^[For reference, any of the packages I wrote for this analysis can be installed on any R user's computer by executing: `devtools::install_github("bstaton1/pkgname")`.]: one to handle the generation of simulated age-structured salmon populations from a mixed-stock fishery [`{SimSR}`; @r-SimSR] and one to handle the fitting and summarization of model output [`{FitSR}`; @r-FitSR]. The former is one that other researchers may find useful for streamlining salmon population dynamics studies, whereas the later is highly specific to this particular analysis (in terms of the models included). Additionally, I made extensive use of another package I had previously written for summarizing the output of JAGS models, which other researchers using JAGS may find useful [`{codaTools}`; @r-codaTools].
 
-See Table \@ref(tab:mcmc-table) for details on the MCMC sampling specifications used for all models. Posterior convergence was assessed using visual inspection of the MCMC sampling behavior and the convergence diagostic proposed by @brooks-gelman-1998. Adequate sampling was further verified for key estimated quantities using the effective sample size and the Raftery-Lewis diagnostic [@raftery-lewis-1992]. 
+MCMC sampling was conducted using sufficiently long chains (Table \@ref(tab:mcmc-table)) to ensure adequate exploration of the posterior parameter space, and was assess using visual inspection of the MCMC sampling behavior and the convergence diagnostic proposed by @brooks-gelman-1998. Adequate sampling was further verified for key estimated quantities using the effective sample size and the Raftery-Lewis diagnostic [@raftery-lewis-1992]. All posterior distributions were summarized using the median and 95% equal-tailed credible intervals. In cases where a quantity was averaged over substocks or years (e.g., $\bar{\alpha}_j$), the average was calculated for each joint posterior sample, then the resulting marginal posterior of the average was summarized.
 
-As a result of the long required model run times and the large number of simulated salmon data sets (i.e., replicates) for the simulation study, this analysis required more computing power than the previous chapters. I conducted this analysis using High Performance Computing services provided by the Alabama Supercomputer Authority. This allowed me to run many jobs at once, where each job fitted one model to each one hypothetical data set using one processor core for each chain in parallel. In this way, I was able to complete just over 3 years of computing time (if each job was ran back-to-back) in less than 1 month (as a result of many parallel jobs). A summary of model run times is provided in Table \@ref(tab:model-run-time-table).
-
-### Metrics of model performance
-
-\noindent
-\hl{COMPLETE THIS SECTION}
+As a result of the long required model run times and the large number of simulated salmon data sets (i.e., replicates) for the simulation study, this analysis required more computing power than the previous chapters. I conducted this analysis using High Performance Computing services provided by the Alabama Supercomputer Authority. This allowed me to run many jobs at once, where each job fitted one model to one data set using one processor core for each chain in parallel. In this way, I was able to complete just over three years of computing time (if each job was ran back-to-back) in less than one month (as a result of many parallel jobs).
 
 ## Results
 
 ### Kuskokwim River empirical analysis
 
-#### Data preparation {#data-prep-results}
-
-\noindent
-Given the somewhat substantial amount of data processing that was required prior to fitting any spawner-recruit models to the Kuskokwim River Chinook salmon substock data, I believe it necessary to present some results on it, particularly with respect to the expansion of aerial survey data.
-
-##### Escapement {#esc-data-results}
-
-\noindent
-The expansion of aerial survey data to obtain total annual escapement estimates (described in Appendix \@ref(air-expansion)) produced reasonable estimates of both expansion factors and escapement. For the spatial expansion (which used the distribution of telemetry-tagged fish with respect to the aerial survey reaches as described in Appendix \@ref(spat-expansion)), the escapement project that received the largest expansion was the Holitna River, with an expansion factor ($1 + \psi_j$) of 4.78 (4.04 -- 5.73; 95% equal-tailed credible limits) as shown in Table \@ref(tab:spat-expand-table). Given the small length of surveyed stream relative to the size of the Holitna subdrainage (Figure \@ref(fig:ch4-map); substock #7), this large estimate makes intuitive sense. The aerial survey project that required the smallest spatial expansion was the Salmon fork of the Aniak River (1.04; 1.01 -- 1.14; Table \@ref(tab:spat-expand-table)). The average expansion factor across all aerial survey projects was 1.78 (1.67 -- 1.93). 
-
-In terms of the temporal expansion (intended to adjust the aerial counts for their single-pass nature; Appendix \@ref(temp-expansion)), the estimate for the primary expansion coefficient ($\hat{\beta}_1$) was 2.3 (1.76 -- 2.85; Table \@ref(tab:temp-expand-table)). This estimate indicates that spatially-corrected aerial survey counts needed to be scaled up by a factor of 2.3 in order to be consistent with the total annual escapement counts made at weirs in years and subdrainages that had paired counts. This estimate makes intuitive sense given ADF&G has structured the timing of aerial survey flights to coincide with the peak of the escapement timing arrival curve [@head-liller-2017], which should occur approximately halfway through the run, indicating the aerial counts would need to be doubled to account for the second half of the run. The freely-estimated intercept of the temporal expansion ($\hat{\beta}_0$) had a value of 1.9 (-60.71 -- 62.4), indicating that if no fish are counted by an aerial survey, very little escapement actually occurred (Table \@ref(tab:temp-expand-table)). For the substocks monitored _via_ aerial survey that required these expansions, the average annual observation CV was estimated to be 18% (it was set at 5% for weir-monitored substock escapement).
-
-Based on the scale of the summed escapement estimates from this analysis relative to the drainage-wide scale [which includes monitored and unmonitored substocks; @liller-etal-2018], approximately half (57%; 47% -- 66%) of the Chinook salmon aggregate population is accounted for by the $n_j$ = 13 substocks included here (Figure \@ref(fig:obs-fraction)).
-
-##### Harvest {#harv-data-results}
-
-\noindent
-The average annual explotiation rate used in this analysis was the same as for the aggregate Chinook salmon population: 0.42 with a minimum and maximum value of 0.13 and 0.62 in 2017 and 1988, respectively. The average annual harvest attributable to substocks included in this analysis was nearly 50,000, which is approximately 57% of the historical average harvest from all substocks in the Kuskokwim River. The average annual observation CV was estimated to be 8%. 
-
-##### Age composition {#age-data-results}
-
-\noindent
-Age composition data were available for 6 substocks included in this analysis (i.e., those monitored _via_ weir: George, Kogrukluk, Kwethluk, Takotna, Tatlawiksuk, and Tuluksak; Appendix \@ref(age-comp)). The number of years observed per substock depended on the starting year of the project: each year with an escapement count from a weir had associated age data but not all projects have been operating since 1976. The average annual multinomial sample size ($ESS_{t,j}$) varied between substocks (range 117 -- 553) and was generally related to the average escapement counted at each project. Across all substocks, the average annual age composition was 27%, 38%, 33%, and 2% for ages 4, 5, 6, and 7, respectively, though there was a high degree of inter-annual variability.
-
-
 #### State-space models fit to data {#ssm-fit}
 
 \noindent
-All state-space spawner-recruit models fitted the data well. Notable patterns and differences between versions (simple _versus_ complex recruitment or maturity variance structure) are described in the following three sections.  
-
-##### Escapement {#esc-data-fit}
-
-\noindent
-In the state-space models, all escapement observations available were fitted at the substock-specific level. In general, the four state-space models produced the same escapement state time series, especially in years with data (represented by the grey squares; Figure \@ref(fig:S-fit)). For several substocks, there were no escapement data prior to the mid-1990s, and this is one area the different state-space models produced different escapement estimates. In the early portion of the time series, the models with brood year variability in maturity included (SSM-vM and SSM-VM) tended to estimate higher escapement abundance than the models with time-constant maturity (SSM-vm and SSM-Vm). For example, substocks spawning in the Kwethluk, George, Holokuk, and Takotna rivers all showed this pattern (Figure \@ref(fig:S-fit)). 
+In general, the four state-space models produced the same escapement state time series, especially in years with data (represented by the grey squares; Figure \@ref(fig:S-fit)). For several substocks, there were no escapement data prior to the mid-1990s, and this is one area the various state-space models produced different escapement estimates. In the early portion of the time series, the models with brood year variability in maturity included (SSM-vM and SSM-VM) tended to estimate higher escapement abundance than the models with time-constant maturity (SSM-vm and SSM-Vm). For example, substocks spawning in the Kwethluk, George, Holokuk, and Takotna rivers all showed this pattern (Figure \@ref(fig:S-fit)). 
 
 There were several cases where extremely high (and seemingly unrealistic) escapement states were estimated by the state-space model, though these only occurred in the versions with simple maturation schedules (Figure \@ref(fig:S-fit)). The period in the late-1980s and the early-1990s had much (i.e., 5 -- 10 times) higher estimated escapement than ever observed for the Holitna, Pitka, and Tatlawiksuk substocks under either models SSM-vm or SSM-Vm. The George River substock had abnormally large escapements in the mid-1990s, and was again most exaggerated for the SSM-vm and SSM-Vm versions. All of these cases occurred when no escapement data were available; in years with data all state-space models fitted the escapement data quite well (Figure \@ref(fig:S-fit)).
 
-##### Harvest {#harv-data-fit}
+In general, the fit to the aggregate harvest data was good (Figure \@ref(fig:H-fit)), though the time-varying maturity schedule versions (SSM-vM and SSM-VM) fitted the data nearly perfectly. The constant maturity schedule versions resulted in a harvest state that was greater than twice as large as the observed state in 1976 (the first observed year). These models did not show discrepancies nearly this large for the rest of of the time series (Figure \@ref(fig:H-fit)). Note the precipitous decline in harvest starting in the late-2000s, which coincides with a nearly decade-long period of low productivity for this stock.
 
-\noindent
-The state-space models fitted salmon harvest as an aggregate sum across all substocks under the assumption that all are equally vulnerable to exploitation. In general the fit to harvest was good (Figure \@ref(fig:H-fit)), though the time-varying maturity schedule versions (SSM-vM and SSM-VM) were able to fit the data nearly perfectly. For no apparent reason, the constant maturity schedule versions resulted in a harvest state that was greater than twice as large as the observed state in 1976 (the first observed year). These models did not show discrepancies nearly this large for the rest of of the time series (Figure \@ref(fig:H-fit)). Note the precipitous decline in harvest starting in the late-2000s, which coincides with a nearly decade-long period of low productivity for this stock.
-
-##### Age composition {#age-data-fit}
-
-\noindent
-The state-space models fitted age composition independently to data from all substocks and years that had it available, weighted in a multinomial likelihood by the number of fish successfully aged in that substock and year. Just as for the escapement and harvest data, the state-space models were generally able to fit the age data well. The only differences between versions came in the distinction between how maturity was treated. The complex maturity models had visually-better fit than the simple maturity models (Figure \@ref(fig:age-fit)) for most substocks and ages. This difference in fit was most exaggerated for substocks that had the most fish aged each year (e.g., the Kogrukluk and Kwethluk substocks; Figure \@ref(fig:age-fit)).
-
+Just as for the escapement and harvest data, the state-space models  generally fitted the age data well. The only differences between model structures came in the distinction between how maturity was treated. The complex maturity models had visually-better fit than the simple maturity models (Figure \@ref(fig:age-fit)) for most substocks and ages. This difference in fit was most exaggerated for substocks that had the most fish aged each year (e.g., the Kogrukluk and Kwethluk substocks; Figure \@ref(fig:age-fit)).
 
 #### Regression models fit to data {#reg-fit}
 
 \noindent
-Ten of the 13 substocks had sufficient data to fit the regression models ($\ge 3$ brood year spawner-recruit pairs). The substocks with insufficient data were those spawning in the Kisaralik, Oskawalik, and Holitna subdrainages. In general, there was a large amount of agreement between the independent regression approach (LM) and the mixed-effect approach (LME). At least 5 substocks had essentially equal fitted lines between these two approaches (Figure \@ref(fig:rps-v-s)). Only two substocks had major discrepancies between the fitted lines: the Holokuk and the Pitka substocks. For the Holokuk relationship, the three data points suggested a negative intercept and an increasing slope (Figure \@ref(fig:rps-v-s)), however the intercepts of these models were constrained to be positive to prevent biological impossibilities ($\alpha$ < 1), which explains the poor fit in this case.
+Ten of the 13 substocks had sufficient data to fit the regression models ($\ge 3$ brood year spawner-recruit pairs): those spawning in the Kisaralik, Oskawalik, and Holitna subdrainages. In general, the two regression approaches provided similar fits to the data. At least five substocks had essentially identical fitted lines between approaches (Figure \@ref(fig:rps-v-s)). Only two substocks showed major discrepancies between the fitted relationships: the Holokuk and the Pitka substocks. For the Holokuk relationship, the three data points suggested a negative intercept and an increasing slope (Figure \@ref(fig:rps-v-s)), however the intercepts of these models were constrained to be positive to prevent biological impossibilities ($\alpha_j$ < 1), which explains the poor fit in this case.
 
-#### Spawner-recruit parameter inferences
-
-##### Substock productivity
+#### Spawner-recruit dynamics comparisons
 
 \noindent
-There were large discrepancies between the suggested population dynamics parameters between the regression models and the state-space models (Table \@ref(tab:lm-ssm-ests-table)). For these comparisons, I removed the 3 substocks that could not be fitted by the regression approaches from the summaries of the state-space models. Both regression approaches suggested the maximum productivity of the average substock ($\bar{\alpha}_j$) was far higher than any of the state-space models. The independent regression approach provided an estimate of $\bar{\alpha}_j$ = 7.74 (4.47 -- 19.97) and the mixed-effect regression approach suggested $\bar{\alpha}_j$ = 4.62 (3.15 -- 7.56). As seen in Table \@ref(tab:lm-ssm-ests-table), most state-space models suggested $\bar{\alpha}_j$ < 3, with the highest upper 95% credible limit being 4.92, obtained by SSM-vM.
+There were large discrepancies between the suggested population productivity parameters between the regression models and the state-space models (Table \@ref(tab:lm-ssm-ests-table)). For these comparisons, I removed the three substocks that could not be fitted by the regression approaches from the summaries of the state-space models. Both regression approaches suggested the maximum productivity of the average substock ($\bar{\alpha}_j$) was far higher than any of the state-space models. The independent regression approach provided an estimate of $\bar{\alpha}_j$ = 7.74 (4.47 -- 20.22) and the mixed-effect regression approach suggested $\bar{\alpha}_j$ = 4.63 (3.16 -- 7.45). Most state-space models suggested $\bar{\alpha}_j$ < 3, with the highest upper 95% credible limit being 5.01, obtained by SSM-vM (Table \@ref(tab:lm-ssm-ests-table)).
 
-These patterns are well-illustrated at the substock-level by plotting the expected recruitment at each spawner abundance for each model (Figure \@ref(fig:r-v-s)). It is evident that the four state-space models behaved similarly near the origin (which is governed by $\alpha_j$), whereas in many cases the regression models suggested steeper slopes near the origin (corresponding to higher values of $\alpha_j$). State-space models tended to disagree with one another more at larger spawner abundances (Figure \@ref(fig:r-v-s)), suggesting that inferences about stock size and strength of compensation are dependent on the details how recruitment variance and maturity are modeled for some substocks. As would be expected, the mixed-effect regression approach differed from the independent regression estimates the most for substocks with fewer observations (e.g., Pitka _versus_ Kogrukluk; Figure \@ref(fig:r-v-s)). 
+These patterns are well-illustrated at the substock-level by plotting the expected recruitment at each spawner abundance for each model (Figure \@ref(fig:r-v-s)). It is evident that the four state-space models behaved similarly near the origin (which is governed by $\alpha_j$), whereas in many cases the regression models suggested steeper slopes near the origin (corresponding to higher values of $\alpha_j$). State-space models tended to disagree with one another more at larger spawner abundances (Figure \@ref(fig:r-v-s)), suggesting that inferences about stock size and the strength of compensation are dependent on the details how recruitment variance and maturity are modeled for some substocks. As would be expected, the mixed-effect regression approach differed from the independent regression estimates the most for substocks with fewer observations (e.g., Pitka _versus_ Kogrukluk; Figure \@ref(fig:r-v-s)). 
 
-These differences in estimated productivity translated directly to the maximum sustainable exploitation rate for the average substock ($\bar{U}_{\text{MSY},j}$): the independent and mixed-effects regression approaches resulted in estimates of 0.58 (0.46 -- 0.68) and 0.51 (0.41 -- 0.6), respectively, whereas the point estimates ranged from 0.36 -- 0.45 across the state-space models (Table \@ref(tab:lm-ssm-ests-table)). In terms of the exploitation rate that would maximize yield from the aggregate stock ($U_{\text{MSY}}$), the regression approaches suggested the stock should be fished quite hard (as high as $U_{\text{MSY}}$ = 0.78 for the independent regression approach), whereas all state-space models suggested $U_{\text{MSY}}$ < 0.5 for point estimates and no 95% credible intervals exceeded 0.65 (Table \@ref(tab:lm-ssm-ests-table)).
+These differences in estimated productivity translated directly to the maximum sustainable exploitation rate for the average substock ($\bar{U}_{\text{MSY},j}$): the independent and mixed-effects regression approaches resulted in estimates of 0.58 (0.47 -- 0.68) and 0.51 (0.41 -- 0.6), respectively, whereas the point estimates ranged from 0.37 -- 0.45 across the state-space models (Table \@ref(tab:lm-ssm-ests-table)). In terms of the exploitation rate that would maximize yield from the aggregate mixed stock ($U_{\text{MSY}}$), the regression approaches suggested the stock should be fished quite hard to obtain MSY (as high as $U_{\text{MSY}}$ = 0.78 for the independent regression approach), whereas all state-space models suggested $U_{\text{MSY}}$ < 0.5 for point estimates and no 95% credible intervals exceeded 0.7 (Table \@ref(tab:lm-ssm-ests-table)).
 
-In comparing the state-space model estimates from these 10 substocks to the complete 13 substocks, the average productivity and maximum exploitation rates were quite similar, indicating the stocks with insufficient data for regression were missing at random in these regards (compare the rows corresponding to $\bar{\alpha}_j$, $\bar{U}_{\text{MSY},j}$, and $U_{\text{MSY}}$ between Tables \@ref(tab:lm-ssm-ests-table) and \@ref(tab:ssm-ests-table)).
+In comparing the state-space model estimates from these 10 substocks to the complete set of 13 substocks, the average productivity and maximum sustainable exploitation rates were quite similar, indicating the stocks with insufficient data for regression were missing at random in these regards (compare the rows corresponding to $\bar{\alpha}_j$, $\bar{U}_{\text{MSY},j}$, and $U_{\text{MSY}}$ between Tables \@ref(tab:lm-ssm-ests-table) and \@ref(tab:ssm-ests-table)).
 
-##### Substock size
-
-\noindent
-One metric of substock size is the spawner abundance expected to exactly replace itself under unfished equilibrium conditions ($S_{\text{eq},j}$). When averaged across substocks, the regression approaches suggested the Kuskokwim River substocks were approximately 2,500 fish smaller than the state space models did (Table \@ref(tab:lm-ssm-ests-table)). The other metrics used for measuring substock size ($S_{\text{MAX},j}$ and $S_{\text{MSY},j}$) followed the same pattern: smaller values for the regression approaches than the state-space models, though the magnitude varied depending on the metric (larger discrepancies found for $\bar{S}_{\text{MAX},j}$ than $\bar{S}_{\text{MSY},j}$. One interesting finding was that $\bar{S}_{\text{MAX},j}$ was 70% larger for state-space models with time-constant maturity schedules (approximately 16,500) than models with time-varying maturity (approximately 9,500; Table \@ref(tab:lm-ssm-ests-table)). In terms of the aggregate escapement expected to produce maximum sustained yield ($S_{\text{MSY}}$), regression approaches suggested much smaller escapements were necessary than the state-space models; by a margin of 10,000 -- 15,000 fish (Table \@ref(tab:lm-ssm-ests-table)). One interesting pattern in comparing the uncertainty in $S_{\text{MSY}}$ between state-space models was that those with time-constant maturity schedules had much more uncertainty than the time-varying models (i.e., wider credible limits; Table \@ref(tab:lm-ssm-ests-table)).
+One metric of substock size is the spawner abundance expected to exactly replace itself under unfished equilibrium conditions ($S_{\text{eq},j}$). When averaged across substocks ($\bar{S}_{\text{eq},j}$), the regression approaches suggested the Kuskokwim River substocks were approximately 2,500 fish smaller than the state space models did (Table \@ref(tab:lm-ssm-ests-table)). The other metrics used for measuring substock size ($S_{\text{MAX},j}$ and $S_{\text{MSY},j}$) followed the same pattern: smaller values for the regression approaches than the state-space models, though the magnitude varied depending on the metric (larger discrepancies found for $\bar{S}_{\text{MAX},j}$ than $\bar{S}_{\text{MSY},j}$). $\bar{S}_{\text{MAX},j}$ was 60% larger for state-space models with time-constant maturity schedules (approximately 15,500) than models with time-varying maturity (approximately 9,500; Table \@ref(tab:lm-ssm-ests-table)). In terms of the aggregate mixed stock escapement expected to produce maximum sustained yield ($S_{\text{MSY}}$), regression approaches suggested much smaller escapements were necessary than the state-space models; by a margin of 10,000 -- 15,000 fish (Table \@ref(tab:lm-ssm-ests-table)). In comparing the uncertainty in $S_{\text{MSY}}$ between state-space models, those with time-constant maturity schedules had much more uncertainty than the time-varying models (i.e., wider credible limits; Table \@ref(tab:lm-ssm-ests-table)).
 
 In comparing the state-space model estimates from these 10 substocks to the complete 13 substocks, the average substock-specific size metrics were fairly similar, indicating the stocks with insufficient data for regression were missing at random in this regard (compare the rows corresponding to $\bar{S}_{\text{eq},j}$, $\bar{S}_{\text{MAX},j}$, and $\bar{S}_{\text{MSY},j}$ between Tables \@ref(tab:lm-ssm-ests-table) and \@ref(tab:ssm-ests-table)). In terms of the aggregate reference point $S_{\text{MSY}}$, the estimates were quite different -- which should be expected given some substocks' abundance and production were excluded from Table \@ref(tab:lm-ssm-ests-table) and included in Table \@ref(tab:ssm-ests-table). With all substocks included, the estimate was approximately 40,000 compared to approximately 30,000 when they were excluded -- indicating escapement from the Holitna, Kisaralik, and Oskawalik should make up approximately 25% of the escapement amongst the substocks included in this analysis if the management objective was to maximize long-term yield. 
 
-##### Relationships between substock size and productivity
+As illustrated in Figure \@ref(fig:trade-off-plot), the relationship between substock size and productivity matters for policy conclusions about trade-offs. I examined the relationship between substock size (represented by $S_{\text{eq},j}$) _versus_ productivity (represented by $U_{\text{MSY},j}$) for the Kuskokwim River substocks (Figure \@ref(fig:size-v-prod)). Both regression approaches suggested reasonably strong patterns between substock size and productivity (Pearson's correlation $r$ coefficient of 0.42 and 0.54 for the independent and mixed-effects approaches, respectively, though $p$ > 0.05 for both approaches). The state-space models generally suggested weaker or absent relationships between substock size and productivity, except for SSM-VM, which had an $r$ value of 0.56 that was statistically-significant ($p$ < 0.05). The state-space models suggested that upper-river substocks were mostly smaller than average, but were made of both productive and unproductive substocks, whereas most of the larger substocks are located in the middle river (relatively speaking; Figure \@ref(fig:size-v-prod)).
+
+In terms of recruitment variability, the regression-based approaches suggested that the average standard deviation of the lognormal distribution that describes randomness in the recruitment process ($\bar{\sigma}_{R,j}$) was 0.78 and 0.52 for the independent and mixed-effects versions, respectively (Table \@ref(tab:lm-ssm-ests-table)). The state-space models estimated that the average amount of recruitment process variability by substock was higher: point estimates ranged from 0.85 -- 1.11 (Table \@ref(tab:lm-ssm-ests-table)). The models with time-varying maturity had estimates on the lower end of this range, which could be explained by the inclusion of additional process variability in maturity that could describe variability in the data. 
+
+Unlike the regression models, the state-space models estimated the degree of covariance between substock recruitment residuals. All the state-space models estimated a moderate amount of correlation in recruitment variance (i.e., synchrony) between two average substocks ($\bar{\rho}_{i,j}$): point estimates ranged between 0.18 -- 0.28, and none of the models suggested 95% credible limits that encompassed 0, indicating there is evidence to suggest some degree of positive synchrony between the Kuskokwim River substocks. The simple variance models (SSM-vm and SSM-vM) estimated a single correlation parameter, whereas the complex versions (SSM-Vm and SSM-VM) estimated a unique value for each substock combination. One might expect that substock pairs belonging in the same region might show higher degrees of synchrony than substock pairs in different regions, though this analysis suggested this was not necessarily the case (the state-space models were unaware of the spatial relation between substocks). Large correlations (e.g., >0.5) were found between pairs of lower _versus_ upper river substocks, lower _versus_ lower, and upper _versus_ upper substocks (Figure \@ref(fig:rhos)). Relatively few large correlations were found between middle river substocks with other substocks, though both SSM-Vm and SSM-VM suggested that the Holokuk and Oskawalik substocks have highly synchronous recruitment dynamics, which is interesting given their close proximity (Figure \@ref(fig:ch4-map); substocks #5 and #6, respectively). Conversely, all models suggested the Holitna and Kogrukluk substocks have little synchrony, and they fall within the same subdrainage (Figure \@ref(fig:ch4-map); substocks #7 and #8, respectively). Most correlations were positive, especially those that were large in magnitude (Figure \@ref(fig:rhos)). A notable exception was the correlation between the Kisaralik substock and the Holokuk and Oskawalik substocks: their dynamics were suggested to be largely opposite.
+
+A visualization of the consequences of these patterns for the recruitment residual time series is shown in Figure \@ref(fig:log-resids). As would be expected, the models with only one correlation parameter (SSM-vm and SSM-vM) showed greater synchrony in time trends between substocks (especially SSM-vM) than the models with complex correlation structure. There was a weak cycling tendency of favorable and poor recruitment conditions (Figure \@ref(fig:log-resids)), which is consistent with the degree of estimated lag-1 auto-correlation in each time series ($\phi$; range across state-space models: 0.27 -- 0.32; no credible intervals encompassed 0; Table \@ref(tab:ssm-ests-table)). 
+
+The only difference in mean maturity schedule estimates came in the comparison between models with and without time-varying maturity (and the differences were slight; Table \@ref(tab:ssm-ests-table)). The models that allowed time-varying maturity suggested that the inter-brood year variability was quite high (the value of the Dirichlet inverse dispersion parameter $D \approx 18$; Table \@ref(tab:ssm-ests-table)). 
+
+#### Trade-off comparisons
 
 \noindent
-As illustrated in Figure \@ref(fig:trade-off-plot), the relationship between substock size and productivity matters for policy conclusions about trade-offs. I examined the relationship between substock size (represented by $S_{\text{eq},j}$) _versus_ productivity (represented by $U_{\text{MSY},j}$) for the Kuskokwim River substocks (Figure \@ref(fig:size-v-prod)). Both regression approaches suggested reasonably strong patterns between substock size (Pearson's correlation $r$ coefficient of 0.43 and 0.54 for the independent and mixed-effects approaches, respectively). The state-space models generally suggested weaker or absent relationships, except for SSM-VM, which had an $r$ value of 0.56 that was statistically-significant at the $\alpha = 0.05$ level. Figure \@ref(fig:size-v-prod) also indicates which regions within the Kuskokwim drainage these substocks are located: the state-space models suggested that upper-river substocks were mostly smaller than average, but were made of both productive and unproductive substocks. The state-space models suggested most of the larger than average substocks are located in the middle river (Figure \@ref(fig:size-v-prod)). 
+With increasing mixed-stock exploitation rates, the aggregate equilibrium escapement declined, but did so more rapidly for the state-space models than the regression models (Figure \@ref(fig:kusko-eq-states)). State-space models that included time-varying maturity suggested higher equilibrium escapement and harvest would be available at most exploitation rates than models with time-constant maturity. Regression models suggested that MSY was much larger and occurred at a higher exploitation rate than for the state-space models, as would be expected based on comparing the estimated population dynamics parameters between these methods (Table \@ref(tab:lm-ssm-ests-table)). In terms of substock diversity, the time-varying maturity models suggested fewer substocks would be overfished or trending towards extirpation at low exploitation rates than the time-constant maturity models, and the regression approaches suggested even more optimistic conclusions (Figure \@ref(fig:kusko-eq-states)).
 
-##### Recruitment variability
+Another and more direct way of visualizing the trade-off between harvest and biodiversity suggested the trade-off conclusions are nearly identical between state-space models in terms of substock overfishing and slight differences in terms of substocks trending towards extirpation (Figure \@ref(fig:kusko-trade-offs)). The state-space models suggested that in order to maximize yields, approximately half of the substocks would need to be overfished and approximately a fifth would be trending towards extinction (Figure \@ref(fig:kusko-trade-offs)). The regression approaches suggested a more pessimistic conclusion: approximately 80% of substocks would need to be overfished to attain MSY. These patterns were the same even if only 60% of MSY was desired, though less exaggerated (Figure \@ref(fig:kusko-trade-offs)).
 
-\noindent
-The way in which recruitment variability was treated was a key aspect of this analysis. The regression models ignored all sources of observation error and fitted to the exact point estimates. These models suggested that the average standard deviation of the lognormal distribution that describes randomness in the recruitment process ($\bar{\sigma}_{R,j}$) was 0.78 and 0.52 for the independent and mixed-effects versions, respectively (Table \@ref(tab:lm-ssm-ests-table)). Interestingly, the state-space models estimated that the average amount of recruitment process variability by substock was quite a bit higher: point estimates ranged from 0.85 -- 1.11 (Table \@ref(tab:lm-ssm-ests-table)). The models with time-varying maturity had estimates on the lower end of this range, which makes sense given they included an additional biological process that could explain variability in the data. 
-
-Unlike the regression models, the state-space models estimated the degree of covariance between substock recruitment residuals. All the state-space models estimated a moderate amount of correlation in recruitment variance (i.e., synchrony) between two average substocks ($\bar{\rho}_{i,j}$): point estimates ranged between 0.18 -- 0.28, and none of the models suggested 95% credible limits that encompassed 0, indicating there is evidence to suggest some degree of positive synchrony between the Kuskokwim River substocks. The simple variance models (SSM-vm and SSM-vM) estimated a single correlation parameter, whereas the complex versions (SSM-Vm and SSM-VM) estimated a unique value for each substock combination. The estimated correlation of realized recruitment residual pairs between substocks is displayed in Figure \@ref(fig:rhos). One might expect that substock pairs belonging in the same region might show higher degrees of synchrony that substock pairs in different regions, though this analysis suggested this was not necessarily the case (the state-space models were unaware of the spatial relation between substocks). Large correlations (e.g., >0.5) were found between lower-upper combinations, lower-lower, and upper-upper substocks (Figure \@ref(fig:rhos)). Surprisingly, relatively few large correlations were found between middle river substocks with other substocks, though both SSM-Vm and SSM-VM suggested that the Holokuk and Oskawalik substocks have highly synchronous recruitment dynamics, which is interesting given their close proximity (Figure \@ref(fig:ch4-map); substocks #5 and #6, respectively). Surprisingly, however, all models suggested the Holitna and Kogrukluk substocks have little synchrony, and they fall within the same subdrainage (Figure \@ref(fig:ch4-map); substocks #7 and #8, respectively). Most correlations were positive, especially those that were large in magnitude. A notable exception was the correlation between the Kisaralik substock and the Holokuk and Oskawalik substocks: their dynamics were suggested to be largely opposite.
-
-A visualization of the consequences of these patterns for the recruitment residual time series is shown in Figure \@ref(fig:log-resids). The models with only one correlation parameter (SSM-vm and SSM-vM) showed greater synchrony in time trends between substocks (especially SSM-vM) than the models with complex correlation structure. From the perspective of the portfolio-effect, this suggests that greater variance dampening is suggested when included greater complexity in estimated recruitment dynamics. Evident from Figure \@ref(fig:log-resids) is a weak cycling tendency of favorable and poor recruitment conditions, this is consistent with the degree of estimated autocorrelation in each time series ($\phi$; range across state-space models: 0.27 -- 0.33; no credible intervals encompassed 0; Table \@ref(tab:ssm-ests-table)). 
-
-##### Maturity schedules
+#### Sensitivity analyses
 
 \noindent
-The state-space models internally estimated maturity schedules, and the only difference in estimatess between models came in the comparison between models with and without time-varying maturity (and the differences were slight; Table \@ref(tab:ssm-ests-table)). The models that allowed time-varying maturity suggested that the inter-brood year variability was quite high ($D \approx 18$; Table \@ref(tab:ssm-ests-table)). 
+The alternative vulnerability schedule ($v_j$) based on the spatial distribution of fishing households resulted in lower river substocks (those spawning in the Kwethluk, Kisaralik, and Tuluksak rivers) having the lowest $v_j$ ranging between 0.7 -- 0.8, the middle river substocks ranging between 0.9 and 0.95, and those in the upper river between 0.95 and 1 (Figure \@ref(fig:alt-vuln-fig)). Most changes in substock specific $U_{\text{MSY},j}$ and $S_{\text{eq},j}$ were small ($\pm 10\%$; Figure \@ref(fig:alt-vuln-ests)), and most (eight of 13) substocks showed increases in $U_{\text{MSY},j}$. Changes in $U_{\text{MSY},j}$ occurred randomly with respect to changes in vulnerability: some substocks in the three regions showed both increases and decreases (Figure \@ref(fig:alt-vuln-ests)). Changes with respect to substock size ($S_{\text{eq},j}$) showed more of a pattern: lower river substocks (that that became less vulnerable in this analysis) tended to become smaller by 5 -- 15%, whereas upper river substocks showed increases of 5 -- 25%. Middle river substocks showed a mix of increases and decreases in $S_{\text{eq},j}$ (Figure \@ref(fig:alt-vuln-ests)). Despite these changes in substock-specific estimates, derived biological reference points for the aggregate mixed-stock showed a high degree of similarity as well: escapement-related quantities were ~3,000 fish smaller and harvest-related quantities were ~3,000 fish larger for the alternative vulnerability schedule, however the conclusions about substock biodiversity at MSY were nearly identical (Table \@ref(tab:alt-vuln-table)).
 
-
-#### Trade-off analyses
-
-\noindent
-Recall that the purpose of fitting multi-stock spawner-recruit models in this context is to evaluate trade-offs between harvest and substock biodiversity. The expected equilibrium states and metrics of biodiversity at a range of exploitation rates used to measure this trade-off are shown in Figure \@ref(fig:kusko-eq-states). With increasing exploitation rate, equilibrium escapement declines, but did so more rapidly for the state-space models than the regression models (Figure \@ref(fig:kusko-eq-states)). State-space models that included time-varying maturity suggested higher equilibrium escapement and harvest would be available at most exploitation rates than models with time-constant maturity. Regression models suggested that MSY was much larger and occurred at a higher exploitation rate than for the state-space models, as would be expected based on comparing the estimated population dynamics parameters between these methods (Table \@ref(tab:lm-ssm-ests-table)). In terms of biodiversity, the time-varying maturity models suggested fewer substocks would be overfished or trending towards extirpation at low exploitation rates than the time-contant maturity models, and the regression approaches suggested even more optimistic conclusions (Figure \@ref(fig:kusko-eq-states)).
-
-Another and more direct way of visualizing the trade-off between harvest and biodiversity is displayed in Figure \@ref(fig:kusko-trade-offs) showing the fraction of substocks in a desirable condition _versus_ the fraction of MSY obtained at a range of exploitation rates. Despite the differences shown between state-space models shown in Figure \@ref(fig:kusko-eq-states), Figure \@ref(fig:kusko-trade-offs) suggests the trade-off conclusions are nearly identical between state-space models in terms of substock overfishing and only slight differences in terms of substocks trending towards extirpation. The state-space models suggested that in order to maximize yields, approximately half of the substocks would need to be overfished. The regression approaches suggested a more pessimistic conclusion: approximately 80% would need to be overfished to attain MSY. This pattern was the same even if only 60% of MSY was desired.
+The alternative age composition weighting resulted in more substantial differences from the default case. Twelve of the 13 substocks saw increases in $U_{\text{MSY},j}$, with two substocks showing increases of 100%. Most substock-specific $S_{\text{eq},j}$ were estimated to be smaller when the alternative scheme was used, with eight of 13 substocks showing decreases between 10 -- 35%. (Figure \@ref(fig:alt-ess-ests)). Derived biological reference points for the aggregate mixed-stock substantially differed as well: escapement-related quantities were ~6,000 -- 10,000 fish smaller and harvest-related quantities were ~6,000 -- 12,000 fish larger for the alternative vulnerability schedule, however the conclusions about substock biodiversity at MSY still were nearly identical (Table \@ref(tab:alt-vuln-table)).
 
 ### Simulation-estimation trials
 
+\noindent
+State-space models took between 1.3 and 2.9 days to fit on average, with longer run times associated with more complex models (Table \@ref(tab:model-run-time-table)) and the regression-based models took less than an hour in all cases. The state-space models fitted successfully to the majority of simulated data sets (~140 out of 160) and the regression-based models were fitted successfully in all cases (Table \@ref(tab:model-run-time-table)). No attempts were made to try different initial values for the ~20 data sets that failed in fitting for the state-space models, though because they were generally the same data sets that failed across state-space models, this was likely a characteristic of the data sets. MCMC diagnostics suggested that the vast majority of models converged and that enough samples were retained for adequate inference (Table \@ref(tab:mcmc-diag-table)). 
 
+Regression models were found to systematically overestimate the substock-specific quantities of $\alpha_j$ and $U_{\text{MSY},j}$ and in some cases they produced wildly erroneous estimates. The mixed-effect model was more accurate than the method that fitted independent regressions to each substock (Figure \@ref(fig:param-bias)). State-space models far more accurately and precisely estimated these productivity-based quantities than the regression-approaches, though there was still a slight positive bias (median proportional error $\approx$ 5%; Figure \@ref(fig:param-bias)). Additionally, regression approaches tended to underestimate $S_{\text{MSY},j}$ more than the state-space models. All state-space models tended to overestimate $\sigma_{R,j}$ by approximately 5% regardless of the assumed covariance structure, though the degree of serial auto-correlation ($\phi$) was accurately estimated. The individual state-space models showed essentially no differences for these quantities (Figure \@ref(fig:param-bias)). However, models with simple covariance structure tended to overestimate the correlation between substocks and _vice versa_ for the complex covariance structure.
+
+The state-space model was a largely unbiased estimator of abundance-related states ($R_{y,j}$, $S_{t,j}$, and $H_t$). The early portion of the time series had a slight tendency to be overestimated (Figure \@ref(fig:state-bias)), likely a result of the assumption that data collection began when the substocks were unfished. 
+
+Just as for the substock-specific quantities, the regression-based methods provided generally poorer estimates of mixed-stock biological reference points than state-space models and there was no loss in performance with state-space model complexity (Figure \@ref(fig:ref-point-bias)). The mixed-effect regression produced more positively-biased estimates of $U^*_{0.1}$ and $U^*_{0.3}$ than the independent regression approach, but this pattern switched for $U^*_{0.5}$ and $U_{\text{MSY}}$, likely as a result of the estimated shape of the distribution of substock productivity. The mixed-effect version was less dispersed, meaning that productivities in the lower tail would have been closer to the mean (i.e., larger) than for the independent regression approach. State-space models tended to produce slight underestimates of $U^*_{0.1}$ and $U^*_{0.3}$ and slight over estimates of $U^*_{0.5}$ and $U_{\text{MSY}}$ (Figure \@ref(fig:ref-point-bias)).
+
+Credible interval coverage was better for the state-space models than for regression approaches. For substock-specific parameters, the regression approaches had lower coverage than the state-space models and the models that had the complex recruitment variance structure had more parameters close to the optimal level of 95% Table \@ref(tab:coverage-table)). All state-space models had low coverage for $\pi$ which resulted from highly narrow credible intervals, not from inaccurate estimates, though complex maturity models did have slightly better coverage (16% _versus_ 11%; Table \@ref(tab:coverage-table)). In terms of mixed-stock biological reference points, the state-space model provided much better coverage than the regression approaches, particularly for exploitation rate-based points (Table \@ref(tab:coverage-table)). All state-space models exhibited poor coverage for abundance-related states (49 -- 66%; Table \@ref(tab:coverage-table)).
 
 ## Discussion
 
-Here's what it means.
+\noindent
+The state-space models presented here provide a novel extension of the age-structured state-space spawner-recruit analytical framework, which has increasingly been applied to single stocks [e.g., @su-peterman-2012; @hamazaki-etal-2012; @fleischman-etal-2013; @staton-etal-2017-intseq; @defilippo-etal-2018], to the multi-stock realm. The state-space model was shown to (1) have much less bias and better coverage in key management quantities than regression-based approaches, (2) be robust to structural uncertainty in assumed recruitment covariance and maturity variability, (3) provide good fits to the data, and (4) make more full use of the available data for policy and ecological conclusions. Though it was developed and simulation-tested in the context of Kuskokwim River Chinook salmon, the multi-stock state-space framework presented here should be general enough to be applied to other systems with similar (and possibly dissimilar) properties and data availability.
+
+The simulation-trials illustrated that the state-space model performed superiorly to regression-based approaches, regardless of the assumptions made regarding covariance structure and variability in maturity. Further, the directionality of the regression biases were consistent with expectations from the time-series bias [@walters-1985]: positive biases in $U_{\text{MSY},j}$ and downward biases in $S_{\text{MSY},j}$, as well as for the respective aggregate mixed-stock quantities. These biases all but disappeared in comparison for the state-space models for $U_{\text{MSY},j}$ and to a lesser degree for $S_{\text{MSY},j}$. These results speak strongly in favor of the use of the state-space model over the regression-based approaches assessed here. The superior performance of state-space models was likely a result of its ability to (1) explicitly account for the time-series properties in the data, (2) parse observation from process uncertainty, and (3) make more full use of the available data.
+
+With respect to the fuller use of the available data, there were 35 brood years for each stock in which it was possible to jointly observe spawners and recruits across all four ages (if all calendar years between 1976 -- 2017 were monitored). The average Kuskokwim River substock fitted using the regression approaches had 17% of the possible observations because partially-observed recruitment events were not considered. Conversely, the average substock fitted using the state-space model had 31% of possibly observable pairs where the recruitment was observed for three out of four ages, 39% with two ages out of four, and 42% for one age out of the possible four observed. Ignoring whether recruitment and escapement were observed jointly, the average substock fitted using the state-space model had 48%, 65%, and 76% of possibly observable recruitments observed for the same ages combinations, respectively. Clearly, the use of the regression approaches resulted in a severe loss of information. It could be argued that the rule I employed to only use completely observed recruitment pairs for fitting the regression approaches was too strict and that reasonable methods to impute missing observations could be devised. While this may be true, the state-space model provides a comprehensive, rational, and rigorous method to completely reconstruct the brood tables with latent states informed with partial information by fitting to solely observed data.
+
+Although the simulation results suggested the state-space model is an unbiased estimator, it was assessed under relatively limited conditions. @su-peterman-2012 illustrated that state-space models can still show bias under some combinations of measurement error, intrinsic productivity, and fising intensity. I attempted to evaluate performance across a range of true parameters by randomly sampling leading parameters from the joint posterior from one of the empirical model fits. Though it is possible the model could perform more poorly if (1) substock size and productivity were more or less heterogeneous, (2) fewer substocks were used, (3) available data time series were much shorter or sparser, or (4) the magnitude of observation error was incorrectly assumed. All of these scenarios remain exciting avenues for future research, but were beyond the scope of this study. As it currently stands, my analysis suggests that it is reasonable to conclude that the state-space model developed here can be an appropriate estimator for mixed-stock fishery data, though future applications to specific cases should be simulation-tested if the properties of the system and available data differ significantly from the Kuskokwim and the operating model and simulated sampling scheme designed roughly off of it.
+
+The policy and trade-off conclusions from the state-space model were generally robust to an alternative assumption regarding relative vulnerability of the substocks to harvest, although substock-specific estimates did change moderately (primarily $U_{\text{MSY},j}$). The alternative vulnerability vector used was a first attempt at assessing sensitivity to the assumption that all substocks are equally vulnerable; other more complex approaches to determining this vector could also be assessed in the future. For example, the fishery has historically been focused in on the early portion of the Chinook salmon run in the Kuskokwim River [@hamazaki-2008], and upper river substocks have been illustrated to arrive earliest in the summer migration [@smith-liller-2017a; @smith-liller-2017b]. This indicates that upper river substocks may be even more vulnerable than what was captured by the vector I used, which was based solely on the spatial distribution of harvesters. Although no data sources were available to directly estimate the vulnerability vector for the Kuskokwim River data, other systems may have these data that could be incorporated, particularly those with precise genetic stock identification programs. I would expect larger discrepancies in policy conclusions to arise when vulnerability covaries more strongly with either substock size or substock productivity; coupled with methods to incorporate information on substock-specific harvest data, this provides an provides an interesting avenue for future research.
+
+The conclusions from the state-space models were less robust to alterations to the assumed weighting of age composition data. Specifically, policy recommendations became more aggressive when age composition data received less weight: higher estimates of $U_{\text{MSY}}$ and lower $S_{\text{MSY}}$. It is unsurprising that the estimates changed, as this often happens in stock assessment models when the assumed data weighting structure is altered [@hulson-etal-2011], but it is unclear as to why weakening the confidence in the age data had the effect of increasing perceived substock productivity. Regardless of the cause, this finding suggests that policy conclusions may be conditional on the weighting of the data, and that careful thought should be given to the appropriate weighting scheme. It is likely that the optimal weighting scheme falls somewhere between the two schemes assessed here, given that effective sample size is nearly always less than the true sample size due to violations to the multinomial sampling distribution [e.g., sampled individuals show similarities that result in clustering, non-independence, and overdispersion; @maunder-2011].
+
+Regarding state-space model complexity, the important findings were (1) there was no loss in estimation performance with increasing model complexity, (2) credible interval coverage of the complex recruitment covariance models was better than that of the models with simple structures for substock-level parameters of interest, and (3) the time-varying maturity models never resulted in wildly large estimates of escapement or harvest as the time-constant maturity models sometimes did for the Kuskokwim data. Based on these findings, it seems that the most complex model is most appropriate, however, as previously stated, the simulation-trials were limited in the scope of biological and sampling scenarios considered, and as such the appropriate model may change if applied to other systems with differing characteristics. 
+
+This conclusion is contrary to the traditional dogma of assessment model complexity and management performance. @walters-martell-2004 advise that more complex models may provide more accurate estimates of management quantities, but that their uncertainty will be much greater rendering them less useful for setting harvest policies (see Figure 5.2 and the corresponding discussion therein). These claims have been supported through closed-loop evaluations that have shown simple models known to be wrong but that give conservative advice can provide better management outcomes than complex models that better approximate the true model [e.g., @hilborn-1979; @ludwig-walters-1985]. The simplest model (fewest freely-estimated parameters) evaluated here was the mixed-effect regression approach. Although it did provide more conservative and more confident advice than the independent regression approach, the simulation-trials showed that it was biased with respect to $U_{\text{MSY}}$ and $S_{\text{MSY}}$ in the direction that would lead to more aggressive than optimal harvest policies relative to the state-space models.
+
+In some cases, harvest on strong and highly profitable fisheries has been severely curtailed in the name of conserving a few small and unproductive substocks. @walters-etal-2018 discuss an example of the British Columbia commerical salmon fishery, and illustrate that a drastic decline in harvest beginning in the early 1990s and continuing to the present was (in part) a result of intentional reductions in exploitation rates intended to minimize the risk of extinction of a few small and unproductive stocks. They argue that fisheries managers have not adequately addressed the harvest-biodiversity trade-off in their decision-making, and have instead focused on managing for the weakest stocks in the porfolio. Among their four (mostly controversial) recommendations to address this situation, first on their list is for managers to conduct trade-off analyses so that costs and benefits to both fishery and conservation interests can be more fully addressed in decision-making. The state-space approach developed here shows promise for informing these policy analyses. Particularly for those that involve closed-loop stochastic simulation, the state-space model provides much richer biological information to populate the operating models and understand the strength of the portfolio effect [which is inversely related to the magnitude of shared recruitment trends; @schindler-etal-2010; @schindler-etal-2015].  The model not only provides estimates of leading parameters ($\alpha_j$ and $\beta_j$), but also estimates of the extent to which recruitment anomalies are shared between substocks and the strength of serial auto-correlation in these time series, all of which are valuable in populating operating models for policy evaluation. Furthermore, it is possible to use the estimated states of recruitment and spawner abundance and recruitment anomalies at the end of the time series to populate forward simulations from the present to determine which policies might be most likely to achieve short-term objectives in addition to those more focused on the long-term.
 
 \singlespacing
-
-\clearpage
-
-```{r models-table}
-abbrev = c("LM", "LME", "vm", "Vm", "vM", "VM")
-nj = c(10, 10, 13, 13, 13, 13)
-sig = c("Yes", "No", "No", "Yes", "No", "Yes")
-ar1 = c(rep("No", 2), rep("Yes", "4"))
-rho = c(rep("Independent residuals", 2), "Single $\\rho$ bounded by [-0.05 -- 1)", "Unique $\\rho_{i,j}$", "Same as vm", "Same as Vm")
-describedin = c("\\ref{lm-methods}", "\\ref{lme-methods}", "\\ref{ssm-model}; \\ref{alt-ssm-models}", "\\ref{ssm-model}; \\ref{alt-ssm-models}", "\\ref{ssm-model}; \\ref{alt-ssm-models}", "\\ref{ssm-model}")
-
-tab = data.frame(abbrev, nj, sig, ar1, rho, describedin)
-
-colnames(tab) = c("\\textbf{Abbreviation}", "$\\boldsymbol{n_j}$", "\\textbf{Unique} $\\boldsymbol{\\sigma_j}$", "\\textbf{AR(1)}", "\\textbf{Shared Recruitment Dynamics}", "\\textbf{Described in Section(s)}")
-
-kable(tab, "latex", booktabs = T, escape = F, 
-      caption = "Summary of evaluated models in this analysis.") %>%
-  group_rows("Regression-Based Models", 1, 2) %>%
-  group_rows("State-Space Models", 3, 6) %>% landscape()
-```
-
-\clearpage
 
 ```{r ch4-notation-table}
 index = c("$y$", "$t$", "$j$", "$a$", "$a_{min}$", "$a_{max}$")
@@ -441,6 +344,137 @@ kable(tab, "latex", booktabs = T, escape = F,
   kable_styling(full_width = F) %>%
   column_spec(2, width = "25em") %>%
   column_spec(3, width = "10em")
+```
+
+\clearpage
+
+```{r models-table}
+abbrev = c("LM", "LME", "vm", "Vm", "vM", "VM")
+nj = c(10, 10, 13, 13, 13, 13)
+sig = c("Yes", "No", "No", "Yes", "No", "Yes")
+ar1 = c(rep("No", 2), rep("Yes", "4"))
+pi = c(rep("Yes", 2), rep("No", "2"), rep("Yes", "2"))
+rho = c(rep("None", 2), "Single $\\rho$ bounded by [-0.05 -- 1)", "Unique $\\rho_{i,j}$", "Same as vm", "Same as Vm")
+
+tab = data.frame(abbrev, nj, sig, ar1, rho, pi)
+
+colnames(tab) = c("\\textbf{Model}", "$\\boldsymbol{n_j}$", "\\textbf{Unique} $\\boldsymbol{\\sigma_j}$", "\\textbf{AR(1)}", "\\textbf{Recruitment Covariance}", "\\textbf{Time-Varying Maturity}")
+
+kable(tab, "latex", booktabs = T, escape = F, 
+      caption = "Summary of evaluated models in this analysis. Regression models are described in Section \\ref{reg-methods} and state-space models are described in Section \\ref{ssm-model}") %>%
+  kable_styling(full_width = F) %>%
+  column_spec(5, width = "15em") %>%
+  column_spec(6, width = "7em") %>%
+  group_rows("Regression-Based Models", 1, 2, hline_after = T) %>%
+  group_rows("State-Space Models", 3, 6, hline_after = T)
+```
+
+\clearpage
+
+```{r lm-prior-table}
+param = c(
+  "$\\log(\\alpha_{j})$",
+  "$\\beta_{j}$",
+  "$\\sigma_{R,j}$",
+  "$\\log(\\alpha)$",
+  "$\\sigma_{\\alpha}$",
+  "$\\beta_{j}$",
+  "$\\sigma_{R}$"
+)
+
+prior = c(
+  "Uniform(0, 5)",
+  "Uniform(0,$\\space$ 1)",
+  "Uniform(0, 5)",
+  "Uniform(0, 10)",
+  "Uniform(0, 10)",
+  "Uniform(0, 1)",
+  "Uniform(0, 5)"
+)
+
+tab = cbind(param, prior)
+colnames(tab) = c("\\textbf{Parameter}", "\\textbf{Prior}")
+
+kable(tab, "latex", booktabs = T, linesep = "",
+      caption = "Prior distributions used for regression-based spawner-recruit parameters as described in Section \\ref{reg-methods}. Prior distributions were identical for the empirical data and simulation-based analyses.", escape = F) %>%
+  kable_styling(full_width = F) %>%
+  group_rows("Independent Regression Models", 1, 3, hline_after = T) %>%
+  group_rows("Mixed-Effect Regression Model", 4, 7, hline_after = T)
+
+```
+
+\clearpage
+
+```{r ssm-prior-table, }
+
+param = c(
+  "$U_{\\text{MSY},j}$",
+  "$S_{\\text{MSY},j}$",
+  "$\\phi$",
+  "$\\Sigma^{-1}_R$",
+  "$\\sigma_R$",
+  "$\\rho$",
+  "$\\pi$",
+  "$D^{-0.5}$",
+  "$p_y$",
+  "$U_t$"
+)
+
+prior = c(
+  "Uniform(0.01, 0.99)",
+  "Lognormal(0, 0.001)",
+  "Uniform(-0.99, 0.99)",
+  "Wishart($R$, $n_j+1$)",
+  "Uniform(0, 2)",
+  "Uniform(-0.05, 1)",
+  "Dirichlet($\\alpha = [1,1,1,1]$)",
+  "Uniform(0.03, 1)",
+  "Dirichlet($\\alpha = \\pi \\cdot D$)",
+  "Beta(1,1)"
+)
+
+notes = c(
+  "Exploitation rate that produces MSY",
+  "Spawner abundance that produces MSY",
+  "Lag-1 auto-correlation coefficient",
+  "Inverse covariance matrix for white-noise recruitment process variability",
+  "White-noise recruitment process standard deviation",
+  "Correlation in recruitment process variability among substocks",
+  "Average probability of maturing at each age",
+  "Dispersion of brood year-specific maturity schedules",
+  "Brood year-specific probability of maturing at each age",
+  "Annual exploitation rate of fully-vulnerable substocks"
+)
+
+footnote = c(
+  "",
+  "",
+  "",
+  footnote_marker_alphabet(1, "latex"),
+  footnote_marker_alphabet(2, "latex"),
+  footnote_marker_alphabet(2, "latex"),
+  "",
+  footnote_marker_alphabet(3, "latex"),
+  footnote_marker_alphabet(3, "latex"),
+  ""
+)
+
+# footnote = paste("\\textbf{", footnote, "}", sep = "")
+tab = cbind(paste(param, footnote, sep = ""), prior, notes)
+colnames(tab) = c("\\textbf{Parameter}", "\\textbf{Prior}", "\\textbf{Description}")
+
+kable(tab, "latex", booktabs = T, linesep = "",
+      caption = "Prior distributions used for all model parameters in the state-space models. In all cases, priors were selected to be minimally-informative while still preventing the sampler from exploring highly unlikely areas of the parameter space. Differences between versions of the state-space model (e.g., SSM-vm and SSM-Vm; Table \\ref{tab:models-table}) are described by footnotes. Prior distributions were identical for the empirical data and simulation-based analyses.", escape = F) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(3, width = "20em") %>%
+  footnote(escape = F,
+    alphabet = c(
+      "Only for SSM-Vm and SSM-VM",
+      "Only for SSM-vm and SSM-vM, $\\\\Sigma_R$ was constructed using $\\\\sigma_R$ and $\\\\rho$ as described at the end of Section \\\\ref{ssm-model}.",
+      "Only for SSM-vM and SSM-VM, all $p_y$ took on $\\\\pi$ for SSM-vm and SSM-Vm."
+    ), threeparttable = T
+  )
+
 ```
 
 \clearpage
@@ -472,32 +506,6 @@ kable(tab, "latex", booktabs = T, escape = F, align = "lcccc",
   row_spec(4, hline_after = T) %>%
   row_spec(5:6, bold = T)
   
-```
-
-\clearpage
-
-```{r model-run-time-table}
-
-attempted = c(160, 160, 160, 160, 160)
-successful = c(158, 138, 135, 139, 139)
-min_time = c(4.8, 0.8, 1.2, 1.2, 1.8)
-mean_time = c(10.9, 1.3, 1.9, 2, 2.9)
-max_time = c(21.6, 2.8, 3.5, 4.1, 5.1)
-
-tab = cbind(attempted, successful, min_time, mean_time, max_time)
-mods = paste("\\textbf{", c("LM + LME", "SSM-vm", "SSM-Vm", "SSM-vM", "SSM-VM"), "}", sep = "")
-mods = paste(mods, c("\\textsuperscript{a}", rep("\\textsuperscript{b}", 4)), sep = "")
-
-tab = cbind(mods, tab)
-colnames(tab) = paste("\\textbf{", c("", "Attempted", "Successful", "Minimum", "Mean", "Maximum"), "}", sep = "")
-rownames(tab) = NULL
-
-kable(tab, "latex", booktabs = T, escape = F,
-      caption = "Number of successful model fits and elapsed time for each multi-stock spawner-recruit analysis method from the simulation-estimation exercise. All regression-based methods were fitted in a single JAGS model. Subscripts denote differences in time units.", linesep = "") %>%
-  add_header_above(c("", "# Data Sets" = 2, "Elapsed Time" = 3), bold = T) %>%
-  # group_rows("Regression Models", 1, 1, bold = T, hline_after = T, escape = F) %>%
-  # group_rows("State-Space Models", 2, 5, bold = T, hline_after = T, hline_before = F, escape = F) %>%
-  footnote(alphabet = c("Minutes", "Days"), alphabet_title = "Time Units")
 ```
 
 \clearpage
@@ -590,22 +598,231 @@ kable(ests, "latex", booktabs = T, align = "lcccccc",
 ```
 
 \clearpage
-\pagestyle{empty}
+
+```{r alt-vuln-table}
+tab = read.csv("tab/Ch4/alt-vuln-table.csv", stringsAsFactors = F)
+
+params = tab$X
+tab = tab[,-1]
+
+tab = apply(tab, 2, add_break)
+
+tab[is.na(tab)] = "---"
+param_latex = c(
+  Sstar_0.1 = "$S^*_{0.1}$", 
+  Sstar_0.3 = "$S^*_{0.3}$", 
+  Sstar_0.5 = "$S^*_{0.5}$", 
+  S_MSY = "$S_{\\text{MSY}}$", 
+  Ustar_0.1 = "$U^*_{0.1}$", 
+  Ustar_0.3 = "$U^*_{0.3}$", 
+  Ustar_0.5 = "$U^*_{0.5}$", 
+  U_MSY = "$U_{\\text{MSY}}$",
+  Cstar_0.1 = "$H^*_{0.1}$", 
+  Cstar_0.3 = "$H^*_{0.3}$", 
+  Cstar_0.5 = "$H^*_{0.5}$", 
+  MSY = "$\\text{MSY}$",
+  U_full_mean = "$\\bar{U}_{full,t}$",
+  of_MSY = "$p_{OF,\\text{MSY}}$",
+  ex_MSY = "$p_{EX,\\text{MSY}}$"
+  )
+
+tab = cbind(param = unname(param_latex[params]), tab)
+
+colnames(tab) = paste("\\textbf{", c("Quantity", "Default", "Alternative"), "}", sep = "")
+
+kable(tab, "latex", booktabs = T, linesep = "", escape = F,
+      caption = "Comparison of management quantities obtained from the sensitivity analysis of the state-space model with regards to substock vulnerability. The default case had all substocks equally-vulnerable; the alternative case is shown in Figure \\ref{fig:alt-vuln-fig}, and reference points were calculated using the same vulnerability schedules as used in estimation. Estimates shown are from SSM-VM only, the other three models showed similar differences. The biodiversity metrics are expressed as the proportion of substocks expected to be overfished or trending towards extirpation at the mixed-stock MSY.", align = "c") %>%
+  group_rows("Escapement", 1, 4, hline_after = T) %>%
+  group_rows("Harvest", 5, 8, hline_after = T) %>%
+  group_rows("Exploitation Rate", 9, 13, hline_after = T) %>%
+  group_rows("Biodiversity", 14, 15, hline_after = T) %>%
+  add_header_above(c("", "$\\\\boldsymbol{v_j}$ \\\\textbf{Schedule}" = 2), escape = F)
+
+```
+
+\clearpage
+
+```{r alt-ess-table}
+tab = read.csv("tab/Ch4/alt-ess-table.csv", stringsAsFactors = F)
+
+params = tab$X
+tab = tab[,-1]
+
+tab = apply(tab, 2, add_break)
+
+tab[is.na(tab)] = "---"
+param_latex = c(
+  Sstar_0.1 = "$S^*_{0.1}$", 
+  Sstar_0.3 = "$S^*_{0.3}$", 
+  Sstar_0.5 = "$S^*_{0.5}$", 
+  S_MSY = "$S_{\\text{MSY}}$", 
+  Ustar_0.1 = "$U^*_{0.1}$", 
+  Ustar_0.3 = "$U^*_{0.3}$", 
+  Ustar_0.5 = "$U^*_{0.5}$", 
+  U_MSY = "$U_{\\text{MSY}}$",
+  Cstar_0.1 = "$H^*_{0.1}$", 
+  Cstar_0.3 = "$H^*_{0.3}$", 
+  Cstar_0.5 = "$H^*_{0.5}$", 
+  MSY = "$\\text{MSY}$",
+  U_full_mean = "$\\bar{U}_{full,t}$",
+  of_MSY = "$p_{OF,\\text{MSY}}$",
+  ex_MSY = "$p_{EX,\\text{MSY}}$"
+  )
+
+tab = cbind(param = unname(param_latex[params]), tab)
+
+colnames(tab) = paste("\\textbf{", c("Quantity", "Default", "Alternative"), "}", sep = "")
+
+kable(tab, "latex", booktabs = T, linesep = "", escape = F,
+      caption = "Comparison of management quantities obtained from the sensitivity analysis of the state-space model with regards to weighting of age composition data. Estimates shown are from SSM-VM only, the other three models showed similar differences. The biodiversity metrics are expressed as the proportion of substocks expected to be overfished or trending towards extirpation at the mixed-stock MSY.", align = "c") %>%
+  group_rows("Escapement", 1, 4, hline_after = T) %>%
+  group_rows("Harvest", 5, 8, hline_after = T) %>%
+  group_rows("Exploitation Rate", 9, 13, hline_after = T) %>%
+  group_rows("Biodiversity", 14, 15, hline_after = T) %>%
+  add_header_above(c("", "$\\\\boldsymbol{ESS_{t,j}}$ \\\\textbf{Scheme}" = 2), escape = F)
+
+```
+
+\clearpage
+
+```{r model-run-time-table}
+
+attempted = c(160, 160, 160, 160, 160)
+successful = c(160, 137, 136, 136, 136)
+min_time = c(4.8, 0.8, 1.2, 1.2, 1.8)
+mean_time = c(10.9, 1.3, 1.8, 2, 2.9)
+max_time = c(21.6, 2.8, 3.5, 4.1, 5.1)
+
+tab = cbind(attempted, successful, min_time, mean_time, max_time)
+mods = paste("\\textbf{", c("LM + LME", "SSM-vm", "SSM-Vm", "SSM-vM", "SSM-VM"), "}", sep = "")
+mods = paste(mods, c("\\textsuperscript{a}", rep("\\textsuperscript{b}", 4)), sep = "")
+
+tab = cbind(mods, tab)
+colnames(tab) = paste("\\textbf{", c("", "Attempted", "Successful", "Minimum", "Mean", "Maximum"), "}", sep = "")
+rownames(tab) = NULL
+
+kable(tab, "latex", booktabs = T, escape = F,
+      caption = "Number of successful model fits and elapsed time for each multi-stock spawner-recruit analysis method from the simulation-estimation exercise. All regression-based methods were fitted in a single JAGS model. Subscripts denote differences in time units.", linesep = "") %>%
+  add_header_above(c("", "# Data Sets" = 2, "Elapsed Time" = 3), bold = T) %>%
+  # group_rows("Regression Models", 1, 1, bold = T, hline_after = T, escape = F) %>%
+  # group_rows("State-Space Models", 2, 5, bold = T, hline_after = T, hline_before = F, escape = F) %>%
+  footnote(alphabet = c("Minutes", "Days"), alphabet_title = "Time Units")
+```
+
+\clearpage
+
+```{r mcmc-diag-table}
+tab = read.csv("tab/ch4/mcmc-diag-table.csv", stringsAsFactors = F)
+
+params = tab$X
+tab = tab[,-1]
+
+param_latex = c(
+  alpha = "$\\alpha_j$",
+  beta = "$\\beta_j$",
+  U_msy = "$U_{\\text{MSY},j}$",
+  S_msy = "$S_{\\text{MSY},j}$",
+  sigma_R = "$\\sigma_{R,j}$", 
+  phi = "$\\phi$",
+  pi = "$\\pi$",
+  mean_rho = "$\\bar{\\rho}_{i,j}$", 
+  Sstar_0.1 = "$S^*_{0.1}$", 
+  Sstar_0.3 = "$S^*_{0.3}$", 
+  Sstar_0.5 = "$S^*_{0.5}$", 
+  S_MSY = "$S_{\\text{MSY}}$", 
+  Ustar_0.1 = "$U^*_{0.1}$", 
+  Ustar_0.3 = "$U^*_{0.3}$", 
+  Ustar_0.5 = "$U^*_{0.5}$", 
+  U_MSY = "$U_{\\text{MSY}}$",
+  U = "$U_{t}$",
+  R = "$R_{y,j}$",
+  S = "$S_{t,j}$",
+  H = "$H_{t}$"
+  )
+
+tab = cbind(param = unname(param_latex[params]), tab)
+
+colnames(tab) = paste("\\textbf{", c("Parameter", rep(c("LM", "LME", "vm", "Vm", "vM", "VM"), 2)), "}", sep = "")
+tab[tab == "NaN"] = "---"
+
+tab = cbind(tab[,1:7], " " = rep("    ", nrow(tab)), tab[,8:13])
+
+kable(tab, "latex", booktabs = T, linesep = "", escape = F,
+      caption = "MCMC diagnostic summaries from the simulation-estimation trials. Numbers in the cells represent the percentage of all estimated values that did not meet a diagnostic threshold. For the Brooks-Gelman-Rubin statistic, failure was defined as having a value of 1.1 or greater. For the effective samples, having fewer than 3,000 was considered a failure. According to the diagnostic by \\cite{raftery-lewis-1992}, 3,000 effective samples should result in a 99\\% chance of estimating the 0.025 or 0.975 posterior quantiles within $\\pm$ 0.0125 quantile units, and a 83\\% chance of estimating the posterior median with the same level of precision. Diagnostic summaries are shown only if that parameter was assigned a prior in the model, e.g., regression-based models estimated $\\alpha_j$ and $\\beta_j$ as leading parameters, whereas the state-space models estimated $U_{\\text{MSY},j}$ and $S_{\\text{MSY},j}$ as leading parameters.", align = "l") %>%
+  add_header_above(c("", "Regression" = 2, "State-space" = 4, " ", "Regression" = 2, "State-space" = 4), bold = T) %>%
+  add_header_above(c("", "Brooks-Gelman-Rubin" = 6, "", "Effective MCMC Samples" = 6), bold = T)
+```
+
+\clearpage
+
+```{r coverage-table}
+tab = read.csv("tab/Ch4/coverage_table.csv", stringsAsFactors = F)
+
+params = tab$X
+tab = tab[,-1]
+tab = round(tab, 2) * 100
+
+
+tab = apply(tab, 2, function(x)
+ ifelse(!is.na(x) & x < 90, paste("\\textbf{", x, "}", sep = ""), x))
+
+tab[is.na(tab)] = "---"
+param_latex = c(
+  alpha = "$\\alpha_j$",
+  beta = "$\\beta_j$",
+  U_msy = "$U_{\\text{MSY},j}$",
+  S_msy = "$S_{\\text{MSY},j}$",
+  sigma_R = "$\\sigma_{R,j}$", 
+  phi = "$\\phi$",
+  pi = "$\\pi$",
+  mean_rho = "$\\bar{\\rho}_{i,j}$", 
+  Sstar_0.1 = "$S^*_{0.1}$", 
+  Sstar_0.3 = "$S^*_{0.3}$", 
+  Sstar_0.5 = "$S^*_{0.5}$", 
+  S_MSY = "$S_{\\text{MSY}}$", 
+  Ustar_0.1 = "$U^*_{0.1}$", 
+  Ustar_0.3 = "$U^*_{0.3}$", 
+  Ustar_0.5 = "$U^*_{0.5}$", 
+  U_MSY = "$U_{\\text{MSY}}$",
+  U = "$U_{t}$",
+  R = "$R_{y,j}$",
+  S = "$S_{t,j}$",
+  H = "$H_{t}$"
+  )
+
+# uncomment this to make the symbols bold
+# nmes = names(param_latex)
+# param_latex = stringr::str_replace(param_latex, "\\$", "$\\\\boldsymbol\\{")
+# param_latex = paste(substr(param_latex, 1, nchar(param_latex) - 1), "}$", sep = "")
+# names(param_latex) = nmes
+
+tab = cbind(param = unname(param_latex[params]), tab)
+
+colnames(tab) = paste("\\textbf{", c("Quantity", "LM", "LME", "vm", "Vm", "vM", "VM"), "}", sep = "")
+
+kable(tab, "latex", booktabs = T, linesep = "", escape = F,
+      caption = "Posterior coverage for key quantities in the simulation-estimation trials. Coverage was calculated as the percentage of all estimated 95\\% credible intervals across simulated data sets that contained the true quantity. Bold numbers are those that fall greater than 5 percentage points from the optimal coverage.", align = "l") %>%
+  add_header_above(c("", "Regression" = 2, "State-space" = 4), bold = T) %>% 
+  group_rows("Parameters", 1, 8, hline_after = T) %>%
+  group_rows("Mixed-stock reference points", 9, 16, hline_after = T) %>%
+  group_rows("Abundance states", 17, 20, hline_after = T)
+```
+
+\clearpage
 
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/trade-off-plot.png}
-  \caption{Visualization of how different types of hetergeneity in substock productivity and size influence the shape of trade-offs in mixed-stock salmon fisheries. Solid black likes are the case where stock types are split evenly among large/small and productive/unproductive stocks. Dotted black likes are the case where all small stocks are productive and all large stocks are unproductive, and dashed lines are the opposite (i.e., all big stocks are productive). (\textit{a}) Equilibrium aggregate harvest and proportion of substocks overfished plotted against the exploitation rate (\textit{b}) value of the biodiversity objective (0 = all stocks overfished) plotted against the value of harvest (the long term proportion of the aggregate MSY attained). Notice that when all big stocks are productive (dashed lines), the trade-off is steeper, i.e., more harvest must be sacrificed in order to ensure a greater fraction of substocks are not overfished. }
+  \caption{Visualization of how different types of heterogeneity in substock productivity and size influence the shape of trade-offs in mixed-stock salmon fisheries. Solid black likes are the case where stock types are split evenly among large/small and productive/unproductive stocks. Dotted black likes are the case where all small stocks are productive and all large stocks are unproductive, and dashed lines are the opposite (, all big stocks are productive). (\textit{a}) Equilibrium aggregate harvest and proportion of substocks overfished plotted against the exploitation rate (\textit{b}) value of the biodiversity objective (0 = all stocks overfished) plotted against the value of harvest (the long term proportion of the aggregate MSY attained). Notice that when all big stocks are productive (dashed lines), the trade-off is steeper, i.e., more harvest must be sacrificed in order to ensure a greater fraction of substocks are not overfished. }
   \label{fig:trade-off-plot}
 \end{figure}
 
 \clearpage
-\pagestyle{plain}
 
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/ch4-map.jpg}
-  \caption{Map of the Kuskokwim River drainage, with the 13 drainage basins representing unique spawning units (substocks) used in this analysis. Black points show the location of weir projects, black sections of river indicate the reaches flown as part of aerial surveys. Drainages monitored via both aerial survey and weir used the weir counts to inform escapement estimates in this analysis, with the exception of the Aniak drainage (4), for which aerial survey data were much more abundant than the weir data.}
+  \caption{Map of the Kuskokwim River drainage, with the 13 drainage basins representing unique spawning units (substocks) used in this analysis. Black points show the location of weir projects, black sections of river indicate the reaches flown as part of aerial surveys. Drainages monitored via both aerial survey and weir used the weir counts to inform escapement estimates in this analysis, with the exception of the Aniak drainage (\#4), for which aerial survey data were much more abundant than the weir data.}
   \label{fig:ch4-map}
 \end{figure}
 
@@ -632,17 +849,16 @@ kable(ests, "latex", booktabs = T, align = "lcccccc",
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/age-fit.jpg}
-  \caption{Observed and fitted age composition for the 6 weir-monitored substocks. Each scatter plot is the pair of fitted \textit{versus} observed proportion of the escapement in each age each year with data available and the grey line represents the 1:1 perfect fit line. Point types denote two models: SSM-Vm (time-constant maturity; hollow circles) and SSM-VM (time-varying maturity; filled circles). $\overline{ESS}_t$ represents the average number of fish successfully aged each year with data for each substock, which was used as the sample size to weight the data in the multinomial likelihoods that used these data. Panels are scaled to have the same \textit{x}-axis and \textit{y}-axis limits within an age across substocks and range from 0 -- 1 for ages 4 -- 6 and 0 -- 0.3 for age 7.}
+  \caption{Observed and fitted age composition for the six weir-monitored substocks. Each scatter plot is the pair of fitted \textit{versus} observed proportion of the escapement in each age each year with data available and the grey line represents the 1:1 perfect fit line. Point types denote two models: SSM-Vm (time-constant maturity; hollow circles) and SSM-VM (time-varying maturity; filled circles). $\overline{ESS}_t$ represents the average number of fish successfully aged each year with data for each substock, which was used as the sample size to weight the data in the multinomial likelihoods that used these data. Panels are scaled to have the same \textit{x}-axis and \textit{y}-axis limits within an age across substocks and range from 0 -- 1 for ages 4 -- 6 and 0 -- 0.3 for age 7.}
   \label{fig:age-fit}
 \end{figure}
 
 \clearpage
-\pagestyle{empty}
 
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/RPS-v-S.jpg}
-  \caption{Fit of the regression approaches to fitting the multi-stock spawner-recruit analysis to the Kuskokwim River substock data. Points are observed log(recruits/spawner) \textit{versus} spawners, solid lines represent the fit for the independent regression models, and dashed lines represent the fit suggested by the model with random intercept effects for each substocks. Three substocks had fewer than 3 observed data points, rendering fitting a regression line infeasible. Note that a constraint was imposed that maintained $\log(\alpha_{j}) > 0$ which prevented biologically implausible values, and explains the poor fit for the Holokuk River substock.}
+  \caption{Fit of the regression approaches to fitting the multi-stock spawner-recruit analysis to the Kuskokwim River substock data. Points are observed log(recruits/spawner) \textit{versus} spawners, solid lines represent the fit for the independent regression models, and dashed lines represent the fit suggested by the model with random intercept effects for each substocks. Three substocks had fewer than three observed data points, rendering fitting a regression line infeasible. Note that a constraint was imposed that maintained $\log(\alpha_{j}) > 0$ which prevented biologically implausible values, and explains the poor fit for the Holokuk River substock.}
   \label{fig:rps-v-s}
 \end{figure}
 
@@ -656,12 +872,11 @@ kable(ests, "latex", booktabs = T, align = "lcccccc",
 \end{figure}
 
 \clearpage
-\pagestyle{plain}
 
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/Size-v-Prod.jpg}
-  \caption{Relationships between substock size and productivity as estimated by the 6 estimation approaches in the analysis. Symbol shapes denote the region within the Kuskokwim drainage the substock is located in and hollow symbols in the state-space models are substocks that could not be fitted by the regression approaches. The value in parentheses is Pearson's $r$ correlation coefficient; bold numbers indicate a signficant correlation at $\alpha$ = 0.05.}
+  \caption{Relationships between substock size and productivity as estimated by the six estimation approaches in the analysis. Symbol shapes denote the region within the Kuskokwim drainage the substock is located in and hollow symbols in the state-space models are substocks that could not be fitted by the regression approaches. The value in parentheses is Pearson's $r$ correlation coefficient; bold numbers indicate a significant correlation at $\alpha$ = 0.05.}
   \label{fig:size-v-prod}
 \end{figure}
 
@@ -670,7 +885,7 @@ kable(ests, "latex", booktabs = T, align = "lcccccc",
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/rhos.jpg}
-  \caption{Correlation coefficients between recruitment residuals for each substock-pair. The size of each circle represents the magnitude of the correlation, color represents signficance (whether 95\% credible interval includes 0), and fill represents directionality as described in the legend. Substocks are ordered from downriver to upriver on both axes, and vertical/horizontal lines denote the boundaries between lower, middle, and upper river substocks.}
+  \caption{Correlation coefficients between recruitment residuals for each substock-pair. The size of each circle represents the magnitude of the correlation, color represents significance (whether 95\% credible interval includes 0), and fill represents directionality as described in the legend. Substocks are ordered from downriver to upriver on both axes, and vertical/horizontal lines denote the boundaries between lower, middle, and upper river substocks.}
   \label{fig:rhos}
 \end{figure}
 
@@ -688,21 +903,71 @@ kable(ests, "latex", booktabs = T, align = "lcccccc",
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/kusko-eq-states.jpg}
-  \caption{Visualization of harvest-biodiversity trade-offs based on equilibrium states (escapement and harvest) of the aggregate stock and the percentage of substocks expected to be in an undesirable state as a function of the exploitation rate under the assumption that all substocks are fished at the same rate. Overfished is defined here as $U > U_{\text{MSY},j}$. ``T.T.'' stands for ``trending toward'', and represents the case where equilibrium escapement would be $\le 0$. To faciliate comparisons with the regression approaches (grey lines/triangles), the 3 substocks with insufficient data for fitting regression models were excluded from summaries of the state-space models (black triangles/circles).} 
+  \caption{Visualization of harvest-biodiversity trade-offs based on equilibrium states (escapement and harvest) of the aggregate stock and the percentage of substocks expected to be in an undesirable state as a function of the exploitation rate under the assumption that all substocks are fished at the same rate. Overfished is defined here as $U > U_{\text{MSY},j}$. ``T.T.'' stands for ``trending toward'', and represents the case where equilibrium escapement would be $\le 0$. To facilitate comparisons with the regression approaches (grey lines/triangles), the three substocks with insufficient data for fitting regression models were excluded from summaries of the state-space models (black triangles/circles).} 
   \label{fig:kusko-eq-states}
 \end{figure}
 
 \clearpage
-\pagestyle{empty}
 
 \begin{figure}
   \centering
   \includegraphics{img/Ch4/kusko-trade-offs.jpg}
-  \caption{Alternate (and more direct than Figure \ref{fig:kusko-eq-states}) visualization of harvest-biodiversity trade-offs for monitored Kuskokwim River Chinook salmon substocks. The conditions of overfished and trending towards extinction are the same as defined in Figure \ref{fig:kusko-eq-states}. These figures should be interpreted by determining how the value of the biodiversity objective (\textit{y}-axis; expressed as the fraction of substocks that would not be in the undesirable condition) must be reduced to increase the value of the harvest objective (\textit{y}-axis; expressed as a fraction of the maximum sustainable yield). To faciliate comparisons with the regression approaches (grey lines/triangles), the 3 substocks with insufficient data for fitting regression models were excluded from summaries of the state-space models (black triangles/circles). All symbols represent increasing exploitation rates in increments of 0.1 as you move down the \textit{y}-axis.}
+  \caption{Alternative (and more direct than Figure \ref{fig:kusko-eq-states}) visualization of harvest-biodiversity trade-offs for monitored Kuskokwim River Chinook salmon substocks. The conditions of overfished and trending towards extinction are the same as defined in Figure \ref{fig:kusko-eq-states}. These figures should be interpreted by determining how the value of the biodiversity objective (\textit{y}-axis; expressed as the fraction of substocks that would not be in the undesirable condition) must be reduced to increase the value of the harvest objective (\textit{y}-axis; expressed as a fraction of the maximum sustainable yield). To facilitate comparisons with the regression approaches (grey lines/triangles), the three substocks with insufficient data for fitting regression models were excluded from summaries of the state-space models (black triangles/circles). All symbols represent increasing exploitation rates in increments of 0.1 as you move down the \textit{y}-axis.}
   \label{fig:kusko-trade-offs}
 \end{figure}
 
 \clearpage
-\pagestyle{plain}
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/alt-vuln-fig.jpg}
+  \caption{Alternative vulnerability schedule ($v_j$) used in a sensitivity analysis of the state-space models. Vulnerabilities were obtained by determining the fraction of total fishing households the individual substocks must swim past in order to reach their respective natal spawning grounds. Substocks are ordered from downstream to upstream.}
+  \label{fig:alt-vuln-fig}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/alt-vuln-ests.jpg}
+  \caption{Percent change in substock-specific population quantities between the alternative and default vulnerability schedules. Positive differences indicate that the alternative estimates were larger than the default estimates. Estimates are displayed for SSM-VM only, all other state-space models returned similar differences.}
+  \label{fig:alt-vuln-ests}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/alt-ess-ests.jpg}
+  \caption{Percent change in substock-specific population quantities estimates between the alternative and default age composition weighting schemes. Positive differences indicate that the alternative estimates were larger than the default estimates. Filled symbols denote substocks with age composition data. Estimates are displayed for SSM-VM only, all other state-space models returned similar differences.}
+  \label{fig:alt-ess-ests}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/param-bias.jpg}
+  \caption{Central tendency and variability in proportional error for some parameters in the multi-stock spawner-recruit models from the simulation-estimation trials. Point estimates used were posterior medians.}
+  \label{fig:param-bias}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/state-bias.jpg}
+  \caption{Central tendency and variability in proportional error for some abundance states in the multi-stock spawner-recruit models from the simulation-estimation trials. Quantities are separated by the early portion of the time series (left panels) and the entire time series (right panels). Point estimates used were posterior medians.}
+  \label{fig:state-bias}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+  \centering
+  \includegraphics{img/Ch4/ref-point-bias.jpg}
+  \caption{Central tendency and variability in proportional error for key biological reference points of the aggregate mixed stock. $S^*_p$ and $U^*_p$ are the aggregate escapement and fully-vulnerable exploitation rate that would ensure no more than $p \cdot 100\%$ of substocks are overfished, respectively. Point estimates used were posterior medians.}
+  \label{fig:ref-point-bias}
+\end{figure}
 
 \doublespacing

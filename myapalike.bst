@@ -840,11 +840,11 @@ FUNCTION {chop.word}
       s #1 "{vv~}{ll}" format.name$
     s num.names$ duplicate$
       #2 >
-    { pop$ " \textit{et~al.}" * }
+    { pop$ " et~al." * }
     { #2 <
       'skip$
       { s #2 "{ff }{vv }{ll}{ jj}" format.name$ "others" =
-      { " \textit{et~al.}" * }
+      { " et~al." * }
       { " and " * s #2 "{vv~}{ll}" format.name$ * }
       if$
       }
