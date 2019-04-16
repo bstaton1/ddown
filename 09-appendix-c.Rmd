@@ -34,6 +34,7 @@ model {
   }
   
   
+  
   ### RECRUITMENT PROCESS MODEL ###
   for (j in 1:nj) {
     # EXPECTATIONS FOR FIRST A_MAX BROOD YEARS
