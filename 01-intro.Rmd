@@ -40,9 +40,8 @@ tab = data.frame(
 )
 
 colnames(tab) = c("\\textbf{Examples}", "\\textbf{Sources of Uncertainty}")
-knitr::kable(tab, "latex", booktabs = T,
+kable(tab, "latex", booktabs = T,
              caption = "One way of viewing the structure of renewable natural resource (including salmon) management as described in the text, including examples of alternatives and sources of uncertainty at each level.", escape = F) %>%
-  kable_styling() %>%
   group_rows("Fundamental Objectives", 1,4, hline_after = T) %>%
   group_rows("Inter-annual Strategies", 5, 8, hline_after = T) %>%
   group_rows("Intra-annual Tactics", 9, 11, hline_after = T)

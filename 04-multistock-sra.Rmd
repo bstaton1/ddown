@@ -529,7 +529,7 @@ ntot = (ni + nb) * nc
 nsave = (ni/nt) * nc
 
 tab = rbind(nb, ni, nt, nc, ntot, nsave)
-tab = apply(tab, 2, StatonMisc::prettify)
+tab = apply(tab, 2, prettify)
 
 type = paste("\\textbf{", c("Burn-in", "Post Burn-in", "Thin Interval", "Chains", "Total", "Saved"), "}", sep = "")
 
