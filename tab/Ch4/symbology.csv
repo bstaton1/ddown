@@ -1,0 +1,36 @@
+group,param,desc,footnote
+dims,$n_y$,Number of brood years,
+dims,$n_t$,Number of calendar years for the substock with the longest data time series,
+dims,$n_j$,Number of substocks,
+dims,$n_a$,Number of possible ages of maturation,
+dims,$a_{min}$,The first age recruits can mature,
+dims,$a_{max}$,The last age recruits can mature,
+params,$\\alpha_j$,Maximum recruits per spawner for substock $j$,a
+params,$\\beta_j$,"Capacity parameter for substock $j$; inverse of $S_{\\text{MAX},j}$",a
+params,"$\\sigma^2_{R,j}$",Recruitment white noise process variance for substock $j$,
+params,"$\\rho_{i,j}$",Correlation in process variance between subtocks $i$ and $j$,
+params,$\\Sigma_R$,Recruitment white noise process covariance matrix ,
+params,$\\phi$,Lag-1 serial autocorrelation coefficient,
+params,"$\\omega_{y,j}$",Serially autocorrelated portion of recruitment process anomalies (residuals),
+params,$\\pi_a$,Mean probability a juvenile matures at age $a$,
+params,$D$,Dirichlet dispersion parameter for brood year-specific maturity schedules,b
+params,"$p_{y,a}$",Probability a juvenile belonging to brood year $y$ matures at age $a$,b
+params,$U_t$,Exploitation rate experienced by fully vulnerable substocks in calendar year $t$,c
+params,$v_j$,Relative vulnerability term for substock $j$,c
+brps,"$U_{\\text{MSY},j}$",Exploitation rate expected to produce MSY for substock $j$,
+brps,$U_{\\text{MSY}}$,Exploitation rate expected to produce MSY for the mixed-stock aggregate,
+brps,"$S_{\\text{MSY},j}$",Spawner abundance expected to produce MSY for substock $j$,
+brps,$S_{\\text{MSY}}$,Spawner abundance expected to produce MSY for the mixed-stock aggregate,
+brps,"$S_{\\text{MAX},j}$",Spawner abundance expected to produce maximum recruitment for substock $j$,
+brps,"$S_{\\text{eq},j}$",Spawner abundance expected to produce the same number of recruits for substock $j$,
+brps,$S^*_p$,Mixed-stock escapement expected to result in no greater than $p \\cdot 100 \\%$ of substocks overfished,d
+brps,$H^*_p$,"Same as $S^*_p$, but for mixed-stock harvest",d
+brps,$U^*_p$,"Same as $S^*_p$, but for mixed-stock exploitation rate",d
+brps,"$p_{EX,\\text{MSY}}$",Fraction of substocks expected to be overfished at MSY,d
+brps,"$p_{OF,\\text{MSY}}$",Fraction of substocks expected to be trending towards extinction,e
+states,"$\\dot{R}_{y,j}$",Deterministic (expected) recruitment in brood year $y$ for substock $j$,
+states,"$R_{y,j}$",Realized latent (true) recruitment in brood year $y$ for substock $j$,
+states,"$N_{t,j}$",Run abundance returning to spawn in calendar year $t$ for substock $j$,
+states,"$S_{t,j}$",Spawner abundance in calendar year $t$ for substock $j$,
+states,$H_{t}$,Mixed-stock aggregate harvest in calendar year $t$,
+states,"$q_{t,a,j}$",Fraction of the run mature at age $a$ in year $t$ for substock $j$,

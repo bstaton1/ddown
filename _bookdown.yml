@@ -1,4 +1,4 @@
-book_filename: "ddown"
+book_filename: "Staton-Dissertation"
 before_chapter_script: "_source-before-chapter.R"
 delete_merged_file: true
 language:

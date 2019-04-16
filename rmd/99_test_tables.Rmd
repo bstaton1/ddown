@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 ```{r, include = F}
 library(dplyr)
@@ -19,79 +24,30 @@ add_break = function(x) {
 
 \singlespacing
 
-```{r coverage-table}
-tab = read.csv("C:/Users/bas0041/Dropbox/Dissertation/simfit-output-summ/coverage_table.csv", stringsAsFactors = F)
+```{r coefs-table}
+tab = read.csv("tab/Ch2/Single Variable Regression Estimates.csv", stringsAsFactors = F)
+model = toupper(tab$X)
+tab$t = tab$slope/tab$slope.se
+tab = tab[,c("intercept", "slope", "t", "r.sqr", "sigma", "f.stat")]
+tab = round(tab, 2)
+# tab = cbind(tab, c("*", "*", "**", "**"))
+tab = cbind(model, tab)
+tab[,"f.stat"] = paste(tab[,"f.stat"], footnote_marker_symbol(c(1,1,2,2), format = "latex"), sep = "")
 
-params = tab$X
-tab = tab[,-1]
-tab = round(tab, 2) * 100
+colnames(tab)[1] = "Variable"
+colnames(tab)[2] = "$\\boldsymbol{\\hat{\\beta}_0}$"
+colnames(tab)[3] = "$\\boldsymbol{\\hat{\\beta}_1}$"
+colnames(tab)[4] = "$\\boldsymbol{t}$"
+colnames(tab)[5] = "$\\boldsymbol{R^2}$"
+colnames(tab)[6] = "$\\boldsymbol{\\hat{\\sigma}}$"
+colnames(tab)[7] = "$\\boldsymbol{F}$"
 
-
-tab = apply(tab, 2, function(x)
- ifelse(!is.na(x) & x < 90, paste("\\textbf{", x, "}", sep = ""), x))
-
-tab[is.na(tab)] = "---"
-param_latex = c(
-  alpha = "$\\alpha_j$",
-  beta = "$\\beta_j$",
-  U_msy = "$U_{\\text{MSY},j}$",
-  S_msy = "$S_{\\text{MSY},j}$",
-  sigma_R = "$\\sigma_{R,j}$", 
-  phi = "$\\phi$",
-  pi = "$\\pi$",
-  mean_rho = "$\\bar{\\rho}_{i,j}$", 
-  Sstar_0.1 = "$S^*_{0.1}$", 
-  Sstar_0.3 = "$S^*_{0.3}$", 
-  Sstar_0.5 = "$S^*_{0.5}$", 
-  S_MSY = "$S_{\\text{MSY}}$", 
-  Ustar_0.1 = "$U^*_{0.1}$", 
-  Ustar_0.3 = "$U^*_{0.3}$", 
-  Ustar_0.5 = "$U^*_{0.5}$", 
-  U_MSY = "$U_{\\text{MSY}}$",
-  U = "$U_{t}$",
-  R = "$R_{y,j}$",
-  S = "$S_{t,j}$",
-  H = "$H_{t}$"
-  )
-
-# uncomment this to make the symbols bold
-# nmes = names(param_latex)
-# param_latex = stringr::str_replace(param_latex, "\\$", "$\\\\boldsymbol\\{")
-# param_latex = paste(substr(param_latex, 1, nchar(param_latex) - 1), "}$", sep = "")
-# names(param_latex) = nmes
-
-tab = cbind(param = unname(param_latex[params]), tab)
-
-colnames(tab) = paste("\\textbf{", c("Quantity", "LM", "LME", "vm", "Vm", "vM", "VM"), "}", sep = "")
-
-kable(tab, "latex", booktabs = T, linesep = "", escape = F,
-      caption = "Posterior coverage for key quantities in the simulation-estimation trials. Coverage was calculated as the percentage of all estimated 95\\% credible intervals across simulated data sets that contained the true quantity. Bold numbers are those that fall greater than 5 percentage points from the optimal coverage.", align = "l") %>%
-  add_header_above(c("", "Regression" = 2, "State-space" = 4), bold = T) %>% 
-  group_rows("Parameters", 1, 8, hline_after = T) %>%
-  group_rows("Mixed-stock reference points", 9, 16, hline_after = T) %>%
-  group_rows("Abundance states", 17, 20, hline_after = T)
+kable(tab, "latex", booktabs = T, escape = F,
+             caption = "Estimates and statistics of the effects of each of the four single-variable forecast models fitted with all  $D_{50}$ and environmental data through 2018.", align = c("c")) %>%
+  kable_styling(position = "center") %>%
+  column_spec(column = 1, bold = T) %>%
+  footnote(
+    symbol_title = "Significance Codes",
+    symbol = c("P < 0.01", "P < 0.001"))
 ```
-
-\clearpage
-
-```{r mcmc-diag-table}
-tab = read.csv("C:/Users/bas0041/Dropbox/Dissertation/simfit-output-summ/mcmc-diag-table.csv", stringsAsFactors = F)
-
-params = tab$X
-tab = tab[,-1]
-
-tab = cbind(param = unname(param_latex[params]), tab)
-
-colnames(tab) = paste("\\textbf{", c("Parameter", rep(c("LM", "LME", "vm", "Vm", "vM", "VM"), 2)), "}", sep = "")
-tab[tab == "NaN"] = "---"
-
-tab = cbind(tab[,1:7], " " = rep("    ", nrow(tab)), tab[,8:13])
-
-kable(tab, "latex", booktabs = T, linesep = "", escape = F,
-      caption = "MCMC diagnostic summaries from the simulation-estimation trials. Numbers in the cells represent the percentage of all estimated values that did not meet a diagnostic threshold. For the Gelman-Rubin statistic, failure was defined as having a value of 1.1 or greater. For the effective samples, having fewer than 3,000 was considered a failure. According to the diagnostic by \\cite{raftery-lewis-1992}, 3,000 effective samples should result in a 99\\% chance of estimating the 0.025 or 0.975 posterior quantiles within $\\pm$ 0.0125 quantile units, and a 83\\% chance of estimating the posterior median with the same level of precision. Diagnostic summaries are shown only if that parameter was assigned a prior in the model, e.g., regression-based models estimated $\\alpha_j$ and $\\beta_j$ as leading parameters, whereas the state-space models estimated $U_{\\text{MSY},j}$ and $S_{\\text{MSY},j}$ as leading parameters.", align = "l") %>%
-  add_header_above(c("", "Regression" = 2, "State-space" = 4, " ", "Regression" = 2, "State-space" = 4), bold = T) %>%
-  add_header_above(c("", "Gelman-Rubin" = 6, "", "Effective MCMC Samples" = 6), bold = T)
-```
-
-\clearpage
 

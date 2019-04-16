@@ -1,0 +1,154 @@
+# Model Code for Age-Structured Multi-Stock State-Space Spawner-Recruit Model {#appendix-c}
+
+\noindent
+This appendix presents the JAGS model code for the full state-space model (SSM-VM) in Chapter \@ref(ch4). Variable names used here are intended to be as similar as possible to the symbology used in the main text. 
+
+\singlespacing
+
+\begin{verbatim}
+
+model { 
+  
+  ### PRIORS FOR POPULATION DYNAMICS PARAMETERS ###
+  phi ~ dunif(-0.99, 0.99)
+  for (j in 1:nj) {
+    U_msy[j] ~ dunif(0.01, 0.99)
+    log_S_msy[j] ~ dnorm(0, 0.001) %_% I(1, 12)
+    S_msy[j] <- exp(log_S_msy[j])
+    alpha[j] <- exp(U_msy[j])/(1 - U_msy[j])
+    log_alpha[j] <- log(alpha[j])
+    beta[j] <- U_msy[j]/S_msy[j]
+    log_resid_0[j] <- 0
+  }
+  
+  ### PRIORS FOR WHITE-NOISE RECRUITMENT VARIABILITY ###
+  Tau_R[1:nj,1:nj] ~ dwish(R_wish[1:nj,1:nj], df_wish)
+  Sigma_R[1:nj,1:nj] <- inverse(Tau_R)
+  for (j in 1:nj) {
+    sigma_R[j] <- sqrt(Sigma_R[j,j])
+  }
+  for (i in 1:nj) {
+    for (j in 1:nj) {
+      rho_mat[i,j] <- Sigma_R[i,j]/(sigma_R[i] * sigma_R[j])
+    }
+  }
+  
+  
+  ### RECRUITMENT PROCESS MODEL ###
+  for (j in 1:nj) {
+    # EXPECTATIONS FOR FIRST A_MAX BROOD YEARS
+    R_eq[j] <- log_alpha[j]/beta[j]
+    R0[j] <- R_eq[j]
+    log_R0[j] <- log(R0[j])
+    log_R_mean1[1,j] <- log_R0[j]
+    R_mean1[1,j] <- R0[j]
+    log_R_mean2[1,j] <- log_R_mean1[1,j] + phi * log_resid_0[j]
+    for (y in 2:a_max) {
+      R_mean1[y,j] <- R0[j]
+      log_R_mean1[y,j] <- log_R0[j]
+      log_R_mean2[y,j] <- log_R_mean1[y,j] + phi * log_resid[y-1,j]
+    }
+    
+    # EXPECTATIONS FOR REMAINING BROOD YEARS
+    for (y in (a_max+1):ny) {
+      R_mean1[y,j] <- S[y-a_max,j] *
+        exp(log_alpha[j] - beta[j] * S[y-a_max,j])
+      log_R_mean1[y,j] <- log(R_mean1[y,j])
+      log_R_mean2[y,j] <- log_R_mean1[y,j] + phi * log_resid[y-1,j]
+    }
+  }
+  
+  # LATENT RECRUITMENT STATES
+  for (y in 1:ny) {
+    log_R[y,1:nj] ~ dmnorm(log_R_mean2[y,1:nj], Tau_R[1:nj,1:nj])
+    for (j in 1:nj) {
+      R[y,j] <- exp(log_R[y,j])
+      log_resid[y,j] <- log_R[y,j] - log_R_mean1[y,j]
+    }
+  }
+  
+  ### MATURITY PROCESS MODEL ###
+  # PRIORS
+  prob[1] ~ dbeta(1, 1)
+  prob[2] ~ dbeta(1, 1)
+  prob[3] ~ dbeta(1, 1)
+  D_scale ~ dunif(0.03, 1)
+  
+  
+  
+  # DIRICHLET HYPERPARAMETERS
+  pi[1] <- prob[1]
+  pi[2] <- prob[2] * (1 - pi[1])
+  pi[3] <- prob[3] * (1 - pi[1] - pi[2])
+  pi[4] <- 1 - pi[1] - pi[2] - pi[3]
+  D_sum <- 1/D_scale^2
+  
+  # BROOD YEAR MATURITY VECTORS
+  for (a in 1:na) {
+    dir_alpha[a] <- D_sum * pi[a]
+    for (y in 1:ny) {
+      g[y,a] ~ dgamma(dir_alpha[a], 1)
+      p[y,a] <- g[y,a]/sum(g[y,1:na])
+    }
+  }
+  
+  ### APPORTION RECRUITS TO CALENDAR YEAR RUNS ###
+  for (j in 1:nj) {
+    for (t in 1:nt) {
+      for (a in 1:na) {
+        N_taj[t,a,j] <- R[t+na-a,j] * p[t+na-a,a]
+      }
+    }
+  }
+  
+  ### HARVEST AND ESCAPEMENT PROCESS MODELS ###
+  for (t in 1:nt) {
+    U[t] ~ dbeta(1,1)
+    for (j in 1:nj) {
+      N[t,j] <- sum(N_taj[t,1:na,j])
+      S[t,j] <- N[t,j] * (1 - U[t] * v[j])
+      H[t,j] <- N[t,j] * (U[t] * v[j])
+    }
+    H_tot[t] <- sum(H[t,1:nj])
+    log_H_tot[t] <- log(H_tot[t])
+  }
+  
+  
+  
+  
+  
+  
+  ### CALCULATE AGE COMPOSTION FOR SUBSTOCKS WITH DATA ###
+  for (i in 1:n_age_stocks) {
+    for (t in 1:nt) {
+      for (a in 1:na) {
+        q[t,a,i] <- N_taj[t,a,age_stocks[i]]/N[t,age_stocks[i]]
+      }
+    }
+  }
+  ### LIKELIHOOD FOR HARVEST OBSERVATIONS ###
+  for (t in 1:nt) {
+    H_tot_t_obs[t] ~ dlnorm(log_H_tot[t], tau_H_obs[t])
+  }
+  
+  ### LIKELIHOOD FOR ESCAPEMENT OBSERVATIONS ###
+  # the escapement data are vectorized 
+  # S_obs_t stores the year observed
+  # S_obs_j stores the substock observed
+  for (i in 1:S_obs_n) {
+    log_S[i] <- log(S[S_obs_t[i], S_obs_s[i]])
+    S_obs[i] ~ dlnorm(log_S[i], tau_S_obs[i])
+  }
+  
+  ### LIKELIHOOD FOR AGE COMPOSITION OBSERVATIONS ###
+  for (i in 1:n_age_stocks) {
+    for (t in 1:nt) {
+      x_tas_obs[t,1:na,i] ~ dmulti(q[t,1:na,i], ESS_ts[t,i])
+    }
+  }
+}
+
+### END OF MODEL ###
+\end{verbatim}
+
+\doublespacing
