@@ -49,6 +49,6 @@ Files necessary for using the `{bookdown}` framework include:
 
 ## Acknowledgements
 
-In addition to the long list of people and organizations recognized in the dissertation text, I would like to extend a special thanks to the developers at @rstudio for creating the tools of `{rmarkdown}` and `{bookdown}`. Using this framework made the process much more enjoyable than had I used the standard word processor workflow, and I am very grateful!
+In addition to the long list of people and organizations recognized in the dissertation text, I would like to extend a special thanks to the developers at RStudio for creating the tools of `{rmarkdown}` and `{bookdown}`. Using this framework made the process much more enjoyable than had I used the standard word processor workflow, and I am very grateful!
 
 I spent a good amount of time teaching myself the necessary understanding of LaTeX to get up and running. I'm also grateful to the countless brave souls who posted their seemingly elementary questions in online forums and for the dedicated and knowledgeable folks who answered them - without these exchanges I would have been completely lost at times! 
