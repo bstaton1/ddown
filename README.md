@@ -1,10 +1,12 @@
 ## ddown
 
-This repository stores the source code used to generate Ben Staton's doctoral dissertation: **Development and Evaluation of Assessment Tools and Management Strategies for Salmon Fisheries in Western Alaska**
+This repository stores the source code used to generate Ben Staton's doctoral dissertation: **Development and Evaluation of Assessment Tools and Management Strategies for Salmon Fisheries in Western Alaska**. 
 
-The dissertation was written in plain text files using Markdown and LaTeX syntax and rendered into a PDF book format using the R package `{bookdown}` [here](https://github.com/rstudio/bookdown). LaTeX files for formatting were [provided](http://graduate.auburn.edu/current-students/etd-samples/) by Auburn University, though slight edits were necessary to make them compatible with the `{bookdown}` framework (the edited files are found in this repository). 
+> The exact copy hosted by the Auburn University in their [electronic thesis and dissertation database](<http://hdl.handle.net/10415/6645>) was generated using this code.
 
-Although other authors have found success using the [thesisdown](https://github.com/ismayc/thesisdown) approach to create their theses custom for their own institution, I had trouble getting this to render with the style files I had access too. Thus, I started from scratch with the standard `{bookdown}` template and made the required alterations to get it to work.
+The dissertation was written in plain text files (primarily `.Rmd`) using Markdown and LaTeX syntax and rendered into a PDF book format using the R package `{bookdown}` ([here](https://github.com/rstudio/bookdown)). LaTeX files for formatting were [provided](http://graduate.auburn.edu/current-students/etd-samples/) by Auburn University, though slight edits were necessary to make them compatible with the `{bookdown}` framework (the edited files are found in this repository). 
+
+Although other authors have found success using the [thesisdown](https://github.com/ismayc/thesisdown) approach to custom-create their theses for their own institution, I had trouble getting this to render with the style files I had access too. Thus, I started from scratch with the standard `{bookdown}` template and made the required alterations to get it to work. I plan to produce a template of this framework for other Auburn graduate students to use, perhaps students at other universities will find it useful as well.
 
 ## Organization of Files
 
@@ -22,7 +24,7 @@ All `.Rmd` files that contain code for chapters, appendices, and figures/tables 
 
 All outputs from analyses to be printed as figures or tables are located in the `img` (figures) or `tab` (tables) directories, which are further subdivided by chapter. Tables are manipulated using R code and rendered nicely using `knitr::kable(..., format = "latex", booktabs = T) %>% kableExtra::funcs()`. The analyses were conducted in other directories and their raw outputs were placed in these directories. This approach was taken rather than performing the analyses in the Rmarkdown framework primarily for computational reasons -- many analyses took days or weeks to complete.
 
-Code for all analyses will eventually be posted to GitHub.
+I plan to eventually push all code and data for all analyses to GitHub.
 
 ### "LaTeX" Files
 
